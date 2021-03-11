@@ -1,0 +1,137 @@
+* Disclaimer:
+* THIS FILE IS PROVIDED AS IS AND WITH:
+* (A) NO WARRANTY OF ANY KIND, express, implied or statutory, including any implied warranties of merchantability, fitness for a particular purpose and noninfringement, which  Infineon disclaims to the maximum extent permitted by applicable law; and
+* (B) NO INDEMNIFICATION FOR INFRINGEMENT OF INTELLECTUAL PROPERTY RIGHTS.
+* (C) LIMITATION OF LIABILITY: IN NO EVENT SHALL INFINEON BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES (INCLUDING LOST PROFITS OR SAVINGS) WHATSOEVER, WHETHER BASED ON CONTRACT, TORT OR ANY OTHER LEGAL THEORY, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+* © 2020 Infineon Technologies AG. All rights reserved.
+
+* Note:
+* The CMOS transistor models used, were freely available models downloaded from: http://ptm.asu.edu.
+* The bipolar transistor models are from: The Development of Bipolar Log-Domain Filters in a Standard CMOS Process, G. D. Duerden, G. W. Roberts, M. J. Deen, 2001
+
+* Release:
+* 	version 2.0
+
+.GLOBAL VDDba! VSSb! VDDa! VSS! VDDC! VDDbc! 
+
+** Cell name: bandgap
+
+.SUBCKT bandgap bg_out disable inh_bulkn inh_bulkpanalog inh_hsupanalog inh_lSup
+  M78 inh_lSup inh_lSup inh_hsupanalog inh_bulkn NANA W='400n' L='400n' M='1'
+  M77 inh_lSup inh_lSup bg_out inh_bulkn NANA W='400n' L='400n' M='1'
+  M74 net016 net011 inh_lSup inh_bulkn NANA W='400n' L='400n' M='1'
+  M73 net074 net064 net019 inh_bulkn NANA W='400n' L='400n' M='1'
+  M62 bg_out net011 inh_lSup inh_bulkn NANA W='400n' L='400n' M='1'
+  M65 net013 net011 inh_lSup inh_bulkn NANA W='400n' L='400n' M='1'
+  M68 net013 net064 net070 inh_bulkn NANA W='400n' L='400n' M='1'
+  M69 net069 net016 inh_lSup inh_bulkn NANA W='400n' L='2.4u' M='4'
+  M72 net016 net064 net0127 inh_bulkn NANA W='400n' L='400n' M='1'
+  M47 net019 net019 inh_lSup inh_bulkn NANA W='400n' L='400n' M='1'
+  M45 net029 net019 net41 inh_bulkn NANA W='400n' L='400n' M='2'
+  M61 net011 net064 inh_lSup inh_bulkn NANA W='400n' L='400n' M='1'
+  M49 net070 net013 inh_lSup inh_bulkn NANA W='400n' L='2.4u' M='1'
+  M48 net0127 net013 inh_lSup inh_bulkn NANA W='400n' L='2.4u' M='1'
+  M55 net064 disable inh_lSup inh_bulkn NANA W='400n' L='400n' M='1'
+  M70 net011 net064 inh_hsupanalog inh_bulkpanalog PANA W='1.2u' L='400n' M='1'
+  M80 net030 net011 net078 inh_bulkpanalog PANA W='400n' L='400n' M='8'
+  M60 net028 net077 net025 inh_bulkpanalog PANA W='400n' L='400n' M='1'
+  M59 net029 net077 net030 inh_bulkpanalog PANA W='400n' L='400n' M='8'
+  M85 net070 net012 net028 inh_bulkpanalog PANA W='400n' L='800n' M='4'
+  M58 net0127 net0105 net028 inh_bulkpanalog PANA W='400n' L='800n' M='4'
+  M90 net068 net064 inh_hsupanalog inh_bulkpanalog PANA W='400n' L='400n' M='8'
+  M75 net077 net064 inh_hsupanalog inh_bulkpanalog PANA W='400n' L='400n' M='8'
+  M89 net068 net077 net042 inh_bulkpanalog PANA W='400n' L='400n' M='2'
+  M79 net029 net011 net077 inh_bulkpanalog PANA W='400n' L='400n' M='8'
+  M84 net078 net064 inh_hsupanalog inh_bulkpanalog PANA W='400n' L='400n' M='8'
+  M51 net39 net39 inh_hsupanalog inh_bulkpanalog PANA W='400n' L='1.2u' M='1'
+  M81 net076 net076 net39 inh_bulkpanalog PANA W='400n' L='1.2u' M='1'
+  M82 net074 net074 net076 inh_bulkpanalog PANA W='400n' L='1.2u' M='1'
+  M50 net074 net078 inh_hsupanalog inh_bulkpanalog PANA W='400n' L='400n' M='1'
+  M27 net030 net078 inh_hsupanalog inh_bulkpanalog PANA W='400n' L='400n' M='1'
+  M71 bg_out net011 net053 inh_bulkpanalog PANA W='400n' L='400n' M='8'
+  M56 net025 net078 inh_hsupanalog inh_bulkpanalog PANA W='400n' L='400n' M='1'
+  M88 net042 net078 inh_hsupanalog inh_bulkpanalog PANA W='400n' L='400n' M='2'
+  M63 net053 net068 inh_hsupanalog inh_bulkpanalog PANA W='400n' L='400n' M='8'
+  M86 net039 net068 inh_hsupanalog inh_bulkpanalog PANA W='400n' L='400n' M='4'
+  M87 net040 net068 inh_hsupanalog inh_bulkpanalog PANA W='400n' L='400n' M='4'
+  M76 net069 net011 net068 inh_bulkpanalog PANA W='400n' L='400n' M='8'
+  M83 net064 disable inh_hsupanalog inh_bulkpanalog PANA W='1.2u' L='400n' M='1'
+  R248 net050 net0102 R='10K'
+  R247 net0102 net0105 R='10K'
+  R246 net0102 net038 R='10K'
+  R233 net038 net0105 R='10K'
+  R245 net0100 net0101 R='10K'
+  R244 net0101 net051 R='10K'
+  R243 net051 net038 R='10K'
+  R242 net0100 net055 R='10K'
+  R241 net055 net054 R='10K'
+  R278 net053 net0132 R='10K'
+  R249 net050 net099 R='10K'
+  R277 net0120 net0126 R='10K'
+  R276 net0136 net0120 R='10K'
+  R275 net0136 net0117 R='10K'
+  R263 net0133 net0135 R='10K'
+  R262 net0114 net0131 R='10K'
+  R261 net0121 net0134 R='10K'
+  R260 net0122 net062 R='10K'
+  R250 net099 net049 R='10K'
+  R255 net053 net045 R='10K'
+  R240 net054 net056 R='10K'
+  R239 net059 net058 R='10K'
+  R254 net046 net047 R='10K'
+  R253 net045 net046 R='10K'
+  R274 net0126 net0137 R='10K'
+  R273 net0132 net0123 R='10K'
+  R259 net0129 net0133 R='10K'
+  R258 net0128 net0114 R='10K'
+  R272 net0117 net041 R='10K'
+  R271 net0117 net012 R='10K'
+  R270 net0137 net0125 R='10K'
+  R269 net0123 net0125 R='10K'
+  R268 net041 net012 R='10K'
+  R267 net0118 net0129 R='10K'
+  R266 net0131 net0135 R='10K'
+  R265 net0134 net041 R='10K'
+  R238 net058 net057 R='10K'
+  R237 net057 net056 R='10K'
+  R252 net048 net047 R='10K'
+  R251 net049 net048 R='10K'
+  R236 net061 net0105 R='10K'
+  R11 net41 inh_lSup R='50K'
+  R235 net060 net061 R='10K'
+  R257 net0128 net0121 R='10K'
+  R264 net062 net012 R='10K'
+  R0 net0105 net052 R='10K'
+  R256 net0118 net0122 R='10K'
+  R234 net059 net060 R='10K'
+  C2 net069 net0127 C='5f'
+  C1 net069 net0127 C='5f'
+  Q1 inh_lSup inh_lSup net012 inh_bulkn LATPNP
+  Q0 inh_lSup inh_lSup net052 inh_bulkn LATPNP M='8'
+  Q3 inh_lSup net012 net039 inh_bulkn LATPNP
+  Q2 inh_lSup net052 net040 inh_bulkn LATPNP M='8'
+.ENDS
+** End of subcircuit definition.
+
+** Cell name: supplies
+
+.SUBCKT supplies inh_bulkn inh_bulkpanalog inh_bulkpcore inh_hsupanalog inh_hsupcore inh_lSup
+  V0 net7 inh_lSup DC='vsup2v5' PULSE( '0' 'vsup2v5' '1m' '10n' '10n' '900' '1K' ) 
+  V1 net8 inh_lSup DC='vsup1v5' PULSE( '0' 'vsup1v5' '1m' '10n' '10n' '900' '1K' ) 
+  R5 0 inh_lSup R='1m'
+  R4 inh_hsupcore net8 R='rhsupcore'
+  R3 inh_hsupanalog net7 R='rhsupanalog'
+  R2 inh_hsupanalog inh_bulkpanalog R='rbulkpanalog'
+  R1 inh_hsupcore inh_bulkpcore R='rbulkpcore'
+  R0 inh_lSup inh_bulkn R='1m'
+.ENDS
+** End of subcircuit definition.
+
+
+** Cell name: TB_bandgap
+
+V3 net033 0 DC='0' PULSE( 'vsup' '0' '25m' '10n' '10n' '900m' '1' ) 
+XI89 bg fail testnr bg_chk
+XI79 bg net033 VSSb! VDDba! VDDa! VSS! bandgap
+XI91 VSSb! VDDba! VDDbc! VDDa! VDDC! VSS! supplies
+** End of top cell TB_bandgap.

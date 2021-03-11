@@ -1,0 +1,31 @@
+* Disclaimer:
+* THIS FILE IS PROVIDED AS IS AND WITH:
+* (A)  NO WARRANTY OF ANY KIND, express, implied or statutory, including any implied warranties of merchantability, fitness for a particular purpose and noninfringement, which Infineon disclaims to the maximum extent permitted by applicable law; and
+* (B)  NO INDEMNIFICATION FOR INFRINGEMENT OF INTELLECTUAL PROPERTY RIGHTS.
+* LIMITATION OF LIABILITY:  IN NO EVENT SHALL INFINEON BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES (INCLUDING LOST PROFITS OR SAVINGS) WHATSOEVER, WHETHER BASED ON CONTRACT, TORT OR 
+* ANY OTHER LEGAL THEORY, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+* © 2020 Infineon Technologies AG. All rights reserved
+
+* Release:
+*	version 2.0
+
+** Parameter setup
+.PARAM dtm=100u trf=1n Cout=100f t_vref_peak_delay=780u t_vref_peak_duration=100u 
++ peak_duration=150u peak_time=200u vpeak=100m t_enable=1p fclk=400k rbulkpanalog=1m 
++ rbulkpcore=1m rhsupanalog=1m rhsupcore=1m td_ps=1u period_pulse=175u tpulse_start=470u 
++ tr_ps=1u vsup1v5=1.5 vsup2v5=2.5
+
+** Model files
+.inc "model/mosfets.hsp"
+.inc "model/bip_nom.hsp"
+
+** Testbench setup
+.inc "tb_ldo.hsp"
+.hdl "checker/ldo_checker.va"
+
+** Analysis
+.measure tran max_fail max v(ldo_fail)
+.tran 1u 1ms
+
+.end
+

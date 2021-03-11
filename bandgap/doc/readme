@@ -1,0 +1,53 @@
+* Disclaimer:
+* THIS FILE IS PROVIDED AS IS AND WITH:
+* (A) NO WARRANTY OF ANY KIND, express, implied or statutory, including any implied warranties of merchantability, fitness for a particular purpose and noninfringement, which  Infineon disclaims to the maximum extent permitted by applicable law; and
+* (B) NO INDEMNIFICATION FOR INFRINGEMENT OF INTELLECTUAL PROPERTY RIGHTS.
+* (C) LIMITATION OF LIABILITY: IN NO EVENT SHALL INFINEON BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES (INCLUDING LOST PROFITS OR SAVINGS) WHATSOEVER, WHETHER BASED ON CONTRACT, TORT OR ANY OTHER LEGAL THEORY, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+* © 2020 Infineon Technologies AG. All rights reserved.
+
+* Note:
+* The CMOS transistor models used, were freely available models downloaded from: http://ptm.asu.edu.
+* The bipolar transistor models are from: The Development of Bipolar Log-Domain Filters in a Standard CMOS Process, G. D. Duerden, G. W. Roberts, M. J. Deen, 2001
+
+* Release:
+* 	version 2.0
+
+* Contact: adstestsuite@infineon.com
+
+Bandgap Circuit for the Evaluation of Analog Defect Simulation Tools
+
+Content:
+	% doc/readme
+	% doc/bandgap.pdf
+		This document introduces you to the schematic and the internal circuits of the delivered bandgap. 
+		The purpose is to enable the reader to understand, run and extend the test benches of this circuit.
+	% src/top.hsp
+		testbench and simulation setup.
+	% src/tb_bandgap.hsp
+		Testbench and cells netlist.
+	% src/model/*
+		Models of devices used in the bandgap's netlist.
+	% src/checker/bg_checker.va
+		Veriloga code that evaluates the bandgap
+		Trigger "fail" signal if the circuit is out of specs
+		Set "testnr" to indicate which test violated the specs
+	% ref/defect_list.txt
+		Potential defects list. 
+		
+Setups:
+	Defect free simulation:
+		- Must NOT trigger "fail" signal and remain at logic "0".
+	Defect simulations:
+		- Violation of specs is detected if "fail" signal is triggered and changed from logic "0" to logic "1".
+		- Violation of specs is undetected if "fail" signal is not triggered and remained at logic "0" until stop time.
+		- In case of simulation failed due to any reason (convergence issue, simulation timeout, etc) defect is categorized as undetected.
+	
+		
+		
+
+
+
+
+
+
+ 
