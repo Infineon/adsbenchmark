@@ -1,0 +1,33 @@
+* Disclaimer:
+* THIS FILE IS PROVIDED AS IS AND WITH:
+* (A)  NO WARRANTY OF ANY KIND, express, implied or statutory, including any implied warranties of merchantability, fitness for a particular purpose and noninfringement, which Infineon disclaims to the maximum extent permitted by applicable law; and
+* (B)  NO INDEMNIFICATION FOR INFRINGEMENT OF INTELLECTUAL PROPERTY RIGHTS.
+* LIMITATION OF LIABILITY:  IN NO EVENT SHALL INFINEON BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES (INCLUDING LOST PROFITS OR SAVINGS) WHATSOEVER, WHETHER BASED ON CONTRACT, TORT OR 
+* ANY OTHER LEGAL THEORY, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+* © 2020 Infineon Technologies AG. All rights reserved
+
+* Release:
+*	version 3.0
+
+** Parameter setup
+.PARAM rbulkpanalog=1m rbulkpcore=1m rhsupanalog=1m rhsupcore=1m td_ps=1n tr_ps=1n vsup1v5=1.5 vsup2v5=2.5 vref=1.2
+
+** Model files
+.inc "model/bip_nom.hsp"
+
+** Model corners **Include one file**
+*******************************
+* .inc "model/mosfets_fast.hsp"
+.inc "model/mosfets.hsp"
+* .inc "model/mosfets_slow.hsp"
+
+** Testbench setup
+.inc "tb_ldo.hsp"
+.hdl "checker/ldo_checker.va"
+
+** Analysis
+.measure tran max_fail max v(ldo_fail)
+.tran 1u 1ms
+
+.end
+

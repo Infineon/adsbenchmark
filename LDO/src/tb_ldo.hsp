@@ -1,0 +1,434 @@
+* Disclaimer:
+* THIS FILE IS PROVIDED AS IS AND WITH:
+* (A)  NO WARRANTY OF ANY KIND, express, implied or statutory, including any implied warranties of merchantability, fitness for a particular purpose and noninfringement, which Infineon disclaims to the maximum extent permitted by applicable law; and
+* (B)  NO INDEMNIFICATION FOR INFRINGEMENT OF INTELLECTUAL PROPERTY RIGHTS.
+* LIMITATION OF LIABILITY:  IN NO EVENT SHALL INFINEON BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES (INCLUDING LOST PROFITS OR SAVINGS) WHATSOEVER, WHETHER BASED ON CONTRACT, TORT OR 
+* ANY OTHER LEGAL THEORY, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+* © 2020 Infineon Technologies AG. All rights reserved
+
+* Release:
+*	version 3.0
+
+.GLOBAL VSS! VDDa! VSSb! VDDba! VDDc! VDDbc!
+
+** Subcircuit
+** ----------
+** Library name: ana_lib
+** Cell name: sub_diode
+** View name: schematic
+**
+.SUBCKT sub_diode MINUS PLUS inh_bulk_n
+  Q1 MINUS MINUS PLUS inh_bulk_n LATPNP
+.ENDS
+** End of subcircuit definition.
+
+** Subcircuit
+** ----------
+** Library name: dig_hv_lib
+** Cell name: AND2
+** View name: schematic
+**
+.SUBCKT AND2 A B Z inh_bulk_n inh_bulk_p inh_hSup inh_lSup
+  Mptrans25 Z net39 inh_hSup inh_bulk_p PANA W='2.3u' L='400n' M='1'
+  Mptrans24 net39 A inh_hSup inh_bulk_p PANA W='2.3u' L='400n' M='1'
+  Mptrans23 net39 B inh_hSup inh_bulk_p PANA W='2.3u' L='400n' M='1'
+  Mntrans22 Z net39 inh_lSup inh_bulk_n NANA W='500n' L='400n' M='1'
+  Mntrans21 net39 A net32 inh_bulk_n NANA W='500n' L='400n' M='1'
+  Mntrans20 net32 B inh_lSup inh_bulk_n NANA W='500n' L='400n' M='1'
+  XINSTANCE1 inh_hSup inh_lSup inh_bulk_n sub_diode
+.ENDS
+** End of subcircuit definition.
+
+** Subcircuit
+** ----------
+** Library name: dig_hv_lib
+** Cell name: TDELAY
+** View name: schematic
+**
+.SUBCKT TDELAY A Z inh_bulk_n inh_bulk_p inh_hsupanalog inh_lSup
+  Mptrans10 A inh_lSup Z inh_bulk_p PANA W='2.3u' L='400n' M='1'
+  Mntrans11 A inh_hsupanalog Z inh_bulk_n NANA W='500n' L='400n' M='1'
+.ENDS
+** End of subcircuit definition.
+
+** Subcircuit
+** ----------
+** Library name: dig_hv_lib
+** Cell name: INV1
+** View name: schematic
+**
+.SUBCKT INV1 A Z inh_bulk_n inh_bulk_p inh_hSup inh_lSup
+  Mptrans10 Z A inh_hSup inh_bulk_p PANA W='2.3u' L='400n' M='1'
+  Mntrans11 Z A inh_lSup inh_bulk_n NANA W='500n' L='400n' M='1'
+  XINSTANCE1 inh_hSup inh_lSup inh_bulk_n sub_diode
+.ENDS
+** End of subcircuit definition.
+
+** Subcircuit
+** ----------
+** Library name: dig_hv_lib
+** Cell name: INV_weak
+** View name: schematic
+**
+.SUBCKT INV_weak A Z inh_bulk_n inh_bulk_p inh_hSup inh_lSup
+  Mptrans10 Z A inh_hSup inh_bulk_p PANA W='2.3u' L='1u' M='1'
+  Mntrans11 Z A inh_lSup inh_bulk_n NANA W='500n' L='1u' M='1'
+  XINSTANCE1 inh_hSup inh_lSup inh_bulk_n sub_diode
+.ENDS
+** End of subcircuit definition.
+
+** Subcircuit
+** ----------
+** Library name: chopped_ldo
+** Cell name: cell_edge_equalizer
+** View name: schematic
+**
+.SUBCKT cell_edge_equalizer A Q Q_n inh_bulkpanalog inh_hsupanalog inh_lSup
+  XI146 net15 net9 inh_lSup inh_bulkpanalog inh_hsupanalog inh_lSup TDELAY
+  XI47 A net14 inh_lSup inh_bulkpanalog inh_hsupanalog inh_lSup INV1
+  XI48 net14 net11 inh_lSup inh_bulkpanalog inh_hsupanalog inh_lSup INV1
+  XI35 net11 Q_n inh_lSup inh_bulkpanalog inh_hsupanalog inh_lSup INV1
+  XI34 net9 Q inh_lSup inh_bulkpanalog inh_hsupanalog inh_lSup INV1
+  XI49 A net15 inh_lSup inh_bulkpanalog inh_hsupanalog inh_lSup INV1
+  XI31 net9 net11 inh_lSup inh_bulkpanalog inh_hsupanalog inh_lSup INV_weak
+  XI30 Q Q_n inh_lSup inh_bulkpanalog inh_hsupanalog inh_lSup INV_weak
+  XI33 net11 net9 inh_lSup inh_bulkpanalog inh_hsupanalog inh_lSup INV_weak
+  XI27 Q_n Q inh_lSup inh_bulkpanalog inh_hsupanalog inh_lSup INV_weak
+.ENDS
+** End of subcircuit definition.
+
+** Subcircuit
+** ----------
+** Library name: chopped_ldo
+** Cell name: cell_comp
+** View name: schematic
+**
+.SUBCKT cell_comp vout_o vrefn_ai vrefp_ai inh_bulkn inh_bulkpanalog inh_hsupanalog inh_lSup
+  M22 net011 net017 inh_lSup inh_bulkn NANA W='1u' L='1u' M='1'
+  M13 net017 net022 inh_lSup inh_bulkn NANA W='2u' L='1u' M='1'
+  M12 net022 net017 inh_lSup inh_bulkn NANA W='2u' L='1u' M='1'
+  M21 net013 net022 inh_lSup inh_bulkn NANA W='1u' L='1u' M='1'
+  M20 net017 net017 inh_lSup inh_bulkn NANA W='1u' L='1u' M='1'
+  M19 net022 net022 inh_lSup inh_bulkn NANA W='1u' L='1u' M='1'
+  M5 net012 vrefp_ai net11 inh_bulkn NANA W='10u' L='400n' M='4'
+  M4 net018 vrefn_ai net11 inh_bulkn NANA W='10u' L='400n' M='4'
+  M18 net013 net013 inh_hsupanalog inh_bulkpanalog PANA W='1u' L='1u' M='1'
+  M17 net011 net013 inh_hsupanalog inh_bulkpanalog PANA W='1u' L='1u' M='1'
+  M6 net018 net018 inh_hsupanalog inh_bulkpanalog PANA W='1u' L='1u' M='1'
+  M2 net012 net012 inh_hsupanalog inh_bulkpanalog PANA W='1u' L='1u' M='1'
+  M9 net017 net012 inh_hsupanalog inh_bulkpanalog PANA W='1u' L='1u' M='2'
+  M10 net022 net018 inh_hsupanalog inh_bulkpanalog PANA W='1u' L='1u' M='2'
+  R0 net11 inh_lSup R='1MEG'
+  XI5 net011 vout_o inh_bulkn inh_bulkpanalog inh_hsupanalog inh_lSup INV1
+.ENDS
+** End of subcircuit definition.
+
+** Subcircuit
+** ----------
+** Library name: dig_hv_lib
+** Cell name: OR2
+** View name: schematic
+**
+.SUBCKT OR2 A B Z inh_bulk_n inh_bulk_p inh_hSup inh_lSup
+  Mntrans27 net26 A inh_lSup inh_bulk_n NANA W='900n' L='400n' M='1'
+  Mntrans26 net26 B inh_lSup inh_bulk_n NANA W='900n' L='400n' M='1'
+  Mntrans25 Z net26 inh_lSup inh_bulk_n NANA W='600n' L='400n' M='1'
+  Mptrans24 net26 A net41 inh_bulk_p PANA W='1.28u' L='400n' M='1'
+  Mptrans23 net41 B inh_hSup inh_bulk_p PANA W='1.28u' L='400n' M='1'
+  Mptrans22 Z net26 inh_hSup inh_bulk_p PANA W='860.0n' L='400n' M='1'
+  XINSTANCE1 inh_hSup inh_lSup inh_bulk_n sub_diode
+.ENDS
+** End of subcircuit definition.
+
+** Subcircuit
+** ----------
+** Library name: dig_hv_lib
+** Cell name: BUF2
+** View name: schematic
+**
+.SUBCKT BUF2 A Z inh_bulk_n inh_bulk_p inh_hSup inh_lSup
+  Mptrans15 net24 A inh_hSup inh_bulk_p PANA W='3.44u' L='400n' M='1'
+  Mptrans14 Z net24 inh_hSup inh_bulk_p PANA W='5.152u' L='400n' M='1'
+  Mntrans13 net24 A inh_lSup inh_bulk_n NANA W='820n' L='400n' M='1'
+  Mntrans12 Z net24 inh_lSup inh_bulk_n NANA W='1.12u' L='400n' M='1'
+  XINSTANCE1 inh_hSup inh_lSup inh_bulk_n sub_diode
+.ENDS
+** End of subcircuit definition.
+
+** Subcircuit
+** ----------
+** Library name: dig_hv_lib
+** Cell name: NAND2
+** View name: schematic
+**
+.SUBCKT NAND2 A B Z inh_bulk_n inh_bulk_p inh_hSup inh_lSup
+  Mptrans38 Z B inh_hSup inh_bulk_p PANA W='860.0n' L='400n' M='1'
+  Mptrans37 Z A inh_hSup inh_bulk_p PANA W='860.0n' L='400n' M='1'
+  Mntrans36 net25 B inh_lSup inh_bulk_n NANA W='860.0n' L='400n' M='1'
+  Mntrans35 Z A net25 inh_bulk_n NANA W='860.0n' L='400n' M='1'
+  XINSTANCE1 inh_hSup inh_lSup inh_bulk_n sub_diode
+.ENDS
+** End of subcircuit definition.
+
+** Subcircuit
+** ----------
+** Library name: chopped_ldo
+** Cell name: cell_switch
+** View name: schematic
+**
+.SUBCKT cell_switch in_ai out_ao s_i s_n_i inh_bulkn inh_bulkpanalog
+  M4 in_ai s_i out_ao inh_bulkn NANA W='400n' L='400n' M='1'
+  M3 out_ao s_n_i in_ai inh_bulkpanalog PANA W='400n' L='400n' M='1'
+.ENDS
+** End of subcircuit definition.
+
+** Subcircuit
+** ----------
+** Library name: chopped_ldo
+** Cell name: cell_sc_filter
+** View name: schematic
+**
+.SUBCKT cell_sc_filter S0 S0_n S1 S1_n disable_i in_ai out_ao inh_bulkn inh_bulkpanalog inh_lSup
+  M0 net028 disable_i inh_lSup inh_bulkn NANA W='400n' L='400n' M='1'
+  M1 out_ao disable_i in_ai inh_bulkn NANA W='400n' L='400n' M='1'
+  M4 net027 disable_i inh_lSup inh_bulkn NANA W='400n' L='400n' M='1'
+  C1 net027 inh_lSup C='500f'
+  C0 net028 inh_lSup C='500f'
+  XI13 net028 out_ao S0 S0_n inh_bulkn inh_bulkpanalog cell_switch
+  XI15 in_ai net028 S1 S1_n inh_bulkn inh_bulkpanalog cell_switch
+  XI12 net027 out_ao S1 S1_n inh_bulkn inh_bulkpanalog cell_switch
+  XI78 in_ai net027 S0 S0_n inh_bulkn inh_bulkpanalog cell_switch
+.ENDS
+** End of subcircuit definition.
+
+** Subcircuit
+** ----------
+** Library name: dig_hv_lib
+** Cell name: INV2
+** View name: schematic
+**
+.SUBCKT INV2 A Z inh_bulk_n inh_bulk_p inh_hSup inh_lSup
+  Mptrans10 Z A inh_hSup inh_bulk_p PANA W='5.152u' L='400n' M='1'
+  Mntrans11 Z A inh_lSup inh_bulk_n NANA W='1.12u' L='400n' M='1'
+  XINSTANCE1 inh_hSup inh_lSup inh_bulk_n sub_diode
+.ENDS
+** End of subcircuit definition.
+
+** Subcircuit
+** ----------
+** Library name: chopped_ldo
+** Cell name: cell_source_follower
+** View name: schematic
+**
+.SUBCKT cell_source_follower disable_i feedback_ao gate_ai vout_1V5_ao inh_bulkn inh_bulkpanalog inh_hsupanalog inh_lSup
+  R2 vout_1V5_ao feedback_ao R='300K'
+  R3 feedback_ao inh_lSup R='1.2MEG'
+  XI64 disable_i net012 inh_lSup inh_bulkpanalog inh_hsupanalog inh_lSup INV1
+  M9 net07 inh_lSup inh_hsupanalog inh_bulkpanalog PANA W='400n' L='20u' M='1'
+  M3 net07 net012 inh_hsupanalog inh_bulkpanalog PANA W='400n' L='400n' M='1'
+  M6 net011 disable_i net07 inh_bulkpanalog PANA W='400n' L='400n' M='1'
+  M0 vout_1V5_ao net07 inh_hsupanalog inh_bulkpanalog PANA W='40u' L='400n' M='150'
+  M7 net011 disable_i inh_lSup inh_bulkn NANA W='400n' L='400n'
+  M1<12> net011 gate_ai vout_1V5_ao inh_bulkn NREG W='10u' L='400n' M='2'
+  M1<11> net011 gate_ai vout_1V5_ao inh_bulkn NREG W='10u' L='400n' M='2'
+  M1<10> net011 gate_ai vout_1V5_ao inh_bulkn NREG W='10u' L='400n' M='2'
+  M1<9> net011 gate_ai vout_1V5_ao inh_bulkn NREG W='10u' L='400n' M='2'
+  M1<8> net011 gate_ai vout_1V5_ao inh_bulkn NREG W='10u' L='400n' M='2'
+  M1<7> net011 gate_ai vout_1V5_ao inh_bulkn NREG W='10u' L='400n' M='2'
+  M1<6> net011 gate_ai vout_1V5_ao inh_bulkn NREG W='10u' L='400n' M='2'
+  M1<5> net011 gate_ai vout_1V5_ao inh_bulkn NREG W='10u' L='400n' M='2'
+  M1<4> net011 gate_ai vout_1V5_ao inh_bulkn NREG W='10u' L='400n' M='2'
+  M1<3> net011 gate_ai vout_1V5_ao inh_bulkn NREG W='10u' L='400n' M='2'
+  M1<2> net011 gate_ai vout_1V5_ao inh_bulkn NREG W='10u' L='400n' M='2'
+  M1<1> net011 gate_ai vout_1V5_ao inh_bulkn NREG W='10u' L='400n' M='2'
+.ENDS
+** End of subcircuit definition.
+
+** Subcircuit
+** ----------
+** Library name: chopped_ldo
+** Cell name: cell_freq_divider
+** View name: schematic
+**
+.SUBCKT cell_freq_divider clk_i clk_n_o clk_o inh_bulkpanalog inh_hsupanalog inh_lSup
+  XI8 net13 clk_o clk_n_o inh_lSup inh_bulkpanalog inh_hsupanalog inh_lSup NAND2
+  XI7 net14 clk_n_o clk_o inh_lSup inh_bulkpanalog inh_hsupanalog inh_lSup NAND2
+  XI6 net11 net7 net13 inh_lSup inh_bulkpanalog inh_hsupanalog inh_lSup NAND2
+  XI5 net12 net7 net14 inh_lSup inh_bulkpanalog inh_hsupanalog inh_lSup NAND2
+  XI4 clk_i clk_i net7 inh_lSup inh_bulkpanalog inh_hsupanalog inh_lSup NAND2
+  XI3 clk_o clk_i net17 inh_lSup inh_bulkpanalog inh_hsupanalog inh_lSup NAND2
+  XI2 net17 net12 net11 inh_lSup inh_bulkpanalog inh_hsupanalog inh_lSup NAND2
+  XI1 net18 net11 net12 inh_lSup inh_bulkpanalog inh_hsupanalog inh_lSup NAND2
+  XI105 clk_n_o clk_i net18 inh_lSup inh_bulkpanalog inh_hsupanalog inh_lSup NAND2
+.ENDS
+** End of subcircuit definition.
+
+** Subcircuit
+** ----------
+** Library name: dig_hv_lib
+** Cell name: DEL1
+** View name: schematic
+**
+.SUBCKT DEL1 A Z inh_bulk_n inh_bulk_p inh_hSup inh_lSup
+  Mptrans15 net031 A inh_hSup inh_bulk_p PANA W='1.38u' L='400n' M='1'
+  MP0 inh_hSup net031 inh_hSup inh_bulk_p PANA W='1.62u' L='400n' M='1'
+  MP10 Z net031 inh_hSup inh_bulk_p PANA W='3.22u' L='400n' M='1'
+  MP3 inh_hSup net031 inh_hSup inh_bulk_p PANA W='1.62u' L='400n' M='1'
+  Mntrans13 net031 A inh_lSup inh_bulk_n NANA W='300n' L='400n' M='1'
+  MN0 inh_lSup net031 inh_lSup inh_bulk_n NANA W='1.12u' L='400n' M='1'
+  MN10 Z net031 inh_lSup inh_bulk_n NANA W='700n' L='400n' M='1'
+  MN3 inh_lSup net031 inh_lSup inh_bulk_n NANA W='1.12u' L='400n' M='1'
+  XINSTANCE1 inh_hSup inh_lSup inh_bulk_n sub_diode
+.ENDS
+** End of subcircuit definition.
+
+** Subcircuit
+** ----------
+** Library name: dig_hv_lib
+** Cell name: NOR2
+** View name: schematic
+**
+.SUBCKT NOR2 A B Z inh_bulk_n inh_bulk_p inh_hSup inh_lSup
+  Mntrans19 Z A inh_lSup inh_bulk_n NANA W='1.12u' L='400n' M='1'
+  Mntrans18 Z B inh_lSup inh_bulk_n NANA W='1.12u' L='400n' M='1'
+  Mptrans17 Z A net27 inh_bulk_p PANA W='5.152u' L='400n' M='1'
+  Mptrans16 net27 B inh_hSup inh_bulk_p PANA W='5.152u' L='400n' M='1'
+  XINSTANCE1 inh_hSup inh_lSup inh_bulk_n sub_diode
+.ENDS
+** End of subcircuit definition.
+
+** Subcircuit
+** ----------
+** Library name: chopped_ldo
+** Cell name: cell_chopped_opamp
+** View name: schematic
+**
+.SUBCKT cell_chopped_opamp enable_i ibp_1u_ai ocs_ref_i vout_ao vrefn_ai vrefp_ai inh_bulkn inh_bulkpanalog inh_hsupanalog inh_lSup
+  XI82 vrefp_ai net049 S0 S0_n inh_bulkn inh_bulkpanalog cell_switch
+  XI84 vrefn_ai net063 S0 S0_n inh_bulkn inh_bulkpanalog cell_switch
+  XI83 vrefp_ai net063 S1 S1_n inh_bulkn inh_bulkpanalog cell_switch
+  XI78 net078 net076 S0 S0_n inh_bulkn inh_bulkpanalog cell_switch
+  XI80 net076 net0117 S1 S1_n inh_bulkn inh_bulkpanalog cell_switch
+  XI79 net078 net019 S1 S1_n inh_bulkn inh_bulkpanalog cell_switch
+  XI81 net019 net0117 S0 S0_n inh_bulkn inh_bulkpanalog cell_switch
+  XI85 vrefn_ai net049 S1 S1_n inh_bulkn inh_bulkpanalog cell_switch
+  M2 vout_ao inh_lSup net070 inh_bulkpanalog PANA W='400n' L='10u' M='1'
+  M16 net078 enable inh_hsupanalog inh_bulkpanalog PANA W='680.0n' L='400n'
+  M14 net0117 enable inh_hsupanalog inh_bulkpanalog PANA W='680.0n' L='400n'
+  M13 net019 enable inh_hsupanalog inh_bulkpanalog PANA W='680.0n' L='400n'
+  M12 net076 enable inh_hsupanalog inh_bulkpanalog PANA W='680.0n' L='400n'
+  M3 net076 net078 inh_hsupanalog inh_bulkpanalog PANA W='3u' L='800n' M='1'
+  M1 net019 net078 inh_hsupanalog inh_bulkpanalog PANA W='3u' L='800n' M='1'
+  M11 vout_ao net0117 inh_hsupanalog inh_bulkpanalog PANA W='3u' L='800n' M='20'
+  M47 vout_ao disable inh_lSup inh_bulkn NANA W='680.0n' L='400n'
+  M46 net021 disable inh_lSup inh_bulkn NANA W='680.0n' L='400n'
+  MN13 vb_n vb_n inh_lSup inh_bulkn NANA W='3u' L='400n' M='1'
+  M45 net011 disable inh_lSup inh_bulkn NANA W='680.0n' L='400n'
+  M33 net021 vb_n inh_lSup inh_bulkn NANA W='3u' L='400n' M='1'
+  M44 net063 disable inh_lSup inh_bulkn NANA W='680.0n' L='400n'
+  M35 net070 inh_hsupanalog vout_ao inh_bulkn NANA W='400n' L='10u' M='1'
+  MN17 ibp_1u_ai ibp_1u_ai vb_n inh_bulkn NANA W='4u' L='400n' M='1'
+  M43 net049 disable inh_lSup inh_bulkn NANA W='680.0n' L='400n'
+  M5 net019 net049 net011 inh_bulkn NANA W='10u' L='400n' M='4'
+  M38 vb_n disable inh_lSup inh_bulkn NANA W='680.0n' L='400n'
+  M34 net011 ibp_1u_ai net021 inh_bulkn NANA W='4u' L='400n' M='1'
+  M4 net076 net063 net011 inh_bulkn NANA W='10u' L='400n' M='4'
+  M49 ibp_1u_ai disable inh_lSup inh_bulkn NANA W='680.0n' L='400n'
+  M50 net033 vb_n inh_lSup inh_bulkn NANA W='3u' L='400n' M='10'
+  M51 vout_ao ibp_1u_ai net033 inh_bulkn NANA W='4u' L='400n' M='10'
+  M48 net033 disable inh_lSup inh_bulkn NANA W='680.0n' L='400n'
+  XI118 net059 net014 inh_bulkn inh_bulkpanalog inh_hsupanalog inh_lSup DEL1
+  XI119 net057 net044 inh_bulkn inh_bulkpanalog inh_hsupanalog inh_lSup DEL1
+  XI136 net014 enable net068 inh_bulkn inh_bulkpanalog inh_hsupanalog inh_lSup AND2
+  XI137 net044 enable net0105 inh_bulkn inh_bulkpanalog inh_hsupanalog inh_lSup AND2
+  XI143 ocs_ref_i net050 inh_lSup inh_bulkpanalog inh_hsupanalog inh_lSup INV1
+  XI92 enable_i disable inh_bulkn inh_bulkpanalog inh_hsupanalog inh_lSup INV2
+  XI106 ocs_ref_i net044 net059 inh_bulkn inh_bulkpanalog inh_hsupanalog inh_lSup NOR2
+  XI107 net014 net050 net057 inh_bulkn inh_bulkpanalog inh_hsupanalog inh_lSup NOR2
+  XI94 enable_i enable inh_bulkn inh_bulkpanalog inh_hsupanalog inh_lSup BUF2
+  XI72 net068 S1 S1_n inh_bulkpanalog inh_hsupanalog inh_lSup cell_edge_equalizer
+  XI147 net0105 S0 S0_n inh_bulkpanalog inh_hsupanalog inh_lSup cell_edge_equalizer
+  C1 net0117 net070 C='500f'
+  C3 net0117 net070 C='500f'
+.ENDS
+** End of subcircuit definition.
+
+** Subcircuit
+** ----------
+** Library name: chopped_ldo
+** Cell name: cell_ldo
+** View name: schematic
+**
+.SUBCKT cell_ldo clk_i disable_i ibp_1u_ai overvoltage_o undervoltage_o vout_1V5_ao vref_ai inh_bulkn inh_bulkpanalog inh_hsupanalog inh_lSup
+  XI137 net16 enable net023 inh_lSup inh_bulkpanalog inh_hsupanalog inh_lSup AND2
+  XI136 net11 enable net028 inh_lSup inh_bulkpanalog inh_hsupanalog inh_lSup AND2
+  XI72 net028 S1 S1_n inh_bulkpanalog inh_hsupanalog inh_lSup cell_edge_equalizer
+  XI73 net023 S0 S0_n inh_bulkpanalog inh_hsupanalog inh_lSup cell_edge_equalizer
+  XI74 net044 vref_ai vth_h inh_bulkn inh_bulkpanalog inh_hsupanalog inh_lSup cell_comp
+  XI75 net045 vth_l vref_ai inh_bulkn inh_bulkpanalog inh_hsupanalog inh_lSup cell_comp
+  XI62 overvoltage_o undervoltage_o err inh_lSup inh_bulkpanalog inh_hsupanalog inh_lSup OR2
+  XI5 disable_i err disable inh_lSup inh_bulkpanalog inh_hsupanalog inh_lSup OR2
+  XI41 net062 net14 inh_lSup inh_bulkpanalog inh_hsupanalog inh_lSup BUF2
+  XI64 net044 undervoltage_o inh_lSup inh_bulkpanalog inh_hsupanalog inh_lSup INV1
+  XI65 net045 overvoltage_o inh_lSup inh_bulkpanalog inh_hsupanalog inh_lSup INV1
+  XI6 disable enable inh_lSup inh_bulkpanalog inh_hsupanalog inh_lSup INV1
+  XI63 enable clk_i net062 inh_lSup inh_bulkpanalog inh_hsupanalog inh_lSup NAND2
+  XI8 S0 S0_n S1 S1_n disable amp_out gate inh_bulkn inh_bulkpanalog inh_lSup cell_sc_filter
+  XI40 net062 net13 inh_lSup inh_bulkpanalog inh_hsupanalog inh_lSup INV2
+  XI9 disable feedback gate vout_1V5_ao inh_bulkn inh_bulkpanalog inh_hsupanalog inh_lSup cell_source_follower
+  XI32 net13 net23 net12 inh_bulkpanalog inh_hsupanalog inh_lSup cell_freq_divider
+  XI68 net14 net11 net16 inh_bulkpanalog inh_hsupanalog inh_lSup cell_freq_divider
+  XI7 enable ibp_1u_ai net12 amp_out feedback vref inh_bulkn inh_bulkpanalog inh_hsupanalog inh_lSup cell_chopped_opamp
+  R7 vth_h vth_l R='242.42K'
+  R11 vth_l inh_lSup R='1.09MEG'
+  R0 inh_hsupanalog vth_h R='1.167MEG'
+  C0 feedback amp_out C='20p'
+  M0 amp_out disable feedback inh_bulkn NANA W='400n' L='400n' M='1'
+  M35 vref disable inh_lSup inh_bulkn NANA W='400n' L='400n' M='1'
+  M2 vref disable vref_ai vref_ai PANA W='2u' L='400n' M='1'
+.ENDS
+** End of subcircuit definition.
+
+** Subcircuit
+** ----------
+** Library name: saradc_11bit_testbench
+** Cell name: supplies
+** View name: schematic
+**
+.SUBCKT supplies inh_bulkn inh_bulkpanalog inh_bulkpcore inh_hsupanalog inh_hsupcore inh_lSup
+  V0 net7 inh_lSup DC='vsup2v5' PULSE( '0' 'vsup2v5' 'td_ps' 'tr_ps' '1m' '9' '10' ) 
+  V1 net8 inh_lSup DC='vsup1v5' PULSE( '0' 'vsup1v5' 'td_ps' 'tr_ps' '1m' '9' '10' ) 
+  R5 0 inh_lSup R='1m'
+  R4 inh_hsupcore net8 R='rhsupcore'
+  R3 inh_hsupanalog net7 R='rhsupanalog'
+  R2 inh_hsupanalog inh_bulkpanalog R='rbulkpanalog'
+  R1 inh_hsupcore inh_bulkpcore R='rbulkpcore'
+  R0 inh_lSup inh_bulkn R='1m'
+.ENDS
+** End of subcircuit definition.
+
+
+** Top cell:
+** ---------
+** Subcircuit
+** ----------
+** Library name: chopped_ldo
+** Cell name: tb_ldo_top
+** View name: schematic
+**
+C0 undervoltage VSS! C='50f'
+C1 overvoltage VSS! C='50f'
+C2 vout VSS! C='1p'
+R2 undervoltage net28 R='2K'
+R3 overvoltage net23 R='2K'
+R12 clk net013 R='2K'
+R0 ref net011 R='2K'
+R1 disable net09 R='2K'
+R5 vout VSS! R='75'
+XI1 test_en VDDa! VDDa_pulsed vref net011 net09 ibias net013 net23 net28 vout fail testnr ip_id ldo_stim fclk='400000' vref_nom='1.2' stop_on_error='1'
+XI83 clk disable ibias overvoltage undervoltage vout ref VSSb! VDDa_pulsed VDDa_pulsed VSS! cell_ldo
+V2 test_en 0 DC='0' PWL( '0' '0' '500n' '0' '501n' '2.5')
+V3 vref 0 DC='0' PWL( '0' '0' '500n' '0' '501n' 'vref')
+XI68 VSSb! VDDba! VDDbc! VDDa! VDDc! VSS! supplies
+** End of top cell tb_ldo_top.
+

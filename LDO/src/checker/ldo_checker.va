@@ -1,0 +1,1067 @@
+// VerilogA for measurement, ldo_chk, veriloga
+// Disclaimer:
+// THIS FILE IS PROVIDED AS IS AND WITH:
+// (A)  NO WARRANTY OF ANY KIND, express, implied or statutory, including any implied warranties of merchantability, fitness for a particular purpose and noninfringement, which Infineon disclaims to the maximum extent permitted by applicable law; and
+// (B)  NO INDEMNIFICATION FOR INFRINGEMENT OF INTELLECTUAL PROPERTY RIGHTS.
+// LIMITATION OF LIABILITY:  IN NO EVENT SHALL INFINEON BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES (INCLUDING LOST PROFITS OR SAVINGS) WHATSOEVER, WHETHER BASED ON CONTRACT, TORT OR 
+// ANY OTHER LEGAL THEORY, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+// © 2020 Infineon Technologies AG. All rights reserved
+// Release:
+//	version 3.0
+
+`include "constants.vams"
+`include "disciplines.vams"
+
+module ldo_stim(test_en_i, vdda_ai, vdda_ao, vref_ai, vref_ao, 
+                vdisable_o, ibp_1u_ao, clk_o, overvoltage_i, 
+                undervoltage_i, vout_aio, fail_o, testnr_o,
+                ip_id_o);
+
+output vref_ao, vdisable_o, ibp_1u_ao, clk_o, fail_o, testnr_o, vdda_ao, ip_id_o;
+input overvoltage_i, undervoltage_i, vdda_ai, test_en_i, vref_ai;
+inout vout_aio;
+electrical test_en_i, vdda_ai, vdda_ao, vref_ai, vref_ao,
+           vdisable_o, ibp_1u_ao, clk_o, overvoltage_i, 
+           undervoltage_i, vout_aio, fail_o,testnr_o,
+           ip_id_o;
+
+/*
+* Parameter
+*/
+localparam real ip_id = 2;
+parameter real fclk=400e3;
+parameter real vref_nom=1.2;
+parameter integer stop_on_error = 1;
+
+/*
+* Output values
+*/
+real vref_offset=0;
+real vdisable=1;
+real ibp_1u=0;
+real clk=0;
+real fail=0;
+real testnr=0;
+real vdda_offset=0;
+real iout=0;
+
+/*
+* Specs
+*/
+localparam real vtol=5m;	
+localparam real hilim=1.5+vtol, lolim=1.5-vtol;    //limits for ldo voltage
+localparam real maxdiff=7m;                //allowed difference between measurements
+localparam real maxidle=10m;               //max LDO voltage when disabled
+
+/*
+* Variables
+*/
+real next_clk = -1;
+real vout_prev = -1;
+
+/*
+* State related variables
+*/
+localparam integer INITIAL_STATE               = 0;
+localparam integer RAMP_UP_START               = 1;
+localparam integer RAMP_UP_CHECK               = 2;
+localparam integer RAMP_UP_CHECK_SETT          = 3;
+    
+localparam integer OVERVOLTAGE_STATE           = 4;
+localparam integer OVERVOLTAGE_CHECK           = 5;
+localparam integer UNDERVOLTAGE_STATE          = 6;
+localparam integer UNDERVOLTAGE_CHECK          = 7;
+localparam integer AFTER_PULSE_CHECK           = 8;
+localparam integer AFTER_PULSE_CHECK_SETT      = 9;
+    
+localparam integer OK_OVERVOLTAGE_STATE        = 10;
+localparam integer OK_OVERVOLTAGE_CHECK        = 11;
+localparam integer OK_OVERVOLTAGE_CHECK_SETT   = 12;
+localparam integer OK_UNDERVOLTAGE_STATE       = 13;
+localparam integer OK_UNDERVOLTAGE_CHECK       = 14;
+localparam integer OK_UNDERVOLTAGE_CHECK_SETT  = 15;
+localparam integer OK_AFTER_PULSE_CHECK        = 16;
+localparam integer OK_AFTER_PULSE_CHECK_SETT   = 17;
+    
+localparam integer DISABLE_STATE               = 18;
+localparam integer DISABLE_CHECK               = 19;
+localparam integer ENABLE_STATE                = 20;
+localparam integer ENABLE_CHECK                = 21;
+localparam integer ENABLE_CHECK_SETT           = 22;
+    
+localparam integer VREF_HIGH_STATE             = 23;
+localparam integer VREF_HIGH_CHECK             = 24;
+localparam integer VREF_HIGH_CHECK_SETT        = 25;
+localparam integer VREF_LOW_STATE              = 26;
+localparam integer VREF_LOW_CHECK              = 27;
+localparam integer VREF_LOW_CHECK_SETT         = 28;
+localparam integer VREF_NOM_CHECK              = 29;
+localparam integer VREF_NOM_CHECK_SETT         = 30;
+    
+localparam integer ILOAD_HIGH_STATE            = 31;
+localparam integer ILOAD_HIGH_CHECK            = 32;
+localparam integer ILOAD_HIGH_CHECK_SETT       = 33;
+localparam integer ILOAD_LOW_STATE             = 34;
+localparam integer ILOAD_LOW_CHECK             = 35;
+localparam integer ILOAD_LOW_CHECK_SETT        = 36;
+localparam integer ILOAD_NOM_CHECK             = 37;
+localparam integer ILOAD_NOM_CHECK_SETT        = 38;
+localparam integer END_STATE                   = 39;
+
+integer state                   = INITIAL_STATE;
+real next_state_time            = -1.0;
+
+
+
+/*
+* LDO clock
+*/
+analog begin   
+
+    @(timer( next_clk )) begin
+        if (clk==0) begin
+            clk = 1;
+        end else begin
+            clk = 0;    
+        end
+        
+        next_clk = $abstime + 1/fclk/2;
+    end
+
+end
+
+
+/*
+* Test enable/disable
+*/
+analog begin
+
+    @(cross(V(test_en_i)-V(vdda_ao)/2,1)) begin
+        state            = INITIAL_STATE;
+        next_state_time = $abstime + 1p;
+        next_clk        = $abstime + 1u;
+    end
+
+    @(cross(V(test_en_i)-V(vdda_ao)/2,-1)) begin
+        state            = INITIAL_STATE;
+        next_state_time = $abstime - 1p; // in the past so it will not be triggered
+        next_clk        = $abstime - 1p;
+    end
+
+end
+
+
+/*
+* State handling
+*/
+analog begin
+    
+    @(timer( next_state_time )) begin  
+
+        $strobe("Current State: %d/%d", state, END_STATE);
+        if (stop_on_error==1 && fail==1) begin
+            $finish_current_analysis;
+        end
+
+        if (state == INITIAL_STATE ) begin
+            
+            vref_offset     = 0;
+            vdisable        = 1;            
+            ibp_1u          = 0;
+            iout            = 0;
+            
+            vdda_offset     = 0;
+            
+            next_state_time = $abstime + 10n;
+            state           = RAMP_UP_START;
+
+        end else if (state == RAMP_UP_START) begin
+            
+            vref_offset     = 0;
+            vdisable        = 0;            
+            ibp_1u          = 1u;
+            iout            = 0;
+            
+            vdda_offset     = 0;
+            
+            next_state_time = $abstime + 50u;
+            state           = RAMP_UP_CHECK;
+
+        end else if (state == RAMP_UP_CHECK) begin
+
+            // Check correctness of signals
+            if (   V(overvoltage_i) < V(vdda_ao)/2 
+                && V(undervoltage_i) < V(vdda_ao)/2 
+                && V(vout_aio) > lolim
+                && V(vout_aio) < hilim
+               ) begin
+                $strobe("[PASSED] State %d", state);
+            end else begin
+                
+                $strobe("[FAILED] State %d at timepoint %e us - Vout = %e V", state, $abstime*1e6, V(vout_aio));
+                testnr = state;
+                fail = 1;
+            end
+
+            vout_prev = V(vout_aio);
+
+            vref_offset     = 0;
+            vdisable        = 0;            
+            ibp_1u          = 1u;
+            iout            = 0;
+            
+            vdda_offset     = 0;
+            
+            next_state_time = $abstime + 10u;
+            state           = RAMP_UP_CHECK_SETT;
+
+        end else if (state == RAMP_UP_CHECK_SETT) begin
+
+            // Check correctness of signals
+            if (   V(overvoltage_i) < V(vdda_ao)/2 
+                && V(undervoltage_i) < V(vdda_ao)/2 
+                && V(vout_aio) > lolim
+                && V(vout_aio) < hilim
+                && abs(V(vout_aio) - vout_prev) < maxdiff
+               ) begin
+                $strobe("[PASSED] State %d", state);
+            end else begin
+                
+                $strobe("[FAILED] State %d at timepoint %e us - Vout = %e V", state, $abstime*1e6, V(vout_aio));
+                testnr = state;
+                fail = 1;
+            end
+
+            vref_offset     = 0;
+            vdisable        = 0;            
+            ibp_1u          = 1u;
+            iout            = 0;
+            
+            vdda_offset     = 0;
+            
+            next_state_time = $abstime + 10n;
+            state           = OVERVOLTAGE_STATE;
+         
+        end else if (state == OVERVOLTAGE_STATE) begin
+            
+            vref_offset     = 0;
+            vdisable        = 0;            
+            ibp_1u          = 1u;
+            iout            = 0;
+            
+            vdda_offset     = 300m;
+            
+            next_state_time = $abstime + 5u;
+            state           = OVERVOLTAGE_CHECK;
+
+        end else if (state == OVERVOLTAGE_CHECK) begin
+            
+            // Check correctness of signals
+            if (   V(overvoltage_i) > V(vdda_ao)/2 
+                && V(undervoltage_i) < V(vdda_ao)/2 
+                && V(vout_aio) < maxidle
+               ) begin
+                $strobe("[PASSED] State %d", state);
+            end else begin
+                
+                $strobe("[FAILED] State %d at timepoint %e us - Vout = %e V", state, $abstime*1e6, V(vout_aio));
+                testnr = state;
+                fail = 1;
+            end
+
+            vref_offset     = 0;
+            vdisable        = 0;            
+            ibp_1u          = 1u;
+            iout            = 0;
+            
+            vdda_offset     = 0;
+            
+            next_state_time = $abstime + 10n;
+            state           = UNDERVOLTAGE_STATE;
+
+        end else if (state == UNDERVOLTAGE_STATE) begin
+            
+            vref_offset     = 0;
+            vdisable        = 0;            
+            ibp_1u          = 1u;
+            iout            = 0;
+            
+            vdda_offset     = -300m;
+            
+            next_state_time = $abstime + 5u;
+            state           = UNDERVOLTAGE_CHECK;
+
+        end else if (state == UNDERVOLTAGE_CHECK) begin
+            
+            // Check correctness of signals
+            if (   V(overvoltage_i) < V(vdda_ao)/2 
+                && V(undervoltage_i) > V(vdda_ao)/2 
+                && V(vout_aio) < maxidle
+               ) begin
+                $strobe("[PASSED] State %d", state);
+            end else begin
+                
+                $strobe("[FAILED] State %d at timepoint %e us - Vout = %e V", state, $abstime*1e6, V(vout_aio));
+                testnr = state;
+                fail = 1;
+            end
+
+            vref_offset     = 0;
+            vdisable        = 0;            
+            ibp_1u          = 1u;
+            iout            = 0;
+            
+            vdda_offset     = 0m;
+            
+            next_state_time = $abstime + 50u;
+            state           = AFTER_PULSE_CHECK;
+
+        end else if (state == AFTER_PULSE_CHECK) begin
+            
+            // Check correctness of signals
+            if (   V(overvoltage_i) < V(vdda_ao)/2 
+                && V(undervoltage_i) < V(vdda_ao)/2 
+                && V(vout_aio) > lolim
+                && V(vout_aio) < hilim
+               ) begin
+                $strobe("[PASSED] State %d", state);
+            end else begin
+                
+                $strobe("[FAILED] State %d at timepoint %e us - Vout = %e V", state, $abstime*1e6, V(vout_aio));
+                testnr = state;
+                fail = 1;
+            end
+            vout_prev = V(vout_aio);
+
+            vref_offset     = 0;
+            vdisable        = 0;            
+            ibp_1u          = 1u;
+            iout            = 0;
+            
+            vdda_offset     = 0m;
+            
+            next_state_time = $abstime + 10u;
+            state           = AFTER_PULSE_CHECK_SETT;
+
+        end else if (state == AFTER_PULSE_CHECK_SETT) begin
+            
+            // Check correctness of signals
+            if (   V(overvoltage_i) < V(vdda_ao)/2 
+                && V(undervoltage_i) < V(vdda_ao)/2 
+                && V(vout_aio) > lolim
+                && V(vout_aio) < hilim
+                && abs(V(vout_aio) - vout_prev) < maxdiff
+               ) begin
+                $strobe("[PASSED] State %d", state);
+            end else begin
+                
+                $strobe("[FAILED] State %d at timepoint %e us - Vout = %e V", state, $abstime*1e6, V(vout_aio));
+                testnr = state;
+                fail = 1;
+            end
+
+
+            vref_offset     = 0;
+            vdisable        = 0;            
+            ibp_1u          = 1u;
+            iout            = 0;
+            
+            vdda_offset     = 0m;
+            
+            next_state_time = $abstime + 10n;
+            state           = OK_OVERVOLTAGE_STATE;
+        
+        end else if (state == OK_OVERVOLTAGE_STATE) begin
+            
+            vref_offset     = 0;
+            vdisable        = 0;            
+            ibp_1u          = 1u;
+            iout            = 0;
+            
+            vdda_offset     = 200m;
+            
+            next_state_time = $abstime + 30u;
+            state           = OK_OVERVOLTAGE_CHECK;
+
+        end else if (state == OK_OVERVOLTAGE_CHECK) begin
+            
+            // Check correctness of signals
+            if (   V(overvoltage_i) < V(vdda_ao)/2 
+                && V(undervoltage_i) < V(vdda_ao)/2 
+                && V(vout_aio) > lolim
+                && V(vout_aio) < hilim
+               ) begin
+                $strobe("[PASSED] State %d", state);
+            end else begin
+                
+                $strobe("[FAILED] State %d at timepoint %e us - Vout = %e V", state, $abstime*1e6, V(vout_aio));
+                testnr = state;
+                fail = 1;
+            end
+            vout_prev = V(vout_aio);
+
+            vref_offset     = 0;
+            vdisable        = 0;            
+            ibp_1u          = 1u;
+            iout            = 0;
+            
+            vdda_offset     = 200m;
+            
+            next_state_time = $abstime + 10u;
+            state           = OK_OVERVOLTAGE_CHECK_SETT;
+
+        end else if (state == OK_OVERVOLTAGE_CHECK_SETT) begin
+            
+            // Check correctness of signals
+            if (   V(overvoltage_i) < V(vdda_ao)/2 
+                && V(undervoltage_i) < V(vdda_ao)/2 
+                && V(vout_aio) > lolim
+                && V(vout_aio) < hilim
+                && abs(V(vout_aio) - vout_prev) < maxdiff
+               ) begin
+                $strobe("[PASSED] State %d", state);
+            end else begin
+                
+                $strobe("[FAILED] State %d at timepoint %e us - Vout = %e V", state, $abstime*1e6, V(vout_aio));
+                testnr = state;
+                fail = 1;
+            end
+
+            vref_offset     = 0;
+            vdisable        = 0;            
+            ibp_1u          = 1u;
+            iout            = 0;
+            
+            vdda_offset     = 0;
+            
+            next_state_time = $abstime + 10n;
+            state           = OK_UNDERVOLTAGE_STATE;
+
+        end else if (state == OK_UNDERVOLTAGE_STATE) begin
+            
+            vref_offset     = 0;
+            vdisable        = 0;            
+            ibp_1u          = 1u;
+            iout            = 0;
+            
+            vdda_offset     = -200m;
+            
+            next_state_time = $abstime + 30u;
+            state           = OK_UNDERVOLTAGE_CHECK;
+
+        end else if (state == OK_UNDERVOLTAGE_CHECK) begin
+            
+            // Check correctness of signals
+            if (   V(overvoltage_i) < V(vdda_ao)/2 
+                && V(undervoltage_i) < V(vdda_ao)/2 
+                && V(vout_aio) > lolim
+                && V(vout_aio) < hilim
+               ) begin
+                $strobe("[PASSED] State %d", state);
+            end else begin
+                $strobe("[FAILED] State %d at timepoint %e us - Vout = %e V", state, $abstime*1e6, V(vout_aio));
+                testnr = state;
+                fail = 1;
+            end
+            vout_prev = V(vout_aio);
+
+            vref_offset     = 0;
+            vdisable        = 0;            
+            ibp_1u          = 1u;
+            iout            = 0;
+            
+            vdda_offset     = -200m;
+            
+            next_state_time = $abstime + 10u;
+            state           = OK_UNDERVOLTAGE_CHECK_SETT;
+        end else if (state == OK_UNDERVOLTAGE_CHECK_SETT) begin
+            
+            // Check correctness of signals
+            if (   V(overvoltage_i) < V(vdda_ao)/2 
+                && V(undervoltage_i) < V(vdda_ao)/2 
+                && V(vout_aio) > lolim
+                && V(vout_aio) < hilim
+                && abs(V(vout_aio) - vout_prev) < maxdiff
+               ) begin
+                $strobe("[PASSED] State %d", state);
+            end else begin
+                
+                $strobe("[FAILED] State %d at timepoint %e us - Vout = %e V", state, $abstime*1e6, V(vout_aio));
+                testnr = state;
+                fail = 1;
+            end
+
+            vref_offset     = 0;
+            vdisable        = 0;            
+            ibp_1u          = 1u;
+            iout            = 0;
+            
+            vdda_offset     = 0m;
+            
+            next_state_time = $abstime + 30u;
+            state           = OK_AFTER_PULSE_CHECK;
+
+        end else if (state == OK_AFTER_PULSE_CHECK) begin
+            
+            // Check correctness of signals
+            if (   V(overvoltage_i) < V(vdda_ao)/2 
+                && V(undervoltage_i) < V(vdda_ao)/2 
+                && V(vout_aio) > lolim
+                && V(vout_aio) < hilim
+               ) begin
+                $strobe("[PASSED] State %d", state);
+            end else begin
+                
+                $strobe("[FAILED] State %d at timepoint %e us - Vout = %e V", state, $abstime*1e6, V(vout_aio));
+                testnr = state;
+                fail = 1;
+            end
+
+            vout_prev = V(vout_aio);
+
+            vref_offset     = 0;
+            vdisable        = 0;            
+            ibp_1u          = 1u;
+            iout            = 0;
+            
+            vdda_offset     = 0m;
+            
+            next_state_time = $abstime + 10u;
+            state           = OK_AFTER_PULSE_CHECK_SETT;
+
+        end else if (state == OK_AFTER_PULSE_CHECK_SETT) begin
+            
+            // Check correctness of signals
+            if (   V(overvoltage_i) < V(vdda_ao)/2 
+                && V(undervoltage_i) < V(vdda_ao)/2 
+                && V(vout_aio) > lolim
+                && V(vout_aio) < hilim
+                && abs(V(vout_aio) - vout_prev) < maxdiff
+               ) begin
+                $strobe("[PASSED] State %d", state);
+            end else begin
+                
+                $strobe("[FAILED] State %d at timepoint %e us - Vout = %e V", state, $abstime*1e6, V(vout_aio));
+                testnr = state;
+                fail = 1;
+            end
+
+            vref_offset     = 0;
+            vdisable        = 0;            
+            ibp_1u          = 1u;
+            iout            = 0;
+            
+            vdda_offset     = 0m;
+            
+            next_state_time = $abstime + 10n;
+            state           = DISABLE_STATE;
+        
+        end else if (state == DISABLE_STATE) begin
+            
+            vref_offset     = 0;
+            vdisable        = 1;            
+            ibp_1u          = 1u;
+            iout            = 0;
+            
+            vdda_offset     = 0m;
+            
+            next_state_time = $abstime + 3u;
+            state           = DISABLE_CHECK;
+        
+        end else if (state == DISABLE_CHECK) begin
+            
+            // Check correctness of signals
+            if (   V(overvoltage_i) < V(vdda_ao)/2 
+                && V(undervoltage_i) < V(vdda_ao)/2 
+                && V(vout_aio) < maxidle
+               ) begin
+                $strobe("[PASSED] State %d", state);
+            end else begin
+                
+                $strobe("[FAILED] State %d at timepoint %e us - Vout = %e V", state, $abstime*1e6, V(vout_aio));
+                testnr = state;
+                fail = 1;
+            end
+
+            vout_prev = V(vout_aio);
+
+            vref_offset     = 0;
+            vdisable        = 1;            
+            ibp_1u          = 1u;
+            iout            = 0;
+            
+            vdda_offset     = 0m;
+            
+            next_state_time = $abstime + 10n;
+            state           = ENABLE_STATE;
+        
+        end else if (state == ENABLE_STATE) begin
+            
+            vref_offset     = 0;
+            vdisable        = 0;            
+            ibp_1u          = 1u;
+            iout            = 0;
+            
+            vdda_offset     = 0m;
+            
+            next_state_time = $abstime + 30u;
+            state           = ENABLE_CHECK;
+        
+        end else if (state == ENABLE_CHECK) begin
+            
+            // Check correctness of signals
+            if (   V(overvoltage_i) < V(vdda_ao)/2 
+                && V(undervoltage_i) < V(vdda_ao)/2 
+                && V(vout_aio) > lolim
+                && V(vout_aio) < hilim
+               ) begin
+                $strobe("[PASSED] State %d", state);
+            end else begin
+                
+                $strobe("[FAILED] State %d at timepoint %e us - Vout = %e V", state, $abstime*1e6, V(vout_aio));
+                testnr = state;
+                fail = 1;
+            end
+
+            vout_prev = V(vout_aio);
+
+            vref_offset     = 0;
+            vdisable        = 0;            
+            ibp_1u          = 1u;
+            iout            = 0;
+            
+            vdda_offset     = 0m;
+            
+            next_state_time = $abstime + 20u;
+            state           = ENABLE_CHECK_SETT;
+        
+        end else if (state == ENABLE_CHECK_SETT) begin
+            
+            // Check correctness of signals
+            if (   V(overvoltage_i) < V(vdda_ao)/2 
+                && V(undervoltage_i) < V(vdda_ao)/2 
+                && V(vout_aio) > lolim
+                && V(vout_aio) < hilim
+                && abs(V(vout_aio) - vout_prev) < maxdiff
+               ) begin
+                $strobe("[PASSED] State %d", state);
+            end else begin
+                
+                $strobe("[FAILED] State %d at timepoint %e us - Vout = %e V", state, $abstime*1e6, V(vout_aio));
+                testnr = state;
+                fail = 1;
+            end
+
+            vref_offset     = 0;
+            vdisable        = 0;            
+            ibp_1u          = 1u;
+            iout            = 0;
+            
+            vdda_offset     = 0m;
+            
+            next_state_time = $abstime + 10n;
+            state           = VREF_HIGH_STATE;
+
+        end else if (state == VREF_HIGH_STATE) begin
+            
+            vref_offset     = 50m;
+            vdisable        = 0;            
+            ibp_1u          = 1u;
+            iout            = 0;
+            
+            vdda_offset     = 0m;
+            
+            next_state_time = $abstime + 30u;
+            state           = VREF_HIGH_CHECK;
+
+        end else if (state == VREF_HIGH_CHECK) begin
+            
+            // Check correctness of signals
+            if (   V(overvoltage_i) < V(vdda_ao)/2 
+                && V(undervoltage_i) < V(vdda_ao)/2 
+                && V(vout_aio) > lolim+1.5/1.2*50m
+                && V(vout_aio) < hilim+1.5/1.2*50m
+               ) begin
+                $strobe("[PASSED] State %d", state);
+            end else begin
+                
+                $strobe("[FAILED] State %d at timepoint %e us - Vout = %e V", state, $abstime*1e6, V(vout_aio));
+                testnr = state;
+                fail = 1;
+            end
+
+            vout_prev = V(vout_aio);
+
+            vref_offset     = 50m;
+            vdisable        = 0;            
+            ibp_1u          = 1u;
+            iout            = 0;
+            
+            vdda_offset     = 0m;
+            
+            next_state_time = $abstime + 10u;
+            state           = VREF_HIGH_CHECK_SETT;
+        
+        end else if (state == VREF_HIGH_CHECK_SETT) begin
+            
+            // Check correctness of signals
+            if (   V(overvoltage_i) < V(vdda_ao)/2 
+                && V(undervoltage_i) < V(vdda_ao)/2 
+                && V(vout_aio) > lolim+1.5/1.2*50m
+                && V(vout_aio) < hilim+1.5/1.2*50m
+                && abs(V(vout_aio) - vout_prev) < maxdiff
+               ) begin
+                $strobe("[PASSED] State %d", state);
+            end else begin
+                
+                $strobe("[FAILED] State %d at timepoint %e us - Vout = %e V", state, $abstime*1e6, V(vout_aio));
+                testnr = state;
+                fail = 1;
+            end
+
+            vref_offset     = 0;
+            vdisable        = 0;            
+            ibp_1u          = 1u;
+            iout            = 0;
+            
+            vdda_offset     = 0m;
+            
+            next_state_time = $abstime + 10n;
+            state           = VREF_LOW_STATE;
+            
+        end else if (state == VREF_LOW_STATE) begin
+            
+            vref_offset     = -50m;
+            vdisable        = 0;            
+            ibp_1u          = 1u;
+            iout            = 0;
+            
+            vdda_offset     = 0m;
+            
+            next_state_time = $abstime + 30u;
+            state           = VREF_LOW_CHECK;
+
+        end else if (state == VREF_LOW_CHECK) begin
+            
+            // Check correctness of signals
+            if (   V(overvoltage_i) < V(vdda_ao)/2 
+                && V(undervoltage_i) < V(vdda_ao)/2 
+                && V(vout_aio) > lolim-1.5/1.2*50m
+                && V(vout_aio) < hilim-1.5/1.2*50m
+               ) begin
+                $strobe("[PASSED] State %d", state);
+            end else begin
+                
+                $strobe("[FAILED] State %d at timepoint %e us - Vout = %e V", state, $abstime*1e6, V(vout_aio));
+                testnr = state;
+                fail = 1;
+            end
+
+            vout_prev = V(vout_aio);
+
+            vref_offset     = -50m;
+            vdisable        = 0;            
+            ibp_1u          = 1u;
+            iout            = 0;
+            
+            vdda_offset     = 0m;
+            
+            next_state_time = $abstime + 10u;
+            state           = VREF_LOW_CHECK_SETT;
+        
+        end else if (state == VREF_LOW_CHECK_SETT) begin
+            
+            // Check correctness of signals
+            if (   V(overvoltage_i) < V(vdda_ao)/2 
+                && V(undervoltage_i) < V(vdda_ao)/2 
+                && V(vout_aio) > lolim-1.5/1.2*50m
+                && V(vout_aio) < hilim-1.5/1.2*50m
+                && abs(V(vout_aio) - vout_prev) < maxdiff
+               ) begin
+                $strobe("[PASSED] State %d", state);
+            end else begin
+                
+                $strobe("[FAILED] State %d at timepoint %e us - Vout = %e V", state, $abstime*1e6, V(vout_aio));
+                testnr = state;
+                fail = 1;
+            end
+
+            vref_offset     = 0;
+            vdisable        = 0;            
+            ibp_1u          = 1u;
+            iout            = 0;
+            
+            vdda_offset     = 0m;
+            
+            next_state_time = $abstime + 30u;
+            state           = VREF_NOM_CHECK;
+              
+        end else if (state == VREF_NOM_CHECK) begin
+            
+            // Check correctness of signals
+            if (   V(overvoltage_i) < V(vdda_ao)/2 
+                && V(undervoltage_i) < V(vdda_ao)/2 
+                && V(vout_aio) > lolim
+                && V(vout_aio) < hilim
+               ) begin
+                $strobe("[PASSED] State %d", state);
+            end else begin
+                
+                $strobe("[FAILED] State %d at timepoint %e us - Vout = %e V", state, $abstime*1e6, V(vout_aio));
+                testnr = state;
+                fail = 1;
+            end
+            vout_prev = V(vout_aio);
+
+            vref_offset     = 0;
+            vdisable        = 0;            
+            ibp_1u          = 1u;
+            iout            = 0;
+            
+            vdda_offset     = 0m;
+            
+            next_state_time = $abstime + 10u;
+            state           = VREF_NOM_CHECK_SETT;
+        
+        end else if (state == VREF_NOM_CHECK_SETT) begin
+            
+            // Check correctness of signals
+            if (   V(overvoltage_i) < V(vdda_ao)/2 
+                && V(undervoltage_i) < V(vdda_ao)/2 
+                && V(vout_aio) > lolim
+                && V(vout_aio) < hilim
+                && abs(V(vout_aio) - vout_prev) < maxdiff
+               ) begin
+                $strobe("[PASSED] State %d", state);
+            end else begin
+                
+                $strobe("[FAILED] State %d at timepoint %e us - Vout = %e V", state, $abstime*1e6, V(vout_aio));
+                testnr = state;
+                fail = 1;
+            end
+
+            vref_offset     = 0;
+            vdisable        = 0;            
+            ibp_1u          = 1u;
+            iout            = 0;
+            
+            vdda_offset     = 0m;
+            
+            next_state_time = $abstime + 10n;
+            state           = ILOAD_HIGH_STATE;
+
+        end else if (state == ILOAD_HIGH_STATE) begin
+            
+            vref_offset     = 0;
+            vdisable        = 0;            
+            ibp_1u          = 1u;
+            iout            = 5m;
+            
+            vdda_offset     = 0m;
+            
+            next_state_time = $abstime + 30u;
+            state           = ILOAD_HIGH_CHECK;
+        
+        end else if (state == ILOAD_HIGH_CHECK) begin
+            
+            // Check correctness of signals
+            if (   V(overvoltage_i) < V(vdda_ao)/2 
+                && V(undervoltage_i) < V(vdda_ao)/2 
+                && V(vout_aio) > lolim
+                && V(vout_aio) < hilim
+               ) begin
+                $strobe("[PASSED] State %d", state);
+            end else begin
+                
+                $strobe("[FAILED] State %d at timepoint %e us - Vout = %e V", state, $abstime*1e6, V(vout_aio));
+                testnr = state;
+                fail = 1;
+            end
+            vout_prev = V(vout_aio);
+
+            vref_offset     = 0;
+            vdisable        = 0;            
+            ibp_1u          = 1u;
+            iout            = 5m;
+            
+            vdda_offset     = 0m;
+            
+            next_state_time = $abstime + 10u;
+            state           = ILOAD_HIGH_CHECK_SETT;
+        
+        
+        end else if (state == ILOAD_HIGH_CHECK_SETT) begin
+            
+            // Check correctness of signals
+            if (   V(overvoltage_i) < V(vdda_ao)/2 
+                && V(undervoltage_i) < V(vdda_ao)/2 
+                && V(vout_aio) > lolim
+                && V(vout_aio) < hilim
+                && abs(V(vout_aio) - vout_prev) < maxdiff
+               ) begin
+                $strobe("[PASSED] State %d", state);
+            end else begin
+                
+                $strobe("[FAILED] State %d at timepoint %e us - Vout = %e V", state, $abstime*1e6, V(vout_aio));
+                testnr = state;
+                fail = 1;
+            end
+
+            vref_offset     = 0;
+            vdisable        = 0;            
+            ibp_1u          = 1u;
+            iout            = 0;
+            
+            vdda_offset     = 0m;
+            
+            next_state_time = $abstime + 10n;
+            state           = ILOAD_LOW_STATE;
+
+        end else if (state == ILOAD_LOW_STATE) begin
+            
+            vref_offset     = 0;
+            vdisable        = 0;            
+            ibp_1u          = 1u;
+            iout            = -5m;
+            
+            vdda_offset     = 0m;
+            
+            next_state_time = $abstime + 30u;
+            state           = ILOAD_LOW_CHECK;
+        
+        end else if (state == ILOAD_LOW_CHECK) begin
+            
+
+            // Check correctness of signals
+            if (   V(overvoltage_i) < V(vdda_ao)/2 
+                && V(undervoltage_i) < V(vdda_ao)/2 
+                && V(vout_aio) > lolim
+                && V(vout_aio) < hilim
+               ) begin
+                $strobe("[PASSED] State %d", state);
+            end else begin
+                
+                $strobe("[FAILED] State %d at timepoint %e us - Vout = %e V", state, $abstime*1e6, V(vout_aio));
+                testnr = state;
+                fail = 1;
+            end
+            vout_prev = V(vout_aio);
+
+            vref_offset     = 0;
+            vdisable        = 0;            
+            ibp_1u          = 1u;
+            iout            = -5m;
+            
+            vdda_offset     = 0m;
+            
+            next_state_time = $abstime + 10u;
+            state           = ILOAD_LOW_CHECK_SETT;
+        
+        end else if (state == ILOAD_LOW_CHECK_SETT) begin
+            
+            // Check correctness of signals
+            if (   V(overvoltage_i) < V(vdda_ao)/2 
+                && V(undervoltage_i) < V(vdda_ao)/2 
+                && V(vout_aio) > lolim
+                && V(vout_aio) < hilim
+                && abs(V(vout_aio) - vout_prev) < maxdiff
+               ) begin
+                $strobe("[PASSED] State %d", state);
+            end else begin
+                
+                $strobe("[FAILED] State %d at timepoint %e us - Vout = %e V", state, $abstime*1e6, V(vout_aio));
+                testnr = state;
+                fail = 1;
+            end
+
+            vref_offset     = 0;
+            vdisable        = 0;            
+            ibp_1u          = 1u;
+            iout            = 0;
+            
+            vdda_offset     = 0m;
+            
+            next_state_time = $abstime + 5u;
+            state           = ILOAD_NOM_CHECK;
+        
+        end else if (state == ILOAD_NOM_CHECK) begin
+            
+            // Check correctness of signals
+            if (   V(overvoltage_i) < V(vdda_ao)/2 
+                && V(undervoltage_i) < V(vdda_ao)/2 
+                && V(vout_aio) > lolim
+                && V(vout_aio) < hilim
+               ) begin
+                $strobe("[PASSED] State %d", state);
+            end else begin
+                
+                $strobe("[FAILED] State %d at timepoint %e us - Vout = %e V", state, $abstime*1e6, V(vout_aio));
+                testnr = state;
+                fail = 1;
+            end
+            vout_prev = V(vout_aio);
+
+            vref_offset     = 0;
+            vdisable        = 0;            
+            ibp_1u          = 1u;
+            iout            = 0;
+            
+            vdda_offset     = 0m;
+            
+            next_state_time = $abstime + 10u;
+            state           = ILOAD_NOM_CHECK_SETT;
+
+        end else if (state == ILOAD_NOM_CHECK_SETT) begin
+            
+            // Check correctness of signals
+            if (   V(overvoltage_i) < V(vdda_ao)/2 
+                && V(undervoltage_i) < V(vdda_ao)/2 
+                && V(vout_aio) > lolim
+                && V(vout_aio) < hilim
+                && abs(V(vout_aio) - vout_prev) < maxdiff
+               ) begin
+                $strobe("[PASSED] State %d", state);
+            end else begin
+                
+                $strobe("[FAILED] State %d at timepoint %e us - Vout = %e V", state, $abstime*1e6, V(vout_aio));
+                testnr = state;
+                fail = 1;
+            end
+
+            vref_offset     = 0;
+            vdisable        = 0;            
+            ibp_1u          = 1u;
+            iout            = 0;
+            
+            vdda_offset     = 0m;
+            
+            next_state_time = $abstime + 10n;
+            state           = END_STATE;
+        
+        end else if (state == END_STATE) begin
+
+            $strobe("[PASSED] All states passed. No errors detected.");
+			$finish_current_analysis;        
+        end 
+
+    end
+
+end
+
+
+/*
+* Assign all outputs
+*/
+analog begin
+    V(vref_ao)      <+  V(vref_ai)+transition(vref_offset, 0, 1n, 1n);
+    V(vdisable_o)   <+  transition(vdisable*V(vdda_ao),    0, 1n, 1n);
+    I(ibp_1u_ao)    <+  transition(-ibp_1u,                0, 1n, 1n); 
+    I(vout_aio)     <+  transition(iout,                   0, 1n, 1n);
+    V(clk_o)        <+  transition(clk*V(vdda_ao),         0, 1n, 1n);
+    V(fail_o)       <+  transition(fail,                   0, 1n, 1n);
+    V(vdda_ao)      <+  V(vdda_ai)+transition(vdda_offset, 0, 1n, 1n);
+    V(testnr_o)     <+  transition(testnr,                 0, 1n, 1n);
+    V(ip_id_o)      <+  transition(ip_id,                  0, 1n, 1n);
+end
+
+endmodule
