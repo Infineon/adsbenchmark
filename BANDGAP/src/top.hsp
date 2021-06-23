@@ -1,0 +1,37 @@
+* Disclaimer:
+* THIS FILE IS PROVIDED AS IS AND WITH:
+* (A) NO WARRANTY OF ANY KIND, express, implied or statutory, including any implied warranties of merchantability, fitness for a particular purpose and noninfringement, which  Infineon disclaims to the maximum extent permitted by applicable law; and
+* (B) NO INDEMNIFICATION FOR INFRINGEMENT OF INTELLECTUAL PROPERTY RIGHTS.
+* (C) LIMITATION OF LIABILITY: IN NO EVENT SHALL INFINEON BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES (INCLUDING LOST PROFITS OR SAVINGS) WHATSOEVER, WHETHER BASED ON CONTRACT, TORT OR ANY OTHER LEGAL THEORY, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+* © 2020 Infineon Technologies AG. All rights reserved.
+
+* Note:
+* The CMOS transistor models used, were freely available models downloaded from: http://ptm.asu.edu.
+* The bipolar transistor models are from: The Development of Bipolar Log-Domain Filters in a Standard CMOS Process, G. D. Duerden, G. W. Roberts, M. J. Deen, 2001
+
+* Release:
+* 	version 3.0
+
+** Parameter setup
+.param vsup=2.5 rbulkpanalog=1m rbulkpcore=1m rhsupanalog=1m rhsupcore=1m vsup1v5=2.5 vsup2v5=2.5
+
+** Model files
+.inc "model/bip_nom.hsp"
+
+** Model corners **Include one file**
+*******************************
+* .inc "model/mosfets_fast.hsp"
+*.inc "model/mosfets.hsp"
+ .inc "model/mosfets_slow.hsp"
+
+** Testbench setup
+.include "tb_bandgap.hsp"
+.hdl "checker/bg_checker.va"
+
+** Analysis
+
+.measure tran max_fail max v(fail)
+.tran 1u 110ms
+
+.end
+

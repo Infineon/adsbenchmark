@@ -1,0 +1,69 @@
+// Disclaimer:
+// THIS FILE IS PROVIDED AS IS AND WITH:
+// (A) NO WARRANTY OF ANY KIND, express, implied or statutory, including any implied warranties of merchantability, fitness for a particular purpose and noninfringement, which  Infineon disclaims to the maximum extent permitted by applicable law; and
+// (B) NO INDEMNIFICATION FOR INFRINGEMENT OF INTELLECTUAL PROPERTY RIGHTS.
+// (C) LIMITATION OF LIABILITY: IN NO EVENT SHALL INFINEON BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES (INCLUDING LOST PROFITS OR SAVINGS) WHATSOEVER, WHETHER BASED ON CONTRACT, TORT OR ANY OTHER LEGAL THEORY, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+// © 2020 Infineon Technologies AG. All rights reserved.
+
+// Note:
+// The CMOS transistor models used, were freely available models downloaded from: http://ptm.asu.edu.
+// The bipolar transistor models are from: The Development of Bipolar Log-Domain Filters in a Standard CMOS Process, G. D. Duerden, G. W. Roberts, M. J. Deen, 2001
+
+// Release:
+// 	version 3.0
+
+`include "constants.vams"
+`include "disciplines.vams"
+
+module bg_chk (sigin,fail,testnr);
+  input  sigin;
+  output testnr, fail;
+  electrical sigin;
+  electrical fail, testnr;
+
+  real failed, val1, val2, testflag;
+
+  localparam real time0= 10m, time1=50m, time2=100m;//times at which "sigin" is measured
+  localparam real hilim=1.405, lolim=1.385;  //limits for bg voltage
+  localparam real maxdiff=7m;                //allowed difference between measurements
+  localparam real maxidle=10m;               //max BG voltage when disabled
+  localparam real testidle    =1;            //"testnr" when idle voltage fails
+  localparam real testlim     =2;            //"testnr" when voltage fails the limits
+  localparam real testsettling=3;            //"testnr" for settling fail
+
+  analog begin
+    @(initial_step) begin
+      failed = 0;
+    end
+    @(timer(time0)) begin
+      val1 = V(sigin);
+      $display("Time: %e\t\tIdle Vbg = %e", time0, val1);
+      if (val1 > maxidle) begin 
+        failed=1;
+        testflag=testidle;
+      end
+    end
+    // first test to check voltage is in the limits
+    @(timer(time1)) begin
+      val1 = V(sigin);
+      $display("Time: %e\t\tVbg = %e", time1, val1);
+      if (val1 < lolim || val1 > hilim) begin
+        failed=1;
+        testflag=testlim;
+      end
+    end
+    // second test to check for opamp settling time, and for oscillation
+    @(timer(time2)) begin
+      val2 = V(sigin);
+      if (abs(val1-val2) > maxdiff) begin 
+        failed=1;
+        testflag=testsettling;
+      end 
+      $display("Time: %e\t\tVdiff = %e", time2, abs(val1-val2));    
+      
+    end
+    // setup outputs
+   		V(fail) <+ transition(failed, 0, 1n, 1n);
+		V(testnr) <+ transition(testflag,0,1n,1n);
+  end
+endmodule
