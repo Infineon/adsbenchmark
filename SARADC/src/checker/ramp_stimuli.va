@@ -1,0 +1,230 @@
+// Disclaimer:
+// THIS FILE IS PROVIDED AS IS AND WITH:
+// (A) NO WARRANTY OF ANY KIND, express, implied or statutory, including any implied warranties of merchantability, fitness for a particular purpose and noninfringement, which  Infineon disclaims to the maximum extent permitted by applicable law; and
+// (B) NO INDEMNIFICATION FOR INFRINGEMENT OF INTELLECTUAL PROPERTY RIGHTS.
+// (C) LIMITATION OF LIABILITY: IN NO EVENT SHALL INFINEON BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES (INCLUDING LOST PROFITS OR SAVINGS) WHATSOEVER, WHETHER BASED ON CONTRACT, TORT OR ANY OTHER LEGAL THEORY, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+// © 2020 Infineon Technologies AG. All rights reserved.
+
+// Note:
+// The CMOS transistor models used, were freely available models downloaded from: http://ptm.asu.edu.
+// The bipolar transistor models are from: The Development of Bipolar Log-Domain Filters in a Standard CMOS Process, G. D. Duerden, G. W. Roberts, M. J. Deen, 2001
+
+// Release:
+// version 1.0
+
+// VerilogA for saradc_11bit_testbench - RAMP, Stimuli
+
+// VerilogA for  adc_dnl_11bit, veriloga
+
+`include "constants.vams"
+`include "disciplines.vams"
+
+module stimuli (clk_o, 
+				res_n_o, 
+				mod_ready_i, 
+				v_lv_0_o, 
+				v_lv_1_o, 
+				v_lv_2_o, 
+				chnr_o[4:0],
+				start_adc_o,
+				vrefp_ao,
+				measure_o,
+				test_en_i
+				) ;
+
+
+////////////////////////////////////
+// Port definitions
+
+input mod_ready_i, test_en_i;
+output  clk_o, 
+	    res_n_o, 
+		v_lv_0_o, 
+		v_lv_1_o, 
+		v_lv_2_o, 
+		start_adc_o,
+		vrefp_ao,
+		measure_o;
+output [4:0] chnr_o;
+
+electrical clk_o, 
+			res_n_o, 
+			mod_ready_i, 
+			v_lv_0_o, 
+			v_lv_1_o, 
+			v_lv_2_o, 
+			start_adc_o,
+			vrefp_ao,
+			measure_o,
+			test_en_i;
+electrical [4:0] chnr_o;
+
+integer clk;
+integer res_n;
+integer chnr[4:0];
+integer start_adc;
+real v_lv_0;
+real v_lv_1;
+real v_lv_2;
+real vrefp_a;
+////////////////////////////////////
+
+
+////////////////////////////////////
+// Parameter definitions
+parameter real fclk = 28e6;
+parameter real vhigh = 1.5;
+parameter real vlow = 0;
+parameter real trf = 30e-12;
+parameter real hitsPerCode = 5;
+parameter real vstart = -20e-3;
+parameter real vend = 1.215+20e-3;
+parameter real vrefp = 1.215;
+parameter real clk_per_sample = 26; 
+////////////////////////////////////
+
+
+
+////////////////////////////////////
+// Tmp variables
+integer i;
+real next;
+real nextFalling;
+real vthreshold = (vlow+vhigh)/2;
+real LSB = vrefp / (2**11);
+real sampleTime = clk_per_sample/fclk;
+real slopeOfInput = LSB/(hitsPerCode*sampleTime);
+
+real nextSample = 100; // High value
+real startadc_pull_low = 100; // High value
+
+integer measure = 0;
+////////////////////////////////////
+
+
+
+/////////////////////////////////////////
+// Pull reset high and start everthing
+analog begin
+
+    @(cross(V(test_en_i)-vthreshold,1)) begin
+        res_n=1;
+    end
+
+    @(cross(V(test_en_i)-vthreshold,-1)) begin
+        res_n=0;
+    end
+
+end
+/////////////////////////////////////////
+
+
+
+////////////////////////////////////
+// Do sampling
+integer finish = 0;
+
+analog begin
+    @(timer(nextSample)) begin
+        startadc_pull_low = nextSample + 1/fclk;
+		start_adc = 1;
+        nextSample = nextSample+ceil(sampleTime*fclk)/fclk;
+		if (finish == 1)
+			$finish_current_analysis;
+    end
+
+    @(timer(startadc_pull_low)) begin
+		start_adc = 0;
+		if (V(v_lv_2_o) >= vend-1e-6 ) begin
+  		    finish = 1;
+		    measure = 0;
+		end
+    end
+end
+////////////////////////////////////
+
+
+
+////////////////////////////////////
+// Wait for mod_ready_i
+analog begin
+   @(cross(V(mod_ready_i)-vthreshold,1)) begin
+      v_lv_0 = vend;
+      v_lv_1 = vend;
+      v_lv_2 = vend;
+	  measure = 1;
+      nextSample = nextFalling; 
+   end
+end
+////////////////////////////////////
+
+
+////////////////////////////////////
+// Clock
+analog begin
+
+    @(timer(next)) begin
+
+        if (res_n == 1)
+            clk = !clk;
+        else
+            clk = 0;
+
+        next = next + 0.5/fclk;
+		if(clk == 0) begin
+			nextFalling = next + 0.5/fclk;
+		end
+		else begin
+			nextFalling = next;
+		end
+
+    end
+
+end
+////////////////////////////////////
+
+
+
+
+////////////////////////////////////
+// Assignments to outputs
+analog begin
+  @(initial_step) begin
+	clk = 0;
+    res_n = 0;
+    next=1/fclk;
+    chnr[0] = 1;
+    chnr[1] = 1;
+    chnr[2] = 0;
+    chnr[3] = 1;
+    chnr[4] = 0;
+	start_adc = 0;
+    v_lv_0 = vstart;
+    v_lv_1 = vstart;
+    v_lv_2 = vstart;
+    vrefp_a = vrefp;
+    nextFalling = 0;
+  end
+
+   V(vrefp_ao) <+ transition(vrefp_a,0,trf,trf);
+   V(res_n_o) <+ transition(vlow+res_n*(vhigh-vlow),0,trf,trf);
+   V(chnr_o[0]) <+ transition(vlow+chnr[0]*(vhigh-vlow),0,trf,trf);
+   V(chnr_o[1]) <+ transition(vlow+chnr[1]*(vhigh-vlow),0,trf,trf);
+   V(chnr_o[2]) <+ transition(vlow+chnr[2]*(vhigh-vlow),0,trf,trf);
+   V(chnr_o[3]) <+ transition(vlow+chnr[3]*(vhigh-vlow),0,trf,trf);
+   V(chnr_o[4]) <+ transition(vlow+chnr[4]*(vhigh-vlow),0,trf,trf);
+   V(start_adc_o) <+ transition(vlow+start_adc*(vhigh-vlow),0,trf,trf);
+   V(clk_o) <+ transition(vlow+clk*(vhigh-vlow),0,trf,trf);
+
+   V(v_lv_0_o) <+ transition(v_lv_0,0,(vend - vstart)/slopeOfInput,(vend - vstart)/slopeOfInput);
+   V(v_lv_1_o) <+ transition(v_lv_1,0,(vend - vstart)/slopeOfInput,(vend - vstart)/slopeOfInput);
+   V(v_lv_2_o) <+ transition(v_lv_2,0,(vend - vstart)/slopeOfInput,(vend - vstart)/slopeOfInput);
+
+   V(measure_o) <+ transition(vlow+measure*(vhigh-vlow),0,trf,trf);
+end
+////////////////////////////////////
+
+
+
+
+endmodule

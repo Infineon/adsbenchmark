@@ -1,0 +1,114 @@
+* Disclaimer:
+* THIS FILE IS PROVIDED AS IS AND WITH:
+* (A)  NO WARRANTY OF ANY KIND, express, implied or statutory, including any implied warranties of merchantability, fitness for a particular purpose and noninfringement, which Infineon disclaims to the maximum extent permitted by applicable law; and
+* (B)  NO INDEMNIFICATION FOR INFRINGEMENT OF INTELLECTUAL PROPERTY RIGHTS.
+* LIMITATION OF LIABILITY:  IN NO EVENT SHALL INFINEON BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES (INCLUDING LOST PROFITS OR SAVINGS) WHATSOEVER, WHETHER BASED ON CONTRACT, TORT OR 
+* ANY OTHER LEGAL THEORY, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+* © 2020 Infineon Technologies AG. All rights reserved
+
+* Release:
+* version 1.0
+
+.inc "saradc.hsp"
+
+** Top cell:
+** ---------
+** Subcircuit
+** ----------
+** Library name: saradc_11bit_testbench
+** Cell name: tb_saradc_mct
+** View name: schematic
+**
+Vq test_en 0 DC=0 PWL( 0 0 3u 0 3.01u vsup1v5)
+V17 net018 VSS! DC=0
+V36 net019 VSS! DC=0
+V64 comp_en_i 0 DC=0
+V62<12> comp_val_i<12> 0 DC=0
+V62<11> comp_val_i<11> 0 DC=0
+V62<10> comp_val_i<10> 0 DC=0
+V62<9> comp_val_i<9> 0 DC=0
+V62<8> comp_val_i<8> 0 DC=0
+V62<7> comp_val_i<7> 0 DC=0
+V62<6> comp_val_i<6> 0 DC=0
+V62<5> comp_val_i<5> 0 DC=0
+V62<4> comp_val_i<4> 0 DC=0
+V62<3> comp_val_i<3> 0 DC=0
+V62<2> comp_val_i<2> 0 DC=0
+V62<1> comp_val_i<1> 0 DC=0
+V62<0> comp_val_i<0> 0 DC=0
+V61<1> dither_cfg_i<1> 0 DC=0
+V61<0> dither_cfg_i<0> 0 DC=0
+V60 dscal_i 0 DC=vddc
+V59 epcal_i 0 DC=0
+V58 jtag_mode_i 0 DC=0
+V57 lv_gain_i 0 DC=0
+V56 mod_enable_i 0 DC=vddc
+V55 mod_lowsup_i 0 DC=vddc
+V54<1> overs_cfg_i<1> 0 DC=0
+V54<0> overs_cfg_i<0> 0 DC=0
+V51<3> scan_in_i<3> 0 DC=0
+V51<2> scan_in_i<2> 0 DC=0
+V51<1> scan_in_i<1> 0 DC=0
+V51<0> scan_in_i<0> 0 DC=0
+V52 scan_mode_i 0 DC=0
+V50 scan_enable_i 0 DC=0
+V49 sesp_i 0 DC=0
+V46 stc_i<0> 0 DC=stc0
+V48 stc_cal_i<0> 0 DC=stc_cal_0
+V47 stc_cal_i<1> 0 DC=stc_cal_1
+V45 stc_i<1> 0 DC=stc1
+V44<1> track_cfg_i<1> 0 DC=0
+V44<0> track_cfg_i<0> 0 DC=0
+V42<36> tst_dig_i<36> 0 DC=0
+V42<35> tst_dig_i<35> 0 DC=0
+V42<34> tst_dig_i<34> 0 DC=0
+V42<33> tst_dig_i<33> 0 DC=0
+V42<32> tst_dig_i<32> 0 DC=0
+V42<31> tst_dig_i<31> 0 DC=0
+V42<30> tst_dig_i<30> 0 DC=0
+V42<29> tst_dig_i<29> 0 DC=0
+V42<28> tst_dig_i<28> 0 DC=0
+V42<27> tst_dig_i<27> 0 DC=0
+V42<26> tst_dig_i<26> 0 DC=0
+V42<25> tst_dig_i<25> 0 DC=0
+V42<24> tst_dig_i<24> 0 DC=0
+V42<23> tst_dig_i<23> 0 DC=0
+V42<22> tst_dig_i<22> 0 DC=0
+V42<21> tst_dig_i<21> 0 DC=0
+V42<20> tst_dig_i<20> 0 DC=0
+V42<19> tst_dig_i<19> 0 DC=0
+V42<18> tst_dig_i<18> 0 DC=0
+V42<17> tst_dig_i<17> 0 DC=0
+V42<16> tst_dig_i<16> 0 DC=0
+V42<15> tst_dig_i<15> 0 DC=0
+V42<14> tst_dig_i<14> 0 DC=0
+V42<13> tst_dig_i<13> 0 DC=0
+V42<12> tst_dig_i<12> 0 DC=0
+V42<11> tst_dig_i<11> 0 DC=0
+V42<10> tst_dig_i<10> 0 DC=0
+V42<9> tst_dig_i<9> 0 DC=0
+V42<8> tst_dig_i<8> 0 DC=0
+V42<7> tst_dig_i<7> 0 DC=0
+V42<6> tst_dig_i<6> 0 DC=0
+V42<5> tst_dig_i<5> 0 DC=0
+V42<4> tst_dig_i<4> 0 DC=0
+V42<3> tst_dig_i<3> 0 DC=0
+V42<2> tst_dig_i<2> 0 DC=0
+V42<1> tst_dig_i<1> 0 DC=0
+V42<0> tst_dig_i<0> 0 DC=0
+V1 tst_stress_i 0 DC=0
+XI177 VSSb! VDDba! VDDbc! VDDa! VDDc! VSS! supplies
+XI16 bg_out VSS! VSSb! VDDba! VDDa! VSS! bandgap
+XI18 VSS! bg_out vrefp VSSb! VDDba! VDDa! VSS! bg_precond
+Xstim clk_i res_n_i mod_ready_o in0 in1 in2 chnr_i<4> chnr_i<3> chnr_i<2> chnr_i<1> chnr_i<0> start_adc_i vrefp result_o<11> result_o<10> result_o<9> result_o<8> result_o<7> result_o<6> result_o<5> result_o<4> result_o<3> result_o<2> result_o<1> eoc_o DNL_MAX
++ INL_MAX TEST_PASS testnr fail test_en stim_and_check_mct fclk=2.8e+07 vhigh=1.5 vlow=0 trf=3e-11 clk_per_sample=26 max_dnl_spec=max_dnl_spec max_inl_spec=max_inl_spec exit_on_inl_dnl_error=exit_on_inl_dnl_error epsilon_real=0.125
++ first_iter_width=32 delay_between_samples=1e-06 delay_between_ranges=1e-06
+XDUT busy_o chnr_i<4> chnr_i<3> chnr_i<2> chnr_i<1> chnr_i<0> clk_i comp_en_i comp_val_i<12> comp_val_i<11> comp_val_i<10> comp_val_i<9> comp_val_i<8> comp_val_i<7> comp_val_i<6> comp_val_i<5> comp_val_i<4> comp_val_i<3> comp_val_i<2> comp_val_i<1> comp_val_i<0>
++ dither_cfg_i<1> dither_cfg_i<0> dscal_i eoc_o eoc_pre_o epcal_i jtag_mode_i lv_gain_i in0 in1 in2 mod_enable_i mod_lowsup_i mod_ready_o VDDa! overs_cfg_i<1> overs_cfg_i<0> res_n_i result_o<11> result_o<10> result_o<9> result_o<8> result_o<7> result_o<6>
++ result_o<5> result_o<4> result_o<3> result_o<2> result_o<1> result_o<0> scan_enable_i scan_in_i<3> scan_in_i<2> scan_in_i<1> scan_in_i<0> scan_mode_i scan_out_o<3> scan_out_o<2> scan_out_o<1> scan_out_o<0> sesp_i start_adc_i stc_cal_i<1> stc_cal_i<0> stc_i<1>
++ stc_i<0> track_cfg_i<1> track_cfg_i<0> tst_dig_i<36> tst_dig_i<35> tst_dig_i<34> tst_dig_i<33> tst_dig_i<32> tst_dig_i<31> tst_dig_i<30> tst_dig_i<29> tst_dig_i<28> tst_dig_i<27> tst_dig_i<26> tst_dig_i<25> tst_dig_i<24> tst_dig_i<23> tst_dig_i<22>
++ tst_dig_i<21> tst_dig_i<20> tst_dig_i<19> tst_dig_i<18> tst_dig_i<17> tst_dig_i<16> tst_dig_i<15> tst_dig_i<14> tst_dig_i<13> tst_dig_i<12> tst_dig_i<11> tst_dig_i<10> tst_dig_i<9> tst_dig_i<8> tst_dig_i<7> tst_dig_i<6> tst_dig_i<5> tst_dig_i<4> tst_dig_i<3>
++ tst_dig_i<2> tst_dig_i<1> tst_dig_i<0> test_dig_o<19> test_dig_o<18> test_dig_o<17> test_dig_o<16> test_dig_o<15> test_dig_o<14> test_dig_o<13> test_dig_o<12> test_dig_o<11> test_dig_o<10> test_dig_o<9> test_dig_o<8> test_dig_o<7> test_dig_o<6> test_dig_o<5>
++ test_dig_o<4> test_dig_o<3> test_dig_o<2> test_dig_o<1> test_dig_o<0> tst_stress_i net018 vrefp net019 VSSb! VDDbc! VSSb! VDDba! VDDa! VDDc! VDDc! VDDc! VDDa! VSS! VSS! saradc_11b_top
+** End of top cell tb_saradc_mct.
+
