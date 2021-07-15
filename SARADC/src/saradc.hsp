@@ -1,0 +1,3420 @@
+* Disclaimer:
+* THIS FILE IS PROVIDED AS IS AND WITH:
+* (A)  NO WARRANTY OF ANY KIND, express, implied or statutory, including any implied warranties of merchantability, fitness for a particular purpose and noninfringement, which Infineon disclaims to the maximum extent permitted by applicable law; and
+* (B)  NO INDEMNIFICATION FOR INFRINGEMENT OF INTELLECTUAL PROPERTY RIGHTS.
+* LIMITATION OF LIABILITY:  IN NO EVENT SHALL INFINEON BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES (INCLUDING LOST PROFITS OR SAVINGS) WHATSOEVER, WHETHER BASED ON CONTRACT, TORT OR 
+* ANY OTHER LEGAL THEORY, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+* © 2020 Infineon Technologies AG. All rights reserved
+
+* Release:
+* version 1.0
+
+.GLOBAL VDDa! VSS! VDDba! VDDc! VSSb! VDDbc!
+
+** Cell name: supplies
+.SUBCKT supplies inh_bulkn inh_bulkpanalog inh_bulkpcore inh_hsupanalog inh_hsupcore inh_lSup
+  V0 net7 inh_lSup DC=vsup2v5 PULSE( 0 vsup2v5 td_ps tr_ps 1m 9 10 ) 
+  V1 net8 inh_lSup DC=vsup1v5 PULSE( 0 vsup1v5 td_ps tr_ps 1m 9 10 ) 
+  R5 0 inh_lSup R=1m
+  R4 inh_hsupcore net8 R=rhsupcore
+  R3 inh_hsupanalog net7 R=rhsupanalog
+  R2 inh_hsupanalog inh_bulkpanalog R=rbulkpanalog
+  R1 inh_hsupcore inh_bulkpcore R=rbulkpcore
+  R0 inh_lSup inh_bulkn R=1m
+.ENDS
+** End of subcircuit definition.
+
+** Cell name: bandgap
+.SUBCKT bandgap bg_out disable inh_bulkn inh_bulkpanalog inh_hsupanalog inh_lSup
+  M78 inh_lSup inh_lSup inh_hsupanalog inh_bulkn NANA W=400n L=400n M=1
+  M77 inh_lSup inh_lSup bg_out inh_bulkn NANA W=400n L=400n M=1
+  M74 net016 net011 inh_lSup inh_bulkn NANA W=400n L=400n M=1
+  M73 net074 net064 net019 inh_bulkn NANA W=400n L=400n M=1
+  M62 bg_out net011 inh_lSup inh_bulkn NANA W=400n L=400n M=1
+  M65 net013 net011 inh_lSup inh_bulkn NANA W=400n L=400n M=1
+  M68 net013 net064 net070 inh_bulkn NANA W=400n L=400n M=1
+  M69 net069 net016 inh_lSup inh_bulkn NANA W=400n L=2.4u M=4
+  M72 net016 net064 net0127 inh_bulkn NANA W=400n L=400n M=1
+  M47 net019 net019 inh_lSup inh_bulkn NANA W=400n L=400n M=1
+  M45 net029 net019 net41 inh_bulkn NANA W=400n L=400n M=2
+  M61 net011 net064 inh_lSup inh_bulkn NANA W=400n L=400n M=1
+  M49 net070 net013 inh_lSup inh_bulkn NANA W=400n L=2.4u M=1
+  M48 net0127 net013 inh_lSup inh_bulkn NANA W=400n L=2.4u M=1
+  M55 net064 disable inh_lSup inh_bulkn NANA W=400n L=400n M=1
+  M70 net011 net064 inh_hsupanalog inh_bulkpanalog PANA W=1.2u L=400n M=1
+  M80 net030 net011 net078 inh_bulkpanalog PANA W=400n L=400n M=8
+  M60 net028 net077 net025 inh_bulkpanalog PANA W=400n L=400n M=1
+  M59 net029 net077 net030 inh_bulkpanalog PANA W=400n L=400n M=8
+  M85 net070 net012 net028 inh_bulkpanalog PANA W=400n L=800n M=4
+  M58 net0127 net0105 net028 inh_bulkpanalog PANA W=400n L=800n M=4
+  M90 net068 net064 inh_hsupanalog inh_bulkpanalog PANA W=400n L=400n M=8
+  M75 net077 net064 inh_hsupanalog inh_bulkpanalog PANA W=400n L=400n M=8
+  M89 net068 net077 net042 inh_bulkpanalog PANA W=400n L=400n M=2
+  M79 net029 net011 net077 inh_bulkpanalog PANA W=400n L=400n M=8
+  M84 net078 net064 inh_hsupanalog inh_bulkpanalog PANA W=400n L=400n M=8
+  M51 net39 net39 inh_hsupanalog inh_bulkpanalog PANA W=400n L=1.2u M=1
+  M81 net076 net076 net39 inh_bulkpanalog PANA W=400n L=1.2u M=1
+  M82 net074 net074 net076 inh_bulkpanalog PANA W=400n L=1.2u M=1
+  M50 net074 net078 inh_hsupanalog inh_bulkpanalog PANA W=400n L=400n M=1
+  M27 net030 net078 inh_hsupanalog inh_bulkpanalog PANA W=400n L=400n M=1
+  M71 bg_out net011 net053 inh_bulkpanalog PANA W=400n L=400n M=8
+  M56 net025 net078 inh_hsupanalog inh_bulkpanalog PANA W=400n L=400n M=1
+  M88 net042 net078 inh_hsupanalog inh_bulkpanalog PANA W=400n L=400n M=2
+  M63 net053 net068 inh_hsupanalog inh_bulkpanalog PANA W=400n L=400n M=8
+  M86 net039 net068 inh_hsupanalog inh_bulkpanalog PANA W=400n L=400n M=4
+  M87 net040 net068 inh_hsupanalog inh_bulkpanalog PANA W=400n L=400n M=4
+  M76 net069 net011 net068 inh_bulkpanalog PANA W=400n L=400n M=8
+  M83 net064 disable inh_hsupanalog inh_bulkpanalog PANA W=1.2u L=400n M=1
+  R248 net050 net0102 R=10K
+  R247 net0102 net0105 R=10K
+  R246 net0102 net038 R=10K
+  R233 net038 net0105 R=10K
+  R245 net0100 net0101 R=10K
+  R244 net0101 net051 R=10K
+  R243 net051 net038 R=10K
+  R242 net0100 net055 R=10K
+  R241 net055 net054 R=10K
+  R278 net053 net0132 R=10K
+  R249 net050 net099 R=10K
+  R277 net0120 net0126 R=10K
+  R276 net0136 net0120 R=10K
+  R275 net0136 net0117 R=10K
+  R263 net0133 net0135 R=10K
+  R262 net0114 net0131 R=10K
+  R261 net0121 net0134 R=10K
+  R260 net0122 net062 R=10K
+  R250 net099 net049 R=10K
+  R255 net053 net045 R=10K
+  R240 net054 net056 R=10K
+  R239 net059 net058 R=10K
+  R254 net046 net047 R=10K
+  R253 net045 net046 R=10K
+  R274 net0126 net0137 R=10K
+  R273 net0132 net0123 R=10K
+  R259 net0129 net0133 R=10K
+  R258 net0128 net0114 R=10K
+  R272 net0117 net041 R=10K
+  R271 net0117 net012 R=10K
+  R270 net0137 net0125 R=10K
+  R269 net0123 net0125 R=10K
+  R268 net041 net012 R=10K
+  R267 net0118 net0129 R=10K
+  R266 net0131 net0135 R=10K
+  R265 net0134 net041 R=10K
+  R238 net058 net057 R=10K
+  R237 net057 net056 R=10K
+  R252 net048 net047 R=10K
+  R251 net049 net048 R=10K
+  R236 net061 net0105 R=10K
+  R11 net41 inh_lSup R=50K
+  R235 net060 net061 R=10K
+  R257 net0128 net0121 R=10K
+  R264 net062 net012 R=10K
+  R0 net0105 net052 R=10K
+  R256 net0118 net0122 R=10K
+  R234 net059 net060 R=10K
+  C2 net069 net0127 C=5f
+  C1 net069 net0127 C=5f
+  Q1 inh_lSup inh_lSup net012 inh_bulkn LATPNP
+  Q0 inh_lSup inh_lSup net052 inh_bulkn LATPNP M=8
+  Q3 inh_lSup net012 net039 inh_bulkn LATPNP
+  Q2 inh_lSup net052 net040 inh_bulkn LATPNP M=8
+.ENDS
+** End of subcircuit definition.
+
+** Cell name: bg_precond
+.SUBCKT bg_precond disable refin refout inh_bulkn inh_bulkpanalog inh_hsupanalog inh_lSup
+  M73 net22 net20 net21 inh_bulkn NANA W=400n L=400n M=1
+  M47 net21 net21 inh_lSup inh_bulkn NANA W=400n L=400n M=1
+  M65 net017 net07 inh_lSup inh_bulkn NANA W=400n L=400n M=1
+  M78 inh_lSup inh_lSup inh_hsupanalog inh_bulkn NANA W=400n L=400n M=1
+  M7 net075 net16 net077 inh_bulkn NANA W=400n L=800n M=20
+  M4 refout net07 inh_lSup inh_bulkn NANA W=400n L=400n M=1
+  M8 net16 net07 inh_lSup inh_bulkn NANA W=400n L=400n M=1
+  M77 inh_lSup inh_lSup refout inh_bulkn NANA W=400n L=400n M=1
+  M61 net07 net20 inh_lSup inh_bulkn NANA W=400n L=400n M=1
+  M55 net20 disable inh_lSup inh_bulkn NANA W=400n L=400n M=1
+  M68 net074 net20 net017 inh_bulkn NANA W=400n L=400n M=1
+  M72 net15 net20 net070 inh_bulkn NANA W=400n L=400n M=1
+  M49 net070 net017 inh_lSup inh_bulkn NANA W=400n L=2.4u M=1
+  M45 net28 net21 net54 inh_bulkn NANA W=400n L=400n M=2
+  M48 net074 net017 inh_lSup inh_bulkn NANA W=400n L=2.4u M=1
+  M69 net16 net15 inh_lSup inh_bulkn NANA W=400n L=2.4u M=10
+  M74 net15 net07 inh_lSup inh_bulkn NANA W=400n L=400n M=1
+  C1 net16 net070 C=5f
+  C2 net16 net070 C=5f
+  R0 refout inh_lSup R=120K
+  R2 refin net08 R=1K
+  R4 inh_hsupanalog net075 R=400K
+  R1 net077 refout R=20K
+  R11 net54 inh_lSup R=50K
+  M85 net070 net08 net13 inh_bulkpanalog PANA W=400n L=1.2u M=4
+  M75 net18 net20 inh_hsupanalog inh_bulkpanalog PANA W=400n L=400n M=8
+  M60 net13 net18 net38 inh_bulkpanalog PANA W=400n L=400n M=1
+  M84 net19 net20 inh_hsupanalog inh_bulkpanalog PANA W=400n L=400n M=8
+  M89 net048 net18 net051 inh_bulkpanalog PANA W=400n L=400n M=5
+  M0 net026 net026 net25 inh_bulkpanalog PANA W=400n L=1.2u M=1
+  M76 net16 net07 net048 inh_bulkpanalog PANA W=400n L=400n M=8
+  M27 net29 net19 inh_hsupanalog inh_bulkpanalog PANA W=400n L=400n M=2
+  M56 net38 net19 inh_hsupanalog inh_bulkpanalog PANA W=400n L=400n M=2
+  M79 net28 net07 net18 inh_bulkpanalog PANA W=400n L=400n M=8
+  M5 net077 net075 inh_hsupanalog inh_bulkpanalog PANA W=400n L=400n M=5
+  M59 net28 net18 net29 inh_bulkpanalog PANA W=400n L=400n M=8
+  M88 net051 net19 inh_hsupanalog inh_bulkpanalog PANA W=400n L=400n M=10
+  M50 net22 net19 inh_hsupanalog inh_bulkpanalog PANA W=400n L=400n M=2
+  M51 net25 net25 inh_hsupanalog inh_bulkpanalog PANA W=400n L=1.2u M=1
+  M70 net07 net20 inh_hsupanalog inh_bulkpanalog PANA W=1.2u L=400n M=1
+  M83 net20 disable inh_hsupanalog inh_bulkpanalog PANA W=1.2u L=400n M=1
+  M58 net074 net077 net13 inh_bulkpanalog PANA W=400n L=1.2u M=4
+  M80 net29 net07 net19 inh_bulkpanalog PANA W=400n L=400n M=8
+  M1 net22 net22 net026 inh_bulkpanalog PANA W=400n L=1.2u M=1
+.ENDS
+** End of subcircuit definition.
+
+** Cell name: saradc_11b_dig_top
+.SUBCKT saradc_11b_dig_top clk_i res_n_i chnr_i<4> chnr_i<3> chnr_i<2> chnr_i<1> chnr_i<0> comp_en_i comp_val_i<12> comp_val_i<11> comp_val_i<10> comp_val_i<9> comp_val_i<8> comp_val_i<7> comp_val_i<6> comp_val_i<5> comp_val_i<4> comp_val_i<3> comp_val_i<2>
++ comp_val_i<1> comp_val_i<0> dither_cfg_i<1> dither_cfg_i<0> dscal_i epcal_i lv_gain_i mod_enable_i mod_lowsup_i overs_cfg_i<1> overs_cfg_i<0> sesp_i start_adc_i stc_i<1> stc_i<0> stc_cal_i<1> stc_cal_i<0> track_cfg_i<1> track_cfg_i<0> tst_stress_i busy_o
++ eoc_pre_o eoc_o mod_ready_o result_o<11> result_o<10> result_o<9> result_o<8> result_o<7> result_o<6> result_o<5> result_o<4> result_o<3> result_o<2> result_o<1> result_o<0> tst_dig_o<19> tst_dig_o<18> tst_dig_o<17> tst_dig_o<16> tst_dig_o<15> tst_dig_o<14>
++ tst_dig_o<13> tst_dig_o<12> tst_dig_o<11> tst_dig_o<10> tst_dig_o<9> tst_dig_o<8> tst_dig_o<7> tst_dig_o<6> tst_dig_o<5> tst_dig_o<4> tst_dig_o<3> tst_dig_o<2> tst_dig_o<1> tst_dig_o<0> comp_i sar_i<12> sar_i<11> sar_i<10> sar_i<9> sar_i<8> sar_i<7> sar_i<6>
++ sar_i<5> sar_i<4> sar_i<3> sar_i<2> sar_i<1> sar_i<0> track_i<4> track_i<3> track_i<2> track_i<1> track_i<0> cal_o<5> cal_o<4> cal_o<3> cal_o<2> cal_o<1> cal_o<0> comp_res_o cp_clk_ldo_o din_n_o<13> din_n_o<12> din_n_o<11> din_n_o<10> din_n_o<9> din_n_o<8>
++ din_n_o<7> din_n_o<6> din_n_o<5> din_n_o<4> din_n_o<3> din_n_o<2> din_n_o<1> din_n_o<0> en_vain_lv_o enable_o lowsup_o ocs_o ref_o release_ldo_o sar_clk_o sar_res_o sample_ch_o<13> sample_ch_o<12> sample_ch_o<11> sample_ch_o<10> sample_ch_o<9> sample_ch_o<8>
++ sample_ch_o<7> sample_ch_o<6> sample_ch_o<5> sample_ch_o<4> sample_ch_o<3> sample_ch_o<2> sample_ch_o<1> sample_ch_o<0> scab_clk_o sesp_del_o<2> sesp_del_o<1> sesp_del_o<0> set_sar_o set_track_o track_res_o trackin_n_o<5> trackin_n_o<4> trackin_n_o<3>
++ trackin_n_o<2> trackin_n_o<1> trackin_n_o<0> jtag_mode_i scan_enable_i scan_in_i<3> scan_in_i<2> scan_in_i<1> scan_in_i<0> scan_out_o<3> scan_out_o<2> scan_out_o<1> scan_out_o<0> scan_mode_i tst_dig_i<36> tst_dig_i<35> tst_dig_i<34> tst_dig_i<33> tst_dig_i<32>
++ tst_dig_i<31> tst_dig_i<30> tst_dig_i<29> tst_dig_i<28> tst_dig_i<27> tst_dig_i<26> tst_dig_i<25> tst_dig_i<24> tst_dig_i<23> tst_dig_i<22> tst_dig_i<21> tst_dig_i<20> tst_dig_i<19> tst_dig_i<18> tst_dig_i<17> tst_dig_i<16> tst_dig_i<15> tst_dig_i<14>
++ tst_dig_i<13> tst_dig_i<12> tst_dig_i<11> tst_dig_i<10> tst_dig_i<9> tst_dig_i<8> tst_dig_i<7> tst_dig_i<6> tst_dig_i<5> tst_dig_i<4> tst_dig_i<3> tst_dig_i<2> tst_dig_i<1> tst_dig_i<0>
+.ENDS
+** End of subcircuit definition.
+
+** Cell name: sub_diode
+.SUBCKT sub_diode MINUS PLUS inh_bulk_n
+  Q1 MINUS MINUS PLUS inh_bulk_n LATPNP
+.ENDS
+** End of subcircuit definition.
+
+** Cell name: TIEZERO
+.SUBCKT TIEZERO Z inh_bulk_n inh_bulk_p inh_hSup inh_lSup
+  Mptrans10 netcheck_mark netcheck_mark inh_hSup inh_bulk_p PREG W=860.0n L=120.0n M=1
+  Mntrans11 Z netcheck_mark inh_lSup inh_bulk_n NREG W=400n L=120.0n M=1
+  XINSTANCE1 inh_hSup inh_lSup inh_bulk_n sub_diode
+.ENDS
+** End of subcircuit definition.
+
+** Cell name: INV2
+.SUBCKT INV2 A Z inh_bulk_n inh_bulk_p inh_hSup inh_lSup
+  Mptrans10 Z A inh_hSup inh_bulk_p PREG W=1.62u L=120.0n M=1
+  Mntrans11 Z A inh_lSup inh_bulk_n NREG W=1.12u L=120.0n M=1
+  XINSTANCE1 inh_hSup inh_lSup inh_bulk_n sub_diode
+.ENDS
+** End of subcircuit definition.
+
+** Cell name: adc_bg_buffer_scab
+.SUBCKT adc_bg_buffer_scab disable_i enable_i ibp_10u_ai ocs_ref_i ref_i scab_clk_i vain_ai vain_sel_i vcomp_ai vout_ao vrefp_ai inh_bulk_n inh_bulkn inh_hSup inh_lSup
+  R5 net010 ibp_10u_ai R=1K
+  R0 net040 vout_ao R=3.7K
+  M25 net033 net68 inh_lSup inh_bulk_n NREG W=680.0n L=120n
+  M23 net011 net68 inh_lSup inh_bulk_n NREG W=680.0n L=120n
+  M22 net036 net68 inh_lSup inh_bulk_n NREG W=680.0n L=120n
+  M21 vb_n net68 inh_lSup inh_bulk_n NREG W=680.0n L=120n
+  M19 net010 net27 vb_n inh_bulk_n NREG W=680.0n L=120n
+  MN13 b vb_n inh_lSup inh_bulk_n NREG W=3u L=2u
+  M20 ibp_10u_ai net27 net036 inh_bulk_n NREG W=680.0n L=120n
+  M6 net021 vb_n inh_lSup inh_bulk_n NREG W=3u L=2u M=8
+  MN17 net010 net036 b inh_bulk_n NREG W=10u L=500n
+  M77 inh_lSup inh_lSup vout_ao inh_bulk_n NANA W=400n L=400n M=1
+  M5 net028 net022 net011 inh_bulk_n NREG W=3u L=300n M=4
+  M29 b net68 inh_lSup inh_bulk_n NREG W=680.0n L=400n
+  M7 net011 net036 net021 inh_bulk_n NREG W=10u L=500n M=8
+  M28 net022 net68 inh_lSup inh_bulk_n NREG W=680.0n L=120n
+  M78 inh_lSup inh_lSup vcomp_ai inh_bulkn NANA W=400n L=400n M=1
+  M4 net019 vout_ao net011 inh_bulk_n NREG W=3u L=300n M=4
+  M18 vout_ao net036 net033 inh_bulk_n NREG W=10u L=500n M=20
+  M10 net033 vb_n inh_lSup inh_bulk_n NREG W=3u L=2u M=20
+  M26 vout_ao net68 inh_lSup inh_bulk_n NREG W=680.0n L=120n
+  M24 net028 net27 vcomp_ai vcomp_ai PREG W=2u L=300n M=5
+  M27 net022 net68 vrefp_ai vcomp_ai PREG W=2u L=300n M=5
+  M11 vout_ao net028 vcomp_ai vcomp_ai PREG W=2u L=300n M=25
+  M3 net019 net019 vcomp_ai vcomp_ai PREG W=2u L=300n M=5
+  M9 net028 net019 vcomp_ai vcomp_ai PREG W=2u L=300n M=5
+  XI65 enable_i net68 inh_bulk_n vlogic_ai inh_hSup inh_lSup INV2
+  XI82 disable_i net27 inh_bulk_n vlogic_ai inh_hSup inh_lSup INV2
+  C0 net028 net040 C=37f
+  C1 net028 net040 C=37f
+.ENDS
+** End of subcircuit definition.
+
+** Cell name: adc_res_filt
+.SUBCKT adc_res_filt vrefn1_ao vrefn2_ao vrefn_ai vrefp_ai vsense_grnd_ai inh_bulk_n inh_lSup
+  R0 vsense_grnd_ai vrefn2_ao R=152
+  R1 vrefn_ai vrefn1_ao R=50
+  XD1 vrefp_ai inh_lSup inh_bulk_n sub_diode
+.ENDS
+** End of subcircuit definition.
+
+** Cell name: INV3
+.SUBCKT INV3 A Z inh_bulk_n inh_bulk_p inh_hSup inh_lSup
+  Mptrans10 Z A inh_hSup inh_bulk_p PREG W=2.44u L=120.0n M=1
+  Mntrans11 Z A inh_lSup inh_bulk_n NREG W=1.7u L=120.0n M=1
+  XINSTANCE1 inh_hSup inh_lSup inh_bulk_n sub_diode
+.ENDS
+** End of subcircuit definition.
+
+** Cell name: adc_swtree_muxlog
+.SUBCKT adc_swtree_muxlog a ena_lv_n_i ena_lv_p_i nmosf nmosl pmosf pmosl vdd1v5_in inh_bulk_n inh_lSup
+  MP21 pmosl z_int_n vdd1v5_in vdd1v5_in PREG W=680.0n L=120.0n M=1
+  MP20 pmosl ena_lv_p_i vdd1v5_in vdd1v5_in PREG W=480.0n L=120.0n M=1
+  MP19 nmosl pmosl vdd1v5_in vdd1v5_in PREG W=680.0n L=120.0n M=1
+  MP13 nmosf z_int_n vdd1v5_in vdd1v5_in PREG W=1.2u L=120.0n M=1
+  MP7 pmosf z_int_n vdd1v5_in vdd1v5_in PREG W=1.2u L=120.0n M=1
+  MP11 pmosf ena_lv_n_i vdd1v5_in vdd1v5_in PREG W=480.0n L=120.0n M=1
+  MP0 z_int_n a vdd1v5_in vdd1v5_in PREG W=1.38u L=120.0n M=1
+  XD0 vdd1v5_in inh_lSup inh_bulk_n sub_diode
+  MN17 nmosl pmosl inh_lSup inh_lSup NREG W=680.0n L=120.0n M=1
+  MN19 pmosl ena_lv_p_i net043 inh_lSup NREG W=680.0n L=120.0n M=1
+  MN18 net043 z_int_n inh_lSup inh_lSup NREG W=680.0n L=120.0n M=1
+  MN10 nmosf z_int_n inh_lSup inh_lSup NREG W=680.0n L=120.0n M=1
+  MN9 pmosf ena_lv_n_i net035 inh_lSup NREG W=680.0n L=120.0n M=1
+  MN5 net035 z_int_n inh_lSup inh_lSup NREG W=680.0n L=120.0n M=1
+  MN0 z_int_n a inh_lSup inh_lSup NREG W=960.0n L=120.0n M=1
+.ENDS
+** End of subcircuit definition.
+
+** Cell name: adc_swtree
+.SUBCKT adc_swtree c0 c1 c2 c3 c4 c5 c6 c7 c8 c9 c10 c11 c12 enable_lv_i sar_n_i<12> sar_n_i<11> sar_n_i<10> sar_n_i<9> sar_n_i<8> sar_n_i<7> sar_n_i<6> sar_n_i<5> sar_n_i<4> sar_n_i<3> sar_n_i<2> sar_n_i<1> sar_n_i<0> vagnd_ai vain_lv_ai volt_cap vrefp_buf_ai
++ inh_bulk_n inh_bulk_p inh_lSup
+  XD0 volt_cap inh_lSup inh_bulk_n sub_diode
+  XI33 net048 net051 inh_bulk_n inh_bulk_p volt_cap inh_lSup INV3
+  XI545 enable_lv_i net048 inh_bulk_n inh_bulk_p volt_cap inh_lSup INV3
+  M66 net0189 net0161 vagnd_ai inh_lSup NREG W=680.0n L=120.0n M=1
+  M65 net0188 net0163 vagnd_ai inh_lSup NREG W=680.0n L=120.0n M=1
+  M64 net0228 net0165 vagnd_ai inh_lSup NREG W=680.0n L=120.0n M=1
+  M63 net0222 net0167 vagnd_ai inh_lSup NREG W=680.0n L=120.0n M=1
+  M62 net0185 net47 vagnd_ai inh_lSup NREG W=1u L=120.0n M=1
+  M61 net0221 net0152 vagnd_ai inh_lSup NREG W=680.0n L=120.0n M=1
+  M60 net0229 net0154 vagnd_ai inh_lSup NREG W=680.0n L=120.0n M=1
+  M59 net0193 net0156 vagnd_ai inh_lSup NREG W=680.0n L=120.0n M=1
+  M58 net0219 net0158 vagnd_ai inh_lSup NREG W=680.0n L=120.0n M=1
+  M57 net0191 net0160 vagnd_ai inh_lSup NREG W=680.0n L=120.0n M=1
+  M56 net0212 net0145 vagnd_ai inh_lSup NREG W=680.0n L=120.0n M=1
+  MN38 c0 net0145 net0212 inh_lSup NREG W=680.0n L=120.0n M=1
+  MN37 vain_lv_ai net0136 c0 inh_lSup NREG W=680.0n L=120.0n M=1
+  MN36 c1 net0147 net0230 inh_lSup NREG W=680.0n L=120.0n M=1
+  MN35 vain_lv_ai net0121 c1 inh_lSup NREG W=680.0n L=120.0n M=1
+  MN34 c2 net0149 net0217 inh_lSup NREG W=680.0n L=120.0n M=1
+  MN33 vain_lv_ai net0106 c2 inh_lSup NREG W=680.0n L=120.0n M=1
+  MN20 c8 net0161 net0189 inh_lSup NREG W=680.0n L=120.0n M=1
+  MN19 vain_lv_ai net0197 c8 inh_lSup NREG W=680.0n L=120.0n M=1
+  MN18 c9 net0163 net0188 inh_lSup NREG W=680.0n L=120.0n M=1
+  M55 net0230 net0147 vagnd_ai inh_lSup NREG W=680.0n L=120.0n M=1
+  MN12 vain_lv_ai net0108 c12 inh_lSup NREG W=1u L=120.0n M=1
+  MN23 c7 net0160 net0191 inh_lSup NREG W=680.0n L=120.0n M=1
+  MN24 vain_lv_ai net0107 c7 inh_lSup NREG W=680.0n L=120.0n M=1
+  MN25 c6 net0158 net0219 inh_lSup NREG W=680.0n L=120.0n M=1
+  MN26 vain_lv_ai net0122 c6 inh_lSup NREG W=680.0n L=120.0n M=1
+  MN27 c5 net0156 net0193 inh_lSup NREG W=680.0n L=120.0n M=1
+  MN28 vain_lv_ai net0137 c5 inh_lSup NREG W=680.0n L=120.0n M=1
+  MN29 c4 net0154 net0229 inh_lSup NREG W=680.0n L=120.0n M=1
+  MN31 c3 net0152 net0221 inh_lSup NREG W=680.0n L=120.0n M=1
+  MN30 vain_lv_ai net0195 c4 inh_lSup NREG W=680.0n L=120.0n M=1
+  MN32 vain_lv_ai net0190 c3 inh_lSup NREG W=680.0n L=120.0n M=1
+  MN14 c11 net0167 net0222 inh_lSup NREG W=680.0n L=120.0n M=1
+  MN13 vain_lv_ai net0123 c11 inh_lSup NREG W=680.0n L=120.0n M=1
+  MN15 vain_lv_ai net0138 c10 inh_lSup NREG W=680.0n L=120.0n M=1
+  MN16 c10 net0165 net0228 inh_lSup NREG W=680.0n L=120.0n M=1
+  MN17 vain_lv_ai net0187 c9 inh_lSup NREG W=680.0n L=120.0n M=1
+  M54 net0217 net0149 vagnd_ai inh_lSup NREG W=680.0n L=120.0n M=1
+  MN132 c12 net47 net0185 inh_lSup NREG W=1u L=120.0n M=1
+  MP39 c0 net0146 vrefp_buf_ai volt_cap PREG W=680.0n L=120.0n M=1
+  MP38 c0 net0133 vain_lv_ai volt_cap PREG W=680.0n L=120.0n M=1
+  MP37 c1 net0148 vrefp_buf_ai volt_cap PREG W=680.0n L=120.0n M=1
+  MP36 c1 net0118 vain_lv_ai volt_cap PREG W=680.0n L=120.0n M=1
+  MP33 c3 net0186 vain_lv_ai volt_cap PREG W=680.0n L=120.0n M=1
+  MP34 c2 net0103 vain_lv_ai volt_cap PREG W=680.0n L=120.0n M=1
+  MP35 c2 net0150 vrefp_buf_ai volt_cap PREG W=680.0n L=120.0n M=1
+  MP21 c8 net0162 vrefp_buf_ai volt_cap PREG W=680.0n L=120.0n M=1
+  MP20 c8 net0194 vain_lv_ai volt_cap PREG W=680.0n L=120.0n M=1
+  MP19 c9 net0164 vrefp_buf_ai volt_cap PREG W=680.0n L=120.0n M=1
+  MP24 c7 net0159 vrefp_buf_ai volt_cap PREG W=680.0n L=120.0n M=1
+  MP25 c7 net0104 vain_lv_ai volt_cap PREG W=680.0n L=120.0n M=1
+  MP26 c6 net0157 vrefp_buf_ai volt_cap PREG W=680.0n L=120.0n M=1
+  MP27 c6 net0119 vain_lv_ai volt_cap PREG W=680.0n L=120.0n M=1
+  MP29 c5 net0134 vain_lv_ai volt_cap PREG W=680.0n L=120.0n M=1
+  MP28 c5 net0155 vrefp_buf_ai volt_cap PREG W=680.0n L=120.0n M=1
+  MP30 c4 net0153 vrefp_buf_ai volt_cap PREG W=680.0n L=120.0n M=1
+  MP31 c4 net0196 vain_lv_ai volt_cap PREG W=680.0n L=120.0n M=1
+  MP32 c3 net0151 vrefp_buf_ai volt_cap PREG W=680.0n L=120.0n M=1
+  MP14 c11 net0120 vain_lv_ai volt_cap PREG W=1u L=120.0n M=1
+  MP16 c10 net0135 vain_lv_ai volt_cap PREG W=680.0n L=120.0n M=1
+  MP15 c11 net0168 vrefp_buf_ai volt_cap PREG W=1.2u L=120.0n M=1
+  MP17 c10 net0166 vrefp_buf_ai volt_cap PREG W=720.0n L=120.0n M=1
+  MP13 c12 net0105 vain_lv_ai volt_cap PREG W=2u L=120.0n M=1
+  MP6 c12 net0170 vrefp_buf_ai volt_cap PREG W=2u L=120.0n M=1
+  MP18 c9 net0192 vain_lv_ai volt_cap PREG W=680.0n L=120.0n M=1
+  XI30 sar_n_i<0> net048 net051 net0145 net0136 net0146 net0133 volt_cap inh_bulk_n inh_lSup adc_swtree_muxlog
+  XI29 sar_n_i<1> net048 net051 net0147 net0121 net0148 net0118 volt_cap inh_bulk_n inh_lSup adc_swtree_muxlog
+  XI28 sar_n_i<2> net048 net051 net0149 net0106 net0150 net0103 volt_cap inh_bulk_n inh_lSup adc_swtree_muxlog
+  XI21 sar_n_i<8> net048 net051 net0161 net0197 net0162 net0194 volt_cap inh_bulk_n inh_lSup adc_swtree_muxlog
+  XI20 sar_n_i<9> net048 net051 net0163 net0187 net0164 net0192 volt_cap inh_bulk_n inh_lSup adc_swtree_muxlog
+  XI15 sar_n_i<12> net048 net051 net47 net0108 net0170 net0105 volt_cap inh_bulk_n inh_lSup adc_swtree_muxlog
+  XI23 sar_n_i<7> net048 net051 net0160 net0107 net0159 net0104 volt_cap inh_bulk_n inh_lSup adc_swtree_muxlog
+  XI24 sar_n_i<6> net048 net051 net0158 net0122 net0157 net0119 volt_cap inh_bulk_n inh_lSup adc_swtree_muxlog
+  XI25 sar_n_i<5> net048 net051 net0156 net0137 net0155 net0134 volt_cap inh_bulk_n inh_lSup adc_swtree_muxlog
+  XI26 sar_n_i<4> net048 net051 net0154 net0195 net0153 net0196 volt_cap inh_bulk_n inh_lSup adc_swtree_muxlog
+  XI27 sar_n_i<3> net048 net051 net0152 net0190 net0151 net0186 volt_cap inh_bulk_n inh_lSup adc_swtree_muxlog
+  XI18 sar_n_i<11> net048 net051 net0167 net0123 net0168 net0120 volt_cap inh_bulk_n inh_lSup adc_swtree_muxlog
+  XI19 sar_n_i<10> net048 net051 net0165 net0138 net0166 net0135 volt_cap inh_bulk_n inh_lSup adc_swtree_muxlog
+.ENDS
+** End of subcircuit definition.
+
+** Cell name: adc_caparray_cal
+.SUBCKT adc_caparray_cal c0 c1 c2 c3 c4 c5 cxxx_n_o cxxx_p_o vagnd_ai
+  C5 c0 cxxx_p_cal_s C=250e-18
+  C6 cxxx_n_o vagnd_ai C=5.3f
+  C7 cxxx_p_cal_s cxxx_p_o C=8f
+  C0 c5 cxxx_p_cal_s C=8f
+  C4 c1 cxxx_p_cal_s C=500e-18
+  C3 c2 cxxx_p_cal_s C=1f
+  C2 c3 cxxx_p_cal_s C=2f
+  C1 c4 cxxx_p_cal_s C=4f
+.ENDS
+** End of subcircuit definition.
+
+** Cell name: adc_nwell_dio_sar_dac
+.SUBCKT adc_nwell_dio_sar_dac inh_bulk_n inh_hSup inh_lSup
+  XD0 inh_hSup inh_lSup inh_bulk_n sub_diode
+.ENDS
+** End of subcircuit definition.
+
+** Cell name: adc_caparray
+.SUBCKT adc_caparray c0 c1 c2 c3 c4 c5 c6 c7 c8 c9 c10 c11 c12 cxxx_n_o cxxx_p_o vagnd_ai
+  C12<823> c12 cxxx_p_o C=250e-18
+  C12<822> c12 cxxx_p_o C=250e-18
+  C12<821> c12 cxxx_p_o C=250e-18
+  C12<820> c12 cxxx_p_o C=250e-18
+  C12<819> c12 cxxx_p_o C=250e-18
+  C12<818> c12 cxxx_p_o C=250e-18
+  C12<817> c12 cxxx_p_o C=250e-18
+  C12<816> c12 cxxx_p_o C=250e-18
+  C12<815> c12 cxxx_p_o C=250e-18
+  C12<814> c12 cxxx_p_o C=250e-18
+  C12<813> c12 cxxx_p_o C=250e-18
+  C12<812> c12 cxxx_p_o C=250e-18
+  C12<811> c12 cxxx_p_o C=250e-18
+  C12<810> c12 cxxx_p_o C=250e-18
+  C12<809> c12 cxxx_p_o C=250e-18
+  C12<808> c12 cxxx_p_o C=250e-18
+  C12<807> c12 cxxx_p_o C=250e-18
+  C12<806> c12 cxxx_p_o C=250e-18
+  C12<805> c12 cxxx_p_o C=250e-18
+  C12<804> c12 cxxx_p_o C=250e-18
+  C12<803> c12 cxxx_p_o C=250e-18
+  C12<802> c12 cxxx_p_o C=250e-18
+  C12<801> c12 cxxx_p_o C=250e-18
+  C12<800> c12 cxxx_p_o C=250e-18
+  C12<799> c12 cxxx_p_o C=250e-18
+  C12<798> c12 cxxx_p_o C=250e-18
+  C12<797> c12 cxxx_p_o C=250e-18
+  C12<796> c12 cxxx_p_o C=250e-18
+  C12<795> c12 cxxx_p_o C=250e-18
+  C12<794> c12 cxxx_p_o C=250e-18
+  C12<793> c12 cxxx_p_o C=250e-18
+  C12<792> c12 cxxx_p_o C=250e-18
+  C12<791> c12 cxxx_p_o C=250e-18
+  C12<790> c12 cxxx_p_o C=250e-18
+  C12<789> c12 cxxx_p_o C=250e-18
+  C12<788> c12 cxxx_p_o C=250e-18
+  C12<787> c12 cxxx_p_o C=250e-18
+  C12<786> c12 cxxx_p_o C=250e-18
+  C12<785> c12 cxxx_p_o C=250e-18
+  C12<784> c12 cxxx_p_o C=250e-18
+  C12<783> c12 cxxx_p_o C=250e-18
+  C12<782> c12 cxxx_p_o C=250e-18
+  C12<781> c12 cxxx_p_o C=250e-18
+  C12<780> c12 cxxx_p_o C=250e-18
+  C12<779> c12 cxxx_p_o C=250e-18
+  C12<778> c12 cxxx_p_o C=250e-18
+  C12<777> c12 cxxx_p_o C=250e-18
+  C12<776> c12 cxxx_p_o C=250e-18
+  C12<775> c12 cxxx_p_o C=250e-18
+  C12<774> c12 cxxx_p_o C=250e-18
+  C12<773> c12 cxxx_p_o C=250e-18
+  C12<772> c12 cxxx_p_o C=250e-18
+  C12<771> c12 cxxx_p_o C=250e-18
+  C12<770> c12 cxxx_p_o C=250e-18
+  C12<769> c12 cxxx_p_o C=250e-18
+  C12<768> c12 cxxx_p_o C=250e-18
+  C12<767> c12 cxxx_p_o C=250e-18
+  C12<766> c12 cxxx_p_o C=250e-18
+  C12<765> c12 cxxx_p_o C=250e-18
+  C12<764> c12 cxxx_p_o C=250e-18
+  C12<763> c12 cxxx_p_o C=250e-18
+  C12<762> c12 cxxx_p_o C=250e-18
+  C12<761> c12 cxxx_p_o C=250e-18
+  C12<760> c12 cxxx_p_o C=250e-18
+  C12<759> c12 cxxx_p_o C=250e-18
+  C12<758> c12 cxxx_p_o C=250e-18
+  C12<757> c12 cxxx_p_o C=250e-18
+  C12<756> c12 cxxx_p_o C=250e-18
+  C12<755> c12 cxxx_p_o C=250e-18
+  C12<754> c12 cxxx_p_o C=250e-18
+  C12<753> c12 cxxx_p_o C=250e-18
+  C12<752> c12 cxxx_p_o C=250e-18
+  C12<751> c12 cxxx_p_o C=250e-18
+  C12<750> c12 cxxx_p_o C=250e-18
+  C12<749> c12 cxxx_p_o C=250e-18
+  C12<748> c12 cxxx_p_o C=250e-18
+  C12<747> c12 cxxx_p_o C=250e-18
+  C12<746> c12 cxxx_p_o C=250e-18
+  C12<745> c12 cxxx_p_o C=250e-18
+  C12<744> c12 cxxx_p_o C=250e-18
+  C12<743> c12 cxxx_p_o C=250e-18
+  C12<742> c12 cxxx_p_o C=250e-18
+  C12<741> c12 cxxx_p_o C=250e-18
+  C12<740> c12 cxxx_p_o C=250e-18
+  C12<739> c12 cxxx_p_o C=250e-18
+  C12<738> c12 cxxx_p_o C=250e-18
+  C12<737> c12 cxxx_p_o C=250e-18
+  C12<736> c12 cxxx_p_o C=250e-18
+  C12<735> c12 cxxx_p_o C=250e-18
+  C12<734> c12 cxxx_p_o C=250e-18
+  C12<733> c12 cxxx_p_o C=250e-18
+  C12<732> c12 cxxx_p_o C=250e-18
+  C12<731> c12 cxxx_p_o C=250e-18
+  C12<730> c12 cxxx_p_o C=250e-18
+  C12<729> c12 cxxx_p_o C=250e-18
+  C12<728> c12 cxxx_p_o C=250e-18
+  C12<727> c12 cxxx_p_o C=250e-18
+  C12<726> c12 cxxx_p_o C=250e-18
+  C12<725> c12 cxxx_p_o C=250e-18
+  C12<724> c12 cxxx_p_o C=250e-18
+  C12<723> c12 cxxx_p_o C=250e-18
+  C12<722> c12 cxxx_p_o C=250e-18
+  C12<721> c12 cxxx_p_o C=250e-18
+  C12<720> c12 cxxx_p_o C=250e-18
+  C12<719> c12 cxxx_p_o C=250e-18
+  C12<718> c12 cxxx_p_o C=250e-18
+  C12<717> c12 cxxx_p_o C=250e-18
+  C12<716> c12 cxxx_p_o C=250e-18
+  C12<715> c12 cxxx_p_o C=250e-18
+  C12<714> c12 cxxx_p_o C=250e-18
+  C12<713> c12 cxxx_p_o C=250e-18
+  C12<712> c12 cxxx_p_o C=250e-18
+  C12<711> c12 cxxx_p_o C=250e-18
+  C12<710> c12 cxxx_p_o C=250e-18
+  C12<709> c12 cxxx_p_o C=250e-18
+  C12<708> c12 cxxx_p_o C=250e-18
+  C12<707> c12 cxxx_p_o C=250e-18
+  C12<706> c12 cxxx_p_o C=250e-18
+  C12<705> c12 cxxx_p_o C=250e-18
+  C12<704> c12 cxxx_p_o C=250e-18
+  C12<703> c12 cxxx_p_o C=250e-18
+  C12<702> c12 cxxx_p_o C=250e-18
+  C12<701> c12 cxxx_p_o C=250e-18
+  C12<700> c12 cxxx_p_o C=250e-18
+  C12<699> c12 cxxx_p_o C=250e-18
+  C12<698> c12 cxxx_p_o C=250e-18
+  C12<697> c12 cxxx_p_o C=250e-18
+  C12<696> c12 cxxx_p_o C=250e-18
+  C12<695> c12 cxxx_p_o C=250e-18
+  C12<694> c12 cxxx_p_o C=250e-18
+  C12<693> c12 cxxx_p_o C=250e-18
+  C12<692> c12 cxxx_p_o C=250e-18
+  C12<691> c12 cxxx_p_o C=250e-18
+  C12<690> c12 cxxx_p_o C=250e-18
+  C12<689> c12 cxxx_p_o C=250e-18
+  C12<688> c12 cxxx_p_o C=250e-18
+  C12<687> c12 cxxx_p_o C=250e-18
+  C12<686> c12 cxxx_p_o C=250e-18
+  C12<685> c12 cxxx_p_o C=250e-18
+  C12<684> c12 cxxx_p_o C=250e-18
+  C12<683> c12 cxxx_p_o C=250e-18
+  C12<682> c12 cxxx_p_o C=250e-18
+  C12<681> c12 cxxx_p_o C=250e-18
+  C12<680> c12 cxxx_p_o C=250e-18
+  C12<679> c12 cxxx_p_o C=250e-18
+  C12<678> c12 cxxx_p_o C=250e-18
+  C12<677> c12 cxxx_p_o C=250e-18
+  C12<676> c12 cxxx_p_o C=250e-18
+  C12<675> c12 cxxx_p_o C=250e-18
+  C12<674> c12 cxxx_p_o C=250e-18
+  C12<673> c12 cxxx_p_o C=250e-18
+  C12<672> c12 cxxx_p_o C=250e-18
+  C12<671> c12 cxxx_p_o C=250e-18
+  C12<670> c12 cxxx_p_o C=250e-18
+  C12<669> c12 cxxx_p_o C=250e-18
+  C12<668> c12 cxxx_p_o C=250e-18
+  C12<667> c12 cxxx_p_o C=250e-18
+  C12<666> c12 cxxx_p_o C=250e-18
+  C12<665> c12 cxxx_p_o C=250e-18
+  C12<664> c12 cxxx_p_o C=250e-18
+  C12<663> c12 cxxx_p_o C=250e-18
+  C12<662> c12 cxxx_p_o C=250e-18
+  C12<661> c12 cxxx_p_o C=250e-18
+  C12<660> c12 cxxx_p_o C=250e-18
+  C12<659> c12 cxxx_p_o C=250e-18
+  C12<658> c12 cxxx_p_o C=250e-18
+  C12<657> c12 cxxx_p_o C=250e-18
+  C12<656> c12 cxxx_p_o C=250e-18
+  C12<655> c12 cxxx_p_o C=250e-18
+  C12<654> c12 cxxx_p_o C=250e-18
+  C12<653> c12 cxxx_p_o C=250e-18
+  C12<652> c12 cxxx_p_o C=250e-18
+  C12<651> c12 cxxx_p_o C=250e-18
+  C12<650> c12 cxxx_p_o C=250e-18
+  C12<649> c12 cxxx_p_o C=250e-18
+  C12<648> c12 cxxx_p_o C=250e-18
+  C12<647> c12 cxxx_p_o C=250e-18
+  C12<646> c12 cxxx_p_o C=250e-18
+  C12<645> c12 cxxx_p_o C=250e-18
+  C12<644> c12 cxxx_p_o C=250e-18
+  C12<643> c12 cxxx_p_o C=250e-18
+  C12<642> c12 cxxx_p_o C=250e-18
+  C12<641> c12 cxxx_p_o C=250e-18
+  C12<640> c12 cxxx_p_o C=250e-18
+  C12<639> c12 cxxx_p_o C=250e-18
+  C12<638> c12 cxxx_p_o C=250e-18
+  C12<637> c12 cxxx_p_o C=250e-18
+  C12<636> c12 cxxx_p_o C=250e-18
+  C12<635> c12 cxxx_p_o C=250e-18
+  C12<634> c12 cxxx_p_o C=250e-18
+  C12<633> c12 cxxx_p_o C=250e-18
+  C12<632> c12 cxxx_p_o C=250e-18
+  C12<631> c12 cxxx_p_o C=250e-18
+  C12<630> c12 cxxx_p_o C=250e-18
+  C12<629> c12 cxxx_p_o C=250e-18
+  C12<628> c12 cxxx_p_o C=250e-18
+  C12<627> c12 cxxx_p_o C=250e-18
+  C12<626> c12 cxxx_p_o C=250e-18
+  C12<625> c12 cxxx_p_o C=250e-18
+  C12<624> c12 cxxx_p_o C=250e-18
+  C12<623> c12 cxxx_p_o C=250e-18
+  C12<622> c12 cxxx_p_o C=250e-18
+  C12<621> c12 cxxx_p_o C=250e-18
+  C12<620> c12 cxxx_p_o C=250e-18
+  C12<619> c12 cxxx_p_o C=250e-18
+  C12<618> c12 cxxx_p_o C=250e-18
+  C12<617> c12 cxxx_p_o C=250e-18
+  C12<616> c12 cxxx_p_o C=250e-18
+  C12<615> c12 cxxx_p_o C=250e-18
+  C12<614> c12 cxxx_p_o C=250e-18
+  C12<613> c12 cxxx_p_o C=250e-18
+  C12<612> c12 cxxx_p_o C=250e-18
+  C12<611> c12 cxxx_p_o C=250e-18
+  C12<610> c12 cxxx_p_o C=250e-18
+  C12<609> c12 cxxx_p_o C=250e-18
+  C12<608> c12 cxxx_p_o C=250e-18
+  C12<607> c12 cxxx_p_o C=250e-18
+  C12<606> c12 cxxx_p_o C=250e-18
+  C12<605> c12 cxxx_p_o C=250e-18
+  C12<604> c12 cxxx_p_o C=250e-18
+  C12<603> c12 cxxx_p_o C=250e-18
+  C12<602> c12 cxxx_p_o C=250e-18
+  C12<601> c12 cxxx_p_o C=250e-18
+  C12<600> c12 cxxx_p_o C=250e-18
+  C12<599> c12 cxxx_p_o C=250e-18
+  C12<598> c12 cxxx_p_o C=250e-18
+  C12<597> c12 cxxx_p_o C=250e-18
+  C12<596> c12 cxxx_p_o C=250e-18
+  C12<595> c12 cxxx_p_o C=250e-18
+  C12<594> c12 cxxx_p_o C=250e-18
+  C12<593> c12 cxxx_p_o C=250e-18
+  C12<592> c12 cxxx_p_o C=250e-18
+  C12<591> c12 cxxx_p_o C=250e-18
+  C12<590> c12 cxxx_p_o C=250e-18
+  C12<589> c12 cxxx_p_o C=250e-18
+  C12<588> c12 cxxx_p_o C=250e-18
+  C12<587> c12 cxxx_p_o C=250e-18
+  C12<586> c12 cxxx_p_o C=250e-18
+  C12<585> c12 cxxx_p_o C=250e-18
+  C12<584> c12 cxxx_p_o C=250e-18
+  C12<583> c12 cxxx_p_o C=250e-18
+  C12<582> c12 cxxx_p_o C=250e-18
+  C12<581> c12 cxxx_p_o C=250e-18
+  C12<580> c12 cxxx_p_o C=250e-18
+  C12<579> c12 cxxx_p_o C=250e-18
+  C12<578> c12 cxxx_p_o C=250e-18
+  C12<577> c12 cxxx_p_o C=250e-18
+  C12<576> c12 cxxx_p_o C=250e-18
+  C12<575> c12 cxxx_p_o C=250e-18
+  C12<574> c12 cxxx_p_o C=250e-18
+  C12<573> c12 cxxx_p_o C=250e-18
+  C12<572> c12 cxxx_p_o C=250e-18
+  C12<571> c12 cxxx_p_o C=250e-18
+  C12<570> c12 cxxx_p_o C=250e-18
+  C12<569> c12 cxxx_p_o C=250e-18
+  C12<568> c12 cxxx_p_o C=250e-18
+  C12<567> c12 cxxx_p_o C=250e-18
+  C12<566> c12 cxxx_p_o C=250e-18
+  C12<565> c12 cxxx_p_o C=250e-18
+  C12<564> c12 cxxx_p_o C=250e-18
+  C12<563> c12 cxxx_p_o C=250e-18
+  C12<562> c12 cxxx_p_o C=250e-18
+  C12<561> c12 cxxx_p_o C=250e-18
+  C12<560> c12 cxxx_p_o C=250e-18
+  C12<559> c12 cxxx_p_o C=250e-18
+  C12<558> c12 cxxx_p_o C=250e-18
+  C12<557> c12 cxxx_p_o C=250e-18
+  C12<556> c12 cxxx_p_o C=250e-18
+  C12<555> c12 cxxx_p_o C=250e-18
+  C12<554> c12 cxxx_p_o C=250e-18
+  C12<553> c12 cxxx_p_o C=250e-18
+  C12<552> c12 cxxx_p_o C=250e-18
+  C12<551> c12 cxxx_p_o C=250e-18
+  C12<550> c12 cxxx_p_o C=250e-18
+  C12<549> c12 cxxx_p_o C=250e-18
+  C12<548> c12 cxxx_p_o C=250e-18
+  C12<547> c12 cxxx_p_o C=250e-18
+  C12<546> c12 cxxx_p_o C=250e-18
+  C12<545> c12 cxxx_p_o C=250e-18
+  C12<544> c12 cxxx_p_o C=250e-18
+  C12<543> c12 cxxx_p_o C=250e-18
+  C12<542> c12 cxxx_p_o C=250e-18
+  C12<541> c12 cxxx_p_o C=250e-18
+  C12<540> c12 cxxx_p_o C=250e-18
+  C12<539> c12 cxxx_p_o C=250e-18
+  C12<538> c12 cxxx_p_o C=250e-18
+  C12<537> c12 cxxx_p_o C=250e-18
+  C12<536> c12 cxxx_p_o C=250e-18
+  C12<535> c12 cxxx_p_o C=250e-18
+  C12<534> c12 cxxx_p_o C=250e-18
+  C12<533> c12 cxxx_p_o C=250e-18
+  C12<532> c12 cxxx_p_o C=250e-18
+  C12<531> c12 cxxx_p_o C=250e-18
+  C12<530> c12 cxxx_p_o C=250e-18
+  C12<529> c12 cxxx_p_o C=250e-18
+  C12<528> c12 cxxx_p_o C=250e-18
+  C12<527> c12 cxxx_p_o C=250e-18
+  C12<526> c12 cxxx_p_o C=250e-18
+  C12<525> c12 cxxx_p_o C=250e-18
+  C12<524> c12 cxxx_p_o C=250e-18
+  C12<523> c12 cxxx_p_o C=250e-18
+  C12<522> c12 cxxx_p_o C=250e-18
+  C12<521> c12 cxxx_p_o C=250e-18
+  C12<520> c12 cxxx_p_o C=250e-18
+  C12<519> c12 cxxx_p_o C=250e-18
+  C12<518> c12 cxxx_p_o C=250e-18
+  C12<517> c12 cxxx_p_o C=250e-18
+  C12<516> c12 cxxx_p_o C=250e-18
+  C12<515> c12 cxxx_p_o C=250e-18
+  C12<514> c12 cxxx_p_o C=250e-18
+  C12<513> c12 cxxx_p_o C=250e-18
+  C12<512> c12 cxxx_p_o C=250e-18
+  C12<511> c12 cxxx_p_o C=250e-18
+  C12<510> c12 cxxx_p_o C=250e-18
+  C12<509> c12 cxxx_p_o C=250e-18
+  C12<508> c12 cxxx_p_o C=250e-18
+  C12<507> c12 cxxx_p_o C=250e-18
+  C12<506> c12 cxxx_p_o C=250e-18
+  C12<505> c12 cxxx_p_o C=250e-18
+  C12<504> c12 cxxx_p_o C=250e-18
+  C12<503> c12 cxxx_p_o C=250e-18
+  C12<502> c12 cxxx_p_o C=250e-18
+  C12<501> c12 cxxx_p_o C=250e-18
+  C12<500> c12 cxxx_p_o C=250e-18
+  C12<499> c12 cxxx_p_o C=250e-18
+  C12<498> c12 cxxx_p_o C=250e-18
+  C12<497> c12 cxxx_p_o C=250e-18
+  C12<496> c12 cxxx_p_o C=250e-18
+  C12<495> c12 cxxx_p_o C=250e-18
+  C12<494> c12 cxxx_p_o C=250e-18
+  C12<493> c12 cxxx_p_o C=250e-18
+  C12<492> c12 cxxx_p_o C=250e-18
+  C12<491> c12 cxxx_p_o C=250e-18
+  C12<490> c12 cxxx_p_o C=250e-18
+  C12<489> c12 cxxx_p_o C=250e-18
+  C12<488> c12 cxxx_p_o C=250e-18
+  C12<487> c12 cxxx_p_o C=250e-18
+  C12<486> c12 cxxx_p_o C=250e-18
+  C12<485> c12 cxxx_p_o C=250e-18
+  C12<484> c12 cxxx_p_o C=250e-18
+  C12<483> c12 cxxx_p_o C=250e-18
+  C12<482> c12 cxxx_p_o C=250e-18
+  C12<481> c12 cxxx_p_o C=250e-18
+  C12<480> c12 cxxx_p_o C=250e-18
+  C12<479> c12 cxxx_p_o C=250e-18
+  C12<478> c12 cxxx_p_o C=250e-18
+  C12<477> c12 cxxx_p_o C=250e-18
+  C12<476> c12 cxxx_p_o C=250e-18
+  C12<475> c12 cxxx_p_o C=250e-18
+  C12<474> c12 cxxx_p_o C=250e-18
+  C12<473> c12 cxxx_p_o C=250e-18
+  C12<472> c12 cxxx_p_o C=250e-18
+  C12<471> c12 cxxx_p_o C=250e-18
+  C12<470> c12 cxxx_p_o C=250e-18
+  C12<469> c12 cxxx_p_o C=250e-18
+  C12<468> c12 cxxx_p_o C=250e-18
+  C12<467> c12 cxxx_p_o C=250e-18
+  C12<466> c12 cxxx_p_o C=250e-18
+  C12<465> c12 cxxx_p_o C=250e-18
+  C12<464> c12 cxxx_p_o C=250e-18
+  C12<463> c12 cxxx_p_o C=250e-18
+  C12<462> c12 cxxx_p_o C=250e-18
+  C12<461> c12 cxxx_p_o C=250e-18
+  C12<460> c12 cxxx_p_o C=250e-18
+  C12<459> c12 cxxx_p_o C=250e-18
+  C12<458> c12 cxxx_p_o C=250e-18
+  C12<457> c12 cxxx_p_o C=250e-18
+  C12<456> c12 cxxx_p_o C=250e-18
+  C12<455> c12 cxxx_p_o C=250e-18
+  C12<454> c12 cxxx_p_o C=250e-18
+  C12<453> c12 cxxx_p_o C=250e-18
+  C12<452> c12 cxxx_p_o C=250e-18
+  C12<451> c12 cxxx_p_o C=250e-18
+  C12<450> c12 cxxx_p_o C=250e-18
+  C12<449> c12 cxxx_p_o C=250e-18
+  C12<448> c12 cxxx_p_o C=250e-18
+  C12<447> c12 cxxx_p_o C=250e-18
+  C12<446> c12 cxxx_p_o C=250e-18
+  C12<445> c12 cxxx_p_o C=250e-18
+  C12<444> c12 cxxx_p_o C=250e-18
+  C12<443> c12 cxxx_p_o C=250e-18
+  C12<442> c12 cxxx_p_o C=250e-18
+  C12<441> c12 cxxx_p_o C=250e-18
+  C12<440> c12 cxxx_p_o C=250e-18
+  C12<439> c12 cxxx_p_o C=250e-18
+  C12<438> c12 cxxx_p_o C=250e-18
+  C12<437> c12 cxxx_p_o C=250e-18
+  C12<436> c12 cxxx_p_o C=250e-18
+  C12<435> c12 cxxx_p_o C=250e-18
+  C12<434> c12 cxxx_p_o C=250e-18
+  C12<433> c12 cxxx_p_o C=250e-18
+  C12<432> c12 cxxx_p_o C=250e-18
+  C12<431> c12 cxxx_p_o C=250e-18
+  C12<430> c12 cxxx_p_o C=250e-18
+  C12<429> c12 cxxx_p_o C=250e-18
+  C12<428> c12 cxxx_p_o C=250e-18
+  C12<427> c12 cxxx_p_o C=250e-18
+  C12<426> c12 cxxx_p_o C=250e-18
+  C12<425> c12 cxxx_p_o C=250e-18
+  C12<424> c12 cxxx_p_o C=250e-18
+  C12<423> c12 cxxx_p_o C=250e-18
+  C12<422> c12 cxxx_p_o C=250e-18
+  C12<421> c12 cxxx_p_o C=250e-18
+  C12<420> c12 cxxx_p_o C=250e-18
+  C12<419> c12 cxxx_p_o C=250e-18
+  C12<418> c12 cxxx_p_o C=250e-18
+  C12<417> c12 cxxx_p_o C=250e-18
+  C12<416> c12 cxxx_p_o C=250e-18
+  C12<415> c12 cxxx_p_o C=250e-18
+  C12<414> c12 cxxx_p_o C=250e-18
+  C12<413> c12 cxxx_p_o C=250e-18
+  C12<412> c12 cxxx_p_o C=250e-18
+  C12<411> c12 cxxx_p_o C=250e-18
+  C12<410> c12 cxxx_p_o C=250e-18
+  C12<409> c12 cxxx_p_o C=250e-18
+  C12<408> c12 cxxx_p_o C=250e-18
+  C12<407> c12 cxxx_p_o C=250e-18
+  C12<406> c12 cxxx_p_o C=250e-18
+  C12<405> c12 cxxx_p_o C=250e-18
+  C12<404> c12 cxxx_p_o C=250e-18
+  C12<403> c12 cxxx_p_o C=250e-18
+  C12<402> c12 cxxx_p_o C=250e-18
+  C12<401> c12 cxxx_p_o C=250e-18
+  C12<400> c12 cxxx_p_o C=250e-18
+  C12<399> c12 cxxx_p_o C=250e-18
+  C12<398> c12 cxxx_p_o C=250e-18
+  C12<397> c12 cxxx_p_o C=250e-18
+  C12<396> c12 cxxx_p_o C=250e-18
+  C12<395> c12 cxxx_p_o C=250e-18
+  C12<394> c12 cxxx_p_o C=250e-18
+  C12<393> c12 cxxx_p_o C=250e-18
+  C12<392> c12 cxxx_p_o C=250e-18
+  C12<391> c12 cxxx_p_o C=250e-18
+  C12<390> c12 cxxx_p_o C=250e-18
+  C12<389> c12 cxxx_p_o C=250e-18
+  C12<388> c12 cxxx_p_o C=250e-18
+  C12<387> c12 cxxx_p_o C=250e-18
+  C12<386> c12 cxxx_p_o C=250e-18
+  C12<385> c12 cxxx_p_o C=250e-18
+  C12<384> c12 cxxx_p_o C=250e-18
+  C12<383> c12 cxxx_p_o C=250e-18
+  C12<382> c12 cxxx_p_o C=250e-18
+  C12<381> c12 cxxx_p_o C=250e-18
+  C12<380> c12 cxxx_p_o C=250e-18
+  C12<379> c12 cxxx_p_o C=250e-18
+  C12<378> c12 cxxx_p_o C=250e-18
+  C12<377> c12 cxxx_p_o C=250e-18
+  C12<376> c12 cxxx_p_o C=250e-18
+  C12<375> c12 cxxx_p_o C=250e-18
+  C12<374> c12 cxxx_p_o C=250e-18
+  C12<373> c12 cxxx_p_o C=250e-18
+  C12<372> c12 cxxx_p_o C=250e-18
+  C12<371> c12 cxxx_p_o C=250e-18
+  C12<370> c12 cxxx_p_o C=250e-18
+  C12<369> c12 cxxx_p_o C=250e-18
+  C12<368> c12 cxxx_p_o C=250e-18
+  C12<367> c12 cxxx_p_o C=250e-18
+  C12<366> c12 cxxx_p_o C=250e-18
+  C12<365> c12 cxxx_p_o C=250e-18
+  C12<364> c12 cxxx_p_o C=250e-18
+  C12<363> c12 cxxx_p_o C=250e-18
+  C12<362> c12 cxxx_p_o C=250e-18
+  C12<361> c12 cxxx_p_o C=250e-18
+  C12<360> c12 cxxx_p_o C=250e-18
+  C12<359> c12 cxxx_p_o C=250e-18
+  C12<358> c12 cxxx_p_o C=250e-18
+  C12<357> c12 cxxx_p_o C=250e-18
+  C12<356> c12 cxxx_p_o C=250e-18
+  C12<355> c12 cxxx_p_o C=250e-18
+  C12<354> c12 cxxx_p_o C=250e-18
+  C12<353> c12 cxxx_p_o C=250e-18
+  C12<352> c12 cxxx_p_o C=250e-18
+  C12<351> c12 cxxx_p_o C=250e-18
+  C12<350> c12 cxxx_p_o C=250e-18
+  C12<349> c12 cxxx_p_o C=250e-18
+  C12<348> c12 cxxx_p_o C=250e-18
+  C12<347> c12 cxxx_p_o C=250e-18
+  C12<346> c12 cxxx_p_o C=250e-18
+  C12<345> c12 cxxx_p_o C=250e-18
+  C12<344> c12 cxxx_p_o C=250e-18
+  C12<343> c12 cxxx_p_o C=250e-18
+  C12<342> c12 cxxx_p_o C=250e-18
+  C12<341> c12 cxxx_p_o C=250e-18
+  C12<340> c12 cxxx_p_o C=250e-18
+  C12<339> c12 cxxx_p_o C=250e-18
+  C12<338> c12 cxxx_p_o C=250e-18
+  C12<337> c12 cxxx_p_o C=250e-18
+  C12<336> c12 cxxx_p_o C=250e-18
+  C12<335> c12 cxxx_p_o C=250e-18
+  C12<334> c12 cxxx_p_o C=250e-18
+  C12<333> c12 cxxx_p_o C=250e-18
+  C12<332> c12 cxxx_p_o C=250e-18
+  C12<331> c12 cxxx_p_o C=250e-18
+  C12<330> c12 cxxx_p_o C=250e-18
+  C12<329> c12 cxxx_p_o C=250e-18
+  C12<328> c12 cxxx_p_o C=250e-18
+  C12<327> c12 cxxx_p_o C=250e-18
+  C12<326> c12 cxxx_p_o C=250e-18
+  C12<325> c12 cxxx_p_o C=250e-18
+  C12<324> c12 cxxx_p_o C=250e-18
+  C12<323> c12 cxxx_p_o C=250e-18
+  C12<322> c12 cxxx_p_o C=250e-18
+  C12<321> c12 cxxx_p_o C=250e-18
+  C12<320> c12 cxxx_p_o C=250e-18
+  C12<319> c12 cxxx_p_o C=250e-18
+  C12<318> c12 cxxx_p_o C=250e-18
+  C12<317> c12 cxxx_p_o C=250e-18
+  C12<316> c12 cxxx_p_o C=250e-18
+  C12<315> c12 cxxx_p_o C=250e-18
+  C12<314> c12 cxxx_p_o C=250e-18
+  C12<313> c12 cxxx_p_o C=250e-18
+  C12<312> c12 cxxx_p_o C=250e-18
+  C12<311> c12 cxxx_p_o C=250e-18
+  C12<310> c12 cxxx_p_o C=250e-18
+  C12<309> c12 cxxx_p_o C=250e-18
+  C12<308> c12 cxxx_p_o C=250e-18
+  C12<307> c12 cxxx_p_o C=250e-18
+  C12<306> c12 cxxx_p_o C=250e-18
+  C12<305> c12 cxxx_p_o C=250e-18
+  C12<304> c12 cxxx_p_o C=250e-18
+  C12<303> c12 cxxx_p_o C=250e-18
+  C12<302> c12 cxxx_p_o C=250e-18
+  C12<301> c12 cxxx_p_o C=250e-18
+  C12<300> c12 cxxx_p_o C=250e-18
+  C12<299> c12 cxxx_p_o C=250e-18
+  C12<298> c12 cxxx_p_o C=250e-18
+  C12<297> c12 cxxx_p_o C=250e-18
+  C12<296> c12 cxxx_p_o C=250e-18
+  C12<295> c12 cxxx_p_o C=250e-18
+  C12<294> c12 cxxx_p_o C=250e-18
+  C12<293> c12 cxxx_p_o C=250e-18
+  C12<292> c12 cxxx_p_o C=250e-18
+  C12<291> c12 cxxx_p_o C=250e-18
+  C12<290> c12 cxxx_p_o C=250e-18
+  C12<289> c12 cxxx_p_o C=250e-18
+  C12<288> c12 cxxx_p_o C=250e-18
+  C12<287> c12 cxxx_p_o C=250e-18
+  C12<286> c12 cxxx_p_o C=250e-18
+  C12<285> c12 cxxx_p_o C=250e-18
+  C12<284> c12 cxxx_p_o C=250e-18
+  C12<283> c12 cxxx_p_o C=250e-18
+  C12<282> c12 cxxx_p_o C=250e-18
+  C12<281> c12 cxxx_p_o C=250e-18
+  C12<280> c12 cxxx_p_o C=250e-18
+  C12<279> c12 cxxx_p_o C=250e-18
+  C12<278> c12 cxxx_p_o C=250e-18
+  C12<277> c12 cxxx_p_o C=250e-18
+  C12<276> c12 cxxx_p_o C=250e-18
+  C12<275> c12 cxxx_p_o C=250e-18
+  C12<274> c12 cxxx_p_o C=250e-18
+  C12<273> c12 cxxx_p_o C=250e-18
+  C12<272> c12 cxxx_p_o C=250e-18
+  C12<271> c12 cxxx_p_o C=250e-18
+  C12<270> c12 cxxx_p_o C=250e-18
+  C12<269> c12 cxxx_p_o C=250e-18
+  C12<268> c12 cxxx_p_o C=250e-18
+  C12<267> c12 cxxx_p_o C=250e-18
+  C12<266> c12 cxxx_p_o C=250e-18
+  C12<265> c12 cxxx_p_o C=250e-18
+  C12<264> c12 cxxx_p_o C=250e-18
+  C12<263> c12 cxxx_p_o C=250e-18
+  C12<262> c12 cxxx_p_o C=250e-18
+  C12<261> c12 cxxx_p_o C=250e-18
+  C12<260> c12 cxxx_p_o C=250e-18
+  C12<259> c12 cxxx_p_o C=250e-18
+  C12<258> c12 cxxx_p_o C=250e-18
+  C12<257> c12 cxxx_p_o C=250e-18
+  C12<256> c12 cxxx_p_o C=250e-18
+  C12<255> c12 cxxx_p_o C=250e-18
+  C12<254> c12 cxxx_p_o C=250e-18
+  C12<253> c12 cxxx_p_o C=250e-18
+  C12<252> c12 cxxx_p_o C=250e-18
+  C12<251> c12 cxxx_p_o C=250e-18
+  C12<250> c12 cxxx_p_o C=250e-18
+  C12<249> c12 cxxx_p_o C=250e-18
+  C12<248> c12 cxxx_p_o C=250e-18
+  C12<247> c12 cxxx_p_o C=250e-18
+  C12<246> c12 cxxx_p_o C=250e-18
+  C12<245> c12 cxxx_p_o C=250e-18
+  C12<244> c12 cxxx_p_o C=250e-18
+  C12<243> c12 cxxx_p_o C=250e-18
+  C12<242> c12 cxxx_p_o C=250e-18
+  C12<241> c12 cxxx_p_o C=250e-18
+  C12<240> c12 cxxx_p_o C=250e-18
+  C12<239> c12 cxxx_p_o C=250e-18
+  C12<238> c12 cxxx_p_o C=250e-18
+  C12<237> c12 cxxx_p_o C=250e-18
+  C12<236> c12 cxxx_p_o C=250e-18
+  C12<235> c12 cxxx_p_o C=250e-18
+  C12<234> c12 cxxx_p_o C=250e-18
+  C12<233> c12 cxxx_p_o C=250e-18
+  C12<232> c12 cxxx_p_o C=250e-18
+  C12<231> c12 cxxx_p_o C=250e-18
+  C12<230> c12 cxxx_p_o C=250e-18
+  C12<229> c12 cxxx_p_o C=250e-18
+  C12<228> c12 cxxx_p_o C=250e-18
+  C12<227> c12 cxxx_p_o C=250e-18
+  C12<226> c12 cxxx_p_o C=250e-18
+  C12<225> c12 cxxx_p_o C=250e-18
+  C12<224> c12 cxxx_p_o C=250e-18
+  C12<223> c12 cxxx_p_o C=250e-18
+  C12<222> c12 cxxx_p_o C=250e-18
+  C12<221> c12 cxxx_p_o C=250e-18
+  C12<220> c12 cxxx_p_o C=250e-18
+  C12<219> c12 cxxx_p_o C=250e-18
+  C12<218> c12 cxxx_p_o C=250e-18
+  C12<217> c12 cxxx_p_o C=250e-18
+  C12<216> c12 cxxx_p_o C=250e-18
+  C12<215> c12 cxxx_p_o C=250e-18
+  C12<214> c12 cxxx_p_o C=250e-18
+  C12<213> c12 cxxx_p_o C=250e-18
+  C12<212> c12 cxxx_p_o C=250e-18
+  C12<211> c12 cxxx_p_o C=250e-18
+  C12<210> c12 cxxx_p_o C=250e-18
+  C12<209> c12 cxxx_p_o C=250e-18
+  C12<208> c12 cxxx_p_o C=250e-18
+  C12<207> c12 cxxx_p_o C=250e-18
+  C12<206> c12 cxxx_p_o C=250e-18
+  C12<205> c12 cxxx_p_o C=250e-18
+  C12<204> c12 cxxx_p_o C=250e-18
+  C12<203> c12 cxxx_p_o C=250e-18
+  C12<202> c12 cxxx_p_o C=250e-18
+  C12<201> c12 cxxx_p_o C=250e-18
+  C12<200> c12 cxxx_p_o C=250e-18
+  C12<199> c12 cxxx_p_o C=250e-18
+  C12<198> c12 cxxx_p_o C=250e-18
+  C12<197> c12 cxxx_p_o C=250e-18
+  C12<196> c12 cxxx_p_o C=250e-18
+  C12<195> c12 cxxx_p_o C=250e-18
+  C12<194> c12 cxxx_p_o C=250e-18
+  C12<193> c12 cxxx_p_o C=250e-18
+  C12<192> c12 cxxx_p_o C=250e-18
+  C12<191> c12 cxxx_p_o C=250e-18
+  C12<190> c12 cxxx_p_o C=250e-18
+  C12<189> c12 cxxx_p_o C=250e-18
+  C12<188> c12 cxxx_p_o C=250e-18
+  C12<187> c12 cxxx_p_o C=250e-18
+  C12<186> c12 cxxx_p_o C=250e-18
+  C12<185> c12 cxxx_p_o C=250e-18
+  C12<184> c12 cxxx_p_o C=250e-18
+  C12<183> c12 cxxx_p_o C=250e-18
+  C12<182> c12 cxxx_p_o C=250e-18
+  C12<181> c12 cxxx_p_o C=250e-18
+  C12<180> c12 cxxx_p_o C=250e-18
+  C12<179> c12 cxxx_p_o C=250e-18
+  C12<178> c12 cxxx_p_o C=250e-18
+  C12<177> c12 cxxx_p_o C=250e-18
+  C12<176> c12 cxxx_p_o C=250e-18
+  C12<175> c12 cxxx_p_o C=250e-18
+  C12<174> c12 cxxx_p_o C=250e-18
+  C12<173> c12 cxxx_p_o C=250e-18
+  C12<172> c12 cxxx_p_o C=250e-18
+  C12<171> c12 cxxx_p_o C=250e-18
+  C12<170> c12 cxxx_p_o C=250e-18
+  C12<169> c12 cxxx_p_o C=250e-18
+  C12<168> c12 cxxx_p_o C=250e-18
+  C12<167> c12 cxxx_p_o C=250e-18
+  C12<166> c12 cxxx_p_o C=250e-18
+  C12<165> c12 cxxx_p_o C=250e-18
+  C12<164> c12 cxxx_p_o C=250e-18
+  C12<163> c12 cxxx_p_o C=250e-18
+  C12<162> c12 cxxx_p_o C=250e-18
+  C12<161> c12 cxxx_p_o C=250e-18
+  C12<160> c12 cxxx_p_o C=250e-18
+  C12<159> c12 cxxx_p_o C=250e-18
+  C12<158> c12 cxxx_p_o C=250e-18
+  C12<157> c12 cxxx_p_o C=250e-18
+  C12<156> c12 cxxx_p_o C=250e-18
+  C12<155> c12 cxxx_p_o C=250e-18
+  C12<154> c12 cxxx_p_o C=250e-18
+  C12<153> c12 cxxx_p_o C=250e-18
+  C12<152> c12 cxxx_p_o C=250e-18
+  C12<151> c12 cxxx_p_o C=250e-18
+  C12<150> c12 cxxx_p_o C=250e-18
+  C12<149> c12 cxxx_p_o C=250e-18
+  C12<148> c12 cxxx_p_o C=250e-18
+  C12<147> c12 cxxx_p_o C=250e-18
+  C12<146> c12 cxxx_p_o C=250e-18
+  C12<145> c12 cxxx_p_o C=250e-18
+  C12<144> c12 cxxx_p_o C=250e-18
+  C12<143> c12 cxxx_p_o C=250e-18
+  C12<142> c12 cxxx_p_o C=250e-18
+  C12<141> c12 cxxx_p_o C=250e-18
+  C12<140> c12 cxxx_p_o C=250e-18
+  C12<139> c12 cxxx_p_o C=250e-18
+  C12<138> c12 cxxx_p_o C=250e-18
+  C12<137> c12 cxxx_p_o C=250e-18
+  C12<136> c12 cxxx_p_o C=250e-18
+  C12<135> c12 cxxx_p_o C=250e-18
+  C12<134> c12 cxxx_p_o C=250e-18
+  C12<133> c12 cxxx_p_o C=250e-18
+  C12<132> c12 cxxx_p_o C=250e-18
+  C12<131> c12 cxxx_p_o C=250e-18
+  C12<130> c12 cxxx_p_o C=250e-18
+  C12<129> c12 cxxx_p_o C=250e-18
+  C12<128> c12 cxxx_p_o C=250e-18
+  C12<127> c12 cxxx_p_o C=250e-18
+  C12<126> c12 cxxx_p_o C=250e-18
+  C12<125> c12 cxxx_p_o C=250e-18
+  C12<124> c12 cxxx_p_o C=250e-18
+  C12<123> c12 cxxx_p_o C=250e-18
+  C12<122> c12 cxxx_p_o C=250e-18
+  C12<121> c12 cxxx_p_o C=250e-18
+  C12<120> c12 cxxx_p_o C=250e-18
+  C12<119> c12 cxxx_p_o C=250e-18
+  C12<118> c12 cxxx_p_o C=250e-18
+  C12<117> c12 cxxx_p_o C=250e-18
+  C12<116> c12 cxxx_p_o C=250e-18
+  C12<115> c12 cxxx_p_o C=250e-18
+  C12<114> c12 cxxx_p_o C=250e-18
+  C12<113> c12 cxxx_p_o C=250e-18
+  C12<112> c12 cxxx_p_o C=250e-18
+  C12<111> c12 cxxx_p_o C=250e-18
+  C12<110> c12 cxxx_p_o C=250e-18
+  C12<109> c12 cxxx_p_o C=250e-18
+  C12<108> c12 cxxx_p_o C=250e-18
+  C12<107> c12 cxxx_p_o C=250e-18
+  C12<106> c12 cxxx_p_o C=250e-18
+  C12<105> c12 cxxx_p_o C=250e-18
+  C12<104> c12 cxxx_p_o C=250e-18
+  C12<103> c12 cxxx_p_o C=250e-18
+  C12<102> c12 cxxx_p_o C=250e-18
+  C12<101> c12 cxxx_p_o C=250e-18
+  C12<100> c12 cxxx_p_o C=250e-18
+  C12<99> c12 cxxx_p_o C=250e-18
+  C12<98> c12 cxxx_p_o C=250e-18
+  C12<97> c12 cxxx_p_o C=250e-18
+  C12<96> c12 cxxx_p_o C=250e-18
+  C12<95> c12 cxxx_p_o C=250e-18
+  C12<94> c12 cxxx_p_o C=250e-18
+  C12<93> c12 cxxx_p_o C=250e-18
+  C12<92> c12 cxxx_p_o C=250e-18
+  C12<91> c12 cxxx_p_o C=250e-18
+  C12<90> c12 cxxx_p_o C=250e-18
+  C12<89> c12 cxxx_p_o C=250e-18
+  C12<88> c12 cxxx_p_o C=250e-18
+  C12<87> c12 cxxx_p_o C=250e-18
+  C12<86> c12 cxxx_p_o C=250e-18
+  C12<85> c12 cxxx_p_o C=250e-18
+  C12<84> c12 cxxx_p_o C=250e-18
+  C12<83> c12 cxxx_p_o C=250e-18
+  C12<82> c12 cxxx_p_o C=250e-18
+  C12<81> c12 cxxx_p_o C=250e-18
+  C12<80> c12 cxxx_p_o C=250e-18
+  C12<79> c12 cxxx_p_o C=250e-18
+  C12<78> c12 cxxx_p_o C=250e-18
+  C12<77> c12 cxxx_p_o C=250e-18
+  C12<76> c12 cxxx_p_o C=250e-18
+  C12<75> c12 cxxx_p_o C=250e-18
+  C12<74> c12 cxxx_p_o C=250e-18
+  C12<73> c12 cxxx_p_o C=250e-18
+  C12<72> c12 cxxx_p_o C=250e-18
+  C12<71> c12 cxxx_p_o C=250e-18
+  C12<70> c12 cxxx_p_o C=250e-18
+  C12<69> c12 cxxx_p_o C=250e-18
+  C12<68> c12 cxxx_p_o C=250e-18
+  C12<67> c12 cxxx_p_o C=250e-18
+  C12<66> c12 cxxx_p_o C=250e-18
+  C12<65> c12 cxxx_p_o C=250e-18
+  C12<64> c12 cxxx_p_o C=250e-18
+  C12<63> c12 cxxx_p_o C=250e-18
+  C12<62> c12 cxxx_p_o C=250e-18
+  C12<61> c12 cxxx_p_o C=250e-18
+  C12<60> c12 cxxx_p_o C=250e-18
+  C12<59> c12 cxxx_p_o C=250e-18
+  C12<58> c12 cxxx_p_o C=250e-18
+  C12<57> c12 cxxx_p_o C=250e-18
+  C12<56> c12 cxxx_p_o C=250e-18
+  C12<55> c12 cxxx_p_o C=250e-18
+  C12<54> c12 cxxx_p_o C=250e-18
+  C12<53> c12 cxxx_p_o C=250e-18
+  C12<52> c12 cxxx_p_o C=250e-18
+  C12<51> c12 cxxx_p_o C=250e-18
+  C12<50> c12 cxxx_p_o C=250e-18
+  C12<49> c12 cxxx_p_o C=250e-18
+  C12<48> c12 cxxx_p_o C=250e-18
+  C12<47> c12 cxxx_p_o C=250e-18
+  C12<46> c12 cxxx_p_o C=250e-18
+  C12<45> c12 cxxx_p_o C=250e-18
+  C12<44> c12 cxxx_p_o C=250e-18
+  C12<43> c12 cxxx_p_o C=250e-18
+  C12<42> c12 cxxx_p_o C=250e-18
+  C12<41> c12 cxxx_p_o C=250e-18
+  C12<40> c12 cxxx_p_o C=250e-18
+  C12<39> c12 cxxx_p_o C=250e-18
+  C12<38> c12 cxxx_p_o C=250e-18
+  C12<37> c12 cxxx_p_o C=250e-18
+  C12<36> c12 cxxx_p_o C=250e-18
+  C12<35> c12 cxxx_p_o C=250e-18
+  C12<34> c12 cxxx_p_o C=250e-18
+  C12<33> c12 cxxx_p_o C=250e-18
+  C12<32> c12 cxxx_p_o C=250e-18
+  C12<31> c12 cxxx_p_o C=250e-18
+  C12<30> c12 cxxx_p_o C=250e-18
+  C12<29> c12 cxxx_p_o C=250e-18
+  C12<28> c12 cxxx_p_o C=250e-18
+  C12<27> c12 cxxx_p_o C=250e-18
+  C12<26> c12 cxxx_p_o C=250e-18
+  C12<25> c12 cxxx_p_o C=250e-18
+  C12<24> c12 cxxx_p_o C=250e-18
+  C12<23> c12 cxxx_p_o C=250e-18
+  C12<22> c12 cxxx_p_o C=250e-18
+  C12<21> c12 cxxx_p_o C=250e-18
+  C12<20> c12 cxxx_p_o C=250e-18
+  C12<19> c12 cxxx_p_o C=250e-18
+  C12<18> c12 cxxx_p_o C=250e-18
+  C12<17> c12 cxxx_p_o C=250e-18
+  C12<16> c12 cxxx_p_o C=250e-18
+  C12<15> c12 cxxx_p_o C=250e-18
+  C12<14> c12 cxxx_p_o C=250e-18
+  C12<13> c12 cxxx_p_o C=250e-18
+  C12<12> c12 cxxx_p_o C=250e-18
+  C12<11> c12 cxxx_p_o C=250e-18
+  C12<10> c12 cxxx_p_o C=250e-18
+  C12<9> c12 cxxx_p_o C=250e-18
+  C12<8> c12 cxxx_p_o C=250e-18
+  C12<7> c12 cxxx_p_o C=250e-18
+  C12<6> c12 cxxx_p_o C=250e-18
+  C12<5> c12 cxxx_p_o C=250e-18
+  C12<4> c12 cxxx_p_o C=250e-18
+  C12<3> c12 cxxx_p_o C=250e-18
+  C12<2> c12 cxxx_p_o C=250e-18
+  C12<1> c12 cxxx_p_o C=250e-18
+  C12<0> c12 cxxx_p_o C=250e-18
+  C11<495> c11 cxxx_p_o C=250e-18
+  C11<494> c11 cxxx_p_o C=250e-18
+  C11<493> c11 cxxx_p_o C=250e-18
+  C11<492> c11 cxxx_p_o C=250e-18
+  C11<491> c11 cxxx_p_o C=250e-18
+  C11<490> c11 cxxx_p_o C=250e-18
+  C11<489> c11 cxxx_p_o C=250e-18
+  C11<488> c11 cxxx_p_o C=250e-18
+  C11<487> c11 cxxx_p_o C=250e-18
+  C11<486> c11 cxxx_p_o C=250e-18
+  C11<485> c11 cxxx_p_o C=250e-18
+  C11<484> c11 cxxx_p_o C=250e-18
+  C11<483> c11 cxxx_p_o C=250e-18
+  C11<482> c11 cxxx_p_o C=250e-18
+  C11<481> c11 cxxx_p_o C=250e-18
+  C11<480> c11 cxxx_p_o C=250e-18
+  C11<479> c11 cxxx_p_o C=250e-18
+  C11<478> c11 cxxx_p_o C=250e-18
+  C11<477> c11 cxxx_p_o C=250e-18
+  C11<476> c11 cxxx_p_o C=250e-18
+  C11<475> c11 cxxx_p_o C=250e-18
+  C11<474> c11 cxxx_p_o C=250e-18
+  C11<473> c11 cxxx_p_o C=250e-18
+  C11<472> c11 cxxx_p_o C=250e-18
+  C11<471> c11 cxxx_p_o C=250e-18
+  C11<470> c11 cxxx_p_o C=250e-18
+  C11<469> c11 cxxx_p_o C=250e-18
+  C11<468> c11 cxxx_p_o C=250e-18
+  C11<467> c11 cxxx_p_o C=250e-18
+  C11<466> c11 cxxx_p_o C=250e-18
+  C11<465> c11 cxxx_p_o C=250e-18
+  C11<464> c11 cxxx_p_o C=250e-18
+  C11<463> c11 cxxx_p_o C=250e-18
+  C11<462> c11 cxxx_p_o C=250e-18
+  C11<461> c11 cxxx_p_o C=250e-18
+  C11<460> c11 cxxx_p_o C=250e-18
+  C11<459> c11 cxxx_p_o C=250e-18
+  C11<458> c11 cxxx_p_o C=250e-18
+  C11<457> c11 cxxx_p_o C=250e-18
+  C11<456> c11 cxxx_p_o C=250e-18
+  C11<455> c11 cxxx_p_o C=250e-18
+  C11<454> c11 cxxx_p_o C=250e-18
+  C11<453> c11 cxxx_p_o C=250e-18
+  C11<452> c11 cxxx_p_o C=250e-18
+  C11<451> c11 cxxx_p_o C=250e-18
+  C11<450> c11 cxxx_p_o C=250e-18
+  C11<449> c11 cxxx_p_o C=250e-18
+  C11<448> c11 cxxx_p_o C=250e-18
+  C11<447> c11 cxxx_p_o C=250e-18
+  C11<446> c11 cxxx_p_o C=250e-18
+  C11<445> c11 cxxx_p_o C=250e-18
+  C11<444> c11 cxxx_p_o C=250e-18
+  C11<443> c11 cxxx_p_o C=250e-18
+  C11<442> c11 cxxx_p_o C=250e-18
+  C11<441> c11 cxxx_p_o C=250e-18
+  C11<440> c11 cxxx_p_o C=250e-18
+  C11<439> c11 cxxx_p_o C=250e-18
+  C11<438> c11 cxxx_p_o C=250e-18
+  C11<437> c11 cxxx_p_o C=250e-18
+  C11<436> c11 cxxx_p_o C=250e-18
+  C11<435> c11 cxxx_p_o C=250e-18
+  C11<434> c11 cxxx_p_o C=250e-18
+  C11<433> c11 cxxx_p_o C=250e-18
+  C11<432> c11 cxxx_p_o C=250e-18
+  C11<431> c11 cxxx_p_o C=250e-18
+  C11<430> c11 cxxx_p_o C=250e-18
+  C11<429> c11 cxxx_p_o C=250e-18
+  C11<428> c11 cxxx_p_o C=250e-18
+  C11<427> c11 cxxx_p_o C=250e-18
+  C11<426> c11 cxxx_p_o C=250e-18
+  C11<425> c11 cxxx_p_o C=250e-18
+  C11<424> c11 cxxx_p_o C=250e-18
+  C11<423> c11 cxxx_p_o C=250e-18
+  C11<422> c11 cxxx_p_o C=250e-18
+  C11<421> c11 cxxx_p_o C=250e-18
+  C11<420> c11 cxxx_p_o C=250e-18
+  C11<419> c11 cxxx_p_o C=250e-18
+  C11<418> c11 cxxx_p_o C=250e-18
+  C11<417> c11 cxxx_p_o C=250e-18
+  C11<416> c11 cxxx_p_o C=250e-18
+  C11<415> c11 cxxx_p_o C=250e-18
+  C11<414> c11 cxxx_p_o C=250e-18
+  C11<413> c11 cxxx_p_o C=250e-18
+  C11<412> c11 cxxx_p_o C=250e-18
+  C11<411> c11 cxxx_p_o C=250e-18
+  C11<410> c11 cxxx_p_o C=250e-18
+  C11<409> c11 cxxx_p_o C=250e-18
+  C11<408> c11 cxxx_p_o C=250e-18
+  C11<407> c11 cxxx_p_o C=250e-18
+  C11<406> c11 cxxx_p_o C=250e-18
+  C11<405> c11 cxxx_p_o C=250e-18
+  C11<404> c11 cxxx_p_o C=250e-18
+  C11<403> c11 cxxx_p_o C=250e-18
+  C11<402> c11 cxxx_p_o C=250e-18
+  C11<401> c11 cxxx_p_o C=250e-18
+  C11<400> c11 cxxx_p_o C=250e-18
+  C11<399> c11 cxxx_p_o C=250e-18
+  C11<398> c11 cxxx_p_o C=250e-18
+  C11<397> c11 cxxx_p_o C=250e-18
+  C11<396> c11 cxxx_p_o C=250e-18
+  C11<395> c11 cxxx_p_o C=250e-18
+  C11<394> c11 cxxx_p_o C=250e-18
+  C11<393> c11 cxxx_p_o C=250e-18
+  C11<392> c11 cxxx_p_o C=250e-18
+  C11<391> c11 cxxx_p_o C=250e-18
+  C11<390> c11 cxxx_p_o C=250e-18
+  C11<389> c11 cxxx_p_o C=250e-18
+  C11<388> c11 cxxx_p_o C=250e-18
+  C11<387> c11 cxxx_p_o C=250e-18
+  C11<386> c11 cxxx_p_o C=250e-18
+  C11<385> c11 cxxx_p_o C=250e-18
+  C11<384> c11 cxxx_p_o C=250e-18
+  C11<383> c11 cxxx_p_o C=250e-18
+  C11<382> c11 cxxx_p_o C=250e-18
+  C11<381> c11 cxxx_p_o C=250e-18
+  C11<380> c11 cxxx_p_o C=250e-18
+  C11<379> c11 cxxx_p_o C=250e-18
+  C11<378> c11 cxxx_p_o C=250e-18
+  C11<377> c11 cxxx_p_o C=250e-18
+  C11<376> c11 cxxx_p_o C=250e-18
+  C11<375> c11 cxxx_p_o C=250e-18
+  C11<374> c11 cxxx_p_o C=250e-18
+  C11<373> c11 cxxx_p_o C=250e-18
+  C11<372> c11 cxxx_p_o C=250e-18
+  C11<371> c11 cxxx_p_o C=250e-18
+  C11<370> c11 cxxx_p_o C=250e-18
+  C11<369> c11 cxxx_p_o C=250e-18
+  C11<368> c11 cxxx_p_o C=250e-18
+  C11<367> c11 cxxx_p_o C=250e-18
+  C11<366> c11 cxxx_p_o C=250e-18
+  C11<365> c11 cxxx_p_o C=250e-18
+  C11<364> c11 cxxx_p_o C=250e-18
+  C11<363> c11 cxxx_p_o C=250e-18
+  C11<362> c11 cxxx_p_o C=250e-18
+  C11<361> c11 cxxx_p_o C=250e-18
+  C11<360> c11 cxxx_p_o C=250e-18
+  C11<359> c11 cxxx_p_o C=250e-18
+  C11<358> c11 cxxx_p_o C=250e-18
+  C11<357> c11 cxxx_p_o C=250e-18
+  C11<356> c11 cxxx_p_o C=250e-18
+  C11<355> c11 cxxx_p_o C=250e-18
+  C11<354> c11 cxxx_p_o C=250e-18
+  C11<353> c11 cxxx_p_o C=250e-18
+  C11<352> c11 cxxx_p_o C=250e-18
+  C11<351> c11 cxxx_p_o C=250e-18
+  C11<350> c11 cxxx_p_o C=250e-18
+  C11<349> c11 cxxx_p_o C=250e-18
+  C11<348> c11 cxxx_p_o C=250e-18
+  C11<347> c11 cxxx_p_o C=250e-18
+  C11<346> c11 cxxx_p_o C=250e-18
+  C11<345> c11 cxxx_p_o C=250e-18
+  C11<344> c11 cxxx_p_o C=250e-18
+  C11<343> c11 cxxx_p_o C=250e-18
+  C11<342> c11 cxxx_p_o C=250e-18
+  C11<341> c11 cxxx_p_o C=250e-18
+  C11<340> c11 cxxx_p_o C=250e-18
+  C11<339> c11 cxxx_p_o C=250e-18
+  C11<338> c11 cxxx_p_o C=250e-18
+  C11<337> c11 cxxx_p_o C=250e-18
+  C11<336> c11 cxxx_p_o C=250e-18
+  C11<335> c11 cxxx_p_o C=250e-18
+  C11<334> c11 cxxx_p_o C=250e-18
+  C11<333> c11 cxxx_p_o C=250e-18
+  C11<332> c11 cxxx_p_o C=250e-18
+  C11<331> c11 cxxx_p_o C=250e-18
+  C11<330> c11 cxxx_p_o C=250e-18
+  C11<329> c11 cxxx_p_o C=250e-18
+  C11<328> c11 cxxx_p_o C=250e-18
+  C11<327> c11 cxxx_p_o C=250e-18
+  C11<326> c11 cxxx_p_o C=250e-18
+  C11<325> c11 cxxx_p_o C=250e-18
+  C11<324> c11 cxxx_p_o C=250e-18
+  C11<323> c11 cxxx_p_o C=250e-18
+  C11<322> c11 cxxx_p_o C=250e-18
+  C11<321> c11 cxxx_p_o C=250e-18
+  C11<320> c11 cxxx_p_o C=250e-18
+  C11<319> c11 cxxx_p_o C=250e-18
+  C11<318> c11 cxxx_p_o C=250e-18
+  C11<317> c11 cxxx_p_o C=250e-18
+  C11<316> c11 cxxx_p_o C=250e-18
+  C11<315> c11 cxxx_p_o C=250e-18
+  C11<314> c11 cxxx_p_o C=250e-18
+  C11<313> c11 cxxx_p_o C=250e-18
+  C11<312> c11 cxxx_p_o C=250e-18
+  C11<311> c11 cxxx_p_o C=250e-18
+  C11<310> c11 cxxx_p_o C=250e-18
+  C11<309> c11 cxxx_p_o C=250e-18
+  C11<308> c11 cxxx_p_o C=250e-18
+  C11<307> c11 cxxx_p_o C=250e-18
+  C11<306> c11 cxxx_p_o C=250e-18
+  C11<305> c11 cxxx_p_o C=250e-18
+  C11<304> c11 cxxx_p_o C=250e-18
+  C11<303> c11 cxxx_p_o C=250e-18
+  C11<302> c11 cxxx_p_o C=250e-18
+  C11<301> c11 cxxx_p_o C=250e-18
+  C11<300> c11 cxxx_p_o C=250e-18
+  C11<299> c11 cxxx_p_o C=250e-18
+  C11<298> c11 cxxx_p_o C=250e-18
+  C11<297> c11 cxxx_p_o C=250e-18
+  C11<296> c11 cxxx_p_o C=250e-18
+  C11<295> c11 cxxx_p_o C=250e-18
+  C11<294> c11 cxxx_p_o C=250e-18
+  C11<293> c11 cxxx_p_o C=250e-18
+  C11<292> c11 cxxx_p_o C=250e-18
+  C11<291> c11 cxxx_p_o C=250e-18
+  C11<290> c11 cxxx_p_o C=250e-18
+  C11<289> c11 cxxx_p_o C=250e-18
+  C11<288> c11 cxxx_p_o C=250e-18
+  C11<287> c11 cxxx_p_o C=250e-18
+  C11<286> c11 cxxx_p_o C=250e-18
+  C11<285> c11 cxxx_p_o C=250e-18
+  C11<284> c11 cxxx_p_o C=250e-18
+  C11<283> c11 cxxx_p_o C=250e-18
+  C11<282> c11 cxxx_p_o C=250e-18
+  C11<281> c11 cxxx_p_o C=250e-18
+  C11<280> c11 cxxx_p_o C=250e-18
+  C11<279> c11 cxxx_p_o C=250e-18
+  C11<278> c11 cxxx_p_o C=250e-18
+  C11<277> c11 cxxx_p_o C=250e-18
+  C11<276> c11 cxxx_p_o C=250e-18
+  C11<275> c11 cxxx_p_o C=250e-18
+  C11<274> c11 cxxx_p_o C=250e-18
+  C11<273> c11 cxxx_p_o C=250e-18
+  C11<272> c11 cxxx_p_o C=250e-18
+  C11<271> c11 cxxx_p_o C=250e-18
+  C11<270> c11 cxxx_p_o C=250e-18
+  C11<269> c11 cxxx_p_o C=250e-18
+  C11<268> c11 cxxx_p_o C=250e-18
+  C11<267> c11 cxxx_p_o C=250e-18
+  C11<266> c11 cxxx_p_o C=250e-18
+  C11<265> c11 cxxx_p_o C=250e-18
+  C11<264> c11 cxxx_p_o C=250e-18
+  C11<263> c11 cxxx_p_o C=250e-18
+  C11<262> c11 cxxx_p_o C=250e-18
+  C11<261> c11 cxxx_p_o C=250e-18
+  C11<260> c11 cxxx_p_o C=250e-18
+  C11<259> c11 cxxx_p_o C=250e-18
+  C11<258> c11 cxxx_p_o C=250e-18
+  C11<257> c11 cxxx_p_o C=250e-18
+  C11<256> c11 cxxx_p_o C=250e-18
+  C11<255> c11 cxxx_p_o C=250e-18
+  C11<254> c11 cxxx_p_o C=250e-18
+  C11<253> c11 cxxx_p_o C=250e-18
+  C11<252> c11 cxxx_p_o C=250e-18
+  C11<251> c11 cxxx_p_o C=250e-18
+  C11<250> c11 cxxx_p_o C=250e-18
+  C11<249> c11 cxxx_p_o C=250e-18
+  C11<248> c11 cxxx_p_o C=250e-18
+  C11<247> c11 cxxx_p_o C=250e-18
+  C11<246> c11 cxxx_p_o C=250e-18
+  C11<245> c11 cxxx_p_o C=250e-18
+  C11<244> c11 cxxx_p_o C=250e-18
+  C11<243> c11 cxxx_p_o C=250e-18
+  C11<242> c11 cxxx_p_o C=250e-18
+  C11<241> c11 cxxx_p_o C=250e-18
+  C11<240> c11 cxxx_p_o C=250e-18
+  C11<239> c11 cxxx_p_o C=250e-18
+  C11<238> c11 cxxx_p_o C=250e-18
+  C11<237> c11 cxxx_p_o C=250e-18
+  C11<236> c11 cxxx_p_o C=250e-18
+  C11<235> c11 cxxx_p_o C=250e-18
+  C11<234> c11 cxxx_p_o C=250e-18
+  C11<233> c11 cxxx_p_o C=250e-18
+  C11<232> c11 cxxx_p_o C=250e-18
+  C11<231> c11 cxxx_p_o C=250e-18
+  C11<230> c11 cxxx_p_o C=250e-18
+  C11<229> c11 cxxx_p_o C=250e-18
+  C11<228> c11 cxxx_p_o C=250e-18
+  C11<227> c11 cxxx_p_o C=250e-18
+  C11<226> c11 cxxx_p_o C=250e-18
+  C11<225> c11 cxxx_p_o C=250e-18
+  C11<224> c11 cxxx_p_o C=250e-18
+  C11<223> c11 cxxx_p_o C=250e-18
+  C11<222> c11 cxxx_p_o C=250e-18
+  C11<221> c11 cxxx_p_o C=250e-18
+  C11<220> c11 cxxx_p_o C=250e-18
+  C11<219> c11 cxxx_p_o C=250e-18
+  C11<218> c11 cxxx_p_o C=250e-18
+  C11<217> c11 cxxx_p_o C=250e-18
+  C11<216> c11 cxxx_p_o C=250e-18
+  C11<215> c11 cxxx_p_o C=250e-18
+  C11<214> c11 cxxx_p_o C=250e-18
+  C11<213> c11 cxxx_p_o C=250e-18
+  C11<212> c11 cxxx_p_o C=250e-18
+  C11<211> c11 cxxx_p_o C=250e-18
+  C11<210> c11 cxxx_p_o C=250e-18
+  C11<209> c11 cxxx_p_o C=250e-18
+  C11<208> c11 cxxx_p_o C=250e-18
+  C11<207> c11 cxxx_p_o C=250e-18
+  C11<206> c11 cxxx_p_o C=250e-18
+  C11<205> c11 cxxx_p_o C=250e-18
+  C11<204> c11 cxxx_p_o C=250e-18
+  C11<203> c11 cxxx_p_o C=250e-18
+  C11<202> c11 cxxx_p_o C=250e-18
+  C11<201> c11 cxxx_p_o C=250e-18
+  C11<200> c11 cxxx_p_o C=250e-18
+  C11<199> c11 cxxx_p_o C=250e-18
+  C11<198> c11 cxxx_p_o C=250e-18
+  C11<197> c11 cxxx_p_o C=250e-18
+  C11<196> c11 cxxx_p_o C=250e-18
+  C11<195> c11 cxxx_p_o C=250e-18
+  C11<194> c11 cxxx_p_o C=250e-18
+  C11<193> c11 cxxx_p_o C=250e-18
+  C11<192> c11 cxxx_p_o C=250e-18
+  C11<191> c11 cxxx_p_o C=250e-18
+  C11<190> c11 cxxx_p_o C=250e-18
+  C11<189> c11 cxxx_p_o C=250e-18
+  C11<188> c11 cxxx_p_o C=250e-18
+  C11<187> c11 cxxx_p_o C=250e-18
+  C11<186> c11 cxxx_p_o C=250e-18
+  C11<185> c11 cxxx_p_o C=250e-18
+  C11<184> c11 cxxx_p_o C=250e-18
+  C11<183> c11 cxxx_p_o C=250e-18
+  C11<182> c11 cxxx_p_o C=250e-18
+  C11<181> c11 cxxx_p_o C=250e-18
+  C11<180> c11 cxxx_p_o C=250e-18
+  C11<179> c11 cxxx_p_o C=250e-18
+  C11<178> c11 cxxx_p_o C=250e-18
+  C11<177> c11 cxxx_p_o C=250e-18
+  C11<176> c11 cxxx_p_o C=250e-18
+  C11<175> c11 cxxx_p_o C=250e-18
+  C11<174> c11 cxxx_p_o C=250e-18
+  C11<173> c11 cxxx_p_o C=250e-18
+  C11<172> c11 cxxx_p_o C=250e-18
+  C11<171> c11 cxxx_p_o C=250e-18
+  C11<170> c11 cxxx_p_o C=250e-18
+  C11<169> c11 cxxx_p_o C=250e-18
+  C11<168> c11 cxxx_p_o C=250e-18
+  C11<167> c11 cxxx_p_o C=250e-18
+  C11<166> c11 cxxx_p_o C=250e-18
+  C11<165> c11 cxxx_p_o C=250e-18
+  C11<164> c11 cxxx_p_o C=250e-18
+  C11<163> c11 cxxx_p_o C=250e-18
+  C11<162> c11 cxxx_p_o C=250e-18
+  C11<161> c11 cxxx_p_o C=250e-18
+  C11<160> c11 cxxx_p_o C=250e-18
+  C11<159> c11 cxxx_p_o C=250e-18
+  C11<158> c11 cxxx_p_o C=250e-18
+  C11<157> c11 cxxx_p_o C=250e-18
+  C11<156> c11 cxxx_p_o C=250e-18
+  C11<155> c11 cxxx_p_o C=250e-18
+  C11<154> c11 cxxx_p_o C=250e-18
+  C11<153> c11 cxxx_p_o C=250e-18
+  C11<152> c11 cxxx_p_o C=250e-18
+  C11<151> c11 cxxx_p_o C=250e-18
+  C11<150> c11 cxxx_p_o C=250e-18
+  C11<149> c11 cxxx_p_o C=250e-18
+  C11<148> c11 cxxx_p_o C=250e-18
+  C11<147> c11 cxxx_p_o C=250e-18
+  C11<146> c11 cxxx_p_o C=250e-18
+  C11<145> c11 cxxx_p_o C=250e-18
+  C11<144> c11 cxxx_p_o C=250e-18
+  C11<143> c11 cxxx_p_o C=250e-18
+  C11<142> c11 cxxx_p_o C=250e-18
+  C11<141> c11 cxxx_p_o C=250e-18
+  C11<140> c11 cxxx_p_o C=250e-18
+  C11<139> c11 cxxx_p_o C=250e-18
+  C11<138> c11 cxxx_p_o C=250e-18
+  C11<137> c11 cxxx_p_o C=250e-18
+  C11<136> c11 cxxx_p_o C=250e-18
+  C11<135> c11 cxxx_p_o C=250e-18
+  C11<134> c11 cxxx_p_o C=250e-18
+  C11<133> c11 cxxx_p_o C=250e-18
+  C11<132> c11 cxxx_p_o C=250e-18
+  C11<131> c11 cxxx_p_o C=250e-18
+  C11<130> c11 cxxx_p_o C=250e-18
+  C11<129> c11 cxxx_p_o C=250e-18
+  C11<128> c11 cxxx_p_o C=250e-18
+  C11<127> c11 cxxx_p_o C=250e-18
+  C11<126> c11 cxxx_p_o C=250e-18
+  C11<125> c11 cxxx_p_o C=250e-18
+  C11<124> c11 cxxx_p_o C=250e-18
+  C11<123> c11 cxxx_p_o C=250e-18
+  C11<122> c11 cxxx_p_o C=250e-18
+  C11<121> c11 cxxx_p_o C=250e-18
+  C11<120> c11 cxxx_p_o C=250e-18
+  C11<119> c11 cxxx_p_o C=250e-18
+  C11<118> c11 cxxx_p_o C=250e-18
+  C11<117> c11 cxxx_p_o C=250e-18
+  C11<116> c11 cxxx_p_o C=250e-18
+  C11<115> c11 cxxx_p_o C=250e-18
+  C11<114> c11 cxxx_p_o C=250e-18
+  C11<113> c11 cxxx_p_o C=250e-18
+  C11<112> c11 cxxx_p_o C=250e-18
+  C11<111> c11 cxxx_p_o C=250e-18
+  C11<110> c11 cxxx_p_o C=250e-18
+  C11<109> c11 cxxx_p_o C=250e-18
+  C11<108> c11 cxxx_p_o C=250e-18
+  C11<107> c11 cxxx_p_o C=250e-18
+  C11<106> c11 cxxx_p_o C=250e-18
+  C11<105> c11 cxxx_p_o C=250e-18
+  C11<104> c11 cxxx_p_o C=250e-18
+  C11<103> c11 cxxx_p_o C=250e-18
+  C11<102> c11 cxxx_p_o C=250e-18
+  C11<101> c11 cxxx_p_o C=250e-18
+  C11<100> c11 cxxx_p_o C=250e-18
+  C11<99> c11 cxxx_p_o C=250e-18
+  C11<98> c11 cxxx_p_o C=250e-18
+  C11<97> c11 cxxx_p_o C=250e-18
+  C11<96> c11 cxxx_p_o C=250e-18
+  C11<95> c11 cxxx_p_o C=250e-18
+  C11<94> c11 cxxx_p_o C=250e-18
+  C11<93> c11 cxxx_p_o C=250e-18
+  C11<92> c11 cxxx_p_o C=250e-18
+  C11<91> c11 cxxx_p_o C=250e-18
+  C11<90> c11 cxxx_p_o C=250e-18
+  C11<89> c11 cxxx_p_o C=250e-18
+  C11<88> c11 cxxx_p_o C=250e-18
+  C11<87> c11 cxxx_p_o C=250e-18
+  C11<86> c11 cxxx_p_o C=250e-18
+  C11<85> c11 cxxx_p_o C=250e-18
+  C11<84> c11 cxxx_p_o C=250e-18
+  C11<83> c11 cxxx_p_o C=250e-18
+  C11<82> c11 cxxx_p_o C=250e-18
+  C11<81> c11 cxxx_p_o C=250e-18
+  C11<80> c11 cxxx_p_o C=250e-18
+  C11<79> c11 cxxx_p_o C=250e-18
+  C11<78> c11 cxxx_p_o C=250e-18
+  C11<77> c11 cxxx_p_o C=250e-18
+  C11<76> c11 cxxx_p_o C=250e-18
+  C11<75> c11 cxxx_p_o C=250e-18
+  C11<74> c11 cxxx_p_o C=250e-18
+  C11<73> c11 cxxx_p_o C=250e-18
+  C11<72> c11 cxxx_p_o C=250e-18
+  C11<71> c11 cxxx_p_o C=250e-18
+  C11<70> c11 cxxx_p_o C=250e-18
+  C11<69> c11 cxxx_p_o C=250e-18
+  C11<68> c11 cxxx_p_o C=250e-18
+  C11<67> c11 cxxx_p_o C=250e-18
+  C11<66> c11 cxxx_p_o C=250e-18
+  C11<65> c11 cxxx_p_o C=250e-18
+  C11<64> c11 cxxx_p_o C=250e-18
+  C11<63> c11 cxxx_p_o C=250e-18
+  C11<62> c11 cxxx_p_o C=250e-18
+  C11<61> c11 cxxx_p_o C=250e-18
+  C11<60> c11 cxxx_p_o C=250e-18
+  C11<59> c11 cxxx_p_o C=250e-18
+  C11<58> c11 cxxx_p_o C=250e-18
+  C11<57> c11 cxxx_p_o C=250e-18
+  C11<56> c11 cxxx_p_o C=250e-18
+  C11<55> c11 cxxx_p_o C=250e-18
+  C11<54> c11 cxxx_p_o C=250e-18
+  C11<53> c11 cxxx_p_o C=250e-18
+  C11<52> c11 cxxx_p_o C=250e-18
+  C11<51> c11 cxxx_p_o C=250e-18
+  C11<50> c11 cxxx_p_o C=250e-18
+  C11<49> c11 cxxx_p_o C=250e-18
+  C11<48> c11 cxxx_p_o C=250e-18
+  C11<47> c11 cxxx_p_o C=250e-18
+  C11<46> c11 cxxx_p_o C=250e-18
+  C11<45> c11 cxxx_p_o C=250e-18
+  C11<44> c11 cxxx_p_o C=250e-18
+  C11<43> c11 cxxx_p_o C=250e-18
+  C11<42> c11 cxxx_p_o C=250e-18
+  C11<41> c11 cxxx_p_o C=250e-18
+  C11<40> c11 cxxx_p_o C=250e-18
+  C11<39> c11 cxxx_p_o C=250e-18
+  C11<38> c11 cxxx_p_o C=250e-18
+  C11<37> c11 cxxx_p_o C=250e-18
+  C11<36> c11 cxxx_p_o C=250e-18
+  C11<35> c11 cxxx_p_o C=250e-18
+  C11<34> c11 cxxx_p_o C=250e-18
+  C11<33> c11 cxxx_p_o C=250e-18
+  C11<32> c11 cxxx_p_o C=250e-18
+  C11<31> c11 cxxx_p_o C=250e-18
+  C11<30> c11 cxxx_p_o C=250e-18
+  C11<29> c11 cxxx_p_o C=250e-18
+  C11<28> c11 cxxx_p_o C=250e-18
+  C11<27> c11 cxxx_p_o C=250e-18
+  C11<26> c11 cxxx_p_o C=250e-18
+  C11<25> c11 cxxx_p_o C=250e-18
+  C11<24> c11 cxxx_p_o C=250e-18
+  C11<23> c11 cxxx_p_o C=250e-18
+  C11<22> c11 cxxx_p_o C=250e-18
+  C11<21> c11 cxxx_p_o C=250e-18
+  C11<20> c11 cxxx_p_o C=250e-18
+  C11<19> c11 cxxx_p_o C=250e-18
+  C11<18> c11 cxxx_p_o C=250e-18
+  C11<17> c11 cxxx_p_o C=250e-18
+  C11<16> c11 cxxx_p_o C=250e-18
+  C11<15> c11 cxxx_p_o C=250e-18
+  C11<14> c11 cxxx_p_o C=250e-18
+  C11<13> c11 cxxx_p_o C=250e-18
+  C11<12> c11 cxxx_p_o C=250e-18
+  C11<11> c11 cxxx_p_o C=250e-18
+  C11<10> c11 cxxx_p_o C=250e-18
+  C11<9> c11 cxxx_p_o C=250e-18
+  C11<8> c11 cxxx_p_o C=250e-18
+  C11<7> c11 cxxx_p_o C=250e-18
+  C11<6> c11 cxxx_p_o C=250e-18
+  C11<5> c11 cxxx_p_o C=250e-18
+  C11<4> c11 cxxx_p_o C=250e-18
+  C11<3> c11 cxxx_p_o C=250e-18
+  C11<2> c11 cxxx_p_o C=250e-18
+  C11<1> c11 cxxx_p_o C=250e-18
+  C11<0> c11 cxxx_p_o C=250e-18
+  C8<107> c8 cxxx_p_o C=250e-18
+  C8<106> c8 cxxx_p_o C=250e-18
+  C8<105> c8 cxxx_p_o C=250e-18
+  C8<104> c8 cxxx_p_o C=250e-18
+  C8<103> c8 cxxx_p_o C=250e-18
+  C8<102> c8 cxxx_p_o C=250e-18
+  C8<101> c8 cxxx_p_o C=250e-18
+  C8<100> c8 cxxx_p_o C=250e-18
+  C8<99> c8 cxxx_p_o C=250e-18
+  C8<98> c8 cxxx_p_o C=250e-18
+  C8<97> c8 cxxx_p_o C=250e-18
+  C8<96> c8 cxxx_p_o C=250e-18
+  C8<95> c8 cxxx_p_o C=250e-18
+  C8<94> c8 cxxx_p_o C=250e-18
+  C8<93> c8 cxxx_p_o C=250e-18
+  C8<92> c8 cxxx_p_o C=250e-18
+  C8<91> c8 cxxx_p_o C=250e-18
+  C8<90> c8 cxxx_p_o C=250e-18
+  C8<89> c8 cxxx_p_o C=250e-18
+  C8<88> c8 cxxx_p_o C=250e-18
+  C8<87> c8 cxxx_p_o C=250e-18
+  C8<86> c8 cxxx_p_o C=250e-18
+  C8<85> c8 cxxx_p_o C=250e-18
+  C8<84> c8 cxxx_p_o C=250e-18
+  C8<83> c8 cxxx_p_o C=250e-18
+  C8<82> c8 cxxx_p_o C=250e-18
+  C8<81> c8 cxxx_p_o C=250e-18
+  C8<80> c8 cxxx_p_o C=250e-18
+  C8<79> c8 cxxx_p_o C=250e-18
+  C8<78> c8 cxxx_p_o C=250e-18
+  C8<77> c8 cxxx_p_o C=250e-18
+  C8<76> c8 cxxx_p_o C=250e-18
+  C8<75> c8 cxxx_p_o C=250e-18
+  C8<74> c8 cxxx_p_o C=250e-18
+  C8<73> c8 cxxx_p_o C=250e-18
+  C8<72> c8 cxxx_p_o C=250e-18
+  C8<71> c8 cxxx_p_o C=250e-18
+  C8<70> c8 cxxx_p_o C=250e-18
+  C8<69> c8 cxxx_p_o C=250e-18
+  C8<68> c8 cxxx_p_o C=250e-18
+  C8<67> c8 cxxx_p_o C=250e-18
+  C8<66> c8 cxxx_p_o C=250e-18
+  C8<65> c8 cxxx_p_o C=250e-18
+  C8<64> c8 cxxx_p_o C=250e-18
+  C8<63> c8 cxxx_p_o C=250e-18
+  C8<62> c8 cxxx_p_o C=250e-18
+  C8<61> c8 cxxx_p_o C=250e-18
+  C8<60> c8 cxxx_p_o C=250e-18
+  C8<59> c8 cxxx_p_o C=250e-18
+  C8<58> c8 cxxx_p_o C=250e-18
+  C8<57> c8 cxxx_p_o C=250e-18
+  C8<56> c8 cxxx_p_o C=250e-18
+  C8<55> c8 cxxx_p_o C=250e-18
+  C8<54> c8 cxxx_p_o C=250e-18
+  C8<53> c8 cxxx_p_o C=250e-18
+  C8<52> c8 cxxx_p_o C=250e-18
+  C8<51> c8 cxxx_p_o C=250e-18
+  C8<50> c8 cxxx_p_o C=250e-18
+  C8<49> c8 cxxx_p_o C=250e-18
+  C8<48> c8 cxxx_p_o C=250e-18
+  C8<47> c8 cxxx_p_o C=250e-18
+  C8<46> c8 cxxx_p_o C=250e-18
+  C8<45> c8 cxxx_p_o C=250e-18
+  C8<44> c8 cxxx_p_o C=250e-18
+  C8<43> c8 cxxx_p_o C=250e-18
+  C8<42> c8 cxxx_p_o C=250e-18
+  C8<41> c8 cxxx_p_o C=250e-18
+  C8<40> c8 cxxx_p_o C=250e-18
+  C8<39> c8 cxxx_p_o C=250e-18
+  C8<38> c8 cxxx_p_o C=250e-18
+  C8<37> c8 cxxx_p_o C=250e-18
+  C8<36> c8 cxxx_p_o C=250e-18
+  C8<35> c8 cxxx_p_o C=250e-18
+  C8<34> c8 cxxx_p_o C=250e-18
+  C8<33> c8 cxxx_p_o C=250e-18
+  C8<32> c8 cxxx_p_o C=250e-18
+  C8<31> c8 cxxx_p_o C=250e-18
+  C8<30> c8 cxxx_p_o C=250e-18
+  C8<29> c8 cxxx_p_o C=250e-18
+  C8<28> c8 cxxx_p_o C=250e-18
+  C8<27> c8 cxxx_p_o C=250e-18
+  C8<26> c8 cxxx_p_o C=250e-18
+  C8<25> c8 cxxx_p_o C=250e-18
+  C8<24> c8 cxxx_p_o C=250e-18
+  C8<23> c8 cxxx_p_o C=250e-18
+  C8<22> c8 cxxx_p_o C=250e-18
+  C8<21> c8 cxxx_p_o C=250e-18
+  C8<20> c8 cxxx_p_o C=250e-18
+  C8<19> c8 cxxx_p_o C=250e-18
+  C8<18> c8 cxxx_p_o C=250e-18
+  C8<17> c8 cxxx_p_o C=250e-18
+  C8<16> c8 cxxx_p_o C=250e-18
+  C8<15> c8 cxxx_p_o C=250e-18
+  C8<14> c8 cxxx_p_o C=250e-18
+  C8<13> c8 cxxx_p_o C=250e-18
+  C8<12> c8 cxxx_p_o C=250e-18
+  C8<11> c8 cxxx_p_o C=250e-18
+  C8<10> c8 cxxx_p_o C=250e-18
+  C8<9> c8 cxxx_p_o C=250e-18
+  C8<8> c8 cxxx_p_o C=250e-18
+  C8<7> c8 cxxx_p_o C=250e-18
+  C8<6> c8 cxxx_p_o C=250e-18
+  C8<5> c8 cxxx_p_o C=250e-18
+  C8<4> c8 cxxx_p_o C=250e-18
+  C8<3> c8 cxxx_p_o C=250e-18
+  C8<2> c8 cxxx_p_o C=250e-18
+  C8<1> c8 cxxx_p_o C=250e-18
+  C8<0> c8 cxxx_p_o C=250e-18
+  C10<295> c10 cxxx_p_o C=250e-18
+  C10<294> c10 cxxx_p_o C=250e-18
+  C10<293> c10 cxxx_p_o C=250e-18
+  C10<292> c10 cxxx_p_o C=250e-18
+  C10<291> c10 cxxx_p_o C=250e-18
+  C10<290> c10 cxxx_p_o C=250e-18
+  C10<289> c10 cxxx_p_o C=250e-18
+  C10<288> c10 cxxx_p_o C=250e-18
+  C10<287> c10 cxxx_p_o C=250e-18
+  C10<286> c10 cxxx_p_o C=250e-18
+  C10<285> c10 cxxx_p_o C=250e-18
+  C10<284> c10 cxxx_p_o C=250e-18
+  C10<283> c10 cxxx_p_o C=250e-18
+  C10<282> c10 cxxx_p_o C=250e-18
+  C10<281> c10 cxxx_p_o C=250e-18
+  C10<280> c10 cxxx_p_o C=250e-18
+  C10<279> c10 cxxx_p_o C=250e-18
+  C10<278> c10 cxxx_p_o C=250e-18
+  C10<277> c10 cxxx_p_o C=250e-18
+  C10<276> c10 cxxx_p_o C=250e-18
+  C10<275> c10 cxxx_p_o C=250e-18
+  C10<274> c10 cxxx_p_o C=250e-18
+  C10<273> c10 cxxx_p_o C=250e-18
+  C10<272> c10 cxxx_p_o C=250e-18
+  C10<271> c10 cxxx_p_o C=250e-18
+  C10<270> c10 cxxx_p_o C=250e-18
+  C10<269> c10 cxxx_p_o C=250e-18
+  C10<268> c10 cxxx_p_o C=250e-18
+  C10<267> c10 cxxx_p_o C=250e-18
+  C10<266> c10 cxxx_p_o C=250e-18
+  C10<265> c10 cxxx_p_o C=250e-18
+  C10<264> c10 cxxx_p_o C=250e-18
+  C10<263> c10 cxxx_p_o C=250e-18
+  C10<262> c10 cxxx_p_o C=250e-18
+  C10<261> c10 cxxx_p_o C=250e-18
+  C10<260> c10 cxxx_p_o C=250e-18
+  C10<259> c10 cxxx_p_o C=250e-18
+  C10<258> c10 cxxx_p_o C=250e-18
+  C10<257> c10 cxxx_p_o C=250e-18
+  C10<256> c10 cxxx_p_o C=250e-18
+  C10<255> c10 cxxx_p_o C=250e-18
+  C10<254> c10 cxxx_p_o C=250e-18
+  C10<253> c10 cxxx_p_o C=250e-18
+  C10<252> c10 cxxx_p_o C=250e-18
+  C10<251> c10 cxxx_p_o C=250e-18
+  C10<250> c10 cxxx_p_o C=250e-18
+  C10<249> c10 cxxx_p_o C=250e-18
+  C10<248> c10 cxxx_p_o C=250e-18
+  C10<247> c10 cxxx_p_o C=250e-18
+  C10<246> c10 cxxx_p_o C=250e-18
+  C10<245> c10 cxxx_p_o C=250e-18
+  C10<244> c10 cxxx_p_o C=250e-18
+  C10<243> c10 cxxx_p_o C=250e-18
+  C10<242> c10 cxxx_p_o C=250e-18
+  C10<241> c10 cxxx_p_o C=250e-18
+  C10<240> c10 cxxx_p_o C=250e-18
+  C10<239> c10 cxxx_p_o C=250e-18
+  C10<238> c10 cxxx_p_o C=250e-18
+  C10<237> c10 cxxx_p_o C=250e-18
+  C10<236> c10 cxxx_p_o C=250e-18
+  C10<235> c10 cxxx_p_o C=250e-18
+  C10<234> c10 cxxx_p_o C=250e-18
+  C10<233> c10 cxxx_p_o C=250e-18
+  C10<232> c10 cxxx_p_o C=250e-18
+  C10<231> c10 cxxx_p_o C=250e-18
+  C10<230> c10 cxxx_p_o C=250e-18
+  C10<229> c10 cxxx_p_o C=250e-18
+  C10<228> c10 cxxx_p_o C=250e-18
+  C10<227> c10 cxxx_p_o C=250e-18
+  C10<226> c10 cxxx_p_o C=250e-18
+  C10<225> c10 cxxx_p_o C=250e-18
+  C10<224> c10 cxxx_p_o C=250e-18
+  C10<223> c10 cxxx_p_o C=250e-18
+  C10<222> c10 cxxx_p_o C=250e-18
+  C10<221> c10 cxxx_p_o C=250e-18
+  C10<220> c10 cxxx_p_o C=250e-18
+  C10<219> c10 cxxx_p_o C=250e-18
+  C10<218> c10 cxxx_p_o C=250e-18
+  C10<217> c10 cxxx_p_o C=250e-18
+  C10<216> c10 cxxx_p_o C=250e-18
+  C10<215> c10 cxxx_p_o C=250e-18
+  C10<214> c10 cxxx_p_o C=250e-18
+  C10<213> c10 cxxx_p_o C=250e-18
+  C10<212> c10 cxxx_p_o C=250e-18
+  C10<211> c10 cxxx_p_o C=250e-18
+  C10<210> c10 cxxx_p_o C=250e-18
+  C10<209> c10 cxxx_p_o C=250e-18
+  C10<208> c10 cxxx_p_o C=250e-18
+  C10<207> c10 cxxx_p_o C=250e-18
+  C10<206> c10 cxxx_p_o C=250e-18
+  C10<205> c10 cxxx_p_o C=250e-18
+  C10<204> c10 cxxx_p_o C=250e-18
+  C10<203> c10 cxxx_p_o C=250e-18
+  C10<202> c10 cxxx_p_o C=250e-18
+  C10<201> c10 cxxx_p_o C=250e-18
+  C10<200> c10 cxxx_p_o C=250e-18
+  C10<199> c10 cxxx_p_o C=250e-18
+  C10<198> c10 cxxx_p_o C=250e-18
+  C10<197> c10 cxxx_p_o C=250e-18
+  C10<196> c10 cxxx_p_o C=250e-18
+  C10<195> c10 cxxx_p_o C=250e-18
+  C10<194> c10 cxxx_p_o C=250e-18
+  C10<193> c10 cxxx_p_o C=250e-18
+  C10<192> c10 cxxx_p_o C=250e-18
+  C10<191> c10 cxxx_p_o C=250e-18
+  C10<190> c10 cxxx_p_o C=250e-18
+  C10<189> c10 cxxx_p_o C=250e-18
+  C10<188> c10 cxxx_p_o C=250e-18
+  C10<187> c10 cxxx_p_o C=250e-18
+  C10<186> c10 cxxx_p_o C=250e-18
+  C10<185> c10 cxxx_p_o C=250e-18
+  C10<184> c10 cxxx_p_o C=250e-18
+  C10<183> c10 cxxx_p_o C=250e-18
+  C10<182> c10 cxxx_p_o C=250e-18
+  C10<181> c10 cxxx_p_o C=250e-18
+  C10<180> c10 cxxx_p_o C=250e-18
+  C10<179> c10 cxxx_p_o C=250e-18
+  C10<178> c10 cxxx_p_o C=250e-18
+  C10<177> c10 cxxx_p_o C=250e-18
+  C10<176> c10 cxxx_p_o C=250e-18
+  C10<175> c10 cxxx_p_o C=250e-18
+  C10<174> c10 cxxx_p_o C=250e-18
+  C10<173> c10 cxxx_p_o C=250e-18
+  C10<172> c10 cxxx_p_o C=250e-18
+  C10<171> c10 cxxx_p_o C=250e-18
+  C10<170> c10 cxxx_p_o C=250e-18
+  C10<169> c10 cxxx_p_o C=250e-18
+  C10<168> c10 cxxx_p_o C=250e-18
+  C10<167> c10 cxxx_p_o C=250e-18
+  C10<166> c10 cxxx_p_o C=250e-18
+  C10<165> c10 cxxx_p_o C=250e-18
+  C10<164> c10 cxxx_p_o C=250e-18
+  C10<163> c10 cxxx_p_o C=250e-18
+  C10<162> c10 cxxx_p_o C=250e-18
+  C10<161> c10 cxxx_p_o C=250e-18
+  C10<160> c10 cxxx_p_o C=250e-18
+  C10<159> c10 cxxx_p_o C=250e-18
+  C10<158> c10 cxxx_p_o C=250e-18
+  C10<157> c10 cxxx_p_o C=250e-18
+  C10<156> c10 cxxx_p_o C=250e-18
+  C10<155> c10 cxxx_p_o C=250e-18
+  C10<154> c10 cxxx_p_o C=250e-18
+  C10<153> c10 cxxx_p_o C=250e-18
+  C10<152> c10 cxxx_p_o C=250e-18
+  C10<151> c10 cxxx_p_o C=250e-18
+  C10<150> c10 cxxx_p_o C=250e-18
+  C10<149> c10 cxxx_p_o C=250e-18
+  C10<148> c10 cxxx_p_o C=250e-18
+  C10<147> c10 cxxx_p_o C=250e-18
+  C10<146> c10 cxxx_p_o C=250e-18
+  C10<145> c10 cxxx_p_o C=250e-18
+  C10<144> c10 cxxx_p_o C=250e-18
+  C10<143> c10 cxxx_p_o C=250e-18
+  C10<142> c10 cxxx_p_o C=250e-18
+  C10<141> c10 cxxx_p_o C=250e-18
+  C10<140> c10 cxxx_p_o C=250e-18
+  C10<139> c10 cxxx_p_o C=250e-18
+  C10<138> c10 cxxx_p_o C=250e-18
+  C10<137> c10 cxxx_p_o C=250e-18
+  C10<136> c10 cxxx_p_o C=250e-18
+  C10<135> c10 cxxx_p_o C=250e-18
+  C10<134> c10 cxxx_p_o C=250e-18
+  C10<133> c10 cxxx_p_o C=250e-18
+  C10<132> c10 cxxx_p_o C=250e-18
+  C10<131> c10 cxxx_p_o C=250e-18
+  C10<130> c10 cxxx_p_o C=250e-18
+  C10<129> c10 cxxx_p_o C=250e-18
+  C10<128> c10 cxxx_p_o C=250e-18
+  C10<127> c10 cxxx_p_o C=250e-18
+  C10<126> c10 cxxx_p_o C=250e-18
+  C10<125> c10 cxxx_p_o C=250e-18
+  C10<124> c10 cxxx_p_o C=250e-18
+  C10<123> c10 cxxx_p_o C=250e-18
+  C10<122> c10 cxxx_p_o C=250e-18
+  C10<121> c10 cxxx_p_o C=250e-18
+  C10<120> c10 cxxx_p_o C=250e-18
+  C10<119> c10 cxxx_p_o C=250e-18
+  C10<118> c10 cxxx_p_o C=250e-18
+  C10<117> c10 cxxx_p_o C=250e-18
+  C10<116> c10 cxxx_p_o C=250e-18
+  C10<115> c10 cxxx_p_o C=250e-18
+  C10<114> c10 cxxx_p_o C=250e-18
+  C10<113> c10 cxxx_p_o C=250e-18
+  C10<112> c10 cxxx_p_o C=250e-18
+  C10<111> c10 cxxx_p_o C=250e-18
+  C10<110> c10 cxxx_p_o C=250e-18
+  C10<109> c10 cxxx_p_o C=250e-18
+  C10<108> c10 cxxx_p_o C=250e-18
+  C10<107> c10 cxxx_p_o C=250e-18
+  C10<106> c10 cxxx_p_o C=250e-18
+  C10<105> c10 cxxx_p_o C=250e-18
+  C10<104> c10 cxxx_p_o C=250e-18
+  C10<103> c10 cxxx_p_o C=250e-18
+  C10<102> c10 cxxx_p_o C=250e-18
+  C10<101> c10 cxxx_p_o C=250e-18
+  C10<100> c10 cxxx_p_o C=250e-18
+  C10<99> c10 cxxx_p_o C=250e-18
+  C10<98> c10 cxxx_p_o C=250e-18
+  C10<97> c10 cxxx_p_o C=250e-18
+  C10<96> c10 cxxx_p_o C=250e-18
+  C10<95> c10 cxxx_p_o C=250e-18
+  C10<94> c10 cxxx_p_o C=250e-18
+  C10<93> c10 cxxx_p_o C=250e-18
+  C10<92> c10 cxxx_p_o C=250e-18
+  C10<91> c10 cxxx_p_o C=250e-18
+  C10<90> c10 cxxx_p_o C=250e-18
+  C10<89> c10 cxxx_p_o C=250e-18
+  C10<88> c10 cxxx_p_o C=250e-18
+  C10<87> c10 cxxx_p_o C=250e-18
+  C10<86> c10 cxxx_p_o C=250e-18
+  C10<85> c10 cxxx_p_o C=250e-18
+  C10<84> c10 cxxx_p_o C=250e-18
+  C10<83> c10 cxxx_p_o C=250e-18
+  C10<82> c10 cxxx_p_o C=250e-18
+  C10<81> c10 cxxx_p_o C=250e-18
+  C10<80> c10 cxxx_p_o C=250e-18
+  C10<79> c10 cxxx_p_o C=250e-18
+  C10<78> c10 cxxx_p_o C=250e-18
+  C10<77> c10 cxxx_p_o C=250e-18
+  C10<76> c10 cxxx_p_o C=250e-18
+  C10<75> c10 cxxx_p_o C=250e-18
+  C10<74> c10 cxxx_p_o C=250e-18
+  C10<73> c10 cxxx_p_o C=250e-18
+  C10<72> c10 cxxx_p_o C=250e-18
+  C10<71> c10 cxxx_p_o C=250e-18
+  C10<70> c10 cxxx_p_o C=250e-18
+  C10<69> c10 cxxx_p_o C=250e-18
+  C10<68> c10 cxxx_p_o C=250e-18
+  C10<67> c10 cxxx_p_o C=250e-18
+  C10<66> c10 cxxx_p_o C=250e-18
+  C10<65> c10 cxxx_p_o C=250e-18
+  C10<64> c10 cxxx_p_o C=250e-18
+  C10<63> c10 cxxx_p_o C=250e-18
+  C10<62> c10 cxxx_p_o C=250e-18
+  C10<61> c10 cxxx_p_o C=250e-18
+  C10<60> c10 cxxx_p_o C=250e-18
+  C10<59> c10 cxxx_p_o C=250e-18
+  C10<58> c10 cxxx_p_o C=250e-18
+  C10<57> c10 cxxx_p_o C=250e-18
+  C10<56> c10 cxxx_p_o C=250e-18
+  C10<55> c10 cxxx_p_o C=250e-18
+  C10<54> c10 cxxx_p_o C=250e-18
+  C10<53> c10 cxxx_p_o C=250e-18
+  C10<52> c10 cxxx_p_o C=250e-18
+  C10<51> c10 cxxx_p_o C=250e-18
+  C10<50> c10 cxxx_p_o C=250e-18
+  C10<49> c10 cxxx_p_o C=250e-18
+  C10<48> c10 cxxx_p_o C=250e-18
+  C10<47> c10 cxxx_p_o C=250e-18
+  C10<46> c10 cxxx_p_o C=250e-18
+  C10<45> c10 cxxx_p_o C=250e-18
+  C10<44> c10 cxxx_p_o C=250e-18
+  C10<43> c10 cxxx_p_o C=250e-18
+  C10<42> c10 cxxx_p_o C=250e-18
+  C10<41> c10 cxxx_p_o C=250e-18
+  C10<40> c10 cxxx_p_o C=250e-18
+  C10<39> c10 cxxx_p_o C=250e-18
+  C10<38> c10 cxxx_p_o C=250e-18
+  C10<37> c10 cxxx_p_o C=250e-18
+  C10<36> c10 cxxx_p_o C=250e-18
+  C10<35> c10 cxxx_p_o C=250e-18
+  C10<34> c10 cxxx_p_o C=250e-18
+  C10<33> c10 cxxx_p_o C=250e-18
+  C10<32> c10 cxxx_p_o C=250e-18
+  C10<31> c10 cxxx_p_o C=250e-18
+  C10<30> c10 cxxx_p_o C=250e-18
+  C10<29> c10 cxxx_p_o C=250e-18
+  C10<28> c10 cxxx_p_o C=250e-18
+  C10<27> c10 cxxx_p_o C=250e-18
+  C10<26> c10 cxxx_p_o C=250e-18
+  C10<25> c10 cxxx_p_o C=250e-18
+  C10<24> c10 cxxx_p_o C=250e-18
+  C10<23> c10 cxxx_p_o C=250e-18
+  C10<22> c10 cxxx_p_o C=250e-18
+  C10<21> c10 cxxx_p_o C=250e-18
+  C10<20> c10 cxxx_p_o C=250e-18
+  C10<19> c10 cxxx_p_o C=250e-18
+  C10<18> c10 cxxx_p_o C=250e-18
+  C10<17> c10 cxxx_p_o C=250e-18
+  C10<16> c10 cxxx_p_o C=250e-18
+  C10<15> c10 cxxx_p_o C=250e-18
+  C10<14> c10 cxxx_p_o C=250e-18
+  C10<13> c10 cxxx_p_o C=250e-18
+  C10<12> c10 cxxx_p_o C=250e-18
+  C10<11> c10 cxxx_p_o C=250e-18
+  C10<10> c10 cxxx_p_o C=250e-18
+  C10<9> c10 cxxx_p_o C=250e-18
+  C10<8> c10 cxxx_p_o C=250e-18
+  C10<7> c10 cxxx_p_o C=250e-18
+  C10<6> c10 cxxx_p_o C=250e-18
+  C10<5> c10 cxxx_p_o C=250e-18
+  C10<4> c10 cxxx_p_o C=250e-18
+  C10<3> c10 cxxx_p_o C=250e-18
+  C10<2> c10 cxxx_p_o C=250e-18
+  C10<1> c10 cxxx_p_o C=250e-18
+  C10<0> c10 cxxx_p_o C=250e-18
+  C3<6> c3 cxxx_p_o C=250e-18
+  C3<5> c3 cxxx_p_o C=250e-18
+  C3<4> c3 cxxx_p_o C=250e-18
+  C3<3> c3 cxxx_p_o C=250e-18
+  C3<2> c3 cxxx_p_o C=250e-18
+  C3<1> c3 cxxx_p_o C=250e-18
+  C3<0> c3 cxxx_p_o C=250e-18
+  C6<35> c6 cxxx_p_o C=250e-18
+  C6<34> c6 cxxx_p_o C=250e-18
+  C6<33> c6 cxxx_p_o C=250e-18
+  C6<32> c6 cxxx_p_o C=250e-18
+  C6<31> c6 cxxx_p_o C=250e-18
+  C6<30> c6 cxxx_p_o C=250e-18
+  C6<29> c6 cxxx_p_o C=250e-18
+  C6<28> c6 cxxx_p_o C=250e-18
+  C6<27> c6 cxxx_p_o C=250e-18
+  C6<26> c6 cxxx_p_o C=250e-18
+  C6<25> c6 cxxx_p_o C=250e-18
+  C6<24> c6 cxxx_p_o C=250e-18
+  C6<23> c6 cxxx_p_o C=250e-18
+  C6<22> c6 cxxx_p_o C=250e-18
+  C6<21> c6 cxxx_p_o C=250e-18
+  C6<20> c6 cxxx_p_o C=250e-18
+  C6<19> c6 cxxx_p_o C=250e-18
+  C6<18> c6 cxxx_p_o C=250e-18
+  C6<17> c6 cxxx_p_o C=250e-18
+  C6<16> c6 cxxx_p_o C=250e-18
+  C6<15> c6 cxxx_p_o C=250e-18
+  C6<14> c6 cxxx_p_o C=250e-18
+  C6<13> c6 cxxx_p_o C=250e-18
+  C6<12> c6 cxxx_p_o C=250e-18
+  C6<11> c6 cxxx_p_o C=250e-18
+  C6<10> c6 cxxx_p_o C=250e-18
+  C6<9> c6 cxxx_p_o C=250e-18
+  C6<8> c6 cxxx_p_o C=250e-18
+  C6<7> c6 cxxx_p_o C=250e-18
+  C6<6> c6 cxxx_p_o C=250e-18
+  C6<5> c6 cxxx_p_o C=250e-18
+  C6<4> c6 cxxx_p_o C=250e-18
+  C6<3> c6 cxxx_p_o C=250e-18
+  C6<2> c6 cxxx_p_o C=250e-18
+  C6<1> c6 cxxx_p_o C=250e-18
+  C6<0> c6 cxxx_p_o C=250e-18
+  C1<1> c1 cxxx_p_o C=250e-18
+  C1<0> c1 cxxx_p_o C=250e-18
+  C5<21> c5 cxxx_p_o C=250e-18
+  C5<20> c5 cxxx_p_o C=250e-18
+  C5<19> c5 cxxx_p_o C=250e-18
+  C5<18> c5 cxxx_p_o C=250e-18
+  C5<17> c5 cxxx_p_o C=250e-18
+  C5<16> c5 cxxx_p_o C=250e-18
+  C5<15> c5 cxxx_p_o C=250e-18
+  C5<14> c5 cxxx_p_o C=250e-18
+  C5<13> c5 cxxx_p_o C=250e-18
+  C5<12> c5 cxxx_p_o C=250e-18
+  C5<11> c5 cxxx_p_o C=250e-18
+  C5<10> c5 cxxx_p_o C=250e-18
+  C5<9> c5 cxxx_p_o C=250e-18
+  C5<8> c5 cxxx_p_o C=250e-18
+  C5<7> c5 cxxx_p_o C=250e-18
+  C5<6> c5 cxxx_p_o C=250e-18
+  C5<5> c5 cxxx_p_o C=250e-18
+  C5<4> c5 cxxx_p_o C=250e-18
+  C5<3> c5 cxxx_p_o C=250e-18
+  C5<2> c5 cxxx_p_o C=250e-18
+  C5<1> c5 cxxx_p_o C=250e-18
+  C5<0> c5 cxxx_p_o C=250e-18
+  C4<11> c4 cxxx_p_o C=250e-18
+  C4<10> c4 cxxx_p_o C=250e-18
+  C4<9> c4 cxxx_p_o C=250e-18
+  C4<8> c4 cxxx_p_o C=250e-18
+  C4<7> c4 cxxx_p_o C=250e-18
+  C4<6> c4 cxxx_p_o C=250e-18
+  C4<5> c4 cxxx_p_o C=250e-18
+  C4<4> c4 cxxx_p_o C=250e-18
+  C4<3> c4 cxxx_p_o C=250e-18
+  C4<2> c4 cxxx_p_o C=250e-18
+  C4<1> c4 cxxx_p_o C=250e-18
+  C4<0> c4 cxxx_p_o C=250e-18
+  C0 c0 cxxx_p_o C=250e-18
+  C2<3> c2 cxxx_p_o C=250e-18
+  C2<2> c2 cxxx_p_o C=250e-18
+  C2<1> c2 cxxx_p_o C=250e-18
+  C2<0> c2 cxxx_p_o C=250e-18
+  C7<63> c7 cxxx_p_o C=250e-18
+  C7<62> c7 cxxx_p_o C=250e-18
+  C7<61> c7 cxxx_p_o C=250e-18
+  C7<60> c7 cxxx_p_o C=250e-18
+  C7<59> c7 cxxx_p_o C=250e-18
+  C7<58> c7 cxxx_p_o C=250e-18
+  C7<57> c7 cxxx_p_o C=250e-18
+  C7<56> c7 cxxx_p_o C=250e-18
+  C7<55> c7 cxxx_p_o C=250e-18
+  C7<54> c7 cxxx_p_o C=250e-18
+  C7<53> c7 cxxx_p_o C=250e-18
+  C7<52> c7 cxxx_p_o C=250e-18
+  C7<51> c7 cxxx_p_o C=250e-18
+  C7<50> c7 cxxx_p_o C=250e-18
+  C7<49> c7 cxxx_p_o C=250e-18
+  C7<48> c7 cxxx_p_o C=250e-18
+  C7<47> c7 cxxx_p_o C=250e-18
+  C7<46> c7 cxxx_p_o C=250e-18
+  C7<45> c7 cxxx_p_o C=250e-18
+  C7<44> c7 cxxx_p_o C=250e-18
+  C7<43> c7 cxxx_p_o C=250e-18
+  C7<42> c7 cxxx_p_o C=250e-18
+  C7<41> c7 cxxx_p_o C=250e-18
+  C7<40> c7 cxxx_p_o C=250e-18
+  C7<39> c7 cxxx_p_o C=250e-18
+  C7<38> c7 cxxx_p_o C=250e-18
+  C7<37> c7 cxxx_p_o C=250e-18
+  C7<36> c7 cxxx_p_o C=250e-18
+  C7<35> c7 cxxx_p_o C=250e-18
+  C7<34> c7 cxxx_p_o C=250e-18
+  C7<33> c7 cxxx_p_o C=250e-18
+  C7<32> c7 cxxx_p_o C=250e-18
+  C7<31> c7 cxxx_p_o C=250e-18
+  C7<30> c7 cxxx_p_o C=250e-18
+  C7<29> c7 cxxx_p_o C=250e-18
+  C7<28> c7 cxxx_p_o C=250e-18
+  C7<27> c7 cxxx_p_o C=250e-18
+  C7<26> c7 cxxx_p_o C=250e-18
+  C7<25> c7 cxxx_p_o C=250e-18
+  C7<24> c7 cxxx_p_o C=250e-18
+  C7<23> c7 cxxx_p_o C=250e-18
+  C7<22> c7 cxxx_p_o C=250e-18
+  C7<21> c7 cxxx_p_o C=250e-18
+  C7<20> c7 cxxx_p_o C=250e-18
+  C7<19> c7 cxxx_p_o C=250e-18
+  C7<18> c7 cxxx_p_o C=250e-18
+  C7<17> c7 cxxx_p_o C=250e-18
+  C7<16> c7 cxxx_p_o C=250e-18
+  C7<15> c7 cxxx_p_o C=250e-18
+  C7<14> c7 cxxx_p_o C=250e-18
+  C7<13> c7 cxxx_p_o C=250e-18
+  C7<12> c7 cxxx_p_o C=250e-18
+  C7<11> c7 cxxx_p_o C=250e-18
+  C7<10> c7 cxxx_p_o C=250e-18
+  C7<9> c7 cxxx_p_o C=250e-18
+  C7<8> c7 cxxx_p_o C=250e-18
+  C7<7> c7 cxxx_p_o C=250e-18
+  C7<6> c7 cxxx_p_o C=250e-18
+  C7<5> c7 cxxx_p_o C=250e-18
+  C7<4> c7 cxxx_p_o C=250e-18
+  C7<3> c7 cxxx_p_o C=250e-18
+  C7<2> c7 cxxx_p_o C=250e-18
+  C7<1> c7 cxxx_p_o C=250e-18
+  C7<0> c7 cxxx_p_o C=250e-18
+  C15 cxxx_n_o vagnd_ai C=512f
+  C9<175> c9 cxxx_p_o C=250e-18
+  C9<174> c9 cxxx_p_o C=250e-18
+  C9<173> c9 cxxx_p_o C=250e-18
+  C9<172> c9 cxxx_p_o C=250e-18
+  C9<171> c9 cxxx_p_o C=250e-18
+  C9<170> c9 cxxx_p_o C=250e-18
+  C9<169> c9 cxxx_p_o C=250e-18
+  C9<168> c9 cxxx_p_o C=250e-18
+  C9<167> c9 cxxx_p_o C=250e-18
+  C9<166> c9 cxxx_p_o C=250e-18
+  C9<165> c9 cxxx_p_o C=250e-18
+  C9<164> c9 cxxx_p_o C=250e-18
+  C9<163> c9 cxxx_p_o C=250e-18
+  C9<162> c9 cxxx_p_o C=250e-18
+  C9<161> c9 cxxx_p_o C=250e-18
+  C9<160> c9 cxxx_p_o C=250e-18
+  C9<159> c9 cxxx_p_o C=250e-18
+  C9<158> c9 cxxx_p_o C=250e-18
+  C9<157> c9 cxxx_p_o C=250e-18
+  C9<156> c9 cxxx_p_o C=250e-18
+  C9<155> c9 cxxx_p_o C=250e-18
+  C9<154> c9 cxxx_p_o C=250e-18
+  C9<153> c9 cxxx_p_o C=250e-18
+  C9<152> c9 cxxx_p_o C=250e-18
+  C9<151> c9 cxxx_p_o C=250e-18
+  C9<150> c9 cxxx_p_o C=250e-18
+  C9<149> c9 cxxx_p_o C=250e-18
+  C9<148> c9 cxxx_p_o C=250e-18
+  C9<147> c9 cxxx_p_o C=250e-18
+  C9<146> c9 cxxx_p_o C=250e-18
+  C9<145> c9 cxxx_p_o C=250e-18
+  C9<144> c9 cxxx_p_o C=250e-18
+  C9<143> c9 cxxx_p_o C=250e-18
+  C9<142> c9 cxxx_p_o C=250e-18
+  C9<141> c9 cxxx_p_o C=250e-18
+  C9<140> c9 cxxx_p_o C=250e-18
+  C9<139> c9 cxxx_p_o C=250e-18
+  C9<138> c9 cxxx_p_o C=250e-18
+  C9<137> c9 cxxx_p_o C=250e-18
+  C9<136> c9 cxxx_p_o C=250e-18
+  C9<135> c9 cxxx_p_o C=250e-18
+  C9<134> c9 cxxx_p_o C=250e-18
+  C9<133> c9 cxxx_p_o C=250e-18
+  C9<132> c9 cxxx_p_o C=250e-18
+  C9<131> c9 cxxx_p_o C=250e-18
+  C9<130> c9 cxxx_p_o C=250e-18
+  C9<129> c9 cxxx_p_o C=250e-18
+  C9<128> c9 cxxx_p_o C=250e-18
+  C9<127> c9 cxxx_p_o C=250e-18
+  C9<126> c9 cxxx_p_o C=250e-18
+  C9<125> c9 cxxx_p_o C=250e-18
+  C9<124> c9 cxxx_p_o C=250e-18
+  C9<123> c9 cxxx_p_o C=250e-18
+  C9<122> c9 cxxx_p_o C=250e-18
+  C9<121> c9 cxxx_p_o C=250e-18
+  C9<120> c9 cxxx_p_o C=250e-18
+  C9<119> c9 cxxx_p_o C=250e-18
+  C9<118> c9 cxxx_p_o C=250e-18
+  C9<117> c9 cxxx_p_o C=250e-18
+  C9<116> c9 cxxx_p_o C=250e-18
+  C9<115> c9 cxxx_p_o C=250e-18
+  C9<114> c9 cxxx_p_o C=250e-18
+  C9<113> c9 cxxx_p_o C=250e-18
+  C9<112> c9 cxxx_p_o C=250e-18
+  C9<111> c9 cxxx_p_o C=250e-18
+  C9<110> c9 cxxx_p_o C=250e-18
+  C9<109> c9 cxxx_p_o C=250e-18
+  C9<108> c9 cxxx_p_o C=250e-18
+  C9<107> c9 cxxx_p_o C=250e-18
+  C9<106> c9 cxxx_p_o C=250e-18
+  C9<105> c9 cxxx_p_o C=250e-18
+  C9<104> c9 cxxx_p_o C=250e-18
+  C9<103> c9 cxxx_p_o C=250e-18
+  C9<102> c9 cxxx_p_o C=250e-18
+  C9<101> c9 cxxx_p_o C=250e-18
+  C9<100> c9 cxxx_p_o C=250e-18
+  C9<99> c9 cxxx_p_o C=250e-18
+  C9<98> c9 cxxx_p_o C=250e-18
+  C9<97> c9 cxxx_p_o C=250e-18
+  C9<96> c9 cxxx_p_o C=250e-18
+  C9<95> c9 cxxx_p_o C=250e-18
+  C9<94> c9 cxxx_p_o C=250e-18
+  C9<93> c9 cxxx_p_o C=250e-18
+  C9<92> c9 cxxx_p_o C=250e-18
+  C9<91> c9 cxxx_p_o C=250e-18
+  C9<90> c9 cxxx_p_o C=250e-18
+  C9<89> c9 cxxx_p_o C=250e-18
+  C9<88> c9 cxxx_p_o C=250e-18
+  C9<87> c9 cxxx_p_o C=250e-18
+  C9<86> c9 cxxx_p_o C=250e-18
+  C9<85> c9 cxxx_p_o C=250e-18
+  C9<84> c9 cxxx_p_o C=250e-18
+  C9<83> c9 cxxx_p_o C=250e-18
+  C9<82> c9 cxxx_p_o C=250e-18
+  C9<81> c9 cxxx_p_o C=250e-18
+  C9<80> c9 cxxx_p_o C=250e-18
+  C9<79> c9 cxxx_p_o C=250e-18
+  C9<78> c9 cxxx_p_o C=250e-18
+  C9<77> c9 cxxx_p_o C=250e-18
+  C9<76> c9 cxxx_p_o C=250e-18
+  C9<75> c9 cxxx_p_o C=250e-18
+  C9<74> c9 cxxx_p_o C=250e-18
+  C9<73> c9 cxxx_p_o C=250e-18
+  C9<72> c9 cxxx_p_o C=250e-18
+  C9<71> c9 cxxx_p_o C=250e-18
+  C9<70> c9 cxxx_p_o C=250e-18
+  C9<69> c9 cxxx_p_o C=250e-18
+  C9<68> c9 cxxx_p_o C=250e-18
+  C9<67> c9 cxxx_p_o C=250e-18
+  C9<66> c9 cxxx_p_o C=250e-18
+  C9<65> c9 cxxx_p_o C=250e-18
+  C9<64> c9 cxxx_p_o C=250e-18
+  C9<63> c9 cxxx_p_o C=250e-18
+  C9<62> c9 cxxx_p_o C=250e-18
+  C9<61> c9 cxxx_p_o C=250e-18
+  C9<60> c9 cxxx_p_o C=250e-18
+  C9<59> c9 cxxx_p_o C=250e-18
+  C9<58> c9 cxxx_p_o C=250e-18
+  C9<57> c9 cxxx_p_o C=250e-18
+  C9<56> c9 cxxx_p_o C=250e-18
+  C9<55> c9 cxxx_p_o C=250e-18
+  C9<54> c9 cxxx_p_o C=250e-18
+  C9<53> c9 cxxx_p_o C=250e-18
+  C9<52> c9 cxxx_p_o C=250e-18
+  C9<51> c9 cxxx_p_o C=250e-18
+  C9<50> c9 cxxx_p_o C=250e-18
+  C9<49> c9 cxxx_p_o C=250e-18
+  C9<48> c9 cxxx_p_o C=250e-18
+  C9<47> c9 cxxx_p_o C=250e-18
+  C9<46> c9 cxxx_p_o C=250e-18
+  C9<45> c9 cxxx_p_o C=250e-18
+  C9<44> c9 cxxx_p_o C=250e-18
+  C9<43> c9 cxxx_p_o C=250e-18
+  C9<42> c9 cxxx_p_o C=250e-18
+  C9<41> c9 cxxx_p_o C=250e-18
+  C9<40> c9 cxxx_p_o C=250e-18
+  C9<39> c9 cxxx_p_o C=250e-18
+  C9<38> c9 cxxx_p_o C=250e-18
+  C9<37> c9 cxxx_p_o C=250e-18
+  C9<36> c9 cxxx_p_o C=250e-18
+  C9<35> c9 cxxx_p_o C=250e-18
+  C9<34> c9 cxxx_p_o C=250e-18
+  C9<33> c9 cxxx_p_o C=250e-18
+  C9<32> c9 cxxx_p_o C=250e-18
+  C9<31> c9 cxxx_p_o C=250e-18
+  C9<30> c9 cxxx_p_o C=250e-18
+  C9<29> c9 cxxx_p_o C=250e-18
+  C9<28> c9 cxxx_p_o C=250e-18
+  C9<27> c9 cxxx_p_o C=250e-18
+  C9<26> c9 cxxx_p_o C=250e-18
+  C9<25> c9 cxxx_p_o C=250e-18
+  C9<24> c9 cxxx_p_o C=250e-18
+  C9<23> c9 cxxx_p_o C=250e-18
+  C9<22> c9 cxxx_p_o C=250e-18
+  C9<21> c9 cxxx_p_o C=250e-18
+  C9<20> c9 cxxx_p_o C=250e-18
+  C9<19> c9 cxxx_p_o C=250e-18
+  C9<18> c9 cxxx_p_o C=250e-18
+  C9<17> c9 cxxx_p_o C=250e-18
+  C9<16> c9 cxxx_p_o C=250e-18
+  C9<15> c9 cxxx_p_o C=250e-18
+  C9<14> c9 cxxx_p_o C=250e-18
+  C9<13> c9 cxxx_p_o C=250e-18
+  C9<12> c9 cxxx_p_o C=250e-18
+  C9<11> c9 cxxx_p_o C=250e-18
+  C9<10> c9 cxxx_p_o C=250e-18
+  C9<9> c9 cxxx_p_o C=250e-18
+  C9<8> c9 cxxx_p_o C=250e-18
+  C9<7> c9 cxxx_p_o C=250e-18
+  C9<6> c9 cxxx_p_o C=250e-18
+  C9<5> c9 cxxx_p_o C=250e-18
+  C9<4> c9 cxxx_p_o C=250e-18
+  C9<3> c9 cxxx_p_o C=250e-18
+  C9<2> c9 cxxx_p_o C=250e-18
+  C9<1> c9 cxxx_p_o C=250e-18
+  C9<0> c9 cxxx_p_o C=250e-18
+.ENDS
+** End of subcircuit definition.
+
+** Cell name: BUF2
+.SUBCKT BUF2 A Z inh_bulk_n inh_bulk_p inh_hSup inh_lSup
+  Mptrans15 net24 A inh_hSup inh_bulk_p PREG W=1.2u L=120.0n M=1
+  Mptrans14 Z net24 inh_hSup inh_bulk_p PREG W=1.62u L=120.0n M=1
+  Mntrans13 net24 A inh_lSup inh_bulk_n NREG W=820.0n L=120.0n M=1
+  Mntrans12 Z net24 inh_lSup inh_bulk_n NREG W=1.12u L=120.0n M=1
+  XINSTANCE1 inh_hSup inh_lSup inh_bulk_n sub_diode
+.ENDS
+** End of subcircuit definition.
+
+** Cell name: adc_swtree_cal
+.SUBCKT adc_swtree_cal c0 c1 c2 c3 c4 c5 cal_n_i<5> cal_n_i<4> cal_n_i<3> cal_n_i<2> cal_n_i<1> cal_n_i<0> vagnd_ai volt_cap vrefp_buf_ai inh_bulk_n inh_bulk_p inh_lSup
+  MP3 c0 net78 vrefp_buf_ai volt_cap PREG W=680.0n L=120.0n M=1
+  MP16 c4 net47 vrefp_buf_ai volt_cap PREG W=680.0n L=120.0n M=1
+  MP15 c3 net63 vrefp_buf_ai volt_cap PREG W=680.0n L=120.0n M=1
+  MP14 c2 net69 vrefp_buf_ai volt_cap PREG W=680.0n L=120.0n M=1
+  MP13 c1 net74 vrefp_buf_ai volt_cap PREG W=680.0n L=120.0n M=1
+  MP17 c5 net014 vrefp_buf_ai volt_cap PREG W=680.0n L=120.0n M=1
+  XI17 cal_n_i<4> net47 inh_bulk_n inh_bulk_p volt_cap inh_lSup BUF2
+  XI18 cal_n_i<3> net63 inh_bulk_n inh_bulk_p volt_cap inh_lSup BUF2
+  XI19 cal_n_i<2> net69 inh_bulk_n inh_bulk_p volt_cap inh_lSup BUF2
+  XI21 cal_n_i<0> net78 inh_bulk_n inh_bulk_p volt_cap inh_lSup BUF2
+  XI16 cal_n_i<5> net014 inh_bulk_n inh_bulk_p volt_cap inh_lSup BUF2
+  XI20 cal_n_i<1> net74 inh_bulk_n inh_bulk_p volt_cap inh_lSup BUF2
+  MN3 c0 net78 vagnd_ai inh_lSup NREG W=420.0n L=120.0n M=1
+  MN15 c4 net47 vagnd_ai inh_lSup NREG W=420.0n L=120.0n M=1
+  MN14 c3 net63 vagnd_ai inh_lSup NREG W=420.0n L=120.0n M=1
+  MN13 c2 net69 vagnd_ai inh_lSup NREG W=420.0n L=120.0n M=1
+  MN12 c1 net74 vagnd_ai inh_lSup NREG W=420.0n L=120.0n M=1
+  MN16 c5 net014 vagnd_ai inh_lSup NREG W=420.0n L=120.0n M=1
+  XD0 volt_cap inh_lSup inh_bulk_n sub_diode
+.ENDS
+** End of subcircuit definition.
+
+** Cell name: adc_dac
+.SUBCKT adc_dac cal_n_i<5> cal_n_i<4> cal_n_i<3> cal_n_i<2> cal_n_i<1> cal_n_i<0> cxxx_n_ao cxxx_p_ao en_vain_lv_i sar_n_i<12> sar_n_i<11> sar_n_i<10> sar_n_i<9> sar_n_i<8> sar_n_i<7> sar_n_i<6> sar_n_i<5> sar_n_i<4> sar_n_i<3> sar_n_i<2> sar_n_i<1> sar_n_i<0>
++ track_n_i<4> track_n_i<3> track_n_i<2> track_n_i<1> track_n_i<0> vagnd_ai vain_lv_ai vlogic_ai vrefp_buf_ai inh_bulk_n inh_bulk_p inh_lSup
+  Xswtree_main c0 c1 c2 c3 c4 c5 c6 c7 c8 c9 c10 c11 c12 en_vain_lv_i sar_n_i<12> sar_n_i<11> sar_n_i<10> sar_n_i<9> sar_n_i<8> sar_n_i<7> sar_n_i<6> sar_n_i<5> sar_n_i<4> sar_n_i<3> sar_n_i<2> sar_n_i<1> sar_n_i<0> vagnd_ai vain_lv_ai vlogic_ai vrefp_buf_ai
++ inh_bulk_n inh_bulk_p inh_lSup adc_swtree
+  Xc_cal c_cal0_s c_cal1_s c_cal2_s c_cal3_s c_cal4_s c_cal5_s cxxx_n_ao cxxx_p_ao vagnd_ai adc_caparray_cal
+  XI0 inh_bulk_n vagnd_ai inh_lSup adc_nwell_dio_sar_dac
+  Xc_main c0 c1 c2 c3 c4 c5 c6 c7 c8 c9 c10 c11 c12 cxxx_n_ao cxxx_p_ao vagnd_ai adc_caparray
+  Xswtree_cal c_cal0_s c_cal1_s c_cal2_s c_cal3_s c_cal4_s c_cal5_s cal_n_i<5> cal_n_i<4> cal_n_i<3> cal_n_i<2> cal_n_i<1> cal_n_i<0> vagnd_ai vlogic_ai vrefp_buf_ai inh_bulk_n inh_bulk_p inh_lSup adc_swtree_cal
+.ENDS
+** End of subcircuit definition.
+
+** Cell name: adc_filter_bg
+.SUBCKT adc_filter_bg vbg_ai vbg_ao vrefn_ai inh_bulk_n inh_lSup
+  MPcap vbg_ao net12 vbg_ao vbg_ao PREG W=20u L=5u M=1
+  MP0 vbg_ao net12 vbg_ao vbg_ao PREG W=680.0n L=120.0n M=1
+  Rrefp vbg_ao vbg_ai R=200K
+  Rrefn net12 vrefn_ai R=3K
+  C0<30> vbg_ao vrefn_ai C=1f
+  C0<29> vbg_ao vrefn_ai C=1f
+  C0<28> vbg_ao vrefn_ai C=1f
+  C0<27> vbg_ao vrefn_ai C=1f
+  C0<26> vbg_ao vrefn_ai C=1f
+  C0<25> vbg_ao vrefn_ai C=1f
+  C0<24> vbg_ao vrefn_ai C=1f
+  C0<23> vbg_ao vrefn_ai C=1f
+  C0<22> vbg_ao vrefn_ai C=1f
+  C0<21> vbg_ao vrefn_ai C=1f
+  C0<20> vbg_ao vrefn_ai C=1f
+  C0<19> vbg_ao vrefn_ai C=1f
+  C0<18> vbg_ao vrefn_ai C=1f
+  C0<17> vbg_ao vrefn_ai C=1f
+  C0<16> vbg_ao vrefn_ai C=1f
+  C0<15> vbg_ao vrefn_ai C=1f
+  C0<14> vbg_ao vrefn_ai C=1f
+  C0<13> vbg_ao vrefn_ai C=1f
+  C0<12> vbg_ao vrefn_ai C=1f
+  C0<11> vbg_ao vrefn_ai C=1f
+  C0<10> vbg_ao vrefn_ai C=1f
+  C0<9> vbg_ao vrefn_ai C=1f
+  C0<8> vbg_ao vrefn_ai C=1f
+  C0<7> vbg_ao vrefn_ai C=1f
+  C0<6> vbg_ao vrefn_ai C=1f
+  C0<5> vbg_ao vrefn_ai C=1f
+  C0<4> vbg_ao vrefn_ai C=1f
+  C0<3> vbg_ao vrefn_ai C=1f
+  C0<2> vbg_ao vrefn_ai C=1f
+  C0<1> vbg_ao vrefn_ai C=1f
+  XD2 vbg_ao inh_lSup inh_bulk_n sub_diode
+.ENDS
+** End of subcircuit definition.
+
+.SUBCKT adc_ocs_delay D Q inh_bulk_n inh_bulk_p inh_hSup inh_lSup
+  MP1 net077 net040 net068 inh_bulk_p PREG W=400n L=120.0n M=1
+  MP7 net068 net039 inh_hSup inh_bulk_p PREG W=400n L=120.0n M=1
+  MP4 Q net039 inh_hSup inh_bulk_p PREG W=1.2u L=120.0n M=1
+  MP5 net039 net077 inh_hSup inh_bulk_p PREG W=900n L=120.0n M=1
+  MP6 net040 D net058 inh_bulk_p PREG W=160.0n L=1.5u M=1
+  MP3 inh_hSup net040 inh_hSup inh_bulk_p PREG W=3u L=120.0n M=1
+  MP2 net058 D inh_hSup inh_bulk_p PREG W=160.0n L=1.5u M=1
+  MP0 net077 net040 inh_hSup inh_bulk_p PREG W=400n L=120.0n M=1
+  MN0 net092 net039 inh_lSup inh_bulk_n NREG W=400n L=120.0n M=1
+  MN3 Q net039 inh_lSup inh_bulk_n NREG W=680.0n L=120.0n M=1
+  MN4 net040 D inh_lSup inh_bulk_n NREG W=680.0n L=120.0n M=1
+  MN2 net077 net040 net092 inh_bulk_n NREG W=400n L=120.0n M=1
+  MN5 net039 net077 inh_lSup inh_bulk_n NREG W=680.0n L=120.0n M=1
+  MN1 net077 net040 inh_lSup inh_bulk_n NREG W=400n L=120.0n M=1
+  XD0 inh_hSup inh_lSup inh_bulk_n sub_diode
+.ENDS
+
+.SUBCKT adc_comp coutn_o coutp_o cxxx_n_ai cxxx_p_ai disable_i ibp2_5u_ai ibp_10u_ai latch_p_i ocs1_n_i vcm_ai vcomp_ai vlogic_ai inh_bulk_n inh_bulk_p inh_lSup
+  C2 e3 a2 C=20.59466f W=2.74u L=7.58u
+  C1 e2q a1 C=35.079f W=4.42u L=7.78u
+  C4 e3q q2 C=20.59466f W=2.74u L=7.58u
+  C0 e2 q1 C=35.079f W=4.42u L=7.78u
+  C3 sample_boost inh_lSup C=40f
+  XI9 latch_p_i net0104 inh_bulk_n inh_bulk_p vlogic_ai inh_lSup BUF2
+  XI10 disable_i net0106 inh_bulk_n inh_bulk_p vcomp_ai inh_lSup BUF2
+  R6 net089 sample_boost R=99.87K
+  R7 ibp2_5u_ai sample_boost R=4.993K
+  R0 vcomp_ai a1 R=24.99K
+  R3 vcomp_ai a2 R=99.95K
+  R2 vcomp_ai q2 R=99.95K
+  R4 vcomp_ai a3 R=49.97K
+  R5 vcomp_ai q3 R=49.97K
+  R1 vcomp_ai q1 R=24.99K
+  MN8 coutn_o o5p inh_lSup inh_bulk_n NREG W=2u L=120.0n M=1
+  MN10 o5p o5n o5p_i inh_bulk_n NREG W=1.2u L=120.0n M=1
+  MN21 net0225 net0131 cxxx_n_ai inh_bulk_n NREG W=320.0n L=300n M=1
+  MN3 x2 ibp_10u_ai inh_lSup inh_bulk_n NREG W=800n L=1u M=2
+  MN11 o5p_i q3 x5 inh_bulk_n NREG W=4u L=200n M=1
+  MN15 x5 net0104 inh_lSup inh_bulk_n NREG W=1.2u L=120.0n M=1
+  MN22 cxxx_p_ai net0131 net0225 inh_bulk_n NREG W=320.0n L=300n M=1
+  MN2 x3 ibp_10u_ai inh_lSup inh_bulk_n NREG W=800n L=1u M=4
+  MN16 coutp_o o5n inh_lSup inh_bulk_n NREG W=2u L=120.0n M=1
+  MN0 inh_lSup ibp_10u_ai inh_lSup inh_bulk_n NREG W=800n L=1u M=1
+  MN12 inh_lSup q3 inh_lSup inh_bulk_n NREG W=1u L=200n M=1
+  MN6 ibp_10u_ai ibp_10u_ai inh_lSup inh_bulk_n NREG W=800n L=1u M=2
+  MN24 e3 sample_boost q3 inh_bulk_n NREG W=680.0n L=120.0n M=1
+  MN26 e2 sample_boost q2 inh_bulk_n NREG W=680.0n L=120.0n M=1
+  MN4 q2 e2 x2 inh_bulk_n NREG W=1u L=120.0n M=1
+  MN13 inh_lSup a3 inh_lSup inh_bulk_n NREG W=1u L=200n M=1
+  MN32 net0250 ocs1_n_i inh_lSup inh_bulk_n NREG W=4u L=120.0n M=1
+  MN25 a2 sample_boost e2q inh_bulk_n NREG W=680.0n L=120.0n M=1
+  MN23 a3 sample_boost e3q inh_bulk_n NREG W=680.0n L=120.0n M=1
+  MN14 q3 e3 x3 inh_bulk_n NREG W=2u L=120.0n M=1
+  MN17 a3 e3q x3 inh_bulk_n NREG W=2u L=120.0n M=1
+  MN28<1> cxxx_n_ai sample_boost vcm_ai inh_bulk_n NREG W=680.0n L=300n M=1
+  MN28<2> cxxx_n_ai sample_boost vcm_ai inh_bulk_n NREG W=680.0n L=300n M=1
+  MN30<1> cxxx_p_ai sample_boost vcm_ai inh_bulk_n NREG W=680.0n L=300n M=1
+  MN30<2> cxxx_p_ai sample_boost vcm_ai inh_bulk_n NREG W=680.0n L=300n M=1
+  MN31 q1 cxxx_p_ai x1 inh_bulk_n NREG W=8u L=120.0n M=1
+  MN27 a1 cxxx_n_ai x1 inh_bulk_n NREG W=8u L=120.0n M=1
+  MN1 net0171 ibp_10u_ai inh_lSup inh_bulk_n NREG W=800n L=1u M=4
+  MN18 o5n o5p o5n_i inh_bulk_n NREG W=1.2u L=120.0n M=1
+  MN9 a2 e2q x2 inh_bulk_n NREG W=1u L=120.0n M=1
+  MN29 ibp_10u_ai net0131 inh_lSup inh_bulk_n NREG W=680.0n L=120.0n M=1
+  MN5 x1 ibp_10u_ai inh_lSup inh_bulk_n NREG W=800n L=1u M=8
+  MN19 o5n_i a3 x5 inh_bulk_n NREG W=4u L=200n M=1
+  MN7 sample_boost vcomp_ai net0250 inh_bulk_n NREG W=4u L=120.0n M=1
+  MN20 net0225 net0131 inh_lSup inh_bulk_n NREG W=680.0n L=120.0n M=1
+  MP10 vcomp_ai net0131 net089 vcomp_ai PREG W=680.0n L=120.0n M=1
+  MP3 o5p net0104 vlogic_ai vlogic_ai PREG W=680.0n L=120.0n M=1
+  MP4 o5p_i net0104 vlogic_ai vlogic_ai PREG W=680.0n L=120.0n M=1
+  MP9 coutn_o o5p vlogic_ai vlogic_ai PREG W=2u L=120.0n M=1
+  MP1 vcomp_ai ocs1_n_i net0171 vcomp_ai PREG W=2u L=120.0n M=1
+  MP0 net0225 net0131 vcm_ai vcomp_ai PREG W=1u L=120.0n M=1
+  MP2 o5p o5n vlogic_ai vlogic_ai PREG W=2u L=120.0n M=1
+  MP8 coutp_o o5n vlogic_ai vlogic_ai PREG W=2u L=120.0n M=1
+  MP7 o5n_i net0104 vlogic_ai vlogic_ai PREG W=680.0n L=120.0n M=1
+  MP6 o5n net0104 vlogic_ai vlogic_ai PREG W=680.0n L=120.0n M=1
+  MP5 o5n o5p vlogic_ai vlogic_ai PREG W=2u L=120.0n M=1
+  XD11 vlogic_ai inh_lSup inh_bulk_n sub_diode
+  XD0 vcomp_ai inh_lSup inh_bulk_n sub_diode
+  XD10 cxxx_n_ai inh_lSup inh_bulk_n sub_diode
+  XD9 cxxx_p_ai inh_lSup inh_bulk_n sub_diode
+  XI2 net0106 net0131 inh_bulk_n inh_bulk_p vcomp_ai inh_lSup adc_ocs_delay
+.ENDS
+** End of subcircuit definition.
+
+** Subcircuit
+** ----------
+** Library name: saradc_11bit
+** Cell name: adc_adc_core
+** View name: schematic
+**
+.SUBCKT adc_adc_core cal_n_i<5> cal_n_i<4> cal_n_i<3> cal_n_i<2> cal_n_i<1> cal_n_i<0> clk_ref_p_i cout_n_o cout_p_o disable_i en_vain_lv_i enable_i ibp0_10u_comp_ai ibp1_5u_comp_ai ibp3_10u_ref_ai latch_i ocs_n_i ocs_ref_p_i ref_p_i sar_n_i<12> sar_n_i<11>
++ sar_n_i<10> sar_n_i<9> sar_n_i<8> sar_n_i<7> sar_n_i<6> sar_n_i<5> sar_n_i<4> sar_n_i<3> sar_n_i<2> sar_n_i<1> sar_n_i<0> track_n_i<4> track_n_i<3> track_n_i<2> track_n_i<1> track_n_i<0> vain_lv_ai vcm_ai vcomp_ai vlogic_ai vrefn_ai vrefn_ao vrefp_ai
++ vrefp_filt_ao vsense_gnd_ai vsense_gnd_ao inh_bulk_n inh_bulk_p inh_bulkn inh_lSup
+  XI1 net039 inh_bulk_n vcomp_ai vcomp_ai inh_lSup TIEZERO
+  Xbg_buffer disable_i enable_i ibp3_10u_ref_ai ocs_ref_p_i ref_p_i clk_ref_p_i vrefp_filt_ao net039 vcomp_ai vrefp_buf_s vrefp_filt_ao inh_bulk_n inh_bulkn vlogic_ai inh_lSup adc_bg_buffer_scab
+  Xfilt vrefn_ao vsense_gnd_ao vrefn_ai vrefp_ai vsense_gnd_ai inh_bulk_n inh_lSup adc_res_filt
+  Xdac cal_n_i<5> cal_n_i<4> cal_n_i<3> cal_n_i<2> cal_n_i<1> cal_n_i<0> cxxx_n cxxx_p en_vain_lv_i sar_n_i<12> sar_n_i<11> sar_n_i<10> sar_n_i<9> sar_n_i<8> sar_n_i<7> sar_n_i<6> sar_n_i<5> sar_n_i<4> sar_n_i<3> sar_n_i<2> sar_n_i<1> sar_n_i<0> track_n_i<4>
++ track_n_i<3> track_n_i<2> track_n_i<1> track_n_i<0> vrefn_ao vain_lv_ai vlogic_ai vrefp_buf_s inh_bulk_n inh_bulk_p inh_lSup adc_dac
+  Xbg_filter vrefp_ai vrefp_filt_ao vrefn_ai inh_bulk_n inh_lSup adc_filter_bg
+  C0 vrefn_ao cxxx_n C=10f
+  Xcomp cout_n_o cout_p_o cxxx_n cxxx_p disable_i ibp1_5u_comp_ai ibp0_10u_comp_ai latch_i ocs_n_i vcm_ai vcomp_ai vlogic_ai inh_bulk_n inh_bulk_p inh_lSup adc_comp
+.ENDS
+
+
+.SUBCKT INV1 A Z inh_bulk_n inh_bulk_p inh_hSup inh_lSup
+  Mptrans10 Z A inh_hSup inh_bulk_p PREG W=860.0n L=120.0n M=1
+  Mntrans11 Z A inh_lSup inh_bulk_n NREG W=600n L=120.0n M=1
+  XINSTANCE1 inh_hSup inh_lSup inh_bulk_n sub_diode
+.ENDS
+
+
+.SUBCKT adc_reg_cmos_switch_kvn_kvp ainp_ai select_n_i select_p_i sw_ao inh_bulk_n inh_bulk_p inh_hSup inh_lSup
+  MPout net14 select_n_s sw_ao inh_bulk_p PREG W=2u L=120.0n M=1
+  MP5 net8 select_n_s net14 inh_bulk_p PREG W=2u L=120.0n M=1
+  MP4 vn select_p_s net16 inh_bulk_p PREG W=680.0n L=120.0n M=1
+  MPpullup net16 select_p_s inh_hSup inh_bulk_p PREG W=680.0n L=120.0n M=1
+  MPin net5 select_n_s net8 inh_bulk_p PREG W=2u L=120.0n M=1
+  XI_sw_inv select_n_i select_p_s inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV1
+  XI3 select_p_i select_n_s inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV1
+  R0 net5 ainp_ai R=3.453K
+  MNout net15 select_p_s sw_ao inh_bulk_n NREG W=1u L=120.0n M=1
+  MNpulldown net21 select_n_s inh_lSup inh_bulk_n NREG W=680.0n L=120.0n M=1
+  MNin net5 select_p_s vn inh_bulk_n NREG W=1u L=120.0n M=1
+  MN6 vn select_p_s net15 inh_bulk_n NREG W=1u L=120.0n M=1
+  MN7 net8 select_n_s net21 inh_bulk_n NREG W=680.0n L=120.0n M=1
+  XINSTANCE1 inh_hSup inh_lSup inh_bulk_n sub_diode
+.ENDS
+
+
+.SUBCKT adc_reg_cmos_switch aout_ao lv_in0_1v5_ai lv_in1_1v5_ai select_n_i<1> select_n_i<0> select_p_i<1> select_p_i<0> inh_bulk_n inh_bulk_p inh_hSup inh_lSup
+  MN0 lv_in0_1v5_ai select_p_s<0> net29 inh_bulk_n NREG W=1u L=120.0n M=1
+  MN1 lv_in1_1v5_ai select_p_s<1> net26 inh_bulk_n NREG W=1u L=120.0n M=1
+  MN2 net26 select_p_s<1> aout_ao inh_bulk_n NREG W=1u L=120.0n M=1
+  MN3 net29 select_p_s<0> aout_ao inh_bulk_n NREG W=1u L=120.0n M=1
+  XI15<1> select_p_i<1> select_n_s<1> inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV1
+  XI15<0> select_p_i<0> select_n_s<0> inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV1
+  XI14<1> select_n_i<1> select_p_s<1> inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV1
+  XI14<0> select_n_i<0> select_p_s<0> inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV1
+  XINSTANCE1 inh_hSup inh_lSup inh_bulk_n sub_diode
+  MP4 lv_in0_1v5_ai select_n_s<0> net28 inh_bulk_p PREG W=2u L=120.0n M=1
+  MP6 lv_in1_1v5_ai select_n_s<1> net27 inh_bulk_p PREG W=2u L=120.0n M=1
+  MP7 net27 select_n_s<1> aout_ao inh_bulk_p PREG W=2u L=120.0n M=1
+  MP8 net28 select_n_s<0> aout_ao inh_bulk_p PREG W=2u L=120.0n M=1
+.ENDS
+
+
+.SUBCKT adc_input_mux lv_in0_1v5_ai lv_in1_1v5_ai lv_in2_1v5_ai lv_out_1v5_ao sample_ch_n_i<13> sample_ch_n_i<12> sample_ch_n_i<11> sample_ch_n_i<10> sample_ch_n_i<9> sample_ch_n_i<8> sample_ch_n_i<7> sample_ch_n_i<6> sample_ch_n_i<5> sample_ch_n_i<4>
++ sample_ch_n_i<3> sample_ch_n_i<2> sample_ch_n_i<1> sample_ch_n_i<0> sample_ch_p_i<13> sample_ch_p_i<12> sample_ch_p_i<11> sample_ch_p_i<10> sample_ch_p_i<9> sample_ch_p_i<8> sample_ch_p_i<7> sample_ch_p_i<6> sample_ch_p_i<5> sample_ch_p_i<4> sample_ch_p_i<3>
++ sample_ch_p_i<2> sample_ch_p_i<1> sample_ch_p_i<0> vcm_ai vcomp_ai vlogic_ai inh_bulk_n inh_bulk_p inh_lSup
+  XI359 lv_in2_1v5_ai sample_ch_n_i<11> sample_ch_p_i<11> lv_out_1v5_ao inh_bulk_n inh_bulk_p vlogic_ai inh_lSup adc_reg_cmos_switch_kvn_kvp
+  Xsw9 lv_in0_1v5_ai sample_ch_n_i<9> sample_ch_p_i<9> lv_out_1v5_ao inh_bulk_n inh_bulk_p vlogic_ai inh_lSup adc_reg_cmos_switch_kvn_kvp
+  Xsw10 lv_in1_1v5_ai sample_ch_n_i<10> sample_ch_p_i<10> lv_out_1v5_ao inh_bulk_n inh_bulk_p vlogic_ai inh_lSup adc_reg_cmos_switch_kvn_kvp
+  Xsw12 lv_out_1v5_ao vcm_ai vcomp_ai sample_ch_n_i<13> sample_ch_n_i<12> sample_ch_p_i<13> sample_ch_p_i<12> inh_bulk_n inh_bulk_p vcomp_ai inh_lSup adc_reg_cmos_switch
+.ENDS
+*
+
+.SUBCKT adc_ls_block_dio inh_bulk_n inh_hSup1 inh_hSup30p inh_lSup
+  XD0 inh_hSup1 inh_lSup inh_bulk_n sub_diode
+  XD11 inh_hSup30p inh_lSup inh_bulk_n sub_diode
+.ENDS
+
+
+.SUBCKT NOR2 A B Z inh_bulk_n inh_bulk_p inh_hSup inh_lSup
+  Mntrans19 Z A inh_lSup inh_bulk_n NREG W=1.12u L=120.0n M=1
+  Mntrans18 Z B inh_lSup inh_bulk_n NREG W=1.12u L=120.0n M=1
+  Mptrans17 Z A net27 inh_bulk_p PREG W=1.62u L=120.0n M=1
+  Mptrans16 net27 B inh_hSup inh_bulk_p PREG W=1.62u L=120.0n M=1
+  XINSTANCE1 inh_hSup inh_lSup inh_bulk_n sub_diode
+.ENDS
+
+
+.SUBCKT NAND2 A B Z inh_bulk_n inh_bulk_p inh_hSup inh_lSup
+  Mptrans38 Z B inh_hSup inh_bulk_p PREG W=860.0n L=120.0n M=1
+  Mptrans37 Z A inh_hSup inh_bulk_p PREG W=860.0n L=120.0n M=1
+  Mntrans36 net25 B inh_lSup inh_bulk_n NREG W=860.0n L=120.0n M=1
+  Mntrans35 Z A net25 inh_bulk_n NREG W=860.0n L=120.0n M=1
+  XINSTANCE1 inh_hSup inh_lSup inh_bulk_n sub_diode
+.ENDS
+
+
+.SUBCKT NOR4 A B C D Z inh_bulk_n inh_bulk_p inh_hSup inh_lSup
+  Mntrans24 Z A inh_lSup inh_bulk_n NREG W=1.12u L=120.0n M=1
+  Mntrans23 Z B inh_lSup inh_bulk_n NREG W=1.12u L=120.0n M=1
+  Mntrans22 Z C inh_lSup inh_bulk_n NREG W=1.12u L=120.0n M=1
+  MN0 Z D inh_lSup inh_bulk_n NREG W=1.12u L=120.0n M=1
+  Mptrans21 Z A net37 inh_bulk_p PREG W=1.62u L=120.0n M=1
+  Mptrans20 net37 B net34 inh_bulk_p PREG W=1.62u L=120.0n M=1
+  MP9 net075 D inh_hSup inh_bulk_p PREG W=1.62u L=120.0n M=1
+  Mptrans19 net34 C net075 inh_bulk_p PREG W=1.62u L=120.0n M=1
+  MP10 net065 D inh_hSup inh_bulk_p PREG W=1.62u L=120.0n M=1
+  MP2 Z A net61 inh_bulk_p PREG W=1.62u L=120.0n M=1
+  MP1 net61 B net60 inh_bulk_p PREG W=1.62u L=120.0n M=1
+  MP0 net60 C net065 inh_bulk_p PREG W=1.62u L=120.0n M=1
+  XINSTANCE1 inh_hSup inh_lSup inh_bulk_n sub_diode
+.ENDS
+
+
+.SUBCKT NAND3 A B C Z inh_bulk_n inh_bulk_p inh_hSup inh_lSup
+  Mntrans8 Z A net26 inh_bulk_n NREG W=1.12u L=120.0n M=1
+  Mntrans7 net26 B net23 inh_bulk_n NREG W=1.12u L=120.0n M=1
+  Mntrans6 net23 C inh_lSup inh_bulk_n NREG W=1.12u L=120.0n M=1
+  Mptrans5 Z B inh_hSup inh_bulk_p PREG W=860.0n L=120.0n M=1
+  Mptrans4 Z A inh_hSup inh_bulk_p PREG W=860.0n L=120.0n M=1
+  Mptrans3 Z C inh_hSup inh_bulk_p PREG W=860.0n L=120.0n M=1
+  XINSTANCE1 inh_hSup inh_lSup inh_bulk_n sub_diode
+.ENDS
+
+
+.SUBCKT adc_ocs_sesp_gen ocs_n_i ocs_n_o sesp_del_n_i<2> sesp_del_n_i<1> sesp_del_n_i<0> inh_bulk_n inh_bulk_p inh_hSup inh_lSup
+  XI359 sesp_del_n_i<0> net032 net182 inh_bulk_n inh_bulk_p inh_hSup inh_lSup NOR2
+  XI360 sesp_del_n_i<1> net030 net022 inh_bulk_n inh_bulk_p inh_hSup inh_lSup NOR2
+  XI393 sesp_del_n_i<2> net015 net176 inh_bulk_n inh_bulk_p inh_hSup inh_lSup NOR2
+  XI647 net010 ocs_n_i net027 inh_bulk_n inh_bulk_p inh_hSup inh_lSup NOR2
+  XI653 net654 net030 inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV2
+  XI652 net016 net032 inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV2
+  XI654 net590 net015 inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV2
+  XI643 net019 net013 inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ocs_delay
+  XI649 net018 net026 inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ocs_delay
+  XI641 net017 net016 inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ocs_delay
+  XI640 net020 net017 inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ocs_delay
+  XI633 net012 net020 inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ocs_delay
+  XI634 net654 net019 inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ocs_delay
+  XI650 net026 net654 inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ocs_delay
+  XI648 net016 net018 inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ocs_delay
+  XI644 net013 net590 inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ocs_delay
+  XI605 net010 ocs_n_i net012 inh_bulk_n inh_bulk_p inh_hSup inh_lSup NAND2
+  XI28 net176 net022 net182 net027 ocs_n_o inh_bulk_n inh_bulk_p inh_hSup inh_lSup NOR4
+  XI646 sesp_del_n_i<2> sesp_del_n_i<1> sesp_del_n_i<0> net010 inh_bulk_n inh_bulk_p inh_hSup inh_lSup NAND3
+.ENDS
+
+
+.SUBCKT adc_lvsh_1v5_1v5 a z inh_bulk_n inh_hSup inh_hSup1 inh_lSup
+  MN4 net044 net37 inh_lSup inh_lSup NREG W=680.0n L=120.0n M=1
+  MN2 z z_int_n inh_lSup inh_lSup NREG W=1.7u L=120.0n M=1
+  MN6 net37 a inh_lSup inh_lSup NREG W=1.12u L=120.0n M=1
+  MN3 z net37 inh_lSup inh_lSup NREG W=340.0n L=1u M=1
+  MN1 net12 net37 inh_lSup inh_lSup NREG W=1.15u L=120.0n M=1
+  MN0 z_int_n net044 inh_lSup inh_lSup NREG W=1.15u L=120.0n M=1
+  MP4 z z_int_n inh_hSup1 inh_hSup1 PREG W=2.44u L=120.0n M=1
+  MP8 net37 a inh_hSup inh_hSup PREG W=1.62u L=120.0n M=1
+  MP5 net044 net37 inh_hSup inh_hSup PREG W=900n L=120.0n M=1
+  MP3 net30 z_int_n inh_hSup1 inh_hSup1 PREG W=2.8u L=120.0n M=1
+  MP2 net34 net12 inh_hSup1 inh_hSup1 PREG W=2.8u L=120.0n M=1
+  MP1 net12 net37 net30 inh_hSup1 PREG W=2.8u L=120.0n M=1
+  MP0 z_int_n net044 net34 inh_hSup1 PREG W=2.8u L=120.0n M=1
+  XINSTANCE2 inh_hSup1 inh_lSup inh_bulk_n sub_diode
+  XINSTANCE1 inh_hSup inh_lSup inh_bulk_n sub_diode
+  XD2 inh_hSup1 inh_lSup inh_bulk_n sub_diode
+  XD6 inh_hSup inh_lSup inh_bulk_n sub_diode
+.ENDS
+
+
+.SUBCKT adc_ls_block cal_n_o<5> cal_n_o<4> cal_n_o<3> cal_n_o<2> cal_n_o<1> cal_n_o<0> clk_ldo_n_o clk_ldo_p_o disable_o enable_o latch_o ocs_n_o sar_n_o<12> sar_n_o<11> sar_n_o<10> sar_n_o<9> sar_n_o<8> sar_n_o<7> sar_n_o<6> sar_n_o<5> sar_n_o<4> sar_n_o<3>
++ sar_n_o<2> sar_n_o<1> sar_n_o<0> track_n_o<4> track_n_o<3> track_n_o<2> track_n_o<1> track_n_o<0> cal_n_i<5> cal_n_i<4> cal_n_i<3> cal_n_i<2> cal_n_i<1> cal_n_i<0> clk_ldo_i enable_i latch_i ocs_n_i sar_n_i<12> sar_n_i<11> sar_n_i<10> sar_n_i<9> sar_n_i<8>
++ sar_n_i<7> sar_n_i<6> sar_n_i<5> sar_n_i<4> sar_n_i<3> sar_n_i<2> sar_n_i<1> sar_n_i<0> track_n_i<4> track_n_i<3> track_n_i<2> track_n_i<1> track_n_i<0> sesp_del_n_i<2> sesp_del_n_i<1> sesp_del_n_i<0> cout_p_o cout_n_o cout_p_i cout_n_i lowsup_i lowsup_p_o
++ lowsup_n_o release_ldo_i release_ldo_p_o release_ldo_n_o en_vain_lv_i en_vain_lv_o sample_ch_i<13> sample_ch_i<12> sample_ch_i<11> sample_ch_i<10> sample_ch_i<9> sample_ch_i<8> sample_ch_i<7> sample_ch_i<6> sample_ch_i<5> sample_ch_i<4> sample_ch_i<3>
++ sample_ch_i<2> sample_ch_i<1> sample_ch_i<0> sample_p_o<13> sample_p_o<12> sample_p_o<11> sample_p_o<10> sample_p_o<9> sample_p_o<8> sample_p_o<7> sample_p_o<6> sample_p_o<5> sample_p_o<4> sample_p_o<3> sample_p_o<2> sample_p_o<1> sample_p_o<0> sample_n_o<13>
++ sample_n_o<12> sample_n_o<11> sample_n_o<10> sample_n_o<9> sample_n_o<8> sample_n_o<7> sample_n_o<6> sample_n_o<5> sample_n_o<4> sample_n_o<3> sample_n_o<2> sample_n_o<1> sample_n_o<0> ocs_ref_i ocs_ref_o ref_i ref_o scab_clk_i scab_clk_o inh_bulk_n inh_bulk_p
++ inh_hSup inh_hSup1 inh_hSup30 inh_hSup30p inh_lSup
+  XIls_block_dio0 inh_bulk_n inh_hSup1 inh_hSup30p inh_lSup adc_ls_block_dio
+  XI_ls_ocs_sesp ocs_n_i net104 sesp_del_n_i<2> sesp_del_n_i<1> sesp_del_n_i<0> inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ocs_sesp_gen
+  XI_ls_cout_n cout_n_i cout_n_o inh_bulk_n inh_hSup inh_hSup30 inh_lSup adc_lvsh_1v5_1v5
+  XI_ls_clk_ref scab_clk_i scab_clk_o inh_bulk_n inh_hSup inh_hSup1 inh_lSup adc_lvsh_1v5_1v5
+  XI_ls_cout_p cout_p_i cout_p_o inh_bulk_n inh_hSup inh_hSup30 inh_lSup adc_lvsh_1v5_1v5
+  XI_ls_ref ref_i ref_o inh_bulk_n inh_hSup inh_hSup1 inh_lSup adc_lvsh_1v5_1v5
+  XI_ls_smpl_ch<13> sample_ch_i<13> sample_p_o<13> inh_bulk_n inh_hSup inh_hSup1 inh_lSup adc_lvsh_1v5_1v5
+  XI_ls_smpl_ch<12> sample_ch_i<12> sample_p_o<12> inh_bulk_n inh_hSup inh_hSup1 inh_lSup adc_lvsh_1v5_1v5
+  XI_ls_smpl_ch<11> sample_ch_i<11> sample_p_o<11> inh_bulk_n inh_hSup inh_hSup1 inh_lSup adc_lvsh_1v5_1v5
+  XI_ls_smpl_ch<10> sample_ch_i<10> sample_p_o<10> inh_bulk_n inh_hSup inh_hSup1 inh_lSup adc_lvsh_1v5_1v5
+  XI_ls_smpl_ch<9> sample_ch_i<9> sample_p_o<9> inh_bulk_n inh_hSup inh_hSup1 inh_lSup adc_lvsh_1v5_1v5
+  XI_ls_smpl_ch<8> sample_ch_i<8> sample_p_o<8> inh_bulk_n inh_hSup inh_hSup1 inh_lSup adc_lvsh_1v5_1v5
+  XI_ls_smpl_ch<7> sample_ch_i<7> sample_p_o<7> inh_bulk_n inh_hSup inh_hSup1 inh_lSup adc_lvsh_1v5_1v5
+  XI_ls_smpl_ch<6> sample_ch_i<6> sample_p_o<6> inh_bulk_n inh_hSup inh_hSup1 inh_lSup adc_lvsh_1v5_1v5
+  XI_ls_smpl_ch<5> sample_ch_i<5> sample_p_o<5> inh_bulk_n inh_hSup inh_hSup1 inh_lSup adc_lvsh_1v5_1v5
+  XI_ls_smpl_ch<4> sample_ch_i<4> sample_p_o<4> inh_bulk_n inh_hSup inh_hSup1 inh_lSup adc_lvsh_1v5_1v5
+  XI_ls_smpl_ch<3> sample_ch_i<3> sample_p_o<3> inh_bulk_n inh_hSup inh_hSup1 inh_lSup adc_lvsh_1v5_1v5
+  XI_ls_smpl_ch<2> sample_ch_i<2> sample_p_o<2> inh_bulk_n inh_hSup inh_hSup1 inh_lSup adc_lvsh_1v5_1v5
+  XI_ls_smpl_ch<1> sample_ch_i<1> sample_p_o<1> inh_bulk_n inh_hSup inh_hSup1 inh_lSup adc_lvsh_1v5_1v5
+  XI_ls_smpl_ch<0> sample_ch_i<0> sample_p_o<0> inh_bulk_n inh_hSup inh_hSup1 inh_lSup adc_lvsh_1v5_1v5
+  XI_ls_en enable_i enable_o inh_bulk_n inh_hSup inh_hSup30 inh_lSup adc_lvsh_1v5_1v5
+  XI_ls_en_lv_in en_vain_lv_i en_vain_lv_o inh_bulk_n inh_hSup inh_hSup1 inh_lSup adc_lvsh_1v5_1v5
+  XI_ls_latch latch_i latch_o inh_bulk_n inh_hSup inh_hSup1 inh_lSup adc_lvsh_1v5_1v5
+  XI_track_n<4> track_n_i<4> track_n_o<4> inh_bulk_n inh_hSup inh_hSup1 inh_lSup adc_lvsh_1v5_1v5
+  XI_track_n<3> track_n_i<3> track_n_o<3> inh_bulk_n inh_hSup inh_hSup1 inh_lSup adc_lvsh_1v5_1v5
+  XI_track_n<2> track_n_i<2> track_n_o<2> inh_bulk_n inh_hSup inh_hSup1 inh_lSup adc_lvsh_1v5_1v5
+  XI_track_n<1> track_n_i<1> track_n_o<1> inh_bulk_n inh_hSup inh_hSup1 inh_lSup adc_lvsh_1v5_1v5
+  XI_track_n<0> track_n_i<0> track_n_o<0> inh_bulk_n inh_hSup inh_hSup1 inh_lSup adc_lvsh_1v5_1v5
+  XI_ls_ocs net104 ocs_n_o inh_bulk_n inh_hSup inh_hSup1 inh_lSup adc_lvsh_1v5_1v5
+  XI_ls_rls_ldo release_ldo_i release_ldo_p_o inh_bulk_n inh_hSup inh_hSup30 inh_lSup adc_lvsh_1v5_1v5
+  XI_ls_cal_n<5> cal_n_i<5> cal_n_o<5> inh_bulk_n inh_hSup inh_hSup1 inh_lSup adc_lvsh_1v5_1v5
+  XI_ls_cal_n<4> cal_n_i<4> cal_n_o<4> inh_bulk_n inh_hSup inh_hSup1 inh_lSup adc_lvsh_1v5_1v5
+  XI_ls_cal_n<3> cal_n_i<3> cal_n_o<3> inh_bulk_n inh_hSup inh_hSup1 inh_lSup adc_lvsh_1v5_1v5
+  XI_ls_cal_n<2> cal_n_i<2> cal_n_o<2> inh_bulk_n inh_hSup inh_hSup1 inh_lSup adc_lvsh_1v5_1v5
+  XI_ls_cal_n<1> cal_n_i<1> cal_n_o<1> inh_bulk_n inh_hSup inh_hSup1 inh_lSup adc_lvsh_1v5_1v5
+  XI_ls_cal_n<0> cal_n_i<0> cal_n_o<0> inh_bulk_n inh_hSup inh_hSup1 inh_lSup adc_lvsh_1v5_1v5
+  XI_ls_lowsup lowsup_i lowsup_p_o inh_bulk_n inh_hSup inh_hSup30 inh_lSup adc_lvsh_1v5_1v5
+  XI_ls_sar_n<12> sar_n_i<12> sar_n_o<12> inh_bulk_n inh_hSup inh_hSup1 inh_lSup adc_lvsh_1v5_1v5
+  XI_ls_sar_n<11> sar_n_i<11> sar_n_o<11> inh_bulk_n inh_hSup inh_hSup1 inh_lSup adc_lvsh_1v5_1v5
+  XI_ls_sar_n<10> sar_n_i<10> sar_n_o<10> inh_bulk_n inh_hSup inh_hSup1 inh_lSup adc_lvsh_1v5_1v5
+  XI_ls_sar_n<9> sar_n_i<9> sar_n_o<9> inh_bulk_n inh_hSup inh_hSup1 inh_lSup adc_lvsh_1v5_1v5
+  XI_ls_sar_n<8> sar_n_i<8> sar_n_o<8> inh_bulk_n inh_hSup inh_hSup1 inh_lSup adc_lvsh_1v5_1v5
+  XI_ls_sar_n<7> sar_n_i<7> sar_n_o<7> inh_bulk_n inh_hSup inh_hSup1 inh_lSup adc_lvsh_1v5_1v5
+  XI_ls_sar_n<6> sar_n_i<6> sar_n_o<6> inh_bulk_n inh_hSup inh_hSup1 inh_lSup adc_lvsh_1v5_1v5
+  XI_ls_sar_n<5> sar_n_i<5> sar_n_o<5> inh_bulk_n inh_hSup inh_hSup1 inh_lSup adc_lvsh_1v5_1v5
+  XI_ls_sar_n<4> sar_n_i<4> sar_n_o<4> inh_bulk_n inh_hSup inh_hSup1 inh_lSup adc_lvsh_1v5_1v5
+  XI_ls_sar_n<3> sar_n_i<3> sar_n_o<3> inh_bulk_n inh_hSup inh_hSup1 inh_lSup adc_lvsh_1v5_1v5
+  XI_ls_sar_n<2> sar_n_i<2> sar_n_o<2> inh_bulk_n inh_hSup inh_hSup1 inh_lSup adc_lvsh_1v5_1v5
+  XI_ls_sar_n<1> sar_n_i<1> sar_n_o<1> inh_bulk_n inh_hSup inh_hSup1 inh_lSup adc_lvsh_1v5_1v5
+  XI_ls_sar_n<0> sar_n_i<0> sar_n_o<0> inh_bulk_n inh_hSup inh_hSup1 inh_lSup adc_lvsh_1v5_1v5
+  XI_ls_ldo_clk clk_ldo_i clk_ldo_p_o inh_bulk_n inh_hSup inh_hSup30 inh_lSup adc_lvsh_1v5_1v5
+  XI_ls_ocs_ref ocs_ref_i ocs_ref_o inh_bulk_n inh_hSup inh_hSup1 inh_lSup adc_lvsh_1v5_1v5
+  XI_ls_lowsup_n lowsup_p_o lowsup_n_o inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV3
+  XI_ls_smpl_ch_n<13> sample_p_o<13> sample_n_o<13> inh_bulk_n inh_bulk_p inh_hSup1 inh_lSup INV3
+  XI_ls_smpl_ch_n<12> sample_p_o<12> sample_n_o<12> inh_bulk_n inh_bulk_p inh_hSup1 inh_lSup INV3
+  XI_ls_smpl_ch_n<11> sample_p_o<11> sample_n_o<11> inh_bulk_n inh_bulk_p inh_hSup1 inh_lSup INV3
+  XI_ls_smpl_ch_n<10> sample_p_o<10> sample_n_o<10> inh_bulk_n inh_bulk_p inh_hSup1 inh_lSup INV3
+  XI_ls_smpl_ch_n<9> sample_p_o<9> sample_n_o<9> inh_bulk_n inh_bulk_p inh_hSup1 inh_lSup INV3
+  XI_ls_smpl_ch_n<8> sample_p_o<8> sample_n_o<8> inh_bulk_n inh_bulk_p inh_hSup1 inh_lSup INV3
+  XI_ls_smpl_ch_n<7> sample_p_o<7> sample_n_o<7> inh_bulk_n inh_bulk_p inh_hSup1 inh_lSup INV3
+  XI_ls_smpl_ch_n<6> sample_p_o<6> sample_n_o<6> inh_bulk_n inh_bulk_p inh_hSup1 inh_lSup INV3
+  XI_ls_smpl_ch_n<5> sample_p_o<5> sample_n_o<5> inh_bulk_n inh_bulk_p inh_hSup1 inh_lSup INV3
+  XI_ls_smpl_ch_n<4> sample_p_o<4> sample_n_o<4> inh_bulk_n inh_bulk_p inh_hSup1 inh_lSup INV3
+  XI_ls_smpl_ch_n<3> sample_p_o<3> sample_n_o<3> inh_bulk_n inh_bulk_p inh_hSup1 inh_lSup INV3
+  XI_ls_smpl_ch_n<2> sample_p_o<2> sample_n_o<2> inh_bulk_n inh_bulk_p inh_hSup1 inh_lSup INV3
+  XI_ls_smpl_ch_n<1> sample_p_o<1> sample_n_o<1> inh_bulk_n inh_bulk_p inh_hSup1 inh_lSup INV3
+  XI_ls_smpl_ch_n<0> sample_p_o<0> sample_n_o<0> inh_bulk_n inh_bulk_p inh_hSup1 inh_lSup INV3
+  XI_ls_dis_ldo release_ldo_p_o release_ldo_n_o inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV3
+  XI_ls_ldo_clk_n clk_ldo_p_o clk_ldo_n_o inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV3
+  XI_ls_dis enable_o disable_o inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV3
+.ENDS
+
+
+.SUBCKT adc_pwr_vcomp_amp enable_n_mv enable_p_mv ibn_2u5_ai vinn vinp voutp inh_bulk_n inh_bulk_p inh_hSup inh_lSup
+  MNdiffn net07 vinp ibn_2u5_ai inh_bulk_n NANA W=4u L=2u M=1
+  MNdiffp voutp vinn ibn_2u5_ai inh_bulk_n NANA W=4u L=2u M=1
+  MN0 voutp enable_n_mv inh_lSup inh_bulk_n NANA W=680.0n L=400n M=1
+  MP10 voutp vmirrp inh_hSup inh_bulk_p PANA W=4u L=3u M=1
+  MP9 net07 vmirrp inh_hSup inh_bulk_p PANA W=4u L=3u M=1
+  MP11 net07 enable_n_mv vmirrp inh_bulk_p PANA W=680.0n L=400n M=1
+  MP0 vmirrp enable_p_mv inh_hSup inh_bulk_p PANA W=680.0n L=400n M=1
+  XD2 inh_hSup inh_lSup inh_bulk_n sub_diode
+.ENDS
+
+
+.SUBCKT adc_pwr_vcomp ibn_2u5_ai mv_dis_i mv_en_i mv_ldo_dis_i tst_volt_ao vbg_ai vcomp_ao inh_bulk_n inh_bulk_p inh_hSup inh_hSup30 inh_lSup
+  Xamp_komp mv_dis_i mv_en_i ibn_2u5_ai net027 vbg_ai vamp inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_pwr_vcomp_amp
+  MN2 net021 mv_ldo_dis_i vcomp_ao inh_bulk_n NANA W=24.0u L=400n M=1
+  MN1 net97 mv_en_i inh_lSup inh_bulk_n NANA W=4u L=400n M=1
+  R1 inh_hSup30 net021 R=231.7
+  R0 vcomp_ao tst_volt_ao R=26.99K
+  R6 tst_volt_ao net97 R=113K
+  MTRP_pass inh_hSup vamp vcomp_ao vcomp_ao NMODDG W=50u L=400n M=1
+  MN10 inh_lSup vamp inh_lSup inh_lSup NANA W=50u L=5u M=1
+  XD16 vcomp_ao inh_lSup inh_bulk_n sub_diode
+  Vloop_komp net027 tst_volt_ao DC=0
+.ENDS
+
+
+.SUBCKT adc_lvsh_1v5_2v5_iso_dual_in a a_n en z z_n inh_bulk_n inh_bulk_p inh_hSup inh_lSup
+  MP14 en_n en inh_hSup inh_bulk_p PANA W=2u L=400n M=1
+  MP13 z_inv en inh_hSup inh_bulk_p PANA W=2u L=400n M=1
+  MP12 net014 a_n net029 inh_bulk_p PANA W=3u L=400n M=1
+  MP11 z_n z_n_inv inh_hSup inh_bulk_p PANA W=3u L=400n M=1
+  MP10 z z_inv inh_hSup inh_bulk_p PANA W=3u L=400n M=1
+  MP7 z_inv a net8 inh_bulk_p PANA W=3u L=400n M=1
+  MP8 net8 z_n_inv inh_hSup inh_bulk_p PANA W=3u L=400n M=1
+  MP3 z_n_inv en_n net014 inh_bulk_p PANA W=3u L=400n M=1
+  MP9 net029 z_inv inh_hSup inh_bulk_p PANA W=3u L=400n M=1
+  MN8 en_n en inh_lSup inh_bulk_n NANA W=1u L=400n M=1
+  MN7 z_inv en net028 inh_bulk_n NANA W=2u L=400n M=1
+  MN6 z_n_inv en_n inh_lSup inh_bulk_n NANA W=1u L=400n M=1
+  MN5 z_n z_n_inv inh_lSup inh_bulk_n NANA W=1.5u L=400n M=1
+  MN4 z z_inv inh_lSup inh_bulk_n NANA W=1.5u L=400n M=1
+  MN2 z_n_inv a_n inh_lSup inh_bulk_n NANA W=2u L=400n M=1
+  MN0 net028 a inh_lSup inh_bulk_n NANA W=2u L=400n M=1
+  XD1 inh_hSup inh_lSup inh_bulk_n sub_diode
+.ENDS
+
+
+.SUBCKT adc_pwr_vcm vcm_ao ibn0_2u5_ai vcomp_ai en_i inh_bulk_n inh_hSup inh_lSup
+  MN80 vcomp_ai vcomp_ai net5 inh_bulk_n NREG W=3u L=200.0n M=1
+  MN81 vcomp_ai vcomp_ai vcm_ao inh_bulk_n NREG W=3u L=200.0n M=1
+  MN84 net26 en_i inh_lSup inh_bulk_n NREG W=4u L=120.0n M=4
+  MP98 inh_hSup inh_hSup vcm_ao inh_hSup PREG W=680.0n L=120.0n M=1
+  MP73 net5 ibn0_2u5_ai net5 net5 PREG W=2u L=2.2u M=1
+  MP72 ibn0_2u5_ai ibn0_2u5_ai net5 net5 PREG W=3u L=120.0n M=1
+  MP71 net26 ibn0_2u5_ai vcm_ao net5 PREG W=3u L=120.0n M=4
+  XD12 net5 inh_lSup inh_bulk_n sub_diode
+  XD0 inh_hSup inh_lSup inh_bulk_n sub_diode
+.ENDS
+
+
+.SUBCKT adc_pwr_vlogic ibn1_2u5_ai ibn_2u5_ai mv_dis_i mv_en_i mv_ldo_dis_i mv_ldo_en_i tst_volt_ao vbg_ai vlogic_ao inh_bulk_n inh_bulk_p inh_hSup inh_hSup30 inh_lSup
+  MN85 net031 mv_ldo_en_i inh_lSup inh_bulk_n NANA W=4u L=400n M=4
+  MN3 net019 mv_en_i ibn1_2u5_ai inh_bulk_n NANA W=4u L=400n M=1
+  MN1 net97 mv_en_i inh_lSup inh_bulk_n NANA W=4u L=400n M=1
+  MN2 net021 mv_ldo_dis_i vlogic_ao inh_bulk_n NANA W=24.0u L=400n M=1
+  Xamp_komp mv_dis_i mv_en_i ibn_2u5_ai net027 vbg_ai vamp inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_pwr_vcomp_amp
+  MP64 mv_ldo_en_i mv_ldo_en_i ibn1_2u5_ai mv_ldo_en_i PREG W=600n L=120.0n M=1
+  MP0 net031 net019 vlogic_ao vlogic_ao PREG W=1u L=120.0n M=8
+  MP57 net019 net019 net018 net018 PREG W=1u L=120.0n M=1
+  MP58 net018 net019 net018 net018 PREG W=2u L=2.2u M=1
+  R1 inh_hSup30 net021 R=231.7
+  R0 vlogic_ao tst_volt_ao R=26.99K
+  R6 tst_volt_ao net97 R=113K
+  MTRP4 inh_hSup vamp net018 net018 NMODDG W=6u L=400n M=1
+  MTRP_pass inh_hSup vamp vlogic_ao vlogic_ao NMODDG W=50u L=400n M=1
+  MN10 inh_lSup vamp inh_lSup inh_lSup NANA W=50u L=5u M=1
+  XD4 net018 inh_lSup inh_bulk_n sub_diode
+  XD5 mv_ldo_en_i inh_lSup inh_bulk_n sub_diode
+  XD16 vlogic_ao inh_lSup inh_bulk_n sub_diode
+  XD11 net018 inh_lSup inh_bulk_n sub_diode
+  XD3 vlogic_ao inh_lSup inh_bulk_n sub_diode
+  Vloop_komp net027 tst_volt_ao DC=0
+.ENDS
+
+
+.SUBCKT adc_pwr_bias_amp_n enable_n_mv enable_p_mv vinn vinp voutp inh_bulk_n inh_bulk_p inh_hSup inh_lSup
+  XD0 inh_hSup inh_lSup inh_bulk_n sub_diode
+  R0 net022 inh_lSup R=200K
+  MP1 net06 enable_n_mv net012 inh_bulk_p PANA W=680.0u L=400n M=1
+  MP0 net012 enable_p_mv inh_hSup inh_bulk_p PANA W=680.0n L=400n M=1
+  MP14 net019 enable_n_mv voutp inh_bulk_p PANA W=680.0n L=400n M=1
+  MP12 net06 net012 inh_hSup inh_bulk_p PANA W=600u L=1.5u M=1
+  MP13 net019 net012 inh_hSup inh_bulk_p PANA W=600u L=1.5u M=1
+  M2 net019 vinn net022 inh_bulk_n NANA W=40u L=400n M=2
+  M3 net06 vinp net022 inh_bulk_n NANA W=40u L=400n M=2
+.ENDS
+
+
+.SUBCKT adc_pwr_bias ibn0_2u5_ao ibn1_2u5_ao ibn2_2u5_ao ibn3_2u5_ao ibp0_10u_ao ibp1_5u_ao ibp2_5u_ao ibp3_10u_ao ibp4_5u_ao<1> ibp4_5u_ao<0> mv_dis_i mv_en_i vbg_ai inh_bulk_n inh_bulk_p inh_bulkn inh_bulkpanalog inh_hSup inh_hsupanalog inh_lSup
+  Rref vref_fb inh_lSup R=121K
+  MN4 ibn3_2u5_ao net034 inh_lSup inh_bulk_n S9MN0A W=2u L=1.5u M=1
+  MN2 ibn0_2u5_ao net034 inh_lSup inh_bulk_n S9MN0A W=2u L=1.5u M=1
+  MN8 net034 net034 inh_lSup inh_bulk_n S9MN0A W=2u L=1.5u M=2
+  MN0 inh_lSup net034 inh_lSup inh_bulk_n S9MN0A W=5u L=5u M=1
+  MN1 ibn2_2u5_ao net034 inh_lSup inh_bulk_n S9MN0A W=2u L=1.5u M=1
+  MN3 ibn1_2u5_ao net034 inh_lSup inh_bulk_n S9MN0A W=2u L=1.5u M=1
+  XI15 mv_dis_i mv_en_i vbg_ai vref_fb v1 inh_bulkn inh_bulkpanalog inh_hsupanalog inh_lSup adc_pwr_bias_amp_n
+  XD10 inh_hSup inh_lSup inh_bulk_n sub_diode
+  MP53 ibp2_5u_ao v1 net029 inh_bulk_p PANA W=2u L=400n M=1
+  MP32 net027 net017 inh_hSup inh_bulk_p S9MP0A W=4u L=1.5u M=2
+  MP61 vref_fb v1 net017 inh_bulk_p PANA W=10u L=180n M=2
+  MP31 net026 net017 inh_hSup inh_bulk_p S9MP0A W=4u L=1.5u M=2
+  MP49 ibp3_10u_ao v1 net027 inh_bulk_p PANA W=2u L=400n M=2
+  MP63 net024 net024 net017 inh_bulk_p PREG W=680.0n L=120.0n M=1
+  MP39 net017 net017 inh_hSup inh_bulk_p S9MP0A W=4u L=1.5u M=2
+  MP4 inh_hSup v1 inh_hSup inh_bulk_p PANA W=10u L=5u M=1
+  MP3 net029 net029 net017 inh_bulk_p PREG W=680.0n L=120.0n M=1
+  MP50 net034 v1 net024 inh_bulk_p PANA W=2u L=400n M=1
+  MP51 v1 mv_en_i inh_hSup inh_bulk_p PANA W=680.0n L=400n M=1
+  MP54 ibp1_5u_ao v1 net028 inh_bulk_p PANA W=2u L=400n M=1
+  MP5<1> ibp4_5u_ao<1> v1 net033<1> inh_bulk_p PANA W=2u L=400n M=1
+  MP5<0> ibp4_5u_ao<0> v1 net033<0> inh_bulk_p PANA W=2u L=400n M=1
+  MP6<1> net033<1> net033<1> net017 inh_bulk_p PREG W=680.0n L=120.0n M=1
+  MP6<0> net033<0> net033<0> net017 inh_bulk_p PREG W=680.0n L=120.0n M=1
+  MP7<1> net033<1> net017 inh_hSup inh_bulk_p S9MP0A W=4u L=1.5u M=1
+  MP7<0> net033<0> net017 inh_hSup inh_bulk_p S9MP0A W=4u L=1.5u M=1
+  MP2 net028 net028 net017 inh_bulk_p PREG W=680.0n L=120.0n M=1
+  MP0 net026 net026 net017 inh_bulk_p PREG W=680.0n L=120.0n M=1
+  MP1 net027 net027 net017 inh_bulk_p PREG W=680.0n L=120.0n M=1
+  MP33 net028 net017 inh_hSup inh_bulk_p S9MP0A W=4u L=1.5u M=1
+  MP34 net029 net017 inh_hSup inh_bulk_p S9MP0A W=4u L=1.5u M=1
+  MP52 ibp0_10u_ao v1 net026 inh_bulk_p PANA W=2u L=400n M=2
+  MP46 net024 net017 inh_hSup inh_bulk_p S9MP0A W=4u L=1.5u M=1
+.ENDS
+
+
+
+.SUBCKT adc_pwr_reg ana_ready_i disable_i enable_i ibp0_10u_ao ibp1_5u_ao ibp2_5u_ao ibp3_10u_ao ibp4_5u_ao<1> ibp4_5u_ao<0> ldo_dis_i ldo_en_i vbg_ai vcm_ao vcomp_ao vlogic_ao inh_bulk_n inh_bulkn inh_bulkpanalog inh_hSup inh_hSup30 inh_hsupanalog inh_lSup
+  Xpwr_vcomp vbn1_2u5_s mv_dis_s mv_en_s mv_ldo_dis_s net083 vbg_ai vcomp_ao inh_bulkn inh_bulkpanalog inh_hsupanalog inh_hSup30 inh_lSup adc_pwr_vcomp
+  Xi_lvsh_0 ldo_en_i ldo_dis_i ana_ready_i mv_ldo_en_s mv_ldo_dis_s inh_bulkn inh_bulkpanalog inh_hsupanalog inh_lSup adc_lvsh_1v5_2v5_iso_dual_in
+  Xls_en enable_i disable_i ana_ready_i mv_en_s mv_dis_s inh_bulkn inh_bulkpanalog inh_hsupanalog inh_lSup adc_lvsh_1v5_2v5_iso_dual_in
+  Xpwr_vcm vcm_ao vbn0_2u5_s vcomp_ao enable_i inh_bulk_n inh_hSup30 inh_lSup adc_pwr_vcm
+  Xpwr_vlogic vbn3_2u5_s vbn2_2u5_s mv_dis_s mv_en_s mv_ldo_dis_s mv_ldo_en_s net088 vbg_ai vlogic_ao inh_bulkn inh_bulkpanalog inh_hSup inh_hSup30 inh_lSup adc_pwr_vlogic
+  Xpwr_bias vbn0_2u5_s vbn1_2u5_s vbn2_2u5_s vbn3_2u5_s ibp0_10u_ao ibp1_5u_ao ibp2_5u_ao ibp3_10u_ao ibp4_5u_ao<1> ibp4_5u_ao<0> mv_dis_s mv_en_s vbg_ai inh_bulkn inh_bulkpanalog inh_bulkn inh_bulkpanalog inh_hsupanalog inh_hsupanalog inh_lSup adc_pwr_bias
+.ENDS
+
+
+.SUBCKT adc_ana_core lv_in0_1v5_ai lv_in1_1v5_ai vrefn_ai vrefp_ai vsense_gnd_ai sample_ch_i<13> sample_ch_i<12> sample_ch_i<11> sample_ch_i<10> sample_ch_i<9> sample_ch_i<8> sample_ch_i<7> sample_ch_i<6> sample_ch_i<5> sample_ch_i<4> sample_ch_i<3>
++ sample_ch_i<2> sample_ch_i<1> sample_ch_i<0> cal_n_i<5> cal_n_i<4> cal_n_i<3> cal_n_i<2> cal_n_i<1> cal_n_i<0> scab_clk_i cp_clk_ldo_i enable_i release_ldo_i lowsup_i sesp_del_n_i<2> sesp_del_n_i<1> sesp_del_n_i<0> sar_n_i<12> sar_n_i<11> sar_n_i<10> sar_n_i<9>
++ sar_n_i<8> sar_n_i<7> sar_n_i<6> sar_n_i<5> sar_n_i<4> sar_n_i<3> sar_n_i<2> sar_n_i<1> sar_n_i<0> track_n_i<4> track_n_i<3> track_n_i<2> track_n_i<1> track_n_i<0> latch_i ref_i ocs_ref_i ocs_n_i comp_res_n_i clatch_p_o clatch_n_o en_vain_lv_i mv_cs_valid_i
++ lv_in2_1v5_ai inh_bulk_n inh_bulk_p inh_bulkn inh_bulkpanalog inh_hSup20 inh_hSup30 net0 inh_hSup30p inh_hsupanalog inh_lSup20
+  Xadc_core cal_n_s<5> cal_n_s<4> cal_n_s<3> cal_n_s<2> cal_n_s<1> cal_n_s<0> scab_clk_s cout_n_s cout_p_s disable_s en_vain_lv_s enable_s vbp0_10u_s vbp1_5u_s vbp3_10u_s latch_s ocs_n_s ocs_ref_s ref_s sar_n_s<12> sar_n_s<11> sar_n_s<10> sar_n_s<9> sar_n_s<8>
++ sar_n_s<7> sar_n_s<6> sar_n_s<5> sar_n_s<4> sar_n_s<3> sar_n_s<2> sar_n_s<1> sar_n_s<0> track_n_s<4> track_n_s<3> track_n_s<2> track_n_s<1> track_n_s<0> vain_lv_s vcm_s vcomp_s vlogic_s vrefn_ai net066 vrefp_ai vrefp_filt_s vsense_gnd_ai net067 inh_bulk_n
++ inh_bulk_p inh_bulkn inh_lSup20 adc_adc_core
+  Xinput_mux lv_in0_1v5_ai lv_in1_1v5_ai lv_in2_1v5_ai vain_lv_s sample_n_s<13> sample_n_s<12> sample_n_s<11> sample_n_s<10> sample_n_s<9> sample_n_s<8> sample_n_s<7> sample_n_s<6> sample_n_s<5> sample_n_s<4> sample_n_s<3> sample_n_s<2> sample_n_s<1>
++ sample_n_s<0> sample_p_s<13> sample_p_s<12> sample_p_s<11> sample_p_s<10> sample_p_s<9> sample_p_s<8> sample_p_s<7> sample_p_s<6> sample_p_s<5> sample_p_s<4> sample_p_s<3> sample_p_s<2> sample_p_s<1> sample_p_s<0> vcm_s vcomp_s vlogic_s inh_bulk_n inh_bulk_p
++ inh_lSup20 adc_input_mux
+  XI_ls cal_n_s<5> cal_n_s<4> cal_n_s<3> cal_n_s<2> cal_n_s<1> cal_n_s<0> clk_ldo_n_s clk_ldo_p_s disable_s enable_s latch_s ocs_n_s sar_n_s<12> sar_n_s<11> sar_n_s<10> sar_n_s<9> sar_n_s<8> sar_n_s<7> sar_n_s<6> sar_n_s<5> sar_n_s<4> sar_n_s<3> sar_n_s<2>
++ sar_n_s<1> sar_n_s<0> track_n_s<4> track_n_s<3> track_n_s<2> track_n_s<1> track_n_s<0> cal_n_i<5> cal_n_i<4> cal_n_i<3> cal_n_i<2> cal_n_i<1> cal_n_i<0> cp_clk_ldo_i enable_i latch_i ocs_n_i sar_n_i<12> sar_n_i<11> sar_n_i<10> sar_n_i<9> sar_n_i<8> sar_n_i<7>
++ sar_n_i<6> sar_n_i<5> sar_n_i<4> sar_n_i<3> sar_n_i<2> sar_n_i<1> sar_n_i<0> track_n_i<4> track_n_i<3> track_n_i<2> track_n_i<1> track_n_i<0> sesp_del_n_i<2> sesp_del_n_i<1> sesp_del_n_i<0> clatch_p_o clatch_n_o cout_p_s cout_n_s lowsup_i lowsup_p_s lowsup_n_s
++ release_ldo_i ldo_en_s ldo_dis_s en_vain_lv_i en_vain_lv_s sample_ch_i<13> sample_ch_i<12> sample_ch_i<11> sample_ch_i<10> sample_ch_i<9> sample_ch_i<8> sample_ch_i<7> sample_ch_i<6> sample_ch_i<5> sample_ch_i<4> sample_ch_i<3> sample_ch_i<2> sample_ch_i<1>
++ sample_ch_i<0> sample_p_s<13> sample_p_s<12> sample_p_s<11> sample_p_s<10> sample_p_s<9> sample_p_s<8> sample_p_s<7> sample_p_s<6> sample_p_s<5> sample_p_s<4> sample_p_s<3> sample_p_s<2> sample_p_s<1> sample_p_s<0> sample_n_s<13> sample_n_s<12> sample_n_s<11>
++ sample_n_s<10> sample_n_s<9> sample_n_s<8> sample_n_s<7> sample_n_s<6> sample_n_s<5> sample_n_s<4> sample_n_s<3> sample_n_s<2> sample_n_s<1> sample_n_s<0> ocs_ref_i ocs_ref_s ref_i ref_s scab_clk_i scab_clk_s inh_bulk_n inh_bulk_p net0 vlogic_s net0 inh_hSup30p
++ inh_lSup20 adc_ls_block
+  Xpwr mv_cs_valid_i disable_s enable_s vbp0_10u_s vbp1_5u_s net041 vbp3_10u_s net058<1> net058<0> ldo_dis_s ldo_en_s vrefp_filt_s vcm_s vcomp_s vlogic_s inh_bulk_n inh_bulkn inh_bulkpanalog inh_hSup20 inh_hSup30 inh_hsupanalog inh_lSup20 adc_pwr_reg
+.ENDS
+
+
+.SUBCKT ANDNOR1 A B C Z inh_bulk_n inh_bulk_p inh_hSup inh_lSup
+  Mntrans51 net33 B inh_lSup inh_bulk_n NREG W=1.12u L=120.0n M=1
+  Mntrans50 Z A net33 inh_bulk_n NREG W=1.12u L=120.0n M=1
+  Mntrans49 Z C inh_lSup inh_bulk_n NREG W=860.0n L=120.0n M=1
+  Mptrans48 net37 C inh_hSup inh_bulk_p PREG W=1.62u L=120.0n M=1
+  Mptrans47 Z B net37 inh_bulk_p PREG W=1.62u L=120.0n M=1
+  Mptrans46 Z A net37 inh_bulk_p PREG W=1.62u L=120.0n M=1
+  XINSTANCE1 inh_hSup inh_lSup inh_bulk_n sub_diode
+.ENDS
+
+
+.SUBCKT DEL1 A Z inh_bulk_n inh_bulk_p inh_hSup inh_lSup
+  Mptrans15 net031 A inh_hSup inh_bulk_p PREG W=700n L=120.0n M=1
+  MP0 inh_hSup net031 inh_hSup inh_bulk_p PREG W=1.62u L=850.0n M=1
+  MP10 Z net031 inh_hSup inh_bulk_p PREG W=1.62u L=120.0n M=1
+  MP3 inh_hSup net031 inh_hSup inh_bulk_p PREG W=1.62u L=850.0n M=1
+  Mntrans13 net031 A inh_lSup inh_bulk_n NREG W=300n L=120.0n M=1
+  MN0 inh_lSup net031 inh_lSup inh_bulk_n NREG W=1.12u L=850.0n M=1
+  MN10 Z net031 inh_lSup inh_bulk_n NREG W=700n L=120.0n M=1
+  MN3 inh_lSup net031 inh_lSup inh_bulk_n NREG W=1.12u L=850.0n M=1
+  XINSTANCE1 inh_hSup inh_lSup inh_bulk_n sub_diode
+.ENDS
+
+
+.SUBCKT adc_ts_del A Z inh_bulk_n inh_bulk_p inh_hSup inh_lSup
+  XI76 A Z inh_bulk_n inh_bulk_p inh_hSup inh_lSup DEL1
+.ENDS
+
+
+.SUBCKT INV4 A Z inh_bulk_n inh_bulk_p inh_hSup inh_lSup
+  Mptrans10 Z A inh_hSup inh_bulk_p PREG W=3.24u L=120.0n M=1
+  Mntrans11 Z A inh_lSup inh_bulk_n NREG W=2.24u L=120.0n M=1
+  XINSTANCE1 inh_hSup inh_lSup inh_bulk_n sub_diode
+.ENDS
+
+
+.SUBCKT ANDNOR2 A B C D Z inh_bulk_n inh_bulk_p inh_hSup inh_lSup
+  Mntrans52 net43 B inh_lSup inh_bulk_n NREG W=1.12u L=120.0n M=1
+  Mntrans51 net40 D inh_lSup inh_bulk_n NREG W=1.12u L=120.0n M=1
+  Mntrans50 Z A net43 inh_bulk_n NREG W=1.12u L=120.0n M=1
+  Mntrans49 Z C net40 inh_bulk_n NREG W=1.12u L=120.0n M=1
+  Mptrans48 net47 C inh_hSup inh_bulk_p PREG W=1.62u L=120.0n M=1
+  Mptrans47 net47 D inh_hSup inh_bulk_p PREG W=1.62u L=120.0n M=1
+  Mptrans46 Z B net47 inh_bulk_p PREG W=1.62u L=120.0n M=1
+  Mptrans45 Z A net47 inh_bulk_p PREG W=1.62u L=120.0n M=1
+  XINSTANCE1 inh_hSup inh_lSup inh_bulk_n sub_diode
+.ENDS
+** End of subcircuit definition.
+
+** Subcircuit
+** ----------
+** Library name: dig_lib
+** Cell name: AND2
+** View name: schematic
+**
+.SUBCKT AND2 A B Z inh_bulk_n inh_bulk_p inh_hSup inh_lSup
+  Mptrans25 Z net39 inh_hSup inh_bulk_p PREG W=860.0n L=120.0n M=1
+  Mptrans24 net39 A inh_hSup inh_bulk_p PREG W=700n L=120.0n M=1
+  Mptrans23 net39 B inh_hSup inh_bulk_p PREG W=700n L=120.0n M=1
+  Mntrans22 Z net39 inh_lSup inh_bulk_n NREG W=600n L=120.0n M=1
+  Mntrans21 net39 A net32 inh_bulk_n NREG W=700n L=120.0n M=1
+  Mntrans20 net32 B inh_lSup inh_bulk_n NREG W=700n L=120.0n M=1
+  XINSTANCE1 inh_hSup inh_lSup inh_bulk_n sub_diode
+.ENDS
+** End of subcircuit definition.
+
+** Subcircuit
+** ----------
+** Library name: dig_lib
+** Cell name: OR2
+** View name: schematic
+**
+.SUBCKT OR2 A B Z inh_bulk_n inh_bulk_p inh_hSup inh_lSup
+  Mntrans27 net26 A inh_lSup inh_bulk_n NREG W=900n L=120.0n M=1
+  Mntrans26 net26 B inh_lSup inh_bulk_n NREG W=900n L=120.0n M=1
+  Mntrans25 Z net26 inh_lSup inh_bulk_n NREG W=600n L=120.0n M=1
+  Mptrans24 net26 A net41 inh_bulk_p PREG W=1.28u L=120.0n M=1
+  Mptrans23 net41 B inh_hSup inh_bulk_p PREG W=1.28u L=120.0n M=1
+  Mptrans22 Z net26 inh_hSup inh_bulk_p PREG W=860.0n L=120.0n M=1
+  XINSTANCE1 inh_hSup inh_lSup inh_bulk_n sub_diode
+.ENDS
+** End of subcircuit definition.
+
+** Subcircuit
+** ----------
+** Library name: dig_lib
+** Cell name: ANDNOR12
+** View name: schematic
+**
+.SUBCKT ANDNOR12 A B C D Z inh_bulk_n inh_bulk_p inh_hSup inh_lSup
+  Mntrans51 net33 A inh_lSup inh_bulk_n NREG W=1.12u L=120.0n M=1
+  Mntrans50 Z B net33 inh_bulk_n NREG W=1.12u L=120.0n M=1
+  Mntrans49 Z C inh_lSup inh_bulk_n NREG W=860.0n L=120.0n M=1
+  MN0 Z D inh_lSup inh_bulk_n NREG W=860.0n L=120.0n M=1
+  Mptrans48 Z C net045 inh_bulk_p PREG W=1.62u L=120.0n M=1
+  Mptrans47 net047 B inh_hSup inh_bulk_p PREG W=1.62u L=120.0n M=1
+  Mptrans46 net047 A inh_hSup inh_bulk_p PREG W=1.62u L=120.0n M=1
+  MP0 net045 D net047 inh_bulk_p PREG W=1.62u L=120.0n M=1
+  XINSTANCE1 inh_hSup inh_lSup inh_bulk_n sub_diode
+.ENDS
+** End of subcircuit definition.
+
+** Subcircuit
+** ----------
+** Library name: saradc_11bit
+** Cell name: adc_ts_reg
+** View name: schematic
+**
+.SUBCKT adc_ts_reg comp_n force_sarp_high reset_p sar_count_p sar_n sar_o set_latch_p inh_bulk_n inh_bulk_p inh_hSup inh_lSup
+  XI117 sar_count_p comp_n reset_p lout_n lout_p inh_bulk_n inh_bulk_p inh_hSup inh_lSup ANDNOR12
+  XI114 net013 net022 sar_n inh_bulk_n inh_bulk_p inh_hSup inh_lSup NOR2
+  XI378 set_latch_p lout_p lout_n inh_bulk_n inh_bulk_p inh_hSup inh_lSup NOR2
+  XI118 lout_n sar_o inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV3
+  XI763 net015 net014 inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_del
+  XI759 net014 net013 inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_del
+  XI762 force_sarp_high net015 inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_del
+  XI115 lout_n net022 inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV1
+.ENDS
+** End of subcircuit definition.
+
+** Subcircuit
+** ----------
+** Library name: dig_lib
+** Cell name: TIEONE
+** View name: schematic
+**
+.SUBCKT TIEONE Z inh_bulk_n inh_bulk_p inh_hSup inh_lSup
+  Mptrans10 Z netcheck_mark inh_hSup inh_bulk_p PREG W=860.0n L=120.0n M=1
+  Mntrans11 netcheck_mark netcheck_mark inh_lSup inh_bulk_n NREG W=400n L=120.0n M=1
+  XINSTANCE1 inh_hSup inh_lSup inh_bulk_n sub_diode
+.ENDS
+** End of subcircuit definition.
+
+** Subcircuit
+** ----------
+** Library name: saradc_11bit
+** Cell name: adc_ana_sts
+** View name: schematic
+**
+.SUBCKT adc_ana_sts cal_i<5> cal_i<4> cal_i<3> cal_i<2> cal_i<1> cal_i<0> cal_n_o<5> cal_n_o<4> cal_n_o<3> cal_n_o<2> cal_n_o<1> cal_n_o<0> clatch_n_i clatch_p_i comp_o comp_res_i comp_res_n_o cp_clk_ldo_i cp_clk_ldo_o din_n_i<13> din_n_i<12> din_n_i<11>
++ din_n_i<10> din_n_i<9> din_n_i<8> din_n_i<7> din_n_i<6> din_n_i<5> din_n_i<4> din_n_i<3> din_n_i<2> din_n_i<1> din_n_i<0> en_vain_lv_i en_vain_lv_o enable_i enable_o latch_o lowsup_i lowsup_o ocs_i ocs_n_o ocs_ref_o ref_i ref_o release_ldo_i release_ldo_o
++ sample_ch_i<13> sample_ch_i<12> sample_ch_i<11> sample_ch_i<10> sample_ch_i<9> sample_ch_i<8> sample_ch_i<7> sample_ch_i<6> sample_ch_i<5> sample_ch_i<4> sample_ch_i<3> sample_ch_i<2> sample_ch_i<1> sample_ch_i<0> sample_ch_o<13> sample_ch_o<12> sample_ch_o<11>
++ sample_ch_o<10> sample_ch_o<9> sample_ch_o<8> sample_ch_o<7> sample_ch_o<6> sample_ch_o<5> sample_ch_o<4> sample_ch_o<3> sample_ch_o<2> sample_ch_o<1> sample_ch_o<0> sar_clk_i sar_n_o<12> sar_n_o<11> sar_n_o<10> sar_n_o<9> sar_n_o<8> sar_n_o<7> sar_n_o<6>
++ sar_n_o<5> sar_n_o<4> sar_n_o<3> sar_n_o<2> sar_n_o<1> sar_n_o<0> sar_o<12> sar_o<11> sar_o<10> sar_o<9> sar_o<8> sar_o<7> sar_o<6> sar_o<5> sar_o<4> sar_o<3> sar_o<2> sar_o<1> sar_o<0> sar_res_i scab_clk_i scab_clk_o sesp_del_i<2> sesp_del_i<1> sesp_del_i<0>
++ sesp_del_n_o<2> sesp_del_n_o<1> sesp_del_n_o<0> set_sar_i set_track_i track_n_o<4> track_n_o<3> track_n_o<2> track_n_o<1> track_n_o<0> track_o<4> track_o<3> track_o<2> track_o<1> track_o<0> track_res_i trackin_n_i<5> trackin_n_i<4> trackin_n_i<3> trackin_n_i<2>
++ trackin_n_i<1> trackin_n_i<0> inh_bulk_n inh_bulk_p inh_hSup inh_lSup
+  XI775<10> net0213<9> sample_ch_o<13> inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV3
+  XI775<9> net0213<8> sample_ch_o<12> inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV3
+  XI775<8> net0213<7> sample_ch_o<11> inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV3
+  XI775<7> net0213<6> sample_ch_o<10> inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV3
+  XI775<6> net0213<5> sample_ch_o<9> inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV3
+  XI775<5> net0213<4> sample_ch_o<8> inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV3
+  XI775<4> net0213<3> sample_ch_o<7> inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV3
+  XI775<3> net0213<2> sample_ch_o<6> inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV3
+  XI775<2> net0213<1> sample_ch_o<5> inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV3
+  XI775<1> net0213<0> sample_ch_o<4> inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV3
+  XI532 net0294 cp_clk_ldo_o inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV3
+  XI509<3> net0231<3> sample_ch_o<3> inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV3
+  XI509<2> net0231<2> sample_ch_o<2> inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV3
+  XI509<1> net0231<1> sample_ch_o<1> inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV3
+  XI509<0> net0231<0> sample_ch_o<0> inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV3
+  XI678 net0194 net029 inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV3
+  XI461 ref_i net0234 net0321 inh_bulk_n inh_bulk_p inh_hSup inh_lSup NAND2
+  XI650<5> net0204<5> net0204<5> cal_n_o<5> inh_bulk_n inh_bulk_p inh_hSup inh_lSup NAND2
+  XI650<4> net0204<4> net0204<4> cal_n_o<4> inh_bulk_n inh_bulk_p inh_hSup inh_lSup NAND2
+  XI650<3> net0204<3> net0204<3> cal_n_o<3> inh_bulk_n inh_bulk_p inh_hSup inh_lSup NAND2
+  XI650<2> net0204<2> net0204<2> cal_n_o<2> inh_bulk_n inh_bulk_p inh_hSup inh_lSup NAND2
+  XI650<1> net0204<1> net0204<1> cal_n_o<1> inh_bulk_n inh_bulk_p inh_hSup inh_lSup NAND2
+  XI650<0> net0204<0> net0204<0> cal_n_o<0> inh_bulk_n inh_bulk_p inh_hSup inh_lSup NAND2
+  XI378 net092 comp_res_n_o net0154 comp_o inh_bulk_n inh_bulk_p inh_hSup inh_lSup ANDNOR1
+  XI773<10> sample_ch_i<13> net0207<9> inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_del
+  XI773<9> sample_ch_i<12> net0207<8> inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_del
+  XI773<8> sample_ch_i<11> net0207<7> inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_del
+  XI773<7> sample_ch_i<10> net0207<6> inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_del
+  XI773<6> sample_ch_i<9> net0207<5> inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_del
+  XI773<5> sample_ch_i<8> net0207<4> inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_del
+  XI773<4> sample_ch_i<7> net0207<3> inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_del
+  XI773<3> sample_ch_i<6> net0207<2> inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_del
+  XI773<2> sample_ch_i<5> net0207<1> inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_del
+  XI773<1> sample_ch_i<4> net0207<0> inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_del
+  XI769 net0142 net0148 inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_del
+  XI768 net0148 net0147 inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_del
+  XI767 net0147 net0146 inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_del
+  XI748 net0192 net0191 inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_del
+  XI759 net0195 net0194 inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_del
+  XI763 net0196 net0195 inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_del
+  XI753<5> cal_i<5> net0188<5> inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_del
+  XI753<4> cal_i<4> net0188<4> inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_del
+  XI753<3> cal_i<3> net0188<3> inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_del
+  XI753<2> cal_i<2> net0188<2> inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_del
+  XI753<1> cal_i<1> net0188<1> inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_del
+  XI753<0> cal_i<0> net0188<0> inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_del
+  XI755<5> net0210<5> net0204<5> inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_del
+  XI755<4> net0210<4> net0204<4> inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_del
+  XI755<3> net0210<3> net0204<3> inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_del
+  XI755<2> net0210<2> net0204<2> inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_del
+  XI755<1> net0210<1> net0204<1> inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_del
+  XI755<0> net0210<0> net0204<0> inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_del
+  XI754<5> net0188<5> net0210<5> inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_del
+  XI754<4> net0188<4> net0210<4> inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_del
+  XI754<3> net0188<3> net0210<3> inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_del
+  XI754<2> net0188<2> net0210<2> inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_del
+  XI754<1> net0188<1> net0210<1> inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_del
+  XI754<0> net0188<0> net0210<0> inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_del
+  XI752 net0183 net0294 inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_del
+  XI749 net0202 net0193 inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_del
+  XI762 set_sar_i net0196 inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_del
+  XI309 ref_i net0319 inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_del
+  XI758 cp_clk_ldo_i net0183 inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_del
+  XI757 net0184 net0265 inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_del
+  XI761 clatch_n_i net092 inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_del
+  XI760 clatch_p_i net0145 inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_del
+  XI750 net0193 net0192 inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_del
+  XI462 net0319 net0280 inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_del
+  XI778 ref_i net0226 inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_del
+  XI756 scab_clk_i net0184 inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_del
+  XI568 net0280 net0234 inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_del
+  XI459 net029 net0287 inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV4
+  XI517 ocs_i ocs_n_o inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV4
+  XI632 net0287 din_n_i<9> net0178 net029 force_sarp_high<9> inh_bulk_n inh_bulk_p inh_hSup inh_lSup ANDNOR2
+  XI363 net0287 din_n_i<4> net0172 net029 force_sarp_high<4> inh_bulk_n inh_bulk_p inh_hSup inh_lSup ANDNOR2
+  XI364 net0287 din_n_i<3> net0175 net029 force_sarp_high<3> inh_bulk_n inh_bulk_p inh_hSup inh_lSup ANDNOR2
+  XI438 net0287 din_n_i<1> net0177 net029 force_sarp_high<1> inh_bulk_n inh_bulk_p inh_hSup inh_lSup ANDNOR2
+  XI437 net0287 din_n_i<0> net0173 net029 force_sarp_high<0> inh_bulk_n inh_bulk_p inh_hSup inh_lSup ANDNOR2
+  XI361 net0287 din_n_i<6> net0224 net029 force_sarp_high<6> inh_bulk_n inh_bulk_p inh_hSup inh_lSup ANDNOR2
+  XI360 net0287 din_n_i<7> net0171 net029 force_sarp_high<7> inh_bulk_n inh_bulk_p inh_hSup inh_lSup ANDNOR2
+  XI359 net0287 din_n_i<8> net0174 net029 force_sarp_high<8> inh_bulk_n inh_bulk_p inh_hSup inh_lSup ANDNOR2
+  XI365 net0287 din_n_i<2> net0176 net029 force_sarp_high<2> inh_bulk_n inh_bulk_p inh_hSup inh_lSup ANDNOR2
+  XI362 net0287 din_n_i<5> net0169 net029 force_sarp_high<5> inh_bulk_n inh_bulk_p inh_hSup inh_lSup ANDNOR2
+  XI707 sar_clk_i latch_o inh_bulk_n inh_bulk_p inh_hSup inh_lSup BUF2
+  XI766 net097 sar_count_p<11> net0105 inh_bulk_n inh_bulk_p inh_hSup inh_lSup AND2
+  XI765 net097 sar_count_p<12> net0101 inh_bulk_n inh_bulk_p inh_hSup inh_lSup AND2
+  XI764 net0145 net092 net097 inh_bulk_n inh_bulk_p inh_hSup inh_lSup OR2
+  Xtrack_msb net074 net0156 net076 net0170 track_n_o<4> track_o<4> net0293 inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_reg
+  Xff8 net092 force_sarp_high<8> sar_res_i sar_count_p<8> sar_n_o<8> sar_o<8> sar_count_p<9> inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_reg
+  Xff10 net092 force_sarp_high<10> sar_res_i sar_count_p<10> sar_n_o<10> sar_o<10> net0105 inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_reg
+  Xff9 net092 force_sarp_high<9> sar_res_i sar_count_p<9> sar_n_o<9> sar_o<9> sar_count_p<10> inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_reg
+  Xff11 net092 force_sarp_high<11> sar_res_i sar_count_p<11> sar_n_o<11> sar_o<11> net0101 inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_reg
+  XI87 net074 net0351 net076 net0167 track_n_o<1> track_o<1> net0160 inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_reg
+  XI83 net074 net0276 net076 net0160 track_n_o<2> track_o<2> net0158 inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_reg
+  Xff3 net092 force_sarp_high<3> sar_res_i sar_count_p<3> sar_n_o<3> sar_o<3> sar_count_p<4> inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_reg
+  Xff4 net092 force_sarp_high<4> sar_res_i sar_count_p<4> sar_n_o<4> sar_o<4> sar_count_p<5> inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_reg
+  XI91 net074 net0349 net076 net0187 track_n_o<0> track_o<0> net0167 inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_reg
+  Xff5 net092 force_sarp_high<5> sar_res_i sar_count_p<5> sar_n_o<5> sar_o<5> sar_count_p<6> inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_reg
+  Xff12 net092 force_sarp_high<12> sar_res_i sar_count_p<12> sar_n_o<12> sar_o<12> sar_count_p<13> inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_reg
+  Xff6 net092 force_sarp_high<6> sar_res_i sar_count_p<6> sar_n_o<6> sar_o<6> sar_count_p<7> inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_reg
+  Xff7 net092 force_sarp_high<7> sar_res_i sar_count_p<7> sar_n_o<7> sar_o<7> sar_count_p<8> inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_reg
+  Xff2 net092 force_sarp_high<2> sar_res_i sar_count_p<2> sar_n_o<2> sar_o<2> sar_count_p<3> inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_reg
+  Xff0 net092 force_sarp_high<0> sar_res_i sar_count_p<0> sar_n_o<0> sar_o<0> sar_count_p<1> inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_reg
+  Xff1 net092 force_sarp_high<1> sar_res_i sar_count_p<1> sar_n_o<1> sar_o<1> sar_count_p<2> inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_reg
+  XI79 net074 net0272 net076 net0158 track_n_o<3> track_o<3> net0170 inh_bulk_n inh_bulk_p inh_hSup inh_lSup adc_ts_reg
+  XI774<10> net0207<9> net0213<9> inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV1
+  XI774<9> net0207<8> net0213<8> inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV1
+  XI774<8> net0207<7> net0213<7> inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV1
+  XI774<7> net0207<6> net0213<6> inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV1
+  XI774<6> net0207<5> net0213<5> inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV1
+  XI774<5> net0207<4> net0213<4> inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV1
+  XI774<4> net0207<3> net0213<3> inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV1
+  XI774<3> net0207<2> net0213<2> inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV1
+  XI774<2> net0207<1> net0213<1> inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV1
+  XI774<1> net0207<0> net0213<0> inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV1
+  XI663 sar_count_p<4> net0173 inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV1
+  XI545 enable_i net0140 inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV1
+  XI542 release_ldo_i net0139 inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV1
+  XI662 sar_count_p<5> net0177 inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV1
+  XI661 sar_count_p<6> net0176 inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV1
+  XI660 sar_count_p<7> net0175 inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV1
+  XI655 sar_count_p<12> net0174 inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV1
+  XI702 comp_res_n_o net0201 inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV1
+  XI744 lowsup_i net0199 inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV1
+  XI659 sar_count_p<8> net0172 inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV1
+  XI746 en_vain_lv_i net0142 inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV1
+  XI710<3> sample_ch_i<3> net0231<3> inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV1
+  XI710<2> sample_ch_i<2> net0231<2> inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV1
+  XI710<1> sample_ch_i<1> net0231<1> inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV1
+  XI710<0> sample_ch_i<0> net0231<0> inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV1
+  XI658 sar_count_p<9> net0169 inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV1
+  XI657 sar_count_p<10> net0224 inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV1
+  XI656 sar_count_p<11> net0171 inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV1
+  XI654 sar_count_p<13> net0178 inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV1
+  XI782<5> trackin_n<5> inh_bulk_n inh_bulk_p inh_hSup inh_lSup TIEONE
+  XI782<4> trackin_n<4> inh_bulk_n inh_bulk_p inh_hSup inh_lSup TIEONE
+  XI782<3> trackin_n<3> inh_bulk_n inh_bulk_p inh_hSup inh_lSup TIEONE
+  XI782<2> trackin_n<2> inh_bulk_n inh_bulk_p inh_hSup inh_lSup TIEONE
+  XI782<1> trackin_n<1> inh_bulk_n inh_bulk_p inh_hSup inh_lSup TIEONE
+  XI782<0> trackin_n<0> inh_bulk_n inh_bulk_p inh_hSup inh_lSup TIEONE
+  XI783 net076 inh_bulk_n inh_bulk_p inh_hSup inh_lSup TIEZERO
+  XI781 net0202 inh_bulk_n inh_bulk_p inh_hSup inh_lSup TIEZERO
+  XI780 net074 inh_bulk_n inh_bulk_p inh_hSup inh_lSup TIEZERO
+  XI670 net0287 din_n_i<7> sar_count_p<7> inh_bulk_n inh_bulk_p inh_hSup inh_lSup NOR2
+  XI671 net0287 din_n_i<6> sar_count_p<6> inh_bulk_n inh_bulk_p inh_hSup inh_lSup NOR2
+  XI668 net0287 din_n_i<9> sar_count_p<9> inh_bulk_n inh_bulk_p inh_hSup inh_lSup NOR2
+  XI667 net0287 din_n_i<10> sar_count_p<10> inh_bulk_n inh_bulk_p inh_hSup inh_lSup NOR2
+  XI666 net0287 din_n_i<11> sar_count_p<11> inh_bulk_n inh_bulk_p inh_hSup inh_lSup NOR2
+  XI637 trackin_n<1> net0220 net0351 inh_bulk_n inh_bulk_p inh_hSup inh_lSup NOR2
+  XI629 din_n_i<11> net029 force_sarp_high<11> inh_bulk_n inh_bulk_p inh_hSup inh_lSup NOR2
+  XI680 net0112 trackin_n<1> net0167 inh_bulk_n inh_bulk_p inh_hSup inh_lSup NOR2
+  XI653 net0287 din_n_i<13> sar_count_p<13> inh_bulk_n inh_bulk_p inh_hSup inh_lSup NOR2
+  XI677 net0287 din_n_i<0> sar_count_p<0> inh_bulk_n inh_bulk_p inh_hSup inh_lSup NOR2
+  XI676 net0287 din_n_i<1> sar_count_p<1> inh_bulk_n inh_bulk_p inh_hSup inh_lSup NOR2
+  XI638 trackin_n<0> net0220 net0349 inh_bulk_n inh_bulk_p inh_hSup inh_lSup NOR2
+  XI733 comp_res_i net0145 comp_res_n_o inh_bulk_n inh_bulk_p inh_hSup inh_lSup NOR2
+  XI675 net0287 din_n_i<2> sar_count_p<2> inh_bulk_n inh_bulk_p inh_hSup inh_lSup NOR2
+  XI674 net0287 din_n_i<3> sar_count_p<3> inh_bulk_n inh_bulk_p inh_hSup inh_lSup NOR2
+  XI39 comp_o net0201 net0154 inh_bulk_n inh_bulk_p inh_hSup inh_lSup NOR2
+  XI355 din_n_i<12> net029 force_sarp_high<12> inh_bulk_n inh_bulk_p inh_hSup inh_lSup NOR2
+  XI665 net0287 din_n_i<12> sar_count_p<12> inh_bulk_n inh_bulk_p inh_hSup inh_lSup NOR2
+  XI685 net0112 trackin_n<5> net0293 inh_bulk_n inh_bulk_p inh_hSup inh_lSup NOR2
+  XI630 din_n_i<10> net029 force_sarp_high<10> inh_bulk_n inh_bulk_p inh_hSup inh_lSup NOR2
+  XI673 net0287 din_n_i<4> sar_count_p<4> inh_bulk_n inh_bulk_p inh_hSup inh_lSup NOR2
+  XI684 net0112 trackin_n<4> net0170 inh_bulk_n inh_bulk_p inh_hSup inh_lSup NOR2
+  XI683 net0112 trackin_n<3> net0158 inh_bulk_n inh_bulk_p inh_hSup inh_lSup NOR2
+  XI682 net0112 trackin_n<2> net0160 inh_bulk_n inh_bulk_p inh_hSup inh_lSup NOR2
+  XI779 trackin_n<4> net0220 net0156 inh_bulk_n inh_bulk_p inh_hSup inh_lSup NOR2
+  XI672 net0287 din_n_i<5> sar_count_p<5> inh_bulk_n inh_bulk_p inh_hSup inh_lSup NOR2
+  XI636 trackin_n<2> net0220 net0276 inh_bulk_n inh_bulk_p inh_hSup inh_lSup NOR2
+  XI669 net0287 din_n_i<8> sar_count_p<8> inh_bulk_n inh_bulk_p inh_hSup inh_lSup NOR2
+  XI635 trackin_n<3> net0220 net0272 inh_bulk_n inh_bulk_p inh_hSup inh_lSup NOR2
+  XI681 net0112 trackin_n<0> net0187 inh_bulk_n inh_bulk_p inh_hSup inh_lSup NOR2
+  XI544 net0140 enable_o inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV2
+  XI686 net0220 net0112 inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV2
+  XI565 net0139 release_ldo_o inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV2
+  XI745 net0199 lowsup_o inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV2
+  XI554 net0265 scab_clk_o inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV2
+  XI704<2> sesp_del_i<2> sesp_del_n_o<2> inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV2
+  XI704<1> sesp_del_i<1> sesp_del_n_o<1> inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV2
+  XI704<0> sesp_del_i<0> sesp_del_n_o<0> inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV2
+  XI747 net0146 en_vain_lv_o inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV2
+  XI722 net0226 ocs_ref_o inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV2
+  XI465 net0321 ref_o inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV2
+  XI679 net0191 net0220 inh_bulk_n inh_bulk_p inh_hSup inh_lSup INV2
+.ENDS
+** End of subcircuit definition.
+
+** Subcircuit
+** ----------
+** Library name: saradc_11bit
+** Cell name: adc_ana_top
+** View name: schematic
+**
+.SUBCKT adc_ana_top comp_o sar_o<12> sar_o<11> sar_o<10> sar_o<9> sar_o<8> sar_o<7> sar_o<6> sar_o<5> sar_o<4> sar_o<3> sar_o<2> sar_o<1> sar_o<0> track_o<4> track_o<3> track_o<2> track_o<1> track_o<0> cal_i<5> cal_i<4> cal_i<3> cal_i<2> cal_i<1> cal_i<0>
++ comp_res_i cp_clk_ldo_i din_n_i<13> din_n_i<12> din_n_i<11> din_n_i<10> din_n_i<9> din_n_i<8> din_n_i<7> din_n_i<6> din_n_i<5> din_n_i<4> din_n_i<3> din_n_i<2> din_n_i<1> din_n_i<0> enable_i lowsup_i lv_in0_1v5_ai lv_in1_1v5_ai ocs_i ref_i release_ldo_i
++ sample_ch_i<13> sample_ch_i<12> sample_ch_i<11> sample_ch_i<10> sample_ch_i<9> sample_ch_i<8> sample_ch_i<7> sample_ch_i<6> sample_ch_i<5> sample_ch_i<4> sample_ch_i<3> sample_ch_i<2> sample_ch_i<1> sample_ch_i<0> sar_clk_i sar_res_i scab_clk_i sesp_del_i<2>
++ sesp_del_i<1> sesp_del_i<0> set_sar_i set_track_i track_res_i trackin_n_i<5> trackin_n_i<4> trackin_n_i<3> trackin_n_i<2> trackin_n_i<1> trackin_n_i<0> vrefn_ai vrefp_ai vsense_gnd_ai mv_cs_valid_i en_vain_lv_i lv_in2_1v5_ai inh_bulk_n inh_bulk_p inh_bulkn
++ inh_bulkpanalog inh_hSup20 inh_hSup30 net0 inh_hSup30p inh_hsupanalog inh_lSup20 inh_lSup30
+  Xana_core lv_in0_1v5_ai lv_in1_1v5_ai vrefn_ai vrefp_ai vsense_gnd_ai sample_ch_s<13> sample_ch_s<12> sample_ch_s<11> sample_ch_s<10> sample_ch_s<9> sample_ch_s<8> sample_ch_s<7> sample_ch_s<6> sample_ch_s<5> sample_ch_s<4> sample_ch_s<3> sample_ch_s<2>
++ sample_ch_s<1> sample_ch_s<0> cal_n_s<5> cal_n_s<4> cal_n_s<3> cal_n_s<2> cal_n_s<1> cal_n_s<0> scab_clk_s cp_clk_s enable_s release_ldo_s lowsup_s sesp_del_n_s<2> sesp_del_n_s<1> sesp_del_n_s<0> sar_n_s<12> sar_n_s<11> sar_n_s<10> sar_n_s<9> sar_n_s<8>
++ sar_n_s<7> sar_n_s<6> sar_n_s<5> sar_n_s<4> sar_n_s<3> sar_n_s<2> sar_n_s<1> sar_n_s<0> track_n_s<4> track_n_s<3> track_n_s<2> track_n_s<1> track_n_s<0> latch_s ref_s ocs_ref_s ocs_n_s comp_res_n_s clatch_p_s clatch_n_s en_vain_lv_s mv_cs_valid_i lv_in2_1v5_ai
++ inh_bulk_n inh_bulk_p inh_bulkn inh_bulkpanalog inh_hSup20 net0 inh_hSup30 inh_hSup30p inh_hsupanalog inh_lSup20 adc_ana_core
+  Xana_sts cal_i<5> cal_i<4> cal_i<3> cal_i<2> cal_i<1> cal_i<0> cal_n_s<5> cal_n_s<4> cal_n_s<3> cal_n_s<2> cal_n_s<1> cal_n_s<0> clatch_n_s clatch_p_s comp_o comp_res_i comp_res_n_s cp_clk_ldo_i cp_clk_s din_n_i<13> din_n_i<12> din_n_i<11> din_n_i<10>
++ din_n_i<9> din_n_i<8> din_n_i<7> din_n_i<6> din_n_i<5> din_n_i<4> din_n_i<3> din_n_i<2> din_n_i<1> din_n_i<0> en_vain_lv_i en_vain_lv_s enable_i enable_s latch_s lowsup_i lowsup_s ocs_i ocs_n_s ocs_ref_s ref_i ref_s release_ldo_i release_ldo_s sample_ch_i<13>
++ sample_ch_i<12> sample_ch_i<11> sample_ch_i<10> sample_ch_i<9> sample_ch_i<8> sample_ch_i<7> sample_ch_i<6> sample_ch_i<5> sample_ch_i<4> sample_ch_i<3> sample_ch_i<2> sample_ch_i<1> sample_ch_i<0> sample_ch_s<13> sample_ch_s<12> sample_ch_s<11> sample_ch_s<10>
++ sample_ch_s<9> sample_ch_s<8> sample_ch_s<7> sample_ch_s<6> sample_ch_s<5> sample_ch_s<4> sample_ch_s<3> sample_ch_s<2> sample_ch_s<1> sample_ch_s<0> sar_clk_i sar_n_s<12> sar_n_s<11> sar_n_s<10> sar_n_s<9> sar_n_s<8> sar_n_s<7> sar_n_s<6> sar_n_s<5> sar_n_s<4>
++ sar_n_s<3> sar_n_s<2> sar_n_s<1> sar_n_s<0> sar_o<12> sar_o<11> sar_o<10> sar_o<9> sar_o<8> sar_o<7> sar_o<6> sar_o<5> sar_o<4> sar_o<3> sar_o<2> sar_o<1> sar_o<0> sar_res_i scab_clk_i scab_clk_s sesp_del_i<2> sesp_del_i<1> sesp_del_i<0> sesp_del_n_s<2>
++ sesp_del_n_s<1> sesp_del_n_s<0> set_sar_i set_track_i track_n_s<4> track_n_s<3> track_n_s<2> track_n_s<1> track_n_s<0> track_o<4> track_o<3> track_o<2> track_o<1> track_o<0> track_res_i trackin_n_i<5> trackin_n_i<4> trackin_n_i<3> trackin_n_i<2> trackin_n_i<1>
++ trackin_n_i<0> inh_bulk_n inh_bulk_p inh_hSup30 inh_lSup30 adc_ana_sts
+.ENDS
+** End of subcircuit definition.
+
+** Subcircuit
+** ----------
+** Library name: saradc_11bit
+** Cell name: saradc_11b_top
+** View name: schematic
+**
+.SUBCKT saradc_11b_top busy_o chnr_i<4> chnr_i<3> chnr_i<2> chnr_i<1> chnr_i<0> clk_i comp_en_i comp_val_i<12> comp_val_i<11> comp_val_i<10> comp_val_i<9> comp_val_i<8> comp_val_i<7> comp_val_i<6> comp_val_i<5> comp_val_i<4> comp_val_i<3> comp_val_i<2>
++ comp_val_i<1> comp_val_i<0> dither_cfg_i<1> dither_cfg_i<0> dscal_i eoc_o eoc_pre_o epcal_i jtag_mode_i lv_gain_i lv_in0_1v5_ai lv_in1_1v5_ai lv_in2_1v5_ai mod_enable_i mod_lowsup_i mod_ready_o mv_cs_valid_i overs_cfg_i<1> overs_cfg_i<0> res_n_i result_o<11>
++ result_o<10> result_o<9> result_o<8> result_o<7> result_o<6> result_o<5> result_o<4> result_o<3> result_o<2> result_o<1> result_o<0> scan_enable_i scan_in_i<3> scan_in_i<2> scan_in_i<1> scan_in_i<0> scan_mode_i scan_out_o<3> scan_out_o<2> scan_out_o<1>
++ scan_out_o<0> sesp_i start_adc_i stc_cal_i<1> stc_cal_i<0> stc_i<1> stc_i<0> track_cfg_i<1> track_cfg_i<0> tst_dig_i<36> tst_dig_i<35> tst_dig_i<34> tst_dig_i<33> tst_dig_i<32> tst_dig_i<31> tst_dig_i<30> tst_dig_i<29> tst_dig_i<28> tst_dig_i<27> tst_dig_i<26>
++ tst_dig_i<25> tst_dig_i<24> tst_dig_i<23> tst_dig_i<22> tst_dig_i<21> tst_dig_i<20> tst_dig_i<19> tst_dig_i<18> tst_dig_i<17> tst_dig_i<16> tst_dig_i<15> tst_dig_i<14> tst_dig_i<13> tst_dig_i<12> tst_dig_i<11> tst_dig_i<10> tst_dig_i<9> tst_dig_i<8>
++ tst_dig_i<7> tst_dig_i<6> tst_dig_i<5> tst_dig_i<4> tst_dig_i<3> tst_dig_i<2> tst_dig_i<1> tst_dig_i<0> tst_dig_o<19> tst_dig_o<18> tst_dig_o<17> tst_dig_o<16> tst_dig_o<15> tst_dig_o<14> tst_dig_o<13> tst_dig_o<12> tst_dig_o<11> tst_dig_o<10> tst_dig_o<9>
++ tst_dig_o<8> tst_dig_o<7> tst_dig_o<6> tst_dig_o<5> tst_dig_o<4> tst_dig_o<3> tst_dig_o<2> tst_dig_o<1> tst_dig_o<0> tst_stress_i vrefn_ai vrefp_ai vsense_gnd_ai inh_bulk_n inh_bulk_p inh_bulkn inh_bulkpanalog inh_hSup20 inh_hSup30 net0 inh_hSup30p
++ inh_hsupanalog inh_lSup20 inh_lSup30
+  Xdig_top clk_i res_n_i chnr_i<4> chnr_i<3> chnr_i<2> chnr_i<1> chnr_i<0> comp_en_i comp_val_i<12> comp_val_i<11> comp_val_i<10> comp_val_i<9> comp_val_i<8> comp_val_i<7> comp_val_i<6> comp_val_i<5> comp_val_i<4> comp_val_i<3> comp_val_i<2> comp_val_i<1>
++ comp_val_i<0> dither_cfg_i<1> dither_cfg_i<0> dscal_i epcal_i lv_gain_i mod_enable_i mod_lowsup_i overs_cfg_i<1> overs_cfg_i<0> sesp_i start_adc_i stc_i<1> stc_i<0> stc_cal_i<1> stc_cal_i<0> track_cfg_i<1> track_cfg_i<0> tst_stress_i busy_o eoc_pre_o eoc_o
++ mod_ready_o result_o<11> result_o<10> result_o<9> result_o<8> result_o<7> result_o<6> result_o<5> result_o<4> result_o<3> result_o<2> result_o<1> result_o<0> tst_dig_o<19> tst_dig_o<18> tst_dig_o<17> tst_dig_o<16> tst_dig_o<15> tst_dig_o<14> tst_dig_o<13>
++ tst_dig_o<12> tst_dig_o<11> tst_dig_o<10> tst_dig_o<9> tst_dig_o<8> tst_dig_o<7> tst_dig_o<6> tst_dig_o<5> tst_dig_o<4> tst_dig_o<3> tst_dig_o<2> tst_dig_o<1> tst_dig_o<0> comp_s sar_s<12> sar_s<11> sar_s<10> sar_s<9> sar_s<8> sar_s<7> sar_s<6> sar_s<5>
++ sar_s<4> sar_s<3> sar_s<2> sar_s<1> sar_s<0> track_s<4> track_s<3> track_s<2> track_s<1> track_s<0> cal_s<5> cal_s<4> cal_s<3> cal_s<2> cal_s<1> cal_s<0> comp_res_s cp_clk_ldo_s din_n_s<13> din_n_s<12> din_n_s<11> din_n_s<10> din_n_s<9> din_n_s<8> din_n_s<7>
++ din_n_s<6> din_n_s<5> din_n_s<4> din_n_s<3> din_n_s<2> din_n_s<1> din_n_s<0> en_vain_lv_s enable_s lowsup_s ocs_s ref_s release_ldo_s sar_clk_s sar_res_s sample_ch_s<13> sample_ch_s<12> sample_ch_s<11> sample_ch_s<10> sample_ch_s<9> sample_ch_s<8>
++ sample_ch_s<7> sample_ch_s<6> sample_ch_s<5> sample_ch_s<4> sample_ch_s<3> sample_ch_s<2> sample_ch_s<1> sample_ch_s<0> scab_clk_s sesp_del_s<2> sesp_del_s<1> sesp_del_s<0> set_sar_s set_track_s track_res_s trackin_n_s<5> trackin_n_s<4> trackin_n_s<3>
++ trackin_n_s<2> trackin_n_s<1> trackin_n_s<0> jtag_mode_i scan_enable_i scan_in_i<3> scan_in_i<2> scan_in_i<1> scan_in_i<0> scan_out_o<3> scan_out_o<2> scan_out_o<1> scan_out_o<0> scan_mode_i tst_dig_i<36> tst_dig_i<35> tst_dig_i<34> tst_dig_i<33> tst_dig_i<32>
++ tst_dig_i<31> tst_dig_i<30> tst_dig_i<29> tst_dig_i<28> tst_dig_i<27> tst_dig_i<26> tst_dig_i<25> tst_dig_i<24> tst_dig_i<23> tst_dig_i<22> tst_dig_i<21> tst_dig_i<20> tst_dig_i<19> tst_dig_i<18> tst_dig_i<17> tst_dig_i<16> tst_dig_i<15> tst_dig_i<14>
++ tst_dig_i<13> tst_dig_i<12> tst_dig_i<11> tst_dig_i<10> tst_dig_i<9> tst_dig_i<8> tst_dig_i<7> tst_dig_i<6> tst_dig_i<5> tst_dig_i<4> tst_dig_i<3> tst_dig_i<2> tst_dig_i<1> tst_dig_i<0> saradc_11b_dig_top
+  Xana_top comp_s sar_s<12> sar_s<11> sar_s<10> sar_s<9> sar_s<8> sar_s<7> sar_s<6> sar_s<5> sar_s<4> sar_s<3> sar_s<2> sar_s<1> sar_s<0> track_s<4> track_s<3> track_s<2> track_s<1> track_s<0> cal_s<5> cal_s<4> cal_s<3> cal_s<2> cal_s<1> cal_s<0> comp_res_s
++ cp_clk_ldo_s din_n_s<13> din_n_s<12> din_n_s<11> din_n_s<10> din_n_s<9> din_n_s<8> din_n_s<7> din_n_s<6> din_n_s<5> din_n_s<4> din_n_s<3> din_n_s<2> din_n_s<1> din_n_s<0> enable_s lowsup_s lv_in0_1v5_ai lv_in1_1v5_ai ocs_s ref_s release_ldo_s sample_ch_s<13>
++ sample_ch_s<12> sample_ch_s<11> sample_ch_s<10> sample_ch_s<9> sample_ch_s<8> sample_ch_s<7> sample_ch_s<6> sample_ch_s<5> sample_ch_s<4> sample_ch_s<3> sample_ch_s<2> sample_ch_s<1> sample_ch_s<0> sar_clk_s sar_res_s scab_clk_s sesp_del_s<2> sesp_del_s<1>
++ sesp_del_s<0> set_sar_s set_track_s track_res_s trackin_n_s<5> trackin_n_s<4> trackin_n_s<3> trackin_n_s<2> trackin_n_s<1> trackin_n_s<0> vrefn_ai vrefp_ai vsense_gnd_ai mv_cs_valid_i en_vain_lv_s lv_in2_1v5_ai inh_bulk_n inh_bulk_p inh_bulkn inh_bulkpanalog
++ inh_hSup20 net0 inh_hSup30 inh_hSup30p inh_hsupanalog inh_lSup20 inh_lSup30 adc_ana_top
+.ENDS
+** End of subcircuit definition.
