@@ -29,9 +29,7 @@ Content:
 		Veriloga code that evaluates the chopped LDO
 		Trigger "ldo_fail" signal if the circuit is out of specs
 		Set "testnr" to indicate which test violated the specs
-	% ref/defect_list.txt
-		Potential defects list. 
-		
+
 Setups:
 	Defect free simulation:
 		- Must NOT trigger "ldo_fail" signal and remain at logic "0".
