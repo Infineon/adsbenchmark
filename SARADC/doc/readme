@@ -34,9 +34,7 @@ Content:
 		Trigger a signal if the circuit goes out of specs
 	% src/digital/*
 		Digital block codes.
-	% ref/defect_list.txt
-		Potential defects list. 
-		
+
 Setups:
 	Defect free simulation:
 		- Must NOT trigger "fail" signal and remain at logic "0".
