@@ -1,0 +1,165 @@
+// Disclaimer:
+// THIS FILE IS PROVIDED AS IS AND WITH:
+// (A) NO WARRANTY OF ANY KIND, express, implied or statutory, including any implied warranties of merchantability, fitness for a particular purpose and noninfringement, which  Infineon disclaims to the maximum extent permitted by applicable law; and
+// (B) NO INDEMNIFICATION FOR INFRINGEMENT OF INTELLECTUAL PROPERTY RIGHTS.
+// (C) LIMITATION OF LIABILITY: IN NO EVENT SHALL INFINEON BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES (INCLUDING LOST PROFITS OR SAVINGS) WHATSOEVER, WHETHER BASED ON CONTRACT, TORT OR ANY OTHER LEGAL THEORY, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+// © 2020 Infineon Technologies AG. All rights reserved.
+
+// Note:
+// The CMOS transistor models used, were freely available models downloaded from: http://ptm.asu.edu.
+// The bipolar transistor models are from: The Development of Bipolar Log-Domain Filters in a Standard CMOS Process, G. D. Duerden, G. W. Roberts, M. J. Deen, 2001
+
+// Release:
+// 	version 1.0
+
+/**
+* LDOs
+* ----------
+* Measure all LDOs via the analog test bus.
+* We are doing this early, because we have already configured the LPTX during the rampup.
+* Procedure is like this:
+*   1) Select LDO output (ldo_setup_state_next)
+*   2) Check LDO voltage (ldo_check_volt_next),
+*      here we check it against ldo_vmin and ldo_vmax
+*/
+
+/*
+* Parameters
+*/
+parameter real ldo_settling_time = 30n;
+parameter real ldo_dv = 10m;  // Max 10 mV difference is allowed
+
+/*
+* Variables (there are no 2d arrays in verilog-a)
+*/
+`define LDO_NUM_ROWS 10
+`define LDO_NUM_ELEMENTS (`LDO_NUM_ROWS*10-1)
+real ldo_runs[0:`LDO_NUM_ELEMENTS] = {
+    // | mux [3] [2] [1] [0] | vref [4] [3] [2] [1] [0] | target |
+    // HSTX LDOs
+              0,  0,  1,  0,         0,  0,  1,  0,  0,    0.4, // clk
+              0,  0,  0,  0,         0,  0,  1,  0,  0,    0.4, // lane0
+              0,  0,  0,  1,         0,  0,  1,  0,  0,    0.4, // lane1
+              0,  0,  1,  1,         0,  0,  1,  0,  0,    0.4, // lane2
+              0,  1,  0,  0,         0,  0,  1,  0,  0,    0.4, // lane3
+    // LPTX LDOs
+              0,  1,  1,  1,         0,  0,  1,  0,  0,    1.2,  // lptx clk
+              0,  1,  0,  1,         0,  0,  1,  0,  0,    1.2,  // lptx lane0
+              0,  1,  1,  0,         0,  0,  1,  0,  0,    1.2,  // lptx lane2
+              1,  0,  0,  0,         0,  0,  1,  0,  0,    1.2,  // lptx lane3
+              1,  0,  0,  1,         0,  0,  1,  0,  0,    1.2   // lptx lane4
+};
+real ldo_setup_state_next = -1;
+real ldo_check_volt_next = -1;
+integer pointer = 0;
+real ldo_target = 0;
+real ldo_results[0:`LDO_NUM_ROWS];
+
+/*
+* Setup state
+*/
+analog begin
+    @(timer( ldo_setup_state_next )) begin
+
+        if (pointer>=`LDO_NUM_ELEMENTS) begin
+            // End reached and all passed
+            $strobe("[PASS] LDO complete (HSTX V: %f %f %f %f %f)", ldo_results[0], ldo_results[1], ldo_results[2], ldo_results[3], ldo_results[4]);
+            // Continue with the next test
+            next_state_time = $abstime + 1p;
+            state = state + 1;
+            //state = STATE_HSTX_PRBS;
+            //state = STATE_HSTX_DELAY_LINE; // Directly to another test
+            //state = STATE_DC;
+
+        end else begin
+            // Setup analog mux according to matrix
+            for (i = 3; i>=0; i=i-1) begin
+                dft_ana_test_out_dphy_sel[i] = ldo_runs[pointer];
+                pointer = pointer + 1;
+            end
+            // Setup reference voltage according to matrix
+            for (i = 4; i>=0; i=i-1) begin
+                lptx_vref_prog[i] = ldo_runs[pointer];
+                pointer = pointer + 1;
+            end
+
+            ldo_check_volt_next = $abstime + ldo_settling_time;
+        end
+
+    end
+end
+
+/*
+* Check voltages
+*/
+analog begin
+    @(timer( ldo_check_volt_next )) begin
+
+        // Get the target value
+        ldo_target = ldo_runs[pointer];
+        pointer = pointer + 1;
+        ldo_results[pointer/10-1] = V(dft_ana_test_ai); // Store ldo result for later DC analysis
+
+        if(V(dft_ana_test_ai) >= ldo_target-ldo_dv/2 && V(dft_ana_test_ai) <= ldo_target+ldo_dv/2) begin
+            // PASS
+            ldo_setup_state_next = $abstime + 1p;
+            $strobe("[PASS] (%d) LDO voltage %f V is okay", pointer, V(dft_ana_test_ai));
+
+        end else begin
+
+            $strobe("[FAILED] LPTX LDO voltage outside of spec. Target: %f V, Value: %f V", ldo_target, V(dft_ana_test_ai));
+            fail = 1;
+            next_state_time = $abstime + 2n;
+        end
+
+    end
+end
+
+
+/*
+* Main entry point
+*/
+analog begin
+    @(timer( next_state_time )) begin
+        if (state == STATE_LDO ) begin
+
+            $strobe("-> Check LDO voltages <-");
+
+
+            /*
+            * Common signals
+            */
+            for (i = 0; i<4; i=i+1) begin
+                dft_ana_test_out_dphy_sel[i] = 0;
+            end
+            dft_ana_test_out_dphy_sel[3] = 1; // Select ldo of lane 2 to be able to wait until the ldo settled
+
+            for (i = 0; i<3; i=i+1) begin
+                hstx_lower_imp_cal[i] = 0;
+                hstx_upper_imp_cal[i] = 0;
+            end
+
+            dft_ana_test_en         = 1; // Enable analog test path (so that we can observe the LDO voltage)
+            dft_dphy_ocdldo_res_dis = 0; // Load resistor for HSTX LDO to keep it stable during LPTX transmission
+            dft_pll_clks_2_cl_en    = 0; // route back the divided clock and the reference clock via DL1 and CL
+            dft_scan_mode           = 0;
+            en_clk_dphy             = 0; // Enable high speed clock for serializer
+            sel_dr                  = 0; // 0 = 1 Gbps, 1 = 2 Gbps
+            hstx_en_fast_trf        = 0; // 0 = slow rise/fall (1 Gbps), 1 = fast rise/fall (2 Gbps)
+            en_clk_byte             = 1; // Enabled byte clock (derived from DL1), used for syncing the PRBS
+            en_bias                 = 1;
+            dphy_pwrdn              = 0;
+            dphy_reset_n            = 1;
+            en_iso_vddphy           = 1; // 1 = Disable isolation of digital control signals
+            en_ls_vddphy            = 1; // enable bias currents
+            hs_ser_msb_first_en     = 0; // 0 = LSB first, 1 = MSB first
+
+            ldo_setup_state_next = $abstime + 10u;
+
+            // Enable one of the lane outputs with the LPTX channel
+            for (i = 0; i<5; i=i+1) begin
+                mode[i] = MODE_FORCE_LPTX_P0N1;
+            end
+        end
+    end
+end

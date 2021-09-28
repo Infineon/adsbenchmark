@@ -1,0 +1,100 @@
+
+// Disclaimer:
+// THIS FILE IS PROVIDED AS IS AND WITH:
+// (A) NO WARRANTY OF ANY KIND, express, implied or statutory, including any implied warranties of merchantability, fitness for a particular purpose and noninfringement, which  Infineon disclaims to the maximum extent permitted by applicable law; and
+// (B) NO INDEMNIFICATION FOR INFRINGEMENT OF INTELLECTUAL PROPERTY RIGHTS.
+// (C) LIMITATION OF LIABILITY: IN NO EVENT SHALL INFINEON BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES (INCLUDING LOST PROFITS OR SAVINGS) WHATSOEVER, WHETHER BASED ON CONTRACT, TORT OR ANY OTHER LEGAL THEORY, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+// © 2020 Infineon Technologies AG. All rights reserved.
+
+// Note:
+// The CMOS transistor models used, were freely available models downloaded from: http://ptm.asu.edu.
+// The bipolar transistor models are from: The Development of Bipolar Log-Domain Filters in a Standard CMOS Process, G. D. Duerden, G. W. Roberts, M. J. Deen, 2001
+
+// Release:
+// 	version 1.0
+
+// VerilogA for phy_local, va_deserializer, veriloga
+
+`include "constants.vams"
+`include "disciplines.vams"
+
+module va_deserializer(data_o, clk_i, data_ser_i, en_i);
+output [15:0] data_o;
+electrical [15:0] data_o;
+input clk_i;
+electrical clk_i;
+input data_ser_i;
+electrical data_ser_i;
+input en_i;
+electrical en_i;
+
+/*
+* Parameters
+*/
+parameter real vhigh = 1.5;
+parameter real trf = 30p;
+
+/*
+* Variables for the output
+*/
+integer data_s[15:0] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+//{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
+/*
+* Internal variables
+*/
+integer pointer = 0;
+integer internal_s[15:0] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+integer i = 0;
+
+/*
+* Logic
+*/
+analog begin
+
+    @(cross(V(clk_i)-vhigh/2, 0)) begin
+        if (V(en_i)>vhigh/2) begin
+
+            internal_s[pointer] = V(data_ser_i)>vhigh/2;
+            pointer = pointer + 1;
+            if(pointer == 16) begin
+                pointer = 0;
+                for (i = 0; i<16;i=i+1 ) begin
+                    data_s[i] = internal_s[i];
+                end
+            end
+
+        end else begin
+            pointer = 0;
+        end
+    end
+
+
+end
+
+
+/*
+* Set outputs
+*/
+analog begin
+    
+    
+    V(data_o[0]) <+ transition(vhigh*data_s[0],0,trf,trf);
+    V(data_o[1]) <+ transition(vhigh*data_s[1],0,trf,trf);
+    V(data_o[2]) <+ transition(vhigh*data_s[2],0,trf,trf);
+    V(data_o[3]) <+ transition(vhigh*data_s[3],0,trf,trf);
+    V(data_o[4]) <+ transition(vhigh*data_s[4],0,trf,trf);
+    V(data_o[5]) <+ transition(vhigh*data_s[5],0,trf,trf);
+    V(data_o[6]) <+ transition(vhigh*data_s[6],0,trf,trf);
+    V(data_o[7]) <+ transition(vhigh*data_s[7],0,trf,trf);
+    V(data_o[8]) <+ transition(vhigh*data_s[8],0,trf,trf);
+    V(data_o[9]) <+ transition(vhigh*data_s[9],0,trf,trf);
+    V(data_o[10]) <+ transition(vhigh*data_s[10],0,trf,trf);
+    V(data_o[11]) <+ transition(vhigh*data_s[11],0,trf,trf);
+    V(data_o[12]) <+ transition(vhigh*data_s[12],0,trf,trf);
+    V(data_o[13]) <+ transition(vhigh*data_s[13],0,trf,trf);
+    V(data_o[14]) <+ transition(vhigh*data_s[14],0,trf,trf);
+    V(data_o[15]) <+ transition(vhigh*data_s[15],0,trf,trf);
+end
+
+
+endmodule

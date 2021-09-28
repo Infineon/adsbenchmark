@@ -1,0 +1,327 @@
+// Disclaimer:
+// THIS FILE IS PROVIDED AS IS AND WITH:
+// (A) NO WARRANTY OF ANY KIND, express, implied or statutory, including any implied warranties of merchantability, fitness for a particular purpose and noninfringement, which  Infineon disclaims to the maximum extent permitted by applicable law; and
+// (B) NO INDEMNIFICATION FOR INFRINGEMENT OF INTELLECTUAL PROPERTY RIGHTS.
+// (C) LIMITATION OF LIABILITY: IN NO EVENT SHALL INFINEON BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES (INCLUDING LOST PROFITS OR SAVINGS) WHATSOEVER, WHETHER BASED ON CONTRACT, TORT OR ANY OTHER LEGAL THEORY, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+// © 2020 Infineon Technologies AG. All rights reserved.
+
+// Note:
+// The CMOS transistor models used, were freely available models downloaded from: http://ptm.asu.edu.
+// The bipolar transistor models are from: The Development of Bipolar Log-Domain Filters in a Standard CMOS Process, G. D. Duerden, G. W. Roberts, M. J. Deen, 2001
+
+// Release:
+// 	version 1.0
+
+// VerilogA for phy_local, lane_waveform_analyzer, veriloga
+
+`include "constants.vams"
+`include "disciplines.vams"
+
+module lane_waveform_analyzer(
+    ideal_min_max_i,
+    UI_ao, fall_ao, max_ao, min_ao, ready_o, xopen0_ao, xopen1_ao, yopen0_ao, yopen1_ao, clk_i, sig_i,en_i, rise_ao);
+output fall_ao;
+electrical fall_ao;
+output UI_ao;
+electrical UI_ao;
+output max_ao;
+electrical max_ao;
+output min_ao;
+electrical min_ao;
+output ready_o;
+electrical ready_o;
+output xopen0_ao;
+electrical xopen0_ao;
+output xopen1_ao;
+electrical xopen1_ao;
+output yopen0_ao;
+electrical yopen0_ao;
+output yopen1_ao;
+electrical yopen1_ao;
+input clk_i;
+electrical clk_i;
+input sig_i;
+electrical sig_i;
+output rise_ao;
+electrical rise_ao;
+input en_i;
+electrical en_i;
+input ideal_min_max_i;
+electrical ideal_min_max_i;
+
+
+/*
+* Parameters
+*/
+parameter real vhigh = 1.5;
+parameter real trf = 30p;
+parameter real trf_rel_threashold = 0.2; // 20% to 80 % rise and fall time measurement
+
+/*
+* Variables
+*/
+integer codes[0:3] = {-1,-1,-1,-1};
+integer code_pointer = 0;
+
+real lower_threshold = 0;
+real upper_threshold = 0;
+
+real zero_crossing_threshold = 0;
+
+real rise_start = -1;
+real fall_start = -1;
+
+real dt_clk_rise_sig_fall = 0;
+
+real sig_crossing = -1;
+real clk_start = -1;
+real UI_total = 0;
+integer clk_total = 0;
+
+real temp = 0;
+
+
+/*
+* Variables for the output
+*/
+real fall_s = 0;
+real max_s = 0;
+real min_s = 0;
+real UI_s = 0;
+real rise_s = 0;
+integer ready_s = 0;
+
+real yopen0_s = 0;
+real yopen1_s = 0;
+
+real xopen0_s = 0;
+real xopen1_s = 0;
+
+/*
+* Delay measurement (xopen0 + xopen1)
+*/
+analog begin
+    @(cross(V(sig_i)-zero_crossing_threshold, 0)) begin
+        if (clk_start!=-1 && V(en_i)>vhigh/2 && rise_s != 0 && fall_s!=0 && UI_s!=0) begin
+            // A clock was there all the time! now need to check it!
+            temp = $abstime - clk_start;
+            if (xopen1_s > temp || xopen1_s == 0) begin
+                xopen1_s = temp;
+            end
+        end
+        sig_crossing = $abstime;
+    end
+
+    @(cross(V(clk_i)-zero_crossing_threshold, 0)) begin
+        if (sig_crossing!=-1 && V(en_i)>vhigh/2 && rise_s != 0 && fall_s!=0 && UI_s!=0) begin
+            if (sig_crossing > $abstime - UI_s) begin
+                // Sig crossing must have been occured within on UI! otherwise it belongs to another period
+                temp = $abstime - sig_crossing;
+                if (xopen0_s > temp || xopen0_s == 0) begin
+                    xopen0_s = temp;
+                end
+            end
+        end
+
+        //clk_start = $abstime; (is already set below)
+    end
+end
+
+
+
+
+
+/*
+* UI Measurement (average period of clock/2)
+*/
+analog begin
+    @(cross(V(clk_i)-zero_crossing_threshold, 0)) begin
+
+        if (clk_start!=-1 && V(en_i)>vhigh/2 && rise_s != 0 && fall_s!=0) begin
+            UI_total = UI_total + $abstime - clk_start;
+            clk_total = clk_total + 1;
+            UI_s = UI_total/clk_total;
+        end
+
+        clk_start = $abstime;
+    end
+
+end
+
+/*
+* Reset
+*/
+analog begin
+    @(cross(V(en_i)-vhigh/2, +1)) begin
+        codes[0] = -1;
+        codes[1] = -1;
+        codes[2] = -1;
+        codes[3] = -1;
+        code_pointer = 0;
+        lower_threshold = 0;
+        upper_threshold = 0;
+        rise_start = -1;
+        fall_start = -1;
+        dt_clk_rise_sig_fall = 0;
+        fall_s = 0;
+        max_s = 0;
+        min_s = 0;
+        zero_crossing_threshold = 0;
+        UI_s = 0;
+        rise_s = 0;
+        ready_s = 0;
+        yopen0_s = 0;
+        yopen1_s = 0;
+        clk_start = -1;
+        UI_total = 0;
+        clk_total = 0;
+        xopen0_s = 0;
+        xopen1_s = 0;
+    end
+end
+
+/*
+* If max/min amplitude detected, then calculate rise/fall times
+*/
+analog begin
+    // Rising
+    @(cross(V(sig_i)-lower_threshold, +1)) begin
+        if (lower_threshold!=0 && upper_threshold!=0) begin
+            rise_start = $abstime;
+        end
+    end
+    @(cross(V(sig_i)-upper_threshold, +1)) begin
+        if (lower_threshold!=0 && upper_threshold!=0 && rise_start!=-1) begin
+            rise_s = $abstime - rise_start;
+        end
+    end
+
+    // Falling
+    @(cross(V(sig_i)-upper_threshold, -1)) begin
+        if (lower_threshold!=0 && upper_threshold!=0) begin
+            fall_start = $abstime;
+        end
+    end
+    @(cross(V(sig_i)-lower_threshold, -1)) begin
+        if (lower_threshold!=0 && upper_threshold!=0 && fall_start != -1) begin
+            fall_s = $abstime - fall_start;
+        end
+    end
+end
+
+
+/*
+* Measure the amplitude whenever the clock crosses 0
+*/
+analog begin
+    @(cross(V(clk_i)-zero_crossing_threshold, 0)) begin
+        if (lower_threshold!=0 && upper_threshold!=0 && rise_s != -1 && fall_s != -1) begin
+            if (V(sig_i)>0) begin
+                temp = abs(V(sig_i));
+
+                if (yopen1_s > temp || yopen1_s==0) begin
+                    yopen1_s = temp;
+                end
+            end else begin
+                temp = abs(V(sig_i));
+                if (yopen0_s > temp || yopen0_s==0) begin
+                    yopen0_s = temp;
+                end
+            end
+        end
+    end
+end
+
+
+/*
+* Read the received bits (4 in total to match 0111 or 1000)
+* If matching, then measure min/max amplitude
+*/
+analog begin
+    // Assume ideal min/max values (speeds up the calculation of delay)
+
+    @(cross(V(clk_i)-zero_crossing_threshold, 0)) begin
+        if (V(ideal_min_max_i)<vhigh/2) begin
+
+            codes[code_pointer] = V(sig_i)>0;
+            code_pointer = code_pointer + 1;
+            if (code_pointer>3) begin
+                // shift one bit
+                codes[0] = codes[1];
+                codes[1] = codes[2];
+                codes[2] = codes[3];
+                code_pointer = 3;
+            end
+
+            if(    codes[0] == 0
+                && codes[1] == 1
+                && codes[2] == 1
+                && codes[3] == 1
+                && max_s == 0) begin
+                // Matched! Now measure the max amplitude
+                max_s = V(sig_i);
+                if(min_s != 0) begin
+                    lower_threshold = min_s + (max_s-min_s)*trf_rel_threashold;
+                    upper_threshold = min_s + (max_s-min_s)*(1-trf_rel_threashold);
+                    //$strobe("[INFO] Waveform analyzer (non-ideal mode) determined: max = %f V, min = %f V", max_s, min_s);
+                end
+            end
+
+            if(    codes[0] == 1
+                && codes[1] == 0
+                && codes[2] == 0
+                && codes[3] == 0
+                && min_s == 0) begin
+                // Matched! Now measure the min amplitude
+                min_s = V(sig_i);
+
+                if(max_s != 0) begin
+                    lower_threshold = min_s + (max_s-min_s)*trf_rel_threashold;
+                    upper_threshold = min_s + (max_s-min_s)*(1-trf_rel_threashold);
+                    //$strobe("[INFO] Waveform analyzer (non-ideal mode) determined: max = %f V, min = %f V", max_s, min_s);
+                end
+            end
+
+        end else begin
+            if (V(sig_i)>0) begin
+                max_s = V(sig_i);
+            end
+            if (V(sig_i)<0) begin
+                min_s = V(sig_i);
+            end
+            if (min_s != 0 && max_s!=0) begin
+                lower_threshold = min_s + (max_s-min_s)*trf_rel_threashold;
+                upper_threshold = min_s + (max_s-min_s)*(1-trf_rel_threashold);
+
+                //$strobe("[INFO] Waveform analyzer (ideal mode) determined: max = %f V, min = %f V", max_s, min_s);
+            end
+        end
+    end
+
+end
+
+/*
+* Outputs
+*/
+analog begin
+
+
+    // Dynamically calculate the zero line from max/min)
+    zero_crossing_threshold = (max_s+min_s)/2;
+
+    ready_s = (max_s!=0 && min_s!=0 && rise_s!=0 && fall_s!=0 && xopen0_s!=0 && xopen1_s!=0 && yopen0_s!=0 && yopen1_s!=0) ;
+
+    // Time unit: ns
+    V(UI_ao     ) <+ transition(UI_s*1e9,       0, trf,trf);
+    V(max_ao    ) <+ transition(max_s,          0, trf,trf);
+    V(min_ao    ) <+ transition(min_s,          0, trf,trf);
+    V(xopen0_ao ) <+ transition(xopen0_s*1e9,   0, trf,trf);
+    V(yopen0_ao ) <+ transition(yopen0_s,       0, trf,trf);
+    V(xopen1_ao ) <+ transition(xopen1_s*1e9,   0, trf,trf);
+    V(yopen1_ao ) <+ transition(yopen1_s,       0, trf,trf);
+    V(rise_ao   ) <+ transition(rise_s*1e9,     0, trf,trf);
+    V(fall_ao   ) <+ transition(fall_s*1e9,     0, trf,trf);
+    V(ready_o   ) <+ transition(ready_s*vhigh,  trf, trf,trf);
+end
+
+endmodule

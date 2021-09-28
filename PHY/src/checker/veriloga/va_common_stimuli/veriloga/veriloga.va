@@ -1,0 +1,424 @@
+// Disclaimer:
+// THIS FILE IS PROVIDED AS IS AND WITH:
+// (A) NO WARRANTY OF ANY KIND, express, implied or statutory, including any implied warranties of merchantability, fitness for a particular purpose and noninfringement, which  Infineon disclaims to the maximum extent permitted by applicable law; and
+// (B) NO INDEMNIFICATION FOR INFRINGEMENT OF INTELLECTUAL PROPERTY RIGHTS.
+// (C) LIMITATION OF LIABILITY: IN NO EVENT SHALL INFINEON BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES (INCLUDING LOST PROFITS OR SAVINGS) WHATSOEVER, WHETHER BASED ON CONTRACT, TORT OR ANY OTHER LEGAL THEORY, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+// © 2020 Infineon Technologies AG. All rights reserved.
+
+// Note:
+// The CMOS transistor models used, were freely available models downloaded from: http://ptm.asu.edu.
+// The bipolar transistor models are from: The Development of Bipolar Log-Domain Filters in a Standard CMOS Process, G. D. Duerden, G. W. Roberts, M. J. Deen, 2001
+
+// Release:
+// 	version 1.0
+
+// VerilogA for phy_local, va_common_stimuli, veriloga
+
+`include "constants.vams"
+`include "disciplines.vams"
+
+module va_common_stimuli(
+    clk_okay_i,
+    output_prbs_checker_counter_ai,
+    loopback_prbs_checker_en_o,
+    loopback_prbs_checker_err_i,
+    output_prbs_checker_error_i,
+waveform_analyzer_ideal_min_max_o,
+deser_en_o, fail_o,
+termination_en_o,
+reset_stimuli_o,
+delay_ao,
+dft_ana_test_en_o, dft_ana_test_out_dphy_sel_o,
+dft_dphy_ocdldo_res_dis_o, dft_pll_clks_2_cl_en_o,
+dft_scan_mode_o, dphy_pwrdn_o, dphy_reset_n_o, en_1GHz_quad_o,
+en_bias_o, en_clk_byte_o, en_clk_dphy_o,
+en_iso_vddphy_o, en_ls_vddphy_o, hs_ser_msb_first_en_o,
+hstx_en_fast_trf_o, hstx_lower_imp_cal_o,
+hstx_upper_imp_cal_o, lptx_vref_prog_o, mode_ao,
+pll_lock_i, sel_dr_o, test_id_o, bin_i,
+clk_i, diff_i, en_i, tx_n_i, tx_p,
+waveform_analyzer_en_o, xopen0_ai,
+xopen1_ai, yopen0_ai, yopen1_ai, rise_ai,
+fall_ai, max_ai, min_ai, UI_ai, waveform_read_i,
+dft_ana_test_ai);
+
+output waveform_analyzer_ideal_min_max_o;
+electrical waveform_analyzer_ideal_min_max_o;
+
+input [4:1] output_prbs_checker_counter_ai;
+electrical [4:1] output_prbs_checker_counter_ai;
+output [4:0] loopback_prbs_checker_en_o;
+electrical [4:0]  loopback_prbs_checker_en_o;
+input  [4:0]   loopback_prbs_checker_err_i;
+electrical  [4:0]  loopback_prbs_checker_err_i;
+input  [4:1]  output_prbs_checker_error_i;
+electrical  [4:1]  output_prbs_checker_error_i;
+
+input clk_okay_i;
+electrical clk_okay_i;
+
+output deser_en_o;
+electrical deser_en_o;
+output fail_o;
+electrical fail_o;
+output termination_en_o;
+electrical termination_en_o;
+output reset_stimuli_o;
+electrical reset_stimuli_o;
+output [4:0] delay_ao;
+electrical [4:0] delay_ao;
+output dft_ana_test_en_o;
+electrical dft_ana_test_en_o;
+output [3:0] dft_ana_test_out_dphy_sel_o;
+electrical [3:0] dft_ana_test_out_dphy_sel_o;
+output dft_dphy_ocdldo_res_dis_o;
+electrical dft_dphy_ocdldo_res_dis_o;
+output dft_pll_clks_2_cl_en_o;
+electrical dft_pll_clks_2_cl_en_o;
+output dft_scan_mode_o;
+electrical dft_scan_mode_o;
+output dphy_pwrdn_o;
+electrical dphy_pwrdn_o;
+output dphy_reset_n_o;
+electrical dphy_reset_n_o;
+output en_1GHz_quad_o;
+electrical en_1GHz_quad_o;
+output en_bias_o;
+electrical en_bias_o;
+output en_clk_byte_o;
+electrical en_clk_byte_o;
+output en_clk_dphy_o;
+electrical en_clk_dphy_o;
+output en_iso_vddphy_o;
+electrical en_iso_vddphy_o;
+output en_ls_vddphy_o;
+electrical en_ls_vddphy_o;
+output hs_ser_msb_first_en_o;
+electrical hs_ser_msb_first_en_o;
+output hstx_en_fast_trf_o;
+electrical hstx_en_fast_trf_o;
+output [2:0] hstx_lower_imp_cal_o;
+electrical [2:0] hstx_lower_imp_cal_o;
+output [2:0] hstx_upper_imp_cal_o;
+electrical [2:0] hstx_upper_imp_cal_o;
+output [4:0] lptx_vref_prog_o;
+electrical [4:0] lptx_vref_prog_o;
+output [4:0] mode_ao;
+electrical [4:0] mode_ao;
+input pll_lock_i;
+electrical pll_lock_i;
+output sel_dr_o;
+electrical sel_dr_o;
+output test_id_o;
+electrical test_id_o;
+input [4:0] bin_i;
+electrical [4:0] bin_i;
+input clk_i;
+electrical clk_i;
+input [4:0] diff_i;
+electrical [4:0] diff_i;
+
+input en_i;
+electrical en_i;
+inout [4:0] tx_n_i;
+electrical [4:0] tx_n_i;
+inout [4:0] tx_p;
+electrical [4:0] tx_p;
+output waveform_analyzer_en_o;
+electrical waveform_analyzer_en_o;
+input [3:0] xopen0_ai;
+electrical [3:0] xopen0_ai;
+input [3:0] xopen1_ai;
+electrical [3:0] xopen1_ai;
+input [3:0] yopen0_ai;
+electrical [3:0] yopen0_ai;
+input [3:0] yopen1_ai;
+electrical [3:0] yopen1_ai;
+input [3:0] rise_ai;
+electrical [3:0] rise_ai;
+input [3:0] fall_ai;
+electrical [3:0] fall_ai;
+input [3:0] max_ai;
+electrical [3:0] max_ai;
+input [3:0] min_ai;
+electrical [3:0] min_ai;
+input [3:0] UI_ai;
+electrical [3:0] UI_ai;
+input [3:0] waveform_read_i;
+electrical [3:0] waveform_read_i;
+input dft_ana_test_ai;
+electrical dft_ana_test_ai;
+
+/*
+* Stimuli modes for the input of the lanes (lane_stimuli)
+*/
+localparam integer MODE_POWER_DOWN         = 0;
+localparam integer MODE_IDLE_HSTX          = 1;
+localparam integer MODE_IDLE_LPTX          = 2;
+localparam integer MODE_HSTX_PRBS          = 3;
+localparam integer MODE_LSTX_PRBS          = 4;
+localparam integer MODE_111                = 5;
+localparam integer MODE_000                = 6;
+localparam integer MODE_010                = 7;
+localparam integer MODE_FORCE_HSTX_P0N0    = 8;
+localparam integer MODE_FORCE_HSTX_P0N1    = 9;
+localparam integer MODE_FORCE_HSTX_P1N0    = 10;
+localparam integer MODE_FORCE_HSTX_P1N1    = 11;
+localparam integer MODE_FORCE_LPTX_P0N0    = 12;
+localparam integer MODE_FORCE_LPTX_P0N1    = 13;
+localparam integer MODE_FORCE_LPTX_P1N0    = 14;
+localparam integer MODE_FORCE_LPTX_P1N1    = 15;
+
+
+/*
+* Parameter
+*/
+parameter real vhigh = 1.5;
+parameter real trf = 30p;
+parameter integer stop_on_error = 1;
+
+/*
+* Parameter for outputs
+*/
+integer deser_en = 0;
+integer deser_res_n = 0;
+integer delay[4:0] = {-1,-1,-1,-1,-1};
+integer dft_ana_test_out_dphy_sel[3:0] = {0,0,0,0};
+integer hstx_lower_imp_cal[2:0] = {0,0,0};
+integer hstx_upper_imp_cal[2:0] = {0,0,0};
+integer lptx_vref_prog[4:0] = {0,0,0,0,0};
+integer mode[4:0] = {0,0,0,0,0};
+integer waveform_analyzer_ideal_min_max = 0;
+
+
+integer dft_ana_test_en = 0;
+integer dft_dphy_ocdldo_res_dis = 0;
+integer dft_pll_clks_2_cl_en = 0;
+integer dft_scan_mode = 0;
+integer dphy_pwrdn = 1;
+integer dphy_reset_n = 0;
+integer en_1GHz_quad = 0;
+
+integer en_bias = 0;
+integer en_clk_byte = 0;
+integer en_clk_dphy = 0;
+integer en_iso_vddphy = 0;
+integer en_ls_vddphy = 0;
+integer hs_ser_msb_first_en = 0;
+integer hstx_en_fast_trf = 0;
+
+integer sel_dr = 0;
+integer reset_stimuli = 0;
+
+integer chip_id = 3;
+integer test_id = 0;
+integer fail = 0;
+
+integer termination_en = 0;
+integer waveform_analyzer_en = 0;
+integer sample = 0;
+integer loopback_prbs_checker_en[4:0] = {0,0,0,0,0};
+
+real dc_current_tx_n = 0;
+real dc_current_tx_p = 0;
+
+/*
+* Variables for timing events
+*/
+real reset_pulse_time_down = -1;
+real reset_pulse_time = -1;
+
+
+/*
+* Parameter for loops
+*/
+integer i = 0;
+integer j = 0;
+real tmp = 0;
+
+
+/*
+* States
+*/
+localparam integer STATE_INITAL                = 0; // IDLE state (power off)
+localparam integer STATE_RAMPUP                = 1; // Boot in LPTX mode
+localparam integer STATE_LDO                   = 2; // Vref settings check
+localparam integer STATE_LPTX                  = 3; // LPTX measurement
+localparam integer STATE_DC                    = 4; // Performe some DC checks
+localparam integer STATE_HSTX_DELAY_LINE       = 5; // DC Impedance measurement
+localparam integer STATE_HSTX_PRBS             = 6; // Serializer test, ADC sampling (eye reconstruction), Skew measurement
+localparam integer STATE_FINISHED              = 7; // All states passed
+
+integer state                   = STATE_INITAL;
+real next_state_time            = -1.0;
+
+/*
+* Creation of a reset pulse for the stimuli blocks.
+* You can trigger this by:
+*   reset_pulse_time = $abstime+trf;
+*/
+analog begin
+    @(timer(reset_pulse_time)) begin
+        reset_stimuli = 1;
+        reset_pulse_time_down = $abstime+trf;
+    end
+    @(timer(reset_pulse_time_down)) begin
+        reset_stimuli = 0;
+    end
+end
+
+
+/*
+* Test enable/disable
+*/
+analog begin
+
+    @(cross(V(en_i)-vhigh/2,+1)) begin
+        state            = STATE_INITAL;
+        next_state_time = $abstime + 1p;
+    end
+
+    @(cross(V(en_i)-vhigh/2,-1)) begin
+        state            = STATE_INITAL;
+        next_state_time = $abstime - 1p; // in the past so it will not be triggered
+    end
+
+end
+
+/*
+* PLL error detector
+*/
+analog begin
+    @(cross(V(clk_okay_i)-vhigh/2,-1)) begin
+        $strobe("[FAIL] PLL notified an error.");
+        fail = 1;
+        next_state_time = $abstime + 1n;
+    end
+    @(cross(V(pll_lock_i)-vhigh/2,-1)) begin
+        $strobe("[FAIL] PLL lost lock!");
+        fail = 1;
+        next_state_time = $abstime + 1n;
+    end
+end
+
+
+/*
+* State information printing and error detection
+*/
+analog begin
+    @(timer( next_state_time )) begin
+        $strobe("Current State: %d/%d", state, STATE_FINISHED);
+
+        // Create reset pulse (after mode has been set)
+        // mode is set in the individual state file
+        reset_pulse_time = $abstime+trf;
+
+        if (fail==1) begin
+            test_id = state;
+            if (stop_on_error==1) begin
+                $finish_current_analysis;
+            end
+        end
+    end
+end
+
+/*
+* Pulse creation to start waveform analyzer
+*/
+real waveform_analyzer_en_pulse_start = -1;
+analog begin
+    @(timer( waveform_analyzer_en_pulse_start )) begin
+        waveform_analyzer_en = 1;
+    end
+end
+
+/*
+* Include all states (each state one file)
+*/
+`include "states/0_initial.va"
+`include "states/1_rampup.va"
+`include "states/2_ldo.va"
+`include "states/3_lptx.va"
+`include "states/4_dc.va"
+`include "states/5_delay_line.va"
+`include "states/6_hstx_prbs.va"
+`include "states/7_finished.va"
+
+
+/*
+* Set outputs
+*/
+analog begin
+
+
+    I(tx_n_i[0]) <+ transition(dc_current_tx_n, 0, trf, trf);
+    I(tx_n_i[1]) <+ transition(dc_current_tx_n, 0, trf, trf);
+    I(tx_n_i[2]) <+ transition(dc_current_tx_n, 0, trf, trf);
+    I(tx_n_i[3]) <+ transition(dc_current_tx_n, 0, trf, trf);
+    I(tx_n_i[4]) <+ transition(dc_current_tx_n, 0, trf, trf);
+    I(tx_p[0]) <+ transition(dc_current_tx_p, 0, trf, trf);
+    I(tx_p[1]) <+ transition(dc_current_tx_p, 0, trf, trf);
+    I(tx_p[2]) <+ transition(dc_current_tx_p, 0, trf, trf);
+    I(tx_p[3]) <+ transition(dc_current_tx_p, 0, trf, trf);
+    I(tx_p[4]) <+ transition(dc_current_tx_p, 0, trf, trf);
+
+    V(waveform_analyzer_ideal_min_max_o) <+ transition(vhigh*waveform_analyzer_ideal_min_max,0,trf,trf);
+    V(termination_en_o) <+ transition(vhigh*termination_en,0,trf,trf);
+    V(deser_en_o) <+ transition(vhigh*deser_en,0,trf,trf);
+    V(loopback_prbs_checker_en_o[0]) <+ transition(vhigh*loopback_prbs_checker_en[0],0,trf,trf);
+    V(loopback_prbs_checker_en_o[1]) <+ transition(vhigh*loopback_prbs_checker_en[1],0,trf,trf);
+    V(loopback_prbs_checker_en_o[2]) <+ transition(vhigh*loopback_prbs_checker_en[2],0,trf,trf);
+    V(loopback_prbs_checker_en_o[3]) <+ transition(vhigh*loopback_prbs_checker_en[3],0,trf,trf);
+    V(loopback_prbs_checker_en_o[4]) <+ transition(vhigh*loopback_prbs_checker_en[4],0,trf,trf);
+
+    V(waveform_analyzer_en_o) <+ transition(vhigh*waveform_analyzer_en,0,trf,trf);
+
+    V(reset_stimuli_o) <+ transition(vhigh*reset_stimuli,0,trf,trf);
+
+    V(dft_ana_test_out_dphy_sel_o[0]) <+ transition(vhigh*dft_ana_test_out_dphy_sel[0],0,trf,trf);
+    V(dft_ana_test_out_dphy_sel_o[1]) <+ transition(vhigh*dft_ana_test_out_dphy_sel[1],0,trf,trf);
+    V(dft_ana_test_out_dphy_sel_o[2]) <+ transition(vhigh*dft_ana_test_out_dphy_sel[2],0,trf,trf);
+    V(dft_ana_test_out_dphy_sel_o[3]) <+ transition(vhigh*dft_ana_test_out_dphy_sel[3],0,trf,trf);
+    V(hstx_lower_imp_cal_o[0]) <+ transition(vhigh*hstx_lower_imp_cal[0],0,trf,trf);
+    V(hstx_lower_imp_cal_o[1]) <+ transition(vhigh*hstx_lower_imp_cal[1],0,trf,trf);
+    V(hstx_lower_imp_cal_o[2]) <+ transition(vhigh*hstx_lower_imp_cal[2],0,trf,trf);
+    V(hstx_upper_imp_cal_o[0]) <+ transition(vhigh*hstx_upper_imp_cal[0],0,trf,trf);
+    V(hstx_upper_imp_cal_o[1]) <+ transition(vhigh*hstx_upper_imp_cal[1],0,trf,trf);
+    V(hstx_upper_imp_cal_o[2]) <+ transition(vhigh*hstx_upper_imp_cal[2],0,trf,trf);
+    V(lptx_vref_prog_o[0]) <+ transition(vhigh*lptx_vref_prog[0],0,trf,trf);
+    V(lptx_vref_prog_o[1]) <+ transition(vhigh*lptx_vref_prog[1],0,trf,trf);
+    V(lptx_vref_prog_o[2]) <+ transition(vhigh*lptx_vref_prog[2],0,trf,trf);
+    V(lptx_vref_prog_o[3]) <+ transition(vhigh*lptx_vref_prog[3],0,trf,trf);
+    V(lptx_vref_prog_o[4]) <+ transition(vhigh*lptx_vref_prog[4],0,trf,trf);
+    V(mode_ao[0]) <+ transition(mode[0],lptx_delay_mode0,trf,trf); // Delaying for LPTX clk generation. Otherwise delay = 0!
+    V(mode_ao[1]) <+ transition(mode[1],0,trf,trf);
+    V(mode_ao[2]) <+ transition(mode[2],0,trf,trf);
+    V(mode_ao[3]) <+ transition(mode[3],0,trf,trf);
+    V(mode_ao[4]) <+ transition(mode[4],0,trf,trf);
+    V(delay_ao[0]) <+ transition(delay[0],0,trf,trf);
+    V(delay_ao[1]) <+ transition(delay[1],0,trf,trf);
+    V(delay_ao[2]) <+ transition(delay[2],0,trf,trf);
+    V(delay_ao[3]) <+ transition(delay[3],0,trf,trf);
+    V(delay_ao[4]) <+ transition(delay[4],0,trf,trf);
+
+    V(dft_ana_test_en_o) <+ transition(vhigh*dft_ana_test_en,0,trf,trf);
+    V(dft_dphy_ocdldo_res_dis_o) <+ transition(vhigh*dft_dphy_ocdldo_res_dis,0,trf,trf);
+    V(dft_pll_clks_2_cl_en_o) <+ transition(vhigh*dft_pll_clks_2_cl_en,0,trf,trf);
+    V(dft_scan_mode_o) <+ transition(vhigh*dft_scan_mode,0,trf,trf);
+    V(dphy_pwrdn_o) <+ transition(vhigh*dphy_pwrdn,0,trf,trf);
+    V(dphy_reset_n_o) <+ transition(vhigh*dphy_reset_n,0,trf,trf);
+    V(en_1GHz_quad_o) <+ transition(vhigh*en_1GHz_quad,0,trf,trf);
+
+    V(en_bias_o) <+ transition(vhigh*en_bias,0,trf,trf);
+    V(en_clk_byte_o) <+ transition(vhigh*en_clk_byte,0,trf,trf);
+    V(en_clk_dphy_o) <+ transition(vhigh*en_clk_dphy,0,trf,trf);
+    V(en_iso_vddphy_o) <+ transition(vhigh*en_iso_vddphy,0,trf,trf);
+    V(en_ls_vddphy_o) <+ transition(vhigh*en_ls_vddphy,0,trf,trf);
+    V(hs_ser_msb_first_en_o) <+ transition(vhigh*hs_ser_msb_first_en,0,trf,trf);
+    V(hstx_en_fast_trf_o) <+ transition(vhigh*hstx_en_fast_trf,0,trf,trf);
+    V(sel_dr_o) <+ transition(vhigh*sel_dr,0,trf,trf);
+    V(test_id_o) <+ transition(test_id,0,trf,trf);
+    V(fail_o) <+ transition(fail,0,trf,trf);
+end
+
+endmodule

@@ -1,0 +1,59 @@
+// Disclaimer:
+// THIS FILE IS PROVIDED AS IS AND WITH:
+// (A) NO WARRANTY OF ANY KIND, express, implied or statutory, including any implied warranties of merchantability, fitness for a particular purpose and noninfringement, which  Infineon disclaims to the maximum extent permitted by applicable law; and
+// (B) NO INDEMNIFICATION FOR INFRINGEMENT OF INTELLECTUAL PROPERTY RIGHTS.
+// (C) LIMITATION OF LIABILITY: IN NO EVENT SHALL INFINEON BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES (INCLUDING LOST PROFITS OR SAVINGS) WHATSOEVER, WHETHER BASED ON CONTRACT, TORT OR ANY OTHER LEGAL THEORY, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+// © 2020 Infineon Technologies AG. All rights reserved.
+
+// Note:
+// The CMOS transistor models used, were freely available models downloaded from: http://ptm.asu.edu.
+// The bipolar transistor models are from: The Development of Bipolar Log-Domain Filters in a Standard CMOS Process, G. D. Duerden, G. W. Roberts, M. J. Deen, 2001
+
+// Release:
+// 	version 1.0
+
+// VerilogA for phy_local, va_comparator, veriloga
+
+`include "constants.vams"
+`include "disciplines.vams"
+
+module va_comparator(bin_o, bin_no, in_ai);
+output bin_o, bin_no;
+electrical bin_o, bin_no;
+input in_ai;
+electrical in_ai;
+
+/*
+* Parameter
+*/
+parameter real hysteresis = 25m;
+parameter real trf        = 30p;
+parameter real del        = 0;
+parameter real vhigh      = 1.5;
+
+/*
+* Variables for outputs
+*/
+integer bin_s = 0;
+
+/*
+* Logic
+*/
+analog begin
+
+    @(initial_step) begin
+        bin_s = V(in_ai)>hysteresis;
+    end
+
+    @(cross(V(in_ai)+hysteresis, +1)) begin
+        bin_s = 1;
+    end
+    @(cross(V(in_ai)-hysteresis, -1)) begin
+        bin_s = 0;
+    end
+
+    V(bin_o) <+ transition(bin_s*vhigh, del, trf,trf); 
+    V(bin_no) <+ transition((1-bin_s)*vhigh, del, trf,trf); 
+end
+
+endmodule

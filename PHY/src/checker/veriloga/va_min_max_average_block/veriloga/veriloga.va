@@ -1,0 +1,92 @@
+// Disclaimer:
+// THIS FILE IS PROVIDED AS IS AND WITH:
+// (A) NO WARRANTY OF ANY KIND, express, implied or statutory, including any implied warranties of merchantability, fitness for a particular purpose and noninfringement, which  Infineon disclaims to the maximum extent permitted by applicable law; and
+// (B) NO INDEMNIFICATION FOR INFRINGEMENT OF INTELLECTUAL PROPERTY RIGHTS.
+// (C) LIMITATION OF LIABILITY: IN NO EVENT SHALL INFINEON BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES (INCLUDING LOST PROFITS OR SAVINGS) WHATSOEVER, WHETHER BASED ON CONTRACT, TORT OR ANY OTHER LEGAL THEORY, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+// © 2020 Infineon Technologies AG. All rights reserved.
+
+// Note:
+// The CMOS transistor models used, were freely available models downloaded from: http://ptm.asu.edu.
+// The bipolar transistor models are from: The Development of Bipolar Log-Domain Filters in a Standard CMOS Process, G. D. Duerden, G. W. Roberts, M. J. Deen, 2001
+
+// Release:
+// 	version 1.0
+
+// VerilogA for phy_local, min_max_average_block, veriloga
+
+`include "constants.vams"
+`include "disciplines.vams"
+
+module va_min_max_average_block(avg_ao, max_ao, min_ao, reset_i, sig_ai);
+output avg_ao;
+electrical avg_ao;
+output max_ao;
+electrical max_ao;
+output min_ao;
+electrical min_ao;
+input reset_i;
+electrical reset_i;
+input sig_ai;
+electrical sig_ai;
+
+
+/*
+* Parameter
+*/
+parameter real vhigh = 1.5;
+parameter real trf = 1n;
+
+
+/*
+* Variables
+*/
+real min_s = 0;
+real max_s = 0;
+real start_time = 0;
+real avg_s = 0;
+real internal_avg = 0;
+
+
+
+/*
+* Reset
+*/
+analog begin
+    @(above(V(reset_i) - vhigh/2)) begin
+        min_s = 0;
+        max_s = 0;
+        start_time = $abstime;
+		avg_s = 0;
+    end
+end
+
+/*
+* Calculate average, min and max
+*/
+analog begin
+	
+	internal_avg = idt(V(sig_ai), 0, V(reset_i));
+
+    @(above(-V(reset_i) + vhigh/2)) begin
+		avg_s =internal_avg*($abstime - start_time);
+	end
+    if(V(min_ao) > V(sig_ai)) begin
+        min_s = V(sig_ai);
+    end
+    if(V(max_ao) < V(sig_ai)) begin
+        max_s = V(sig_ai);
+    end
+end
+
+/*
+* Output
+*/
+analog begin
+
+    V(max_ao) <+ transition(max_s,0,trf,trf);
+    V(min_ao) <+ transition(min_s,0,trf,trf);
+    V(avg_ao) <+ transition(avg_s,0,trf,trf);
+
+end
+
+endmodule
