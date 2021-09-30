@@ -14,7 +14,7 @@
 
 * Contact: adstestsuite@infineon.com
 
-PLL Circuit for the Evaluation of Analog Defect Simulation Tools
+Circuit for the Evaluation of Analog Defect Simulation Tools
 
 Content:
 	% doc/readme
@@ -26,7 +26,7 @@ Content:
 	% src/phy_tb.hsp
 		Testbench and cells netlist.
 	% src/model/*
-		Models of devices used in the PLL's netlist.
+		Models of devices used in the circuit's netlist.
 	% src/checker/*
 		Veriloga code that evaluates the circuit
 		Trigger "FAIL" signal if the circuit is out of specs
