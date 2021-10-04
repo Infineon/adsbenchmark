@@ -31,6 +31,8 @@ Content:
 		Veriloga code that evaluates the bandgap
 		Trigger "fail" signal if the circuit is out of specs
 		Set "testnr" to indicate which test violated the specs
+	% ref/defect_list.txt
+		Potential defects list. 
 
 		
 Setups:
