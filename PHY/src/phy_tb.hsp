@@ -5473,10 +5473,10 @@ XI390 cl_bypass_delay_line_i cl_delay_prog_i<2> cl_delay_prog_i<1> cl_delay_prog
 + cl_hstx_data_s<1> cl_hstx_data_s<0> cl_hstx_en_lptx_dis_i cl_hstx_pwrdn_i cl_lptx_dn_i cl_lptx_dp_i cl_lptx_en_i tx_byte_clk_o delay_s<0> mode_s<0> va_lane_stimuli vhigh='1.5' trf='1e-09' prbs_offset='2'
 ** End of top cell tb_phy_ana_top_verilog_a.
 
-.hdl "veriloga/va_comparator/veriloga/veriloga.va"
-.hdl "veriloga/va_prbs_checker/veriloga/veriloga.va"
-.hdl "veriloga/va_common_stimuli/veriloga/veriloga.va"
-.hdl "veriloga/va_pll_model/veriloga/veriloga.va"
-.hdl "veriloga/va_lane_waveform_analyzer/veriloga/veriloga.va"
-.hdl "veriloga/va_deserializer/veriloga/veriloga.va"
-.hdl "veriloga/va_lane_stimuli/veriloga/veriloga.va"
+.hdl "checker/veriloga/va_comparator/veriloga/veriloga.va"
+.hdl "checker/veriloga/va_prbs_checker/veriloga/veriloga.va"
+.hdl "checker/veriloga/va_common_stimuli/veriloga/veriloga.va"
+.hdl "checker/veriloga/va_pll_model/veriloga/veriloga.va"
+.hdl "checker/veriloga/va_lane_waveform_analyzer/veriloga/veriloga.va"
+.hdl "checker/veriloga/va_deserializer/veriloga/veriloga.va"
+.hdl "checker/veriloga/va_lane_stimuli/veriloga/veriloga.va"
