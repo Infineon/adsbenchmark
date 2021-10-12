@@ -22,7 +22,7 @@
 * .inc "model/mosfets_fast.hsp"
 .inc "model/mosfets.hsp"
 *.inc "model/mosfets_slow.hsp"
-.inc "model/bip_nom.scs"
+.inc "model/bip_nom.hsp"
 
 ** Testbench setup
 .inc "phy_tb.hsp"
@@ -30,7 +30,7 @@
 ** Analysis
 .probe v(test_id)
 .measure tran max_fail max v(test_id)
-.tran 2e-3 2 errpreset=liberal
+.tran 2e-3 2 
 
 .end
 
