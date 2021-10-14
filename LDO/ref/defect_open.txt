@@ -1,1051 +1,1052 @@
-* Disclaimer:
-* THIS FILE IS PROVIDED AS IS AND WITH:
-* (A)  NO WARRANTY OF ANY KIND, express, implied or statutory, including any implied warranties of merchantability, fitness for a particular purpose and noninfringement, which Infineon disclaims to the maximum extent permitted by applicable law; and
-* (B)  NO INDEMNIFICATION FOR INFRINGEMENT OF INTELLECTUAL PROPERTY RIGHTS.
-* LIMITATION OF LIABILITY:  IN NO EVENT SHALL INFINEON BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES (INCLUDING LOST PROFITS OR SAVINGS) WHATSOEVER, WHETHER BASED ON CONTRACT, TORT OR 
-* ANY OTHER LEGAL THEORY, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
-* © 2020 Infineon Technologies AG. All rights reserved
-
-Release:
-	version 3.0
-
-
-Tag	,	Weight	,	Net	,	Device	,	Terminal
-Defect_Open_1	,	1	,	xdut.feedback	,	xdut.c0	,	1
-Defect_Open_2	,	1	,	xdut.xi8.net027	,	xdut.xi8.c1	,	1
-Defect_Open_3	,	1	,	xdut.xi8.net028	,	xdut.xi8.c0	,	1
-Defect_Open_4	,	1	,	xdut.vth_h	,	xdut.r7	,	1
-Defect_Open_5	,	1	,	xdut.vth_l	,	xdut.r11	,	1
-Defect_Open_6	,	1	,	vdda_pulsed	,	xdut.r0	,	1
-Defect_Open_7	,	1	,	xdut.xi74.net11	,	xdut.xi74.r0	,	1
-Defect_Open_8	,	1	,	xdut.xi75.net11	,	xdut.xi75.r0	,	1
-Defect_Open_9	,	1	,	vout	,	xdut.xi9.r2	,	1
-Defect_Open_10	,	1	,	xdut.feedback	,	xdut.xi9.r3	,	1
-Defect_Open_11	,	1	,	xdut.amp_out	,	xdut.m0	,	D
-Defect_Open_12	,	1	,	xdut.vref	,	xdut.m35	,	D
-Defect_Open_13	,	1	,	xdut.vref	,	xdut.m2	,	D
-Defect_Open_14	,	1	,	xdut.net023	,	xdut.xi137.mptrans25	,	D
-Defect_Open_15	,	1	,	xdut.xi137.net39	,	xdut.xi137.mptrans24	,	D
-Defect_Open_16	,	1	,	xdut.xi137.net39	,	xdut.xi137.mptrans23	,	D
-Defect_Open_17	,	1	,	xdut.net023	,	xdut.xi137.mntrans22	,	D
-Defect_Open_18	,	1	,	xdut.xi137.net39	,	xdut.xi137.mntrans21	,	D
-Defect_Open_19	,	1	,	xdut.xi137.net32	,	xdut.xi137.mntrans20	,	D
-Defect_Open_20	,	1	,	xdut.net028	,	xdut.xi136.mptrans25	,	D
-Defect_Open_21	,	1	,	xdut.xi136.net39	,	xdut.xi136.mptrans24	,	D
-Defect_Open_22	,	1	,	xdut.xi136.net39	,	xdut.xi136.mptrans23	,	D
-Defect_Open_23	,	1	,	xdut.net028	,	xdut.xi136.mntrans22	,	D
-Defect_Open_24	,	1	,	xdut.xi136.net39	,	xdut.xi136.mntrans21	,	D
-Defect_Open_25	,	1	,	xdut.xi136.net32	,	xdut.xi136.mntrans20	,	D
-Defect_Open_26	,	1	,	xdut.xi72.net15	,	xdut.xi72.xi146.mptrans10	,	D
-Defect_Open_27	,	1	,	xdut.xi72.net15	,	xdut.xi72.xi146.mntrans11	,	D
-Defect_Open_28	,	1	,	xdut.xi72.net14	,	xdut.xi72.xi47.mptrans10	,	D
-Defect_Open_29	,	1	,	xdut.xi72.net14	,	xdut.xi72.xi47.mntrans11	,	D
-Defect_Open_30	,	1	,	xdut.xi72.net11	,	xdut.xi72.xi48.mptrans10	,	D
-Defect_Open_31	,	1	,	xdut.xi72.net11	,	xdut.xi72.xi48.mntrans11	,	D
-Defect_Open_32	,	1	,	xdut.s1_n	,	xdut.xi72.xi35.mptrans10	,	D
-Defect_Open_33	,	1	,	xdut.s1_n	,	xdut.xi72.xi35.mntrans11	,	D
-Defect_Open_34	,	1	,	xdut.s1	,	xdut.xi72.xi34.mptrans10	,	D
-Defect_Open_35	,	1	,	xdut.s1	,	xdut.xi72.xi34.mntrans11	,	D
-Defect_Open_36	,	1	,	xdut.xi72.net15	,	xdut.xi72.xi49.mptrans10	,	D
-Defect_Open_37	,	1	,	xdut.xi72.net15	,	xdut.xi72.xi49.mntrans11	,	D
-Defect_Open_38	,	1	,	xdut.xi72.net11	,	xdut.xi72.xi31.mptrans10	,	D
-Defect_Open_39	,	1	,	xdut.xi72.net11	,	xdut.xi72.xi31.mntrans11	,	D
-Defect_Open_40	,	1	,	xdut.s1_n	,	xdut.xi72.xi30.mptrans10	,	D
-Defect_Open_41	,	1	,	xdut.s1_n	,	xdut.xi72.xi30.mntrans11	,	D
-Defect_Open_42	,	1	,	xdut.xi72.net9	,	xdut.xi72.xi33.mptrans10	,	D
-Defect_Open_43	,	1	,	xdut.xi72.net9	,	xdut.xi72.xi33.mntrans11	,	D
-Defect_Open_44	,	1	,	xdut.s1	,	xdut.xi72.xi27.mptrans10	,	D
-Defect_Open_45	,	1	,	xdut.s1	,	xdut.xi72.xi27.mntrans11	,	D
-Defect_Open_46	,	1	,	xdut.xi73.net15	,	xdut.xi73.xi146.mptrans10	,	D
-Defect_Open_47	,	1	,	xdut.xi73.net15	,	xdut.xi73.xi146.mntrans11	,	D
-Defect_Open_48	,	1	,	xdut.xi73.net14	,	xdut.xi73.xi47.mptrans10	,	D
-Defect_Open_49	,	1	,	xdut.xi73.net14	,	xdut.xi73.xi47.mntrans11	,	D
-Defect_Open_50	,	1	,	xdut.xi73.net11	,	xdut.xi73.xi48.mptrans10	,	D
-Defect_Open_51	,	1	,	xdut.xi73.net11	,	xdut.xi73.xi48.mntrans11	,	D
-Defect_Open_52	,	1	,	xdut.s0_n	,	xdut.xi73.xi35.mptrans10	,	D
-Defect_Open_53	,	1	,	xdut.s0_n	,	xdut.xi73.xi35.mntrans11	,	D
-Defect_Open_54	,	1	,	xdut.s0	,	xdut.xi73.xi34.mptrans10	,	D
-Defect_Open_55	,	1	,	xdut.s0	,	xdut.xi73.xi34.mntrans11	,	D
-Defect_Open_56	,	1	,	xdut.xi73.net15	,	xdut.xi73.xi49.mptrans10	,	D
-Defect_Open_57	,	1	,	xdut.xi73.net15	,	xdut.xi73.xi49.mntrans11	,	D
-Defect_Open_58	,	1	,	xdut.xi73.net11	,	xdut.xi73.xi31.mptrans10	,	D
-Defect_Open_59	,	1	,	xdut.xi73.net11	,	xdut.xi73.xi31.mntrans11	,	D
-Defect_Open_60	,	1	,	xdut.s0_n	,	xdut.xi73.xi30.mptrans10	,	D
-Defect_Open_61	,	1	,	xdut.s0_n	,	xdut.xi73.xi30.mntrans11	,	D
-Defect_Open_62	,	1	,	xdut.xi73.net9	,	xdut.xi73.xi33.mptrans10	,	D
-Defect_Open_63	,	1	,	xdut.xi73.net9	,	xdut.xi73.xi33.mntrans11	,	D
-Defect_Open_64	,	1	,	xdut.s0	,	xdut.xi73.xi27.mptrans10	,	D
-Defect_Open_65	,	1	,	xdut.s0	,	xdut.xi73.xi27.mntrans11	,	D
-Defect_Open_66	,	1	,	xdut.xi74.net011	,	xdut.xi74.m22	,	D
-Defect_Open_67	,	1	,	xdut.xi74.net017	,	xdut.xi74.m13	,	D
-Defect_Open_68	,	1	,	xdut.xi74.net022	,	xdut.xi74.m12	,	D
-Defect_Open_69	,	1	,	xdut.xi74.net013	,	xdut.xi74.m21	,	D
-Defect_Open_70	,	1	,	xdut.xi74.net017	,	xdut.xi74.m20	,	D
-Defect_Open_71	,	1	,	xdut.xi74.net022	,	xdut.xi74.m19	,	D
-Defect_Open_72	,	4	,	xdut.xi74.net012	,	xdut.xi74.m5	,	D
-Defect_Open_73	,	4	,	xdut.xi74.net018	,	xdut.xi74.m4	,	D
-Defect_Open_74	,	1	,	xdut.xi74.net013	,	xdut.xi74.m18	,	D
-Defect_Open_75	,	1	,	xdut.xi74.net011	,	xdut.xi74.m17	,	D
-Defect_Open_76	,	1	,	xdut.xi74.net018	,	xdut.xi74.m6	,	D
-Defect_Open_77	,	1	,	xdut.xi74.net012	,	xdut.xi74.m2	,	D
-Defect_Open_78	,	2	,	xdut.xi74.net017	,	xdut.xi74.m9	,	D
-Defect_Open_79	,	2	,	xdut.xi74.net022	,	xdut.xi74.m10	,	D
-Defect_Open_80	,	1	,	xdut.net044	,	xdut.xi74.xi5.mptrans10	,	D
-Defect_Open_81	,	1	,	xdut.net044	,	xdut.xi74.xi5.mntrans11	,	D
-Defect_Open_82	,	1	,	xdut.xi75.net011	,	xdut.xi75.m22	,	D
-Defect_Open_83	,	1	,	xdut.xi75.net017	,	xdut.xi75.m13	,	D
-Defect_Open_84	,	1	,	xdut.xi75.net022	,	xdut.xi75.m12	,	D
-Defect_Open_85	,	1	,	xdut.xi75.net013	,	xdut.xi75.m21	,	D
-Defect_Open_86	,	1	,	xdut.xi75.net017	,	xdut.xi75.m20	,	D
-Defect_Open_87	,	1	,	xdut.xi75.net022	,	xdut.xi75.m19	,	D
-Defect_Open_88	,	4	,	xdut.xi75.net012	,	xdut.xi75.m5	,	D
-Defect_Open_89	,	4	,	xdut.xi75.net018	,	xdut.xi75.m4	,	D
-Defect_Open_90	,	1	,	xdut.xi75.net013	,	xdut.xi75.m18	,	D
-Defect_Open_91	,	1	,	xdut.xi75.net011	,	xdut.xi75.m17	,	D
-Defect_Open_92	,	1	,	xdut.xi75.net018	,	xdut.xi75.m6	,	D
-Defect_Open_93	,	1	,	xdut.xi75.net012	,	xdut.xi75.m2	,	D
-Defect_Open_94	,	2	,	xdut.xi75.net017	,	xdut.xi75.m9	,	D
-Defect_Open_95	,	2	,	xdut.xi75.net022	,	xdut.xi75.m10	,	D
-Defect_Open_96	,	1	,	xdut.net045	,	xdut.xi75.xi5.mptrans10	,	D
-Defect_Open_97	,	1	,	xdut.net045	,	xdut.xi75.xi5.mntrans11	,	D
-Defect_Open_98	,	1	,	xdut.xi62.net26	,	xdut.xi62.mntrans27	,	D
-Defect_Open_99	,	1	,	xdut.xi62.net26	,	xdut.xi62.mntrans26	,	D
-Defect_Open_100	,	1	,	xdut.err	,	xdut.xi62.mntrans25	,	D
-Defect_Open_101	,	1	,	xdut.xi62.net26	,	xdut.xi62.mptrans24	,	D
-Defect_Open_102	,	1	,	xdut.xi62.net41	,	xdut.xi62.mptrans23	,	D
-Defect_Open_103	,	1	,	xdut.err	,	xdut.xi62.mptrans22	,	D
-Defect_Open_104	,	1	,	xdut.xi5.net26	,	xdut.xi5.mntrans27	,	D
-Defect_Open_105	,	1	,	xdut.xi5.net26	,	xdut.xi5.mntrans26	,	D
-Defect_Open_106	,	1	,	xdut.disable	,	xdut.xi5.mntrans25	,	D
-Defect_Open_107	,	1	,	xdut.xi5.net26	,	xdut.xi5.mptrans24	,	D
-Defect_Open_108	,	1	,	xdut.xi5.net41	,	xdut.xi5.mptrans23	,	D
-Defect_Open_109	,	1	,	xdut.disable	,	xdut.xi5.mptrans22	,	D
-Defect_Open_110	,	1	,	xdut.xi41.net24	,	xdut.xi41.mptrans15	,	D
-Defect_Open_111	,	1	,	xdut.net14	,	xdut.xi41.mptrans14	,	D
-Defect_Open_112	,	1	,	xdut.xi41.net24	,	xdut.xi41.mntrans13	,	D
-Defect_Open_113	,	1	,	xdut.net14	,	xdut.xi41.mntrans12	,	D
-Defect_Open_114	,	1	,	undervoltage	,	xdut.xi64.mptrans10	,	D
-Defect_Open_115	,	1	,	undervoltage	,	xdut.xi64.mntrans11	,	D
-Defect_Open_116	,	1	,	overvoltage	,	xdut.xi65.mptrans10	,	D
-Defect_Open_117	,	1	,	overvoltage	,	xdut.xi65.mntrans11	,	D
-Defect_Open_118	,	1	,	xdut.enable	,	xdut.xi6.mptrans10	,	D
-Defect_Open_119	,	1	,	xdut.enable	,	xdut.xi6.mntrans11	,	D
-Defect_Open_120	,	1	,	xdut.net062	,	xdut.xi63.mptrans38	,	D
-Defect_Open_121	,	1	,	xdut.net062	,	xdut.xi63.mptrans37	,	D
-Defect_Open_122	,	1	,	xdut.xi63.net25	,	xdut.xi63.mntrans36	,	D
-Defect_Open_123	,	1	,	xdut.net062	,	xdut.xi63.mntrans35	,	D
-Defect_Open_124	,	1	,	xdut.xi8.net028	,	xdut.xi8.m0	,	D
-Defect_Open_125	,	1	,	xdut.gate	,	xdut.xi8.m1	,	D
-Defect_Open_126	,	1	,	xdut.xi8.net027	,	xdut.xi8.m4	,	D
-Defect_Open_127	,	1	,	xdut.xi8.net028	,	xdut.xi8.xi13.m4	,	D
-Defect_Open_128	,	1	,	xdut.gate	,	xdut.xi8.xi13.m3	,	D
-Defect_Open_129	,	1	,	xdut.amp_out	,	xdut.xi8.xi15.m4	,	D
-Defect_Open_130	,	1	,	xdut.xi8.net028	,	xdut.xi8.xi15.m3	,	D
-Defect_Open_131	,	1	,	xdut.xi8.net027	,	xdut.xi8.xi12.m4	,	D
-Defect_Open_132	,	1	,	xdut.gate	,	xdut.xi8.xi12.m3	,	D
-Defect_Open_133	,	1	,	xdut.amp_out	,	xdut.xi8.xi78.m4	,	D
-Defect_Open_134	,	1	,	xdut.xi8.net027	,	xdut.xi8.xi78.m3	,	D
-Defect_Open_135	,	1	,	xdut.net13	,	xdut.xi40.mptrans10	,	D
-Defect_Open_136	,	1	,	xdut.net13	,	xdut.xi40.mntrans11	,	D
-Defect_Open_137	,	1	,	xdut.xi9.net07	,	xdut.xi9.m9	,	D
-Defect_Open_138	,	1	,	xdut.xi9.net07	,	xdut.xi9.m3	,	D
-Defect_Open_139	,	1	,	xdut.xi9.net011	,	xdut.xi9.m6	,	D
-Defect_Open_140	,	150	,	vout	,	xdut.xi9.m0	,	D
-Defect_Open_141	,	1	,	xdut.xi9.net011	,	xdut.xi9.m7	,	D
-Defect_Open_142	,	1	,	xdut.xi9.net012	,	xdut.xi9.xi64.mptrans10	,	D
-Defect_Open_143	,	1	,	xdut.xi9.net012	,	xdut.xi9.xi64.mntrans11	,	D
-Defect_Open_144	,	1	,	xdut.net23	,	xdut.xi32.xi8.mptrans38	,	D
-Defect_Open_145	,	1	,	xdut.net23	,	xdut.xi32.xi8.mptrans37	,	D
-Defect_Open_146	,	1	,	xdut.xi32.xi8.net25	,	xdut.xi32.xi8.mntrans36	,	D
-Defect_Open_147	,	1	,	xdut.net23	,	xdut.xi32.xi8.mntrans35	,	D
-Defect_Open_148	,	1	,	xdut.net12	,	xdut.xi32.xi7.mptrans38	,	D
-Defect_Open_149	,	1	,	xdut.net12	,	xdut.xi32.xi7.mptrans37	,	D
-Defect_Open_150	,	1	,	xdut.xi32.xi7.net25	,	xdut.xi32.xi7.mntrans36	,	D
-Defect_Open_151	,	1	,	xdut.net12	,	xdut.xi32.xi7.mntrans35	,	D
-Defect_Open_152	,	1	,	xdut.xi32.net13	,	xdut.xi32.xi6.mptrans38	,	D
-Defect_Open_153	,	1	,	xdut.xi32.net13	,	xdut.xi32.xi6.mptrans37	,	D
-Defect_Open_154	,	1	,	xdut.xi32.xi6.net25	,	xdut.xi32.xi6.mntrans36	,	D
-Defect_Open_155	,	1	,	xdut.xi32.net13	,	xdut.xi32.xi6.mntrans35	,	D
-Defect_Open_156	,	1	,	xdut.xi32.net14	,	xdut.xi32.xi5.mptrans38	,	D
-Defect_Open_157	,	1	,	xdut.xi32.net14	,	xdut.xi32.xi5.mptrans37	,	D
-Defect_Open_158	,	1	,	xdut.xi32.xi5.net25	,	xdut.xi32.xi5.mntrans36	,	D
-Defect_Open_159	,	1	,	xdut.xi32.net14	,	xdut.xi32.xi5.mntrans35	,	D
-Defect_Open_160	,	1	,	xdut.xi32.xi4.net25	,	xdut.xi32.xi4.mntrans36	,	D
-Defect_Open_161	,	1	,	xdut.xi32.net7	,	xdut.xi32.xi4.mntrans35	,	D
-Defect_Open_162	,	1	,	xdut.xi32.net17	,	xdut.xi32.xi3.mptrans38	,	D
-Defect_Open_163	,	1	,	xdut.xi32.net17	,	xdut.xi32.xi3.mptrans37	,	D
-Defect_Open_164	,	1	,	xdut.xi32.xi3.net25	,	xdut.xi32.xi3.mntrans36	,	D
-Defect_Open_165	,	1	,	xdut.xi32.net17	,	xdut.xi32.xi3.mntrans35	,	D
-Defect_Open_166	,	1	,	xdut.xi32.net11	,	xdut.xi32.xi2.mptrans38	,	D
-Defect_Open_167	,	1	,	xdut.xi32.net11	,	xdut.xi32.xi2.mptrans37	,	D
-Defect_Open_168	,	1	,	xdut.xi32.xi2.net25	,	xdut.xi32.xi2.mntrans36	,	D
-Defect_Open_169	,	1	,	xdut.xi32.net11	,	xdut.xi32.xi2.mntrans35	,	D
-Defect_Open_170	,	1	,	xdut.xi32.net12	,	xdut.xi32.xi1.mptrans38	,	D
-Defect_Open_171	,	1	,	xdut.xi32.net12	,	xdut.xi32.xi1.mptrans37	,	D
-Defect_Open_172	,	1	,	xdut.xi32.xi1.net25	,	xdut.xi32.xi1.mntrans36	,	D
-Defect_Open_173	,	1	,	xdut.xi32.net12	,	xdut.xi32.xi1.mntrans35	,	D
-Defect_Open_174	,	1	,	xdut.xi32.net18	,	xdut.xi32.xi105.mptrans38	,	D
-Defect_Open_175	,	1	,	xdut.xi32.net18	,	xdut.xi32.xi105.mptrans37	,	D
-Defect_Open_176	,	1	,	xdut.xi32.xi105.net25	,	xdut.xi32.xi105.mntrans36	,	D
-Defect_Open_177	,	1	,	xdut.xi32.net18	,	xdut.xi32.xi105.mntrans35	,	D
-Defect_Open_178	,	1	,	xdut.net11	,	xdut.xi68.xi8.mptrans38	,	D
-Defect_Open_179	,	1	,	xdut.net11	,	xdut.xi68.xi8.mptrans37	,	D
-Defect_Open_180	,	1	,	xdut.xi68.xi8.net25	,	xdut.xi68.xi8.mntrans36	,	D
-Defect_Open_181	,	1	,	xdut.net11	,	xdut.xi68.xi8.mntrans35	,	D
-Defect_Open_182	,	1	,	xdut.net16	,	xdut.xi68.xi7.mptrans38	,	D
-Defect_Open_183	,	1	,	xdut.net16	,	xdut.xi68.xi7.mptrans37	,	D
-Defect_Open_184	,	1	,	xdut.xi68.xi7.net25	,	xdut.xi68.xi7.mntrans36	,	D
-Defect_Open_185	,	1	,	xdut.net16	,	xdut.xi68.xi7.mntrans35	,	D
-Defect_Open_186	,	1	,	xdut.xi68.net13	,	xdut.xi68.xi6.mptrans38	,	D
-Defect_Open_187	,	1	,	xdut.xi68.net13	,	xdut.xi68.xi6.mptrans37	,	D
-Defect_Open_188	,	1	,	xdut.xi68.xi6.net25	,	xdut.xi68.xi6.mntrans36	,	D
-Defect_Open_189	,	1	,	xdut.xi68.net13	,	xdut.xi68.xi6.mntrans35	,	D
-Defect_Open_190	,	1	,	xdut.xi68.net14	,	xdut.xi68.xi5.mptrans38	,	D
-Defect_Open_191	,	1	,	xdut.xi68.net14	,	xdut.xi68.xi5.mptrans37	,	D
-Defect_Open_192	,	1	,	xdut.xi68.xi5.net25	,	xdut.xi68.xi5.mntrans36	,	D
-Defect_Open_193	,	1	,	xdut.xi68.net14	,	xdut.xi68.xi5.mntrans35	,	D
-Defect_Open_194	,	1	,	xdut.xi68.xi4.net25	,	xdut.xi68.xi4.mntrans36	,	D
-Defect_Open_195	,	1	,	xdut.xi68.net7	,	xdut.xi68.xi4.mntrans35	,	D
-Defect_Open_196	,	1	,	xdut.xi68.net17	,	xdut.xi68.xi3.mptrans38	,	D
-Defect_Open_197	,	1	,	xdut.xi68.net17	,	xdut.xi68.xi3.mptrans37	,	D
-Defect_Open_198	,	1	,	xdut.xi68.xi3.net25	,	xdut.xi68.xi3.mntrans36	,	D
-Defect_Open_199	,	1	,	xdut.xi68.net17	,	xdut.xi68.xi3.mntrans35	,	D
-Defect_Open_200	,	1	,	xdut.xi68.net11	,	xdut.xi68.xi2.mptrans38	,	D
-Defect_Open_201	,	1	,	xdut.xi68.net11	,	xdut.xi68.xi2.mptrans37	,	D
-Defect_Open_202	,	1	,	xdut.xi68.xi2.net25	,	xdut.xi68.xi2.mntrans36	,	D
-Defect_Open_203	,	1	,	xdut.xi68.net11	,	xdut.xi68.xi2.mntrans35	,	D
-Defect_Open_204	,	1	,	xdut.xi68.net12	,	xdut.xi68.xi1.mptrans38	,	D
-Defect_Open_205	,	1	,	xdut.xi68.net12	,	xdut.xi68.xi1.mptrans37	,	D
-Defect_Open_206	,	1	,	xdut.xi68.xi1.net25	,	xdut.xi68.xi1.mntrans36	,	D
-Defect_Open_207	,	1	,	xdut.xi68.net12	,	xdut.xi68.xi1.mntrans35	,	D
-Defect_Open_208	,	1	,	xdut.xi68.net18	,	xdut.xi68.xi105.mptrans38	,	D
-Defect_Open_209	,	1	,	xdut.xi68.net18	,	xdut.xi68.xi105.mptrans37	,	D
-Defect_Open_210	,	1	,	xdut.xi68.xi105.net25	,	xdut.xi68.xi105.mntrans36	,	D
-Defect_Open_211	,	1	,	xdut.xi68.net18	,	xdut.xi68.xi105.mntrans35	,	D
-Defect_Open_212	,	1	,	xdut.amp_out	,	xdut.xi7.m2	,	D
-Defect_Open_213	,	1	,	xdut.xi7.net078	,	xdut.xi7.m16	,	D
-Defect_Open_214	,	1	,	xdut.xi7.net0117	,	xdut.xi7.m14	,	D
-Defect_Open_215	,	1	,	xdut.xi7.net019	,	xdut.xi7.m13	,	D
-Defect_Open_216	,	1	,	xdut.xi7.net076	,	xdut.xi7.m12	,	D
-Defect_Open_217	,	1	,	xdut.xi7.net076	,	xdut.xi7.m3	,	D
-Defect_Open_218	,	1	,	xdut.xi7.net019	,	xdut.xi7.m1	,	D
-Defect_Open_219	,	20	,	xdut.amp_out	,	xdut.xi7.m11	,	D
-Defect_Open_220	,	1	,	xdut.amp_out	,	xdut.xi7.m47	,	D
-Defect_Open_221	,	1	,	xdut.xi7.net021	,	xdut.xi7.m46	,	D
-Defect_Open_222	,	1	,	xdut.xi7.vb_n	,	xdut.xi7.mn13	,	D
-Defect_Open_223	,	1	,	xdut.xi7.net011	,	xdut.xi7.m45	,	D
-Defect_Open_224	,	1	,	xdut.xi7.net021	,	xdut.xi7.m33	,	D
-Defect_Open_225	,	1	,	xdut.xi7.net063	,	xdut.xi7.m44	,	D
-Defect_Open_226	,	1	,	xdut.xi7.net070	,	xdut.xi7.m35	,	D
-Defect_Open_227	,	1	,	ibias	,	xdut.xi7.mn17	,	D
-Defect_Open_228	,	1	,	xdut.xi7.net049	,	xdut.xi7.m43	,	D
-Defect_Open_229	,	4	,	xdut.xi7.net019	,	xdut.xi7.m5	,	D
-Defect_Open_230	,	1	,	xdut.xi7.vb_n	,	xdut.xi7.m38	,	D
-Defect_Open_231	,	1	,	xdut.xi7.net011	,	xdut.xi7.m34	,	D
-Defect_Open_232	,	4	,	xdut.xi7.net076	,	xdut.xi7.m4	,	D
-Defect_Open_233	,	1	,	ibias	,	xdut.xi7.m49	,	D
-Defect_Open_234	,	10	,	xdut.xi7.net033	,	xdut.xi7.m50	,	D
-Defect_Open_235	,	10	,	xdut.amp_out	,	xdut.xi7.m51	,	D
-Defect_Open_236	,	1	,	xdut.xi7.net033	,	xdut.xi7.m48	,	D
-Defect_Open_237	,	1	,	xdut.vref	,	xdut.xi7.xi82.m4	,	D
-Defect_Open_238	,	1	,	xdut.xi7.net049	,	xdut.xi7.xi82.m3	,	D
-Defect_Open_239	,	1	,	xdut.feedback	,	xdut.xi7.xi84.m4	,	D
-Defect_Open_240	,	1	,	xdut.xi7.net063	,	xdut.xi7.xi84.m3	,	D
-Defect_Open_241	,	1	,	xdut.vref	,	xdut.xi7.xi83.m4	,	D
-Defect_Open_242	,	1	,	xdut.xi7.net063	,	xdut.xi7.xi83.m3	,	D
-Defect_Open_243	,	1	,	xdut.xi7.net078	,	xdut.xi7.xi78.m4	,	D
-Defect_Open_244	,	1	,	xdut.xi7.net076	,	xdut.xi7.xi78.m3	,	D
-Defect_Open_245	,	1	,	xdut.xi7.net076	,	xdut.xi7.xi80.m4	,	D
-Defect_Open_246	,	1	,	xdut.xi7.net0117	,	xdut.xi7.xi80.m3	,	D
-Defect_Open_247	,	1	,	xdut.xi7.net078	,	xdut.xi7.xi79.m4	,	D
-Defect_Open_248	,	1	,	xdut.xi7.net019	,	xdut.xi7.xi79.m3	,	D
-Defect_Open_249	,	1	,	xdut.xi7.net019	,	xdut.xi7.xi81.m4	,	D
-Defect_Open_250	,	1	,	xdut.xi7.net0117	,	xdut.xi7.xi81.m3	,	D
-Defect_Open_251	,	1	,	xdut.feedback	,	xdut.xi7.xi85.m4	,	D
-Defect_Open_252	,	1	,	xdut.xi7.net049	,	xdut.xi7.xi85.m3	,	D
-Defect_Open_253	,	1	,	xdut.xi7.xi118.net031	,	xdut.xi7.xi118.mptrans15	,	D
-Defect_Open_254	,	1	,	xdut.xi7.net014	,	xdut.xi7.xi118.mp10	,	D
-Defect_Open_255	,	1	,	xdut.xi7.xi118.net031	,	xdut.xi7.xi118.mntrans13	,	D
-Defect_Open_256	,	1	,	xdut.xi7.net014	,	xdut.xi7.xi118.mn10	,	D
-Defect_Open_257	,	1	,	xdut.xi7.xi119.net031	,	xdut.xi7.xi119.mptrans15	,	D
-Defect_Open_258	,	1	,	xdut.xi7.net044	,	xdut.xi7.xi119.mp10	,	D
-Defect_Open_259	,	1	,	xdut.xi7.xi119.net031	,	xdut.xi7.xi119.mntrans13	,	D
-Defect_Open_260	,	1	,	xdut.xi7.net044	,	xdut.xi7.xi119.mn10	,	D
-Defect_Open_261	,	1	,	xdut.xi7.net068	,	xdut.xi7.xi136.mptrans25	,	D
-Defect_Open_262	,	1	,	xdut.xi7.xi136.net39	,	xdut.xi7.xi136.mptrans24	,	D
-Defect_Open_263	,	1	,	xdut.xi7.xi136.net39	,	xdut.xi7.xi136.mptrans23	,	D
-Defect_Open_264	,	1	,	xdut.xi7.net068	,	xdut.xi7.xi136.mntrans22	,	D
-Defect_Open_265	,	1	,	xdut.xi7.xi136.net39	,	xdut.xi7.xi136.mntrans21	,	D
-Defect_Open_266	,	1	,	xdut.xi7.xi136.net32	,	xdut.xi7.xi136.mntrans20	,	D
-Defect_Open_267	,	1	,	xdut.xi7.net0105	,	xdut.xi7.xi137.mptrans25	,	D
-Defect_Open_268	,	1	,	xdut.xi7.xi137.net39	,	xdut.xi7.xi137.mptrans24	,	D
-Defect_Open_269	,	1	,	xdut.xi7.xi137.net39	,	xdut.xi7.xi137.mptrans23	,	D
-Defect_Open_270	,	1	,	xdut.xi7.net0105	,	xdut.xi7.xi137.mntrans22	,	D
-Defect_Open_271	,	1	,	xdut.xi7.xi137.net39	,	xdut.xi7.xi137.mntrans21	,	D
-Defect_Open_272	,	1	,	xdut.xi7.xi137.net32	,	xdut.xi7.xi137.mntrans20	,	D
-Defect_Open_273	,	1	,	xdut.xi7.net050	,	xdut.xi7.xi143.mptrans10	,	D
-Defect_Open_274	,	1	,	xdut.xi7.net050	,	xdut.xi7.xi143.mntrans11	,	D
-Defect_Open_275	,	1	,	xdut.xi7.disable	,	xdut.xi7.xi92.mptrans10	,	D
-Defect_Open_276	,	1	,	xdut.xi7.disable	,	xdut.xi7.xi92.mntrans11	,	D
-Defect_Open_277	,	1	,	xdut.xi7.net059	,	xdut.xi7.xi106.mntrans19	,	D
-Defect_Open_278	,	1	,	xdut.xi7.net059	,	xdut.xi7.xi106.mntrans18	,	D
-Defect_Open_279	,	1	,	xdut.xi7.net059	,	xdut.xi7.xi106.mptrans17	,	D
-Defect_Open_280	,	1	,	xdut.xi7.xi106.net27	,	xdut.xi7.xi106.mptrans16	,	D
-Defect_Open_281	,	1	,	xdut.xi7.net057	,	xdut.xi7.xi107.mntrans19	,	D
-Defect_Open_282	,	1	,	xdut.xi7.net057	,	xdut.xi7.xi107.mntrans18	,	D
-Defect_Open_283	,	1	,	xdut.xi7.net057	,	xdut.xi7.xi107.mptrans17	,	D
-Defect_Open_284	,	1	,	xdut.xi7.xi107.net27	,	xdut.xi7.xi107.mptrans16	,	D
-Defect_Open_285	,	1	,	xdut.xi7.xi94.net24	,	xdut.xi7.xi94.mptrans15	,	D
-Defect_Open_286	,	1	,	xdut.xi7.enable	,	xdut.xi7.xi94.mptrans14	,	D
-Defect_Open_287	,	1	,	xdut.xi7.xi94.net24	,	xdut.xi7.xi94.mntrans13	,	D
-Defect_Open_288	,	1	,	xdut.xi7.enable	,	xdut.xi7.xi94.mntrans12	,	D
-Defect_Open_289	,	1	,	xdut.xi7.xi72.net15	,	xdut.xi7.xi72.xi146.mptrans10	,	D
-Defect_Open_290	,	1	,	xdut.xi7.xi72.net15	,	xdut.xi7.xi72.xi146.mntrans11	,	D
-Defect_Open_291	,	1	,	xdut.xi7.xi72.net14	,	xdut.xi7.xi72.xi47.mptrans10	,	D
-Defect_Open_292	,	1	,	xdut.xi7.xi72.net14	,	xdut.xi7.xi72.xi47.mntrans11	,	D
-Defect_Open_293	,	1	,	xdut.xi7.xi72.net11	,	xdut.xi7.xi72.xi48.mptrans10	,	D
-Defect_Open_294	,	1	,	xdut.xi7.xi72.net11	,	xdut.xi7.xi72.xi48.mntrans11	,	D
-Defect_Open_295	,	1	,	xdut.xi7.s1_n	,	xdut.xi7.xi72.xi35.mptrans10	,	D
-Defect_Open_296	,	1	,	xdut.xi7.s1_n	,	xdut.xi7.xi72.xi35.mntrans11	,	D
-Defect_Open_297	,	1	,	xdut.xi7.s1	,	xdut.xi7.xi72.xi34.mptrans10	,	D
-Defect_Open_298	,	1	,	xdut.xi7.s1	,	xdut.xi7.xi72.xi34.mntrans11	,	D
-Defect_Open_299	,	1	,	xdut.xi7.xi72.net15	,	xdut.xi7.xi72.xi49.mptrans10	,	D
-Defect_Open_300	,	1	,	xdut.xi7.xi72.net15	,	xdut.xi7.xi72.xi49.mntrans11	,	D
-Defect_Open_301	,	1	,	xdut.xi7.xi72.net11	,	xdut.xi7.xi72.xi31.mptrans10	,	D
-Defect_Open_302	,	1	,	xdut.xi7.xi72.net11	,	xdut.xi7.xi72.xi31.mntrans11	,	D
-Defect_Open_303	,	1	,	xdut.xi7.s1_n	,	xdut.xi7.xi72.xi30.mptrans10	,	D
-Defect_Open_304	,	1	,	xdut.xi7.s1_n	,	xdut.xi7.xi72.xi30.mntrans11	,	D
-Defect_Open_305	,	1	,	xdut.xi7.xi72.net9	,	xdut.xi7.xi72.xi33.mptrans10	,	D
-Defect_Open_306	,	1	,	xdut.xi7.xi72.net9	,	xdut.xi7.xi72.xi33.mntrans11	,	D
-Defect_Open_307	,	1	,	xdut.xi7.s1	,	xdut.xi7.xi72.xi27.mptrans10	,	D
-Defect_Open_308	,	1	,	xdut.xi7.s1	,	xdut.xi7.xi72.xi27.mntrans11	,	D
-Defect_Open_309	,	1	,	xdut.xi7.xi147.net15	,	xdut.xi7.xi147.xi146.mptrans10	,	D
-Defect_Open_310	,	1	,	xdut.xi7.xi147.net15	,	xdut.xi7.xi147.xi146.mntrans11	,	D
-Defect_Open_311	,	1	,	xdut.xi7.xi147.net14	,	xdut.xi7.xi147.xi47.mptrans10	,	D
-Defect_Open_312	,	1	,	xdut.xi7.xi147.net14	,	xdut.xi7.xi147.xi47.mntrans11	,	D
-Defect_Open_313	,	1	,	xdut.xi7.xi147.net11	,	xdut.xi7.xi147.xi48.mptrans10	,	D
-Defect_Open_314	,	1	,	xdut.xi7.xi147.net11	,	xdut.xi7.xi147.xi48.mntrans11	,	D
-Defect_Open_315	,	1	,	xdut.xi7.s0_n	,	xdut.xi7.xi147.xi35.mptrans10	,	D
-Defect_Open_316	,	1	,	xdut.xi7.s0_n	,	xdut.xi7.xi147.xi35.mntrans11	,	D
-Defect_Open_317	,	1	,	xdut.xi7.s0	,	xdut.xi7.xi147.xi34.mptrans10	,	D
-Defect_Open_318	,	1	,	xdut.xi7.s0	,	xdut.xi7.xi147.xi34.mntrans11	,	D
-Defect_Open_319	,	1	,	xdut.xi7.xi147.net15	,	xdut.xi7.xi147.xi49.mptrans10	,	D
-Defect_Open_320	,	1	,	xdut.xi7.xi147.net15	,	xdut.xi7.xi147.xi49.mntrans11	,	D
-Defect_Open_321	,	1	,	xdut.xi7.xi147.net11	,	xdut.xi7.xi147.xi31.mptrans10	,	D
-Defect_Open_322	,	1	,	xdut.xi7.xi147.net11	,	xdut.xi7.xi147.xi31.mntrans11	,	D
-Defect_Open_323	,	1	,	xdut.xi7.s0_n	,	xdut.xi7.xi147.xi30.mptrans10	,	D
-Defect_Open_324	,	1	,	xdut.xi7.s0_n	,	xdut.xi7.xi147.xi30.mntrans11	,	D
-Defect_Open_325	,	1	,	xdut.xi7.xi147.net9	,	xdut.xi7.xi147.xi33.mptrans10	,	D
-Defect_Open_326	,	1	,	xdut.xi7.xi147.net9	,	xdut.xi7.xi147.xi33.mntrans11	,	D
-Defect_Open_327	,	1	,	xdut.xi7.s0	,	xdut.xi7.xi147.xi27.mptrans10	,	D
-Defect_Open_328	,	1	,	xdut.xi7.s0	,	xdut.xi7.xi147.xi27.mntrans11	,	D
-Defect_Open_329	,	1	,	xdut.disable	,	xdut.m0	,	G
-Defect_Open_330	,	1	,	xdut.disable	,	xdut.m35	,	G
-Defect_Open_331	,	1	,	xdut.disable	,	xdut.m2	,	G
-Defect_Open_332	,	1	,	xdut.xi137.net39	,	xdut.xi137.mptrans25	,	G
-Defect_Open_333	,	1	,	xdut.net16	,	xdut.xi137.mptrans24	,	G
-Defect_Open_334	,	1	,	xdut.enable	,	xdut.xi137.mptrans23	,	G
-Defect_Open_335	,	1	,	xdut.xi137.net39	,	xdut.xi137.mntrans22	,	G
-Defect_Open_336	,	1	,	xdut.net16	,	xdut.xi137.mntrans21	,	G
-Defect_Open_337	,	1	,	xdut.enable	,	xdut.xi137.mntrans20	,	G
-Defect_Open_338	,	1	,	xdut.xi136.net39	,	xdut.xi136.mptrans25	,	G
-Defect_Open_339	,	1	,	xdut.net11	,	xdut.xi136.mptrans24	,	G
-Defect_Open_340	,	1	,	xdut.enable	,	xdut.xi136.mptrans23	,	G
-Defect_Open_341	,	1	,	xdut.xi136.net39	,	xdut.xi136.mntrans22	,	G
-Defect_Open_342	,	1	,	xdut.net11	,	xdut.xi136.mntrans21	,	G
-Defect_Open_343	,	1	,	xdut.enable	,	xdut.xi136.mntrans20	,	G
-Defect_Open_344	,	1	,	vss!	,	xdut.xi72.xi146.mptrans10	,	G
-Defect_Open_345	,	1	,	vdda_pulsed	,	xdut.xi72.xi146.mntrans11	,	G
-Defect_Open_346	,	1	,	xdut.net028	,	xdut.xi72.xi47.mptrans10	,	G
-Defect_Open_347	,	1	,	xdut.net028	,	xdut.xi72.xi47.mntrans11	,	G
-Defect_Open_348	,	1	,	xdut.xi72.net14	,	xdut.xi72.xi48.mptrans10	,	G
-Defect_Open_349	,	1	,	xdut.xi72.net14	,	xdut.xi72.xi48.mntrans11	,	G
-Defect_Open_350	,	1	,	xdut.xi72.net11	,	xdut.xi72.xi35.mptrans10	,	G
-Defect_Open_351	,	1	,	xdut.xi72.net11	,	xdut.xi72.xi35.mntrans11	,	G
-Defect_Open_352	,	1	,	xdut.xi72.net9	,	xdut.xi72.xi34.mptrans10	,	G
-Defect_Open_353	,	1	,	xdut.xi72.net9	,	xdut.xi72.xi34.mntrans11	,	G
-Defect_Open_354	,	1	,	xdut.net028	,	xdut.xi72.xi49.mptrans10	,	G
-Defect_Open_355	,	1	,	xdut.net028	,	xdut.xi72.xi49.mntrans11	,	G
-Defect_Open_356	,	1	,	xdut.xi72.net9	,	xdut.xi72.xi31.mptrans10	,	G
-Defect_Open_357	,	1	,	xdut.xi72.net9	,	xdut.xi72.xi31.mntrans11	,	G
-Defect_Open_358	,	1	,	xdut.s1	,	xdut.xi72.xi30.mptrans10	,	G
-Defect_Open_359	,	1	,	xdut.s1	,	xdut.xi72.xi30.mntrans11	,	G
-Defect_Open_360	,	1	,	xdut.xi72.net11	,	xdut.xi72.xi33.mptrans10	,	G
-Defect_Open_361	,	1	,	xdut.xi72.net11	,	xdut.xi72.xi33.mntrans11	,	G
-Defect_Open_362	,	1	,	xdut.s1_n	,	xdut.xi72.xi27.mptrans10	,	G
-Defect_Open_363	,	1	,	xdut.s1_n	,	xdut.xi72.xi27.mntrans11	,	G
-Defect_Open_364	,	1	,	vss!	,	xdut.xi73.xi146.mptrans10	,	G
-Defect_Open_365	,	1	,	vdda_pulsed	,	xdut.xi73.xi146.mntrans11	,	G
-Defect_Open_366	,	1	,	xdut.net023	,	xdut.xi73.xi47.mptrans10	,	G
-Defect_Open_367	,	1	,	xdut.net023	,	xdut.xi73.xi47.mntrans11	,	G
-Defect_Open_368	,	1	,	xdut.xi73.net14	,	xdut.xi73.xi48.mptrans10	,	G
-Defect_Open_369	,	1	,	xdut.xi73.net14	,	xdut.xi73.xi48.mntrans11	,	G
-Defect_Open_370	,	1	,	xdut.xi73.net11	,	xdut.xi73.xi35.mptrans10	,	G
-Defect_Open_371	,	1	,	xdut.xi73.net11	,	xdut.xi73.xi35.mntrans11	,	G
-Defect_Open_372	,	1	,	xdut.xi73.net9	,	xdut.xi73.xi34.mptrans10	,	G
-Defect_Open_373	,	1	,	xdut.xi73.net9	,	xdut.xi73.xi34.mntrans11	,	G
-Defect_Open_374	,	1	,	xdut.net023	,	xdut.xi73.xi49.mptrans10	,	G
-Defect_Open_375	,	1	,	xdut.net023	,	xdut.xi73.xi49.mntrans11	,	G
-Defect_Open_376	,	1	,	xdut.xi73.net9	,	xdut.xi73.xi31.mptrans10	,	G
-Defect_Open_377	,	1	,	xdut.xi73.net9	,	xdut.xi73.xi31.mntrans11	,	G
-Defect_Open_378	,	1	,	xdut.s0	,	xdut.xi73.xi30.mptrans10	,	G
-Defect_Open_379	,	1	,	xdut.s0	,	xdut.xi73.xi30.mntrans11	,	G
-Defect_Open_380	,	1	,	xdut.xi73.net11	,	xdut.xi73.xi33.mptrans10	,	G
-Defect_Open_381	,	1	,	xdut.xi73.net11	,	xdut.xi73.xi33.mntrans11	,	G
-Defect_Open_382	,	1	,	xdut.s0_n	,	xdut.xi73.xi27.mptrans10	,	G
-Defect_Open_383	,	1	,	xdut.s0_n	,	xdut.xi73.xi27.mntrans11	,	G
-Defect_Open_384	,	1	,	xdut.xi74.net017	,	xdut.xi74.m22	,	G
-Defect_Open_385	,	1	,	xdut.xi74.net022	,	xdut.xi74.m13	,	G
-Defect_Open_386	,	1	,	xdut.xi74.net017	,	xdut.xi74.m12	,	G
-Defect_Open_387	,	1	,	xdut.xi74.net022	,	xdut.xi74.m21	,	G
-Defect_Open_388	,	1	,	xdut.xi74.net017	,	xdut.xi74.m20	,	G
-Defect_Open_389	,	1	,	xdut.xi74.net022	,	xdut.xi74.m19	,	G
-Defect_Open_390	,	4	,	xdut.vth_h	,	xdut.xi74.m5	,	G
-Defect_Open_391	,	4	,	ref	,	xdut.xi74.m4	,	G
-Defect_Open_392	,	1	,	xdut.xi74.net013	,	xdut.xi74.m18	,	G
-Defect_Open_393	,	1	,	xdut.xi74.net013	,	xdut.xi74.m17	,	G
-Defect_Open_394	,	1	,	xdut.xi74.net018	,	xdut.xi74.m6	,	G
-Defect_Open_395	,	1	,	xdut.xi74.net012	,	xdut.xi74.m2	,	G
-Defect_Open_396	,	2	,	xdut.xi74.net012	,	xdut.xi74.m9	,	G
-Defect_Open_397	,	2	,	xdut.xi74.net018	,	xdut.xi74.m10	,	G
-Defect_Open_398	,	1	,	xdut.xi74.net011	,	xdut.xi74.xi5.mptrans10	,	G
-Defect_Open_399	,	1	,	xdut.xi74.net011	,	xdut.xi74.xi5.mntrans11	,	G
-Defect_Open_400	,	1	,	xdut.xi75.net017	,	xdut.xi75.m22	,	G
-Defect_Open_401	,	1	,	xdut.xi75.net022	,	xdut.xi75.m13	,	G
-Defect_Open_402	,	1	,	xdut.xi75.net017	,	xdut.xi75.m12	,	G
-Defect_Open_403	,	1	,	xdut.xi75.net022	,	xdut.xi75.m21	,	G
-Defect_Open_404	,	1	,	xdut.xi75.net017	,	xdut.xi75.m20	,	G
-Defect_Open_405	,	1	,	xdut.xi75.net022	,	xdut.xi75.m19	,	G
-Defect_Open_406	,	4	,	ref	,	xdut.xi75.m5	,	G
-Defect_Open_407	,	4	,	xdut.vth_l	,	xdut.xi75.m4	,	G
-Defect_Open_408	,	1	,	xdut.xi75.net013	,	xdut.xi75.m18	,	G
-Defect_Open_409	,	1	,	xdut.xi75.net013	,	xdut.xi75.m17	,	G
-Defect_Open_410	,	1	,	xdut.xi75.net018	,	xdut.xi75.m6	,	G
-Defect_Open_411	,	1	,	xdut.xi75.net012	,	xdut.xi75.m2	,	G
-Defect_Open_412	,	2	,	xdut.xi75.net012	,	xdut.xi75.m9	,	G
-Defect_Open_413	,	2	,	xdut.xi75.net018	,	xdut.xi75.m10	,	G
-Defect_Open_414	,	1	,	xdut.xi75.net011	,	xdut.xi75.xi5.mptrans10	,	G
-Defect_Open_415	,	1	,	xdut.xi75.net011	,	xdut.xi75.xi5.mntrans11	,	G
-Defect_Open_416	,	1	,	overvoltage	,	xdut.xi62.mntrans27	,	G
-Defect_Open_417	,	1	,	undervoltage	,	xdut.xi62.mntrans26	,	G
-Defect_Open_418	,	1	,	xdut.xi62.net26	,	xdut.xi62.mntrans25	,	G
-Defect_Open_419	,	1	,	overvoltage	,	xdut.xi62.mptrans24	,	G
-Defect_Open_420	,	1	,	undervoltage	,	xdut.xi62.mptrans23	,	G
-Defect_Open_421	,	1	,	xdut.xi62.net26	,	xdut.xi62.mptrans22	,	G
-Defect_Open_422	,	1	,	disable	,	xdut.xi5.mntrans27	,	G
-Defect_Open_423	,	1	,	xdut.err	,	xdut.xi5.mntrans26	,	G
-Defect_Open_424	,	1	,	xdut.xi5.net26	,	xdut.xi5.mntrans25	,	G
-Defect_Open_425	,	1	,	disable	,	xdut.xi5.mptrans24	,	G
-Defect_Open_426	,	1	,	xdut.err	,	xdut.xi5.mptrans23	,	G
-Defect_Open_427	,	1	,	xdut.xi5.net26	,	xdut.xi5.mptrans22	,	G
-Defect_Open_428	,	1	,	xdut.net062	,	xdut.xi41.mptrans15	,	G
-Defect_Open_429	,	1	,	xdut.xi41.net24	,	xdut.xi41.mptrans14	,	G
-Defect_Open_430	,	1	,	xdut.net062	,	xdut.xi41.mntrans13	,	G
-Defect_Open_431	,	1	,	xdut.xi41.net24	,	xdut.xi41.mntrans12	,	G
-Defect_Open_432	,	1	,	xdut.net044	,	xdut.xi64.mptrans10	,	G
-Defect_Open_433	,	1	,	xdut.net044	,	xdut.xi64.mntrans11	,	G
-Defect_Open_434	,	1	,	xdut.net045	,	xdut.xi65.mptrans10	,	G
-Defect_Open_435	,	1	,	xdut.net045	,	xdut.xi65.mntrans11	,	G
-Defect_Open_436	,	1	,	xdut.disable	,	xdut.xi6.mptrans10	,	G
-Defect_Open_437	,	1	,	xdut.disable	,	xdut.xi6.mntrans11	,	G
-Defect_Open_438	,	1	,	clk	,	xdut.xi63.mptrans38	,	G
-Defect_Open_439	,	1	,	xdut.enable	,	xdut.xi63.mptrans37	,	G
-Defect_Open_440	,	1	,	clk	,	xdut.xi63.mntrans36	,	G
-Defect_Open_441	,	1	,	xdut.enable	,	xdut.xi63.mntrans35	,	G
-Defect_Open_442	,	1	,	xdut.disable	,	xdut.xi8.m0	,	G
-Defect_Open_443	,	1	,	xdut.disable	,	xdut.xi8.m1	,	G
-Defect_Open_444	,	1	,	xdut.disable	,	xdut.xi8.m4	,	G
-Defect_Open_445	,	1	,	xdut.s0	,	xdut.xi8.xi13.m4	,	G
-Defect_Open_446	,	1	,	xdut.s0_n	,	xdut.xi8.xi13.m3	,	G
-Defect_Open_447	,	1	,	xdut.s1	,	xdut.xi8.xi15.m4	,	G
-Defect_Open_448	,	1	,	xdut.s1_n	,	xdut.xi8.xi15.m3	,	G
-Defect_Open_449	,	1	,	xdut.s1	,	xdut.xi8.xi12.m4	,	G
-Defect_Open_450	,	1	,	xdut.s1_n	,	xdut.xi8.xi12.m3	,	G
-Defect_Open_451	,	1	,	xdut.s0	,	xdut.xi8.xi78.m4	,	G
-Defect_Open_452	,	1	,	xdut.s0_n	,	xdut.xi8.xi78.m3	,	G
-Defect_Open_453	,	1	,	xdut.net062	,	xdut.xi40.mptrans10	,	G
-Defect_Open_454	,	1	,	xdut.net062	,	xdut.xi40.mntrans11	,	G
-Defect_Open_455	,	1	,	vss!	,	xdut.xi9.m9	,	G
-Defect_Open_456	,	1	,	xdut.xi9.net012	,	xdut.xi9.m3	,	G
-Defect_Open_457	,	1	,	xdut.disable	,	xdut.xi9.m6	,	G
-Defect_Open_458	,	150	,	xdut.xi9.net07	,	xdut.xi9.m0	,	G
-Defect_Open_459	,	1	,	xdut.disable	,	xdut.xi9.m7	,	G
-Defect_Open_460	,	1	,	xdut.disable	,	xdut.xi9.xi64.mptrans10	,	G
-Defect_Open_461	,	1	,	xdut.disable	,	xdut.xi9.xi64.mntrans11	,	G
-Defect_Open_462	,	1	,	xdut.net12	,	xdut.xi32.xi8.mptrans38	,	G
-Defect_Open_463	,	1	,	xdut.xi32.net13	,	xdut.xi32.xi8.mptrans37	,	G
-Defect_Open_464	,	1	,	xdut.net12	,	xdut.xi32.xi8.mntrans36	,	G
-Defect_Open_465	,	1	,	xdut.xi32.net13	,	xdut.xi32.xi8.mntrans35	,	G
-Defect_Open_466	,	1	,	xdut.net23	,	xdut.xi32.xi7.mptrans38	,	G
-Defect_Open_467	,	1	,	xdut.xi32.net14	,	xdut.xi32.xi7.mptrans37	,	G
-Defect_Open_468	,	1	,	xdut.net23	,	xdut.xi32.xi7.mntrans36	,	G
-Defect_Open_469	,	1	,	xdut.xi32.net14	,	xdut.xi32.xi7.mntrans35	,	G
-Defect_Open_470	,	1	,	xdut.xi32.net7	,	xdut.xi32.xi6.mptrans38	,	G
-Defect_Open_471	,	1	,	xdut.xi32.net11	,	xdut.xi32.xi6.mptrans37	,	G
-Defect_Open_472	,	1	,	xdut.xi32.net7	,	xdut.xi32.xi6.mntrans36	,	G
-Defect_Open_473	,	1	,	xdut.xi32.net11	,	xdut.xi32.xi6.mntrans35	,	G
-Defect_Open_474	,	1	,	xdut.xi32.net7	,	xdut.xi32.xi5.mptrans38	,	G
-Defect_Open_475	,	1	,	xdut.xi32.net12	,	xdut.xi32.xi5.mptrans37	,	G
-Defect_Open_476	,	1	,	xdut.xi32.net7	,	xdut.xi32.xi5.mntrans36	,	G
-Defect_Open_477	,	1	,	xdut.xi32.net12	,	xdut.xi32.xi5.mntrans35	,	G
-Defect_Open_478	,	1	,	xdut.net13	,	xdut.xi32.xi4.mntrans36	,	G
-Defect_Open_479	,	1	,	xdut.net13	,	xdut.xi32.xi4.mntrans35	,	G
-Defect_Open_480	,	1	,	xdut.net13	,	xdut.xi32.xi3.mptrans38	,	G
-Defect_Open_481	,	1	,	xdut.net12	,	xdut.xi32.xi3.mptrans37	,	G
-Defect_Open_482	,	1	,	xdut.net13	,	xdut.xi32.xi3.mntrans36	,	G
-Defect_Open_483	,	1	,	xdut.net12	,	xdut.xi32.xi3.mntrans35	,	G
-Defect_Open_484	,	1	,	xdut.xi32.net12	,	xdut.xi32.xi2.mptrans38	,	G
-Defect_Open_485	,	1	,	xdut.xi32.net17	,	xdut.xi32.xi2.mptrans37	,	G
-Defect_Open_486	,	1	,	xdut.xi32.net12	,	xdut.xi32.xi2.mntrans36	,	G
-Defect_Open_487	,	1	,	xdut.xi32.net17	,	xdut.xi32.xi2.mntrans35	,	G
-Defect_Open_488	,	1	,	xdut.xi32.net11	,	xdut.xi32.xi1.mptrans38	,	G
-Defect_Open_489	,	1	,	xdut.xi32.net18	,	xdut.xi32.xi1.mptrans37	,	G
-Defect_Open_490	,	1	,	xdut.xi32.net11	,	xdut.xi32.xi1.mntrans36	,	G
-Defect_Open_491	,	1	,	xdut.xi32.net18	,	xdut.xi32.xi1.mntrans35	,	G
-Defect_Open_492	,	1	,	xdut.net13	,	xdut.xi32.xi105.mptrans38	,	G
-Defect_Open_493	,	1	,	xdut.net23	,	xdut.xi32.xi105.mptrans37	,	G
-Defect_Open_494	,	1	,	xdut.net13	,	xdut.xi32.xi105.mntrans36	,	G
-Defect_Open_495	,	1	,	xdut.net23	,	xdut.xi32.xi105.mntrans35	,	G
-Defect_Open_496	,	1	,	xdut.net16	,	xdut.xi68.xi8.mptrans38	,	G
-Defect_Open_497	,	1	,	xdut.xi68.net13	,	xdut.xi68.xi8.mptrans37	,	G
-Defect_Open_498	,	1	,	xdut.net16	,	xdut.xi68.xi8.mntrans36	,	G
-Defect_Open_499	,	1	,	xdut.xi68.net13	,	xdut.xi68.xi8.mntrans35	,	G
-Defect_Open_500	,	1	,	xdut.net11	,	xdut.xi68.xi7.mptrans38	,	G
-Defect_Open_501	,	1	,	xdut.xi68.net14	,	xdut.xi68.xi7.mptrans37	,	G
-Defect_Open_502	,	1	,	xdut.net11	,	xdut.xi68.xi7.mntrans36	,	G
-Defect_Open_503	,	1	,	xdut.xi68.net14	,	xdut.xi68.xi7.mntrans35	,	G
-Defect_Open_504	,	1	,	xdut.xi68.net7	,	xdut.xi68.xi6.mptrans38	,	G
-Defect_Open_505	,	1	,	xdut.xi68.net11	,	xdut.xi68.xi6.mptrans37	,	G
-Defect_Open_506	,	1	,	xdut.xi68.net7	,	xdut.xi68.xi6.mntrans36	,	G
-Defect_Open_507	,	1	,	xdut.xi68.net11	,	xdut.xi68.xi6.mntrans35	,	G
-Defect_Open_508	,	1	,	xdut.xi68.net7	,	xdut.xi68.xi5.mptrans38	,	G
-Defect_Open_509	,	1	,	xdut.xi68.net12	,	xdut.xi68.xi5.mptrans37	,	G
-Defect_Open_510	,	1	,	xdut.xi68.net7	,	xdut.xi68.xi5.mntrans36	,	G
-Defect_Open_511	,	1	,	xdut.xi68.net12	,	xdut.xi68.xi5.mntrans35	,	G
-Defect_Open_512	,	1	,	xdut.net14	,	xdut.xi68.xi4.mntrans36	,	G
-Defect_Open_513	,	1	,	xdut.net14	,	xdut.xi68.xi4.mntrans35	,	G
-Defect_Open_514	,	1	,	xdut.net14	,	xdut.xi68.xi3.mptrans38	,	G
-Defect_Open_515	,	1	,	xdut.net16	,	xdut.xi68.xi3.mptrans37	,	G
-Defect_Open_516	,	1	,	xdut.net14	,	xdut.xi68.xi3.mntrans36	,	G
-Defect_Open_517	,	1	,	xdut.net16	,	xdut.xi68.xi3.mntrans35	,	G
-Defect_Open_518	,	1	,	xdut.xi68.net12	,	xdut.xi68.xi2.mptrans38	,	G
-Defect_Open_519	,	1	,	xdut.xi68.net17	,	xdut.xi68.xi2.mptrans37	,	G
-Defect_Open_520	,	1	,	xdut.xi68.net12	,	xdut.xi68.xi2.mntrans36	,	G
-Defect_Open_521	,	1	,	xdut.xi68.net17	,	xdut.xi68.xi2.mntrans35	,	G
-Defect_Open_522	,	1	,	xdut.xi68.net11	,	xdut.xi68.xi1.mptrans38	,	G
-Defect_Open_523	,	1	,	xdut.xi68.net18	,	xdut.xi68.xi1.mptrans37	,	G
-Defect_Open_524	,	1	,	xdut.xi68.net11	,	xdut.xi68.xi1.mntrans36	,	G
-Defect_Open_525	,	1	,	xdut.xi68.net18	,	xdut.xi68.xi1.mntrans35	,	G
-Defect_Open_526	,	1	,	xdut.net14	,	xdut.xi68.xi105.mptrans38	,	G
-Defect_Open_527	,	1	,	xdut.net11	,	xdut.xi68.xi105.mptrans37	,	G
-Defect_Open_528	,	1	,	xdut.net14	,	xdut.xi68.xi105.mntrans36	,	G
-Defect_Open_529	,	1	,	xdut.net11	,	xdut.xi68.xi105.mntrans35	,	G
-Defect_Open_530	,	1	,	vss!	,	xdut.xi7.m2	,	G
-Defect_Open_531	,	1	,	xdut.xi7.enable	,	xdut.xi7.m16	,	G
-Defect_Open_532	,	1	,	xdut.xi7.enable	,	xdut.xi7.m14	,	G
-Defect_Open_533	,	1	,	xdut.xi7.enable	,	xdut.xi7.m13	,	G
-Defect_Open_534	,	1	,	xdut.xi7.enable	,	xdut.xi7.m12	,	G
-Defect_Open_535	,	1	,	xdut.xi7.net078	,	xdut.xi7.m3	,	G
-Defect_Open_536	,	1	,	xdut.xi7.net078	,	xdut.xi7.m1	,	G
-Defect_Open_537	,	20	,	xdut.xi7.net0117	,	xdut.xi7.m11	,	G
-Defect_Open_538	,	1	,	xdut.xi7.disable	,	xdut.xi7.m47	,	G
-Defect_Open_539	,	1	,	xdut.xi7.disable	,	xdut.xi7.m46	,	G
-Defect_Open_540	,	1	,	xdut.xi7.vb_n	,	xdut.xi7.mn13	,	G
-Defect_Open_541	,	1	,	xdut.xi7.disable	,	xdut.xi7.m45	,	G
-Defect_Open_542	,	1	,	xdut.xi7.vb_n	,	xdut.xi7.m33	,	G
-Defect_Open_543	,	1	,	xdut.xi7.disable	,	xdut.xi7.m44	,	G
-Defect_Open_544	,	1	,	vdda_pulsed	,	xdut.xi7.m35	,	G
-Defect_Open_545	,	1	,	ibias	,	xdut.xi7.mn17	,	G
-Defect_Open_546	,	1	,	xdut.xi7.disable	,	xdut.xi7.m43	,	G
-Defect_Open_547	,	4	,	xdut.xi7.net049	,	xdut.xi7.m5	,	G
-Defect_Open_548	,	1	,	xdut.xi7.disable	,	xdut.xi7.m38	,	G
-Defect_Open_549	,	1	,	ibias	,	xdut.xi7.m34	,	G
-Defect_Open_550	,	4	,	xdut.xi7.net063	,	xdut.xi7.m4	,	G
-Defect_Open_551	,	1	,	xdut.xi7.disable	,	xdut.xi7.m49	,	G
-Defect_Open_552	,	10	,	xdut.xi7.vb_n	,	xdut.xi7.m50	,	G
-Defect_Open_553	,	10	,	ibias	,	xdut.xi7.m51	,	G
-Defect_Open_554	,	1	,	xdut.xi7.disable	,	xdut.xi7.m48	,	G
-Defect_Open_555	,	1	,	xdut.xi7.s0	,	xdut.xi7.xi82.m4	,	G
-Defect_Open_556	,	1	,	xdut.xi7.s0_n	,	xdut.xi7.xi82.m3	,	G
-Defect_Open_557	,	1	,	xdut.xi7.s0	,	xdut.xi7.xi84.m4	,	G
-Defect_Open_558	,	1	,	xdut.xi7.s0_n	,	xdut.xi7.xi84.m3	,	G
-Defect_Open_559	,	1	,	xdut.xi7.s1	,	xdut.xi7.xi83.m4	,	G
-Defect_Open_560	,	1	,	xdut.xi7.s1_n	,	xdut.xi7.xi83.m3	,	G
-Defect_Open_561	,	1	,	xdut.xi7.s0	,	xdut.xi7.xi78.m4	,	G
-Defect_Open_562	,	1	,	xdut.xi7.s0_n	,	xdut.xi7.xi78.m3	,	G
-Defect_Open_563	,	1	,	xdut.xi7.s1	,	xdut.xi7.xi80.m4	,	G
-Defect_Open_564	,	1	,	xdut.xi7.s1_n	,	xdut.xi7.xi80.m3	,	G
-Defect_Open_565	,	1	,	xdut.xi7.s1	,	xdut.xi7.xi79.m4	,	G
-Defect_Open_566	,	1	,	xdut.xi7.s1_n	,	xdut.xi7.xi79.m3	,	G
-Defect_Open_567	,	1	,	xdut.xi7.s0	,	xdut.xi7.xi81.m4	,	G
-Defect_Open_568	,	1	,	xdut.xi7.s0_n	,	xdut.xi7.xi81.m3	,	G
-Defect_Open_569	,	1	,	xdut.xi7.s1	,	xdut.xi7.xi85.m4	,	G
-Defect_Open_570	,	1	,	xdut.xi7.s1_n	,	xdut.xi7.xi85.m3	,	G
-Defect_Open_571	,	1	,	xdut.xi7.net059	,	xdut.xi7.xi118.mptrans15	,	G
-Defect_Open_572	,	1	,	xdut.xi7.xi118.net031	,	xdut.xi7.xi118.mp10	,	G
-Defect_Open_573	,	1	,	xdut.xi7.net059	,	xdut.xi7.xi118.mntrans13	,	G
-Defect_Open_574	,	1	,	xdut.xi7.xi118.net031	,	xdut.xi7.xi118.mn10	,	G
-Defect_Open_575	,	1	,	xdut.xi7.net057	,	xdut.xi7.xi119.mptrans15	,	G
-Defect_Open_576	,	1	,	xdut.xi7.xi119.net031	,	xdut.xi7.xi119.mp10	,	G
-Defect_Open_577	,	1	,	xdut.xi7.net057	,	xdut.xi7.xi119.mntrans13	,	G
-Defect_Open_578	,	1	,	xdut.xi7.xi119.net031	,	xdut.xi7.xi119.mn10	,	G
-Defect_Open_579	,	1	,	xdut.xi7.xi136.net39	,	xdut.xi7.xi136.mptrans25	,	G
-Defect_Open_580	,	1	,	xdut.xi7.net014	,	xdut.xi7.xi136.mptrans24	,	G
-Defect_Open_581	,	1	,	xdut.xi7.enable	,	xdut.xi7.xi136.mptrans23	,	G
-Defect_Open_582	,	1	,	xdut.xi7.xi136.net39	,	xdut.xi7.xi136.mntrans22	,	G
-Defect_Open_583	,	1	,	xdut.xi7.net014	,	xdut.xi7.xi136.mntrans21	,	G
-Defect_Open_584	,	1	,	xdut.xi7.enable	,	xdut.xi7.xi136.mntrans20	,	G
-Defect_Open_585	,	1	,	xdut.xi7.xi137.net39	,	xdut.xi7.xi137.mptrans25	,	G
-Defect_Open_586	,	1	,	xdut.xi7.net044	,	xdut.xi7.xi137.mptrans24	,	G
-Defect_Open_587	,	1	,	xdut.xi7.enable	,	xdut.xi7.xi137.mptrans23	,	G
-Defect_Open_588	,	1	,	xdut.xi7.xi137.net39	,	xdut.xi7.xi137.mntrans22	,	G
-Defect_Open_589	,	1	,	xdut.xi7.net044	,	xdut.xi7.xi137.mntrans21	,	G
-Defect_Open_590	,	1	,	xdut.xi7.enable	,	xdut.xi7.xi137.mntrans20	,	G
-Defect_Open_591	,	1	,	xdut.net12	,	xdut.xi7.xi143.mptrans10	,	G
-Defect_Open_592	,	1	,	xdut.net12	,	xdut.xi7.xi143.mntrans11	,	G
-Defect_Open_593	,	1	,	xdut.enable	,	xdut.xi7.xi92.mptrans10	,	G
-Defect_Open_594	,	1	,	xdut.enable	,	xdut.xi7.xi92.mntrans11	,	G
-Defect_Open_595	,	1	,	xdut.net12	,	xdut.xi7.xi106.mntrans19	,	G
-Defect_Open_596	,	1	,	xdut.xi7.net044	,	xdut.xi7.xi106.mntrans18	,	G
-Defect_Open_597	,	1	,	xdut.net12	,	xdut.xi7.xi106.mptrans17	,	G
-Defect_Open_598	,	1	,	xdut.xi7.net044	,	xdut.xi7.xi106.mptrans16	,	G
-Defect_Open_599	,	1	,	xdut.xi7.net014	,	xdut.xi7.xi107.mntrans19	,	G
-Defect_Open_600	,	1	,	xdut.xi7.net050	,	xdut.xi7.xi107.mntrans18	,	G
-Defect_Open_601	,	1	,	xdut.xi7.net014	,	xdut.xi7.xi107.mptrans17	,	G
-Defect_Open_602	,	1	,	xdut.xi7.net050	,	xdut.xi7.xi107.mptrans16	,	G
-Defect_Open_603	,	1	,	xdut.enable	,	xdut.xi7.xi94.mptrans15	,	G
-Defect_Open_604	,	1	,	xdut.xi7.xi94.net24	,	xdut.xi7.xi94.mptrans14	,	G
-Defect_Open_605	,	1	,	xdut.enable	,	xdut.xi7.xi94.mntrans13	,	G
-Defect_Open_606	,	1	,	xdut.xi7.xi94.net24	,	xdut.xi7.xi94.mntrans12	,	G
-Defect_Open_607	,	1	,	vss!	,	xdut.xi7.xi72.xi146.mptrans10	,	G
-Defect_Open_608	,	1	,	vdda_pulsed	,	xdut.xi7.xi72.xi146.mntrans11	,	G
-Defect_Open_609	,	1	,	xdut.xi7.net068	,	xdut.xi7.xi72.xi47.mptrans10	,	G
-Defect_Open_610	,	1	,	xdut.xi7.net068	,	xdut.xi7.xi72.xi47.mntrans11	,	G
-Defect_Open_611	,	1	,	xdut.xi7.xi72.net14	,	xdut.xi7.xi72.xi48.mptrans10	,	G
-Defect_Open_612	,	1	,	xdut.xi7.xi72.net14	,	xdut.xi7.xi72.xi48.mntrans11	,	G
-Defect_Open_613	,	1	,	xdut.xi7.xi72.net11	,	xdut.xi7.xi72.xi35.mptrans10	,	G
-Defect_Open_614	,	1	,	xdut.xi7.xi72.net11	,	xdut.xi7.xi72.xi35.mntrans11	,	G
-Defect_Open_615	,	1	,	xdut.xi7.xi72.net9	,	xdut.xi7.xi72.xi34.mptrans10	,	G
-Defect_Open_616	,	1	,	xdut.xi7.xi72.net9	,	xdut.xi7.xi72.xi34.mntrans11	,	G
-Defect_Open_617	,	1	,	xdut.xi7.net068	,	xdut.xi7.xi72.xi49.mptrans10	,	G
-Defect_Open_618	,	1	,	xdut.xi7.net068	,	xdut.xi7.xi72.xi49.mntrans11	,	G
-Defect_Open_619	,	1	,	xdut.xi7.xi72.net9	,	xdut.xi7.xi72.xi31.mptrans10	,	G
-Defect_Open_620	,	1	,	xdut.xi7.xi72.net9	,	xdut.xi7.xi72.xi31.mntrans11	,	G
-Defect_Open_621	,	1	,	xdut.xi7.s1	,	xdut.xi7.xi72.xi30.mptrans10	,	G
-Defect_Open_622	,	1	,	xdut.xi7.s1	,	xdut.xi7.xi72.xi30.mntrans11	,	G
-Defect_Open_623	,	1	,	xdut.xi7.xi72.net11	,	xdut.xi7.xi72.xi33.mptrans10	,	G
-Defect_Open_624	,	1	,	xdut.xi7.xi72.net11	,	xdut.xi7.xi72.xi33.mntrans11	,	G
-Defect_Open_625	,	1	,	xdut.xi7.s1_n	,	xdut.xi7.xi72.xi27.mptrans10	,	G
-Defect_Open_626	,	1	,	xdut.xi7.s1_n	,	xdut.xi7.xi72.xi27.mntrans11	,	G
-Defect_Open_627	,	1	,	vss!	,	xdut.xi7.xi147.xi146.mptrans10	,	G
-Defect_Open_628	,	1	,	vdda_pulsed	,	xdut.xi7.xi147.xi146.mntrans11	,	G
-Defect_Open_629	,	1	,	xdut.xi7.net0105	,	xdut.xi7.xi147.xi47.mptrans10	,	G
-Defect_Open_630	,	1	,	xdut.xi7.net0105	,	xdut.xi7.xi147.xi47.mntrans11	,	G
-Defect_Open_631	,	1	,	xdut.xi7.xi147.net14	,	xdut.xi7.xi147.xi48.mptrans10	,	G
-Defect_Open_632	,	1	,	xdut.xi7.xi147.net14	,	xdut.xi7.xi147.xi48.mntrans11	,	G
-Defect_Open_633	,	1	,	xdut.xi7.xi147.net11	,	xdut.xi7.xi147.xi35.mptrans10	,	G
-Defect_Open_634	,	1	,	xdut.xi7.xi147.net11	,	xdut.xi7.xi147.xi35.mntrans11	,	G
-Defect_Open_635	,	1	,	xdut.xi7.xi147.net9	,	xdut.xi7.xi147.xi34.mptrans10	,	G
-Defect_Open_636	,	1	,	xdut.xi7.xi147.net9	,	xdut.xi7.xi147.xi34.mntrans11	,	G
-Defect_Open_637	,	1	,	xdut.xi7.net0105	,	xdut.xi7.xi147.xi49.mptrans10	,	G
-Defect_Open_638	,	1	,	xdut.xi7.net0105	,	xdut.xi7.xi147.xi49.mntrans11	,	G
-Defect_Open_639	,	1	,	xdut.xi7.xi147.net9	,	xdut.xi7.xi147.xi31.mptrans10	,	G
-Defect_Open_640	,	1	,	xdut.xi7.xi147.net9	,	xdut.xi7.xi147.xi31.mntrans11	,	G
-Defect_Open_641	,	1	,	xdut.xi7.s0	,	xdut.xi7.xi147.xi30.mptrans10	,	G
-Defect_Open_642	,	1	,	xdut.xi7.s0	,	xdut.xi7.xi147.xi30.mntrans11	,	G
-Defect_Open_643	,	1	,	xdut.xi7.xi147.net11	,	xdut.xi7.xi147.xi33.mptrans10	,	G
-Defect_Open_644	,	1	,	xdut.xi7.xi147.net11	,	xdut.xi7.xi147.xi33.mntrans11	,	G
-Defect_Open_645	,	1	,	xdut.xi7.s0_n	,	xdut.xi7.xi147.xi27.mptrans10	,	G
-Defect_Open_646	,	1	,	xdut.xi7.s0_n	,	xdut.xi7.xi147.xi27.mntrans11	,	G
-Defect_Open_647	,	1	,	xdut.feedback	,	xdut.m0	,	S
-Defect_Open_648	,	1	,	vss!	,	xdut.m35	,	S
-Defect_Open_649	,	1	,	ref	,	xdut.m2	,	S
-Defect_Open_650	,	1	,	vdda_pulsed	,	xdut.xi137.mptrans25	,	S
-Defect_Open_651	,	1	,	vdda_pulsed	,	xdut.xi137.mptrans24	,	S
-Defect_Open_652	,	1	,	vdda_pulsed	,	xdut.xi137.mptrans23	,	S
-Defect_Open_653	,	1	,	vss!	,	xdut.xi137.mntrans22	,	S
-Defect_Open_654	,	1	,	xdut.xi137.net32	,	xdut.xi137.mntrans21	,	S
-Defect_Open_655	,	1	,	vss!	,	xdut.xi137.mntrans20	,	S
-Defect_Open_656	,	1	,	vdda_pulsed	,	xdut.xi136.mptrans25	,	S
-Defect_Open_657	,	1	,	vdda_pulsed	,	xdut.xi136.mptrans24	,	S
-Defect_Open_658	,	1	,	vdda_pulsed	,	xdut.xi136.mptrans23	,	S
-Defect_Open_659	,	1	,	vss!	,	xdut.xi136.mntrans22	,	S
-Defect_Open_660	,	1	,	xdut.xi136.net32	,	xdut.xi136.mntrans21	,	S
-Defect_Open_661	,	1	,	vss!	,	xdut.xi136.mntrans20	,	S
-Defect_Open_662	,	1	,	xdut.xi72.net9	,	xdut.xi72.xi146.mptrans10	,	S
-Defect_Open_663	,	1	,	xdut.xi72.net9	,	xdut.xi72.xi146.mntrans11	,	S
-Defect_Open_664	,	1	,	vdda_pulsed	,	xdut.xi72.xi47.mptrans10	,	S
-Defect_Open_665	,	1	,	vss!	,	xdut.xi72.xi47.mntrans11	,	S
-Defect_Open_666	,	1	,	vdda_pulsed	,	xdut.xi72.xi48.mptrans10	,	S
-Defect_Open_667	,	1	,	vss!	,	xdut.xi72.xi48.mntrans11	,	S
-Defect_Open_668	,	1	,	vdda_pulsed	,	xdut.xi72.xi35.mptrans10	,	S
-Defect_Open_669	,	1	,	vss!	,	xdut.xi72.xi35.mntrans11	,	S
-Defect_Open_670	,	1	,	vdda_pulsed	,	xdut.xi72.xi34.mptrans10	,	S
-Defect_Open_671	,	1	,	vss!	,	xdut.xi72.xi34.mntrans11	,	S
-Defect_Open_672	,	1	,	vdda_pulsed	,	xdut.xi72.xi49.mptrans10	,	S
-Defect_Open_673	,	1	,	vss!	,	xdut.xi72.xi49.mntrans11	,	S
-Defect_Open_674	,	1	,	vdda_pulsed	,	xdut.xi72.xi31.mptrans10	,	S
-Defect_Open_675	,	1	,	vss!	,	xdut.xi72.xi31.mntrans11	,	S
-Defect_Open_676	,	1	,	vdda_pulsed	,	xdut.xi72.xi30.mptrans10	,	S
-Defect_Open_677	,	1	,	vss!	,	xdut.xi72.xi30.mntrans11	,	S
-Defect_Open_678	,	1	,	vdda_pulsed	,	xdut.xi72.xi33.mptrans10	,	S
-Defect_Open_679	,	1	,	vss!	,	xdut.xi72.xi33.mntrans11	,	S
-Defect_Open_680	,	1	,	vdda_pulsed	,	xdut.xi72.xi27.mptrans10	,	S
-Defect_Open_681	,	1	,	vss!	,	xdut.xi72.xi27.mntrans11	,	S
-Defect_Open_682	,	1	,	xdut.xi73.net9	,	xdut.xi73.xi146.mptrans10	,	S
-Defect_Open_683	,	1	,	xdut.xi73.net9	,	xdut.xi73.xi146.mntrans11	,	S
-Defect_Open_684	,	1	,	vdda_pulsed	,	xdut.xi73.xi47.mptrans10	,	S
-Defect_Open_685	,	1	,	vss!	,	xdut.xi73.xi47.mntrans11	,	S
-Defect_Open_686	,	1	,	vdda_pulsed	,	xdut.xi73.xi48.mptrans10	,	S
-Defect_Open_687	,	1	,	vss!	,	xdut.xi73.xi48.mntrans11	,	S
-Defect_Open_688	,	1	,	vdda_pulsed	,	xdut.xi73.xi35.mptrans10	,	S
-Defect_Open_689	,	1	,	vss!	,	xdut.xi73.xi35.mntrans11	,	S
-Defect_Open_690	,	1	,	vdda_pulsed	,	xdut.xi73.xi34.mptrans10	,	S
-Defect_Open_691	,	1	,	vss!	,	xdut.xi73.xi34.mntrans11	,	S
-Defect_Open_692	,	1	,	vdda_pulsed	,	xdut.xi73.xi49.mptrans10	,	S
-Defect_Open_693	,	1	,	vss!	,	xdut.xi73.xi49.mntrans11	,	S
-Defect_Open_694	,	1	,	vdda_pulsed	,	xdut.xi73.xi31.mptrans10	,	S
-Defect_Open_695	,	1	,	vss!	,	xdut.xi73.xi31.mntrans11	,	S
-Defect_Open_696	,	1	,	vdda_pulsed	,	xdut.xi73.xi30.mptrans10	,	S
-Defect_Open_697	,	1	,	vss!	,	xdut.xi73.xi30.mntrans11	,	S
-Defect_Open_698	,	1	,	vdda_pulsed	,	xdut.xi73.xi33.mptrans10	,	S
-Defect_Open_699	,	1	,	vss!	,	xdut.xi73.xi33.mntrans11	,	S
-Defect_Open_700	,	1	,	vdda_pulsed	,	xdut.xi73.xi27.mptrans10	,	S
-Defect_Open_701	,	1	,	vss!	,	xdut.xi73.xi27.mntrans11	,	S
-Defect_Open_702	,	1	,	vss!	,	xdut.xi74.m22	,	S
-Defect_Open_703	,	1	,	vss!	,	xdut.xi74.m13	,	S
-Defect_Open_704	,	1	,	vss!	,	xdut.xi74.m12	,	S
-Defect_Open_705	,	1	,	vss!	,	xdut.xi74.m21	,	S
-Defect_Open_706	,	1	,	vss!	,	xdut.xi74.m20	,	S
-Defect_Open_707	,	1	,	vss!	,	xdut.xi74.m19	,	S
-Defect_Open_708	,	4	,	xdut.xi74.net11	,	xdut.xi74.m5	,	S
-Defect_Open_709	,	4	,	xdut.xi74.net11	,	xdut.xi74.m4	,	S
-Defect_Open_710	,	1	,	vdda_pulsed	,	xdut.xi74.m18	,	S
-Defect_Open_711	,	1	,	vdda_pulsed	,	xdut.xi74.m17	,	S
-Defect_Open_712	,	1	,	vdda_pulsed	,	xdut.xi74.m6	,	S
-Defect_Open_713	,	1	,	vdda_pulsed	,	xdut.xi74.m2	,	S
-Defect_Open_714	,	2	,	vdda_pulsed	,	xdut.xi74.m9	,	S
-Defect_Open_715	,	2	,	vdda_pulsed	,	xdut.xi74.m10	,	S
-Defect_Open_716	,	1	,	vdda_pulsed	,	xdut.xi74.xi5.mptrans10	,	S
-Defect_Open_717	,	1	,	vss!	,	xdut.xi74.xi5.mntrans11	,	S
-Defect_Open_718	,	1	,	vss!	,	xdut.xi75.m22	,	S
-Defect_Open_719	,	1	,	vss!	,	xdut.xi75.m13	,	S
-Defect_Open_720	,	1	,	vss!	,	xdut.xi75.m12	,	S
-Defect_Open_721	,	1	,	vss!	,	xdut.xi75.m21	,	S
-Defect_Open_722	,	1	,	vss!	,	xdut.xi75.m20	,	S
-Defect_Open_723	,	1	,	vss!	,	xdut.xi75.m19	,	S
-Defect_Open_724	,	4	,	xdut.xi75.net11	,	xdut.xi75.m5	,	S
-Defect_Open_725	,	4	,	xdut.xi75.net11	,	xdut.xi75.m4	,	S
-Defect_Open_726	,	1	,	vdda_pulsed	,	xdut.xi75.m18	,	S
-Defect_Open_727	,	1	,	vdda_pulsed	,	xdut.xi75.m17	,	S
-Defect_Open_728	,	1	,	vdda_pulsed	,	xdut.xi75.m6	,	S
-Defect_Open_729	,	1	,	vdda_pulsed	,	xdut.xi75.m2	,	S
-Defect_Open_730	,	2	,	vdda_pulsed	,	xdut.xi75.m9	,	S
-Defect_Open_731	,	2	,	vdda_pulsed	,	xdut.xi75.m10	,	S
-Defect_Open_732	,	1	,	vdda_pulsed	,	xdut.xi75.xi5.mptrans10	,	S
-Defect_Open_733	,	1	,	vss!	,	xdut.xi75.xi5.mntrans11	,	S
-Defect_Open_734	,	1	,	vss!	,	xdut.xi62.mntrans27	,	S
-Defect_Open_735	,	1	,	vss!	,	xdut.xi62.mntrans26	,	S
-Defect_Open_736	,	1	,	vss!	,	xdut.xi62.mntrans25	,	S
-Defect_Open_737	,	1	,	xdut.xi62.net41	,	xdut.xi62.mptrans24	,	S
-Defect_Open_738	,	1	,	vdda_pulsed	,	xdut.xi62.mptrans23	,	S
-Defect_Open_739	,	1	,	vdda_pulsed	,	xdut.xi62.mptrans22	,	S
-Defect_Open_740	,	1	,	vss!	,	xdut.xi5.mntrans27	,	S
-Defect_Open_741	,	1	,	vss!	,	xdut.xi5.mntrans26	,	S
-Defect_Open_742	,	1	,	vss!	,	xdut.xi5.mntrans25	,	S
-Defect_Open_743	,	1	,	xdut.xi5.net41	,	xdut.xi5.mptrans24	,	S
-Defect_Open_744	,	1	,	vdda_pulsed	,	xdut.xi5.mptrans23	,	S
-Defect_Open_745	,	1	,	vdda_pulsed	,	xdut.xi5.mptrans22	,	S
-Defect_Open_746	,	1	,	vdda_pulsed	,	xdut.xi41.mptrans15	,	S
-Defect_Open_747	,	1	,	vdda_pulsed	,	xdut.xi41.mptrans14	,	S
-Defect_Open_748	,	1	,	vss!	,	xdut.xi41.mntrans13	,	S
-Defect_Open_749	,	1	,	vss!	,	xdut.xi41.mntrans12	,	S
-Defect_Open_750	,	1	,	vdda_pulsed	,	xdut.xi64.mptrans10	,	S
-Defect_Open_751	,	1	,	vss!	,	xdut.xi64.mntrans11	,	S
-Defect_Open_752	,	1	,	vdda_pulsed	,	xdut.xi65.mptrans10	,	S
-Defect_Open_753	,	1	,	vss!	,	xdut.xi65.mntrans11	,	S
-Defect_Open_754	,	1	,	vdda_pulsed	,	xdut.xi6.mptrans10	,	S
-Defect_Open_755	,	1	,	vss!	,	xdut.xi6.mntrans11	,	S
-Defect_Open_756	,	1	,	vdda_pulsed	,	xdut.xi63.mptrans38	,	S
-Defect_Open_757	,	1	,	vdda_pulsed	,	xdut.xi63.mptrans37	,	S
-Defect_Open_758	,	1	,	vss!	,	xdut.xi63.mntrans36	,	S
-Defect_Open_759	,	1	,	xdut.xi63.net25	,	xdut.xi63.mntrans35	,	S
-Defect_Open_760	,	1	,	vss!	,	xdut.xi8.m0	,	S
-Defect_Open_761	,	1	,	xdut.amp_out	,	xdut.xi8.m1	,	S
-Defect_Open_762	,	1	,	vss!	,	xdut.xi8.m4	,	S
-Defect_Open_763	,	1	,	xdut.gate	,	xdut.xi8.xi13.m4	,	S
-Defect_Open_764	,	1	,	xdut.xi8.net028	,	xdut.xi8.xi13.m3	,	S
-Defect_Open_765	,	1	,	xdut.xi8.net028	,	xdut.xi8.xi15.m4	,	S
-Defect_Open_766	,	1	,	xdut.amp_out	,	xdut.xi8.xi15.m3	,	S
-Defect_Open_767	,	1	,	xdut.gate	,	xdut.xi8.xi12.m4	,	S
-Defect_Open_768	,	1	,	xdut.xi8.net027	,	xdut.xi8.xi12.m3	,	S
-Defect_Open_769	,	1	,	xdut.xi8.net027	,	xdut.xi8.xi78.m4	,	S
-Defect_Open_770	,	1	,	xdut.amp_out	,	xdut.xi8.xi78.m3	,	S
-Defect_Open_771	,	1	,	vdda_pulsed	,	xdut.xi40.mptrans10	,	S
-Defect_Open_772	,	1	,	vss!	,	xdut.xi40.mntrans11	,	S
-Defect_Open_773	,	1	,	vdda_pulsed	,	xdut.xi9.m9	,	S
-Defect_Open_774	,	1	,	vdda_pulsed	,	xdut.xi9.m3	,	S
-Defect_Open_775	,	1	,	xdut.xi9.net07	,	xdut.xi9.m6	,	S
-Defect_Open_776	,	150	,	vdda_pulsed	,	xdut.xi9.m0	,	S
-Defect_Open_777	,	1	,	vss!	,	xdut.xi9.m7	,	S
-Defect_Open_778	,	1	,	vdda_pulsed	,	xdut.xi9.xi64.mptrans10	,	S
-Defect_Open_779	,	1	,	vss!	,	xdut.xi9.xi64.mntrans11	,	S
-Defect_Open_780	,	1	,	vdda_pulsed	,	xdut.xi32.xi8.mptrans38	,	S
-Defect_Open_781	,	1	,	vdda_pulsed	,	xdut.xi32.xi8.mptrans37	,	S
-Defect_Open_782	,	1	,	vss!	,	xdut.xi32.xi8.mntrans36	,	S
-Defect_Open_783	,	1	,	xdut.xi32.xi8.net25	,	xdut.xi32.xi8.mntrans35	,	S
-Defect_Open_784	,	1	,	vdda_pulsed	,	xdut.xi32.xi7.mptrans38	,	S
-Defect_Open_785	,	1	,	vdda_pulsed	,	xdut.xi32.xi7.mptrans37	,	S
-Defect_Open_786	,	1	,	vss!	,	xdut.xi32.xi7.mntrans36	,	S
-Defect_Open_787	,	1	,	xdut.xi32.xi7.net25	,	xdut.xi32.xi7.mntrans35	,	S
-Defect_Open_788	,	1	,	vdda_pulsed	,	xdut.xi32.xi6.mptrans38	,	S
-Defect_Open_789	,	1	,	vdda_pulsed	,	xdut.xi32.xi6.mptrans37	,	S
-Defect_Open_790	,	1	,	vss!	,	xdut.xi32.xi6.mntrans36	,	S
-Defect_Open_791	,	1	,	xdut.xi32.xi6.net25	,	xdut.xi32.xi6.mntrans35	,	S
-Defect_Open_792	,	1	,	vdda_pulsed	,	xdut.xi32.xi5.mptrans38	,	S
-Defect_Open_793	,	1	,	vdda_pulsed	,	xdut.xi32.xi5.mptrans37	,	S
-Defect_Open_794	,	1	,	vss!	,	xdut.xi32.xi5.mntrans36	,	S
-Defect_Open_795	,	1	,	xdut.xi32.xi5.net25	,	xdut.xi32.xi5.mntrans35	,	S
-Defect_Open_796	,	1	,	vss!	,	xdut.xi32.xi4.mntrans36	,	S
-Defect_Open_797	,	1	,	xdut.xi32.xi4.net25	,	xdut.xi32.xi4.mntrans35	,	S
-Defect_Open_798	,	1	,	vdda_pulsed	,	xdut.xi32.xi3.mptrans38	,	S
-Defect_Open_799	,	1	,	vdda_pulsed	,	xdut.xi32.xi3.mptrans37	,	S
-Defect_Open_800	,	1	,	vss!	,	xdut.xi32.xi3.mntrans36	,	S
-Defect_Open_801	,	1	,	xdut.xi32.xi3.net25	,	xdut.xi32.xi3.mntrans35	,	S
-Defect_Open_802	,	1	,	vdda_pulsed	,	xdut.xi32.xi2.mptrans38	,	S
-Defect_Open_803	,	1	,	vdda_pulsed	,	xdut.xi32.xi2.mptrans37	,	S
-Defect_Open_804	,	1	,	vss!	,	xdut.xi32.xi2.mntrans36	,	S
-Defect_Open_805	,	1	,	xdut.xi32.xi2.net25	,	xdut.xi32.xi2.mntrans35	,	S
-Defect_Open_806	,	1	,	vdda_pulsed	,	xdut.xi32.xi1.mptrans38	,	S
-Defect_Open_807	,	1	,	vdda_pulsed	,	xdut.xi32.xi1.mptrans37	,	S
-Defect_Open_808	,	1	,	vss!	,	xdut.xi32.xi1.mntrans36	,	S
-Defect_Open_809	,	1	,	xdut.xi32.xi1.net25	,	xdut.xi32.xi1.mntrans35	,	S
-Defect_Open_810	,	1	,	vdda_pulsed	,	xdut.xi32.xi105.mptrans38	,	S
-Defect_Open_811	,	1	,	vdda_pulsed	,	xdut.xi32.xi105.mptrans37	,	S
-Defect_Open_812	,	1	,	vss!	,	xdut.xi32.xi105.mntrans36	,	S
-Defect_Open_813	,	1	,	xdut.xi32.xi105.net25	,	xdut.xi32.xi105.mntrans35	,	S
-Defect_Open_814	,	1	,	vdda_pulsed	,	xdut.xi68.xi8.mptrans38	,	S
-Defect_Open_815	,	1	,	vdda_pulsed	,	xdut.xi68.xi8.mptrans37	,	S
-Defect_Open_816	,	1	,	vss!	,	xdut.xi68.xi8.mntrans36	,	S
-Defect_Open_817	,	1	,	xdut.xi68.xi8.net25	,	xdut.xi68.xi8.mntrans35	,	S
-Defect_Open_818	,	1	,	vdda_pulsed	,	xdut.xi68.xi7.mptrans38	,	S
-Defect_Open_819	,	1	,	vdda_pulsed	,	xdut.xi68.xi7.mptrans37	,	S
-Defect_Open_820	,	1	,	vss!	,	xdut.xi68.xi7.mntrans36	,	S
-Defect_Open_821	,	1	,	xdut.xi68.xi7.net25	,	xdut.xi68.xi7.mntrans35	,	S
-Defect_Open_822	,	1	,	vdda_pulsed	,	xdut.xi68.xi6.mptrans38	,	S
-Defect_Open_823	,	1	,	vdda_pulsed	,	xdut.xi68.xi6.mptrans37	,	S
-Defect_Open_824	,	1	,	vss!	,	xdut.xi68.xi6.mntrans36	,	S
-Defect_Open_825	,	1	,	xdut.xi68.xi6.net25	,	xdut.xi68.xi6.mntrans35	,	S
-Defect_Open_826	,	1	,	vdda_pulsed	,	xdut.xi68.xi5.mptrans38	,	S
-Defect_Open_827	,	1	,	vdda_pulsed	,	xdut.xi68.xi5.mptrans37	,	S
-Defect_Open_828	,	1	,	vss!	,	xdut.xi68.xi5.mntrans36	,	S
-Defect_Open_829	,	1	,	xdut.xi68.xi5.net25	,	xdut.xi68.xi5.mntrans35	,	S
-Defect_Open_830	,	1	,	vss!	,	xdut.xi68.xi4.mntrans36	,	S
-Defect_Open_831	,	1	,	xdut.xi68.xi4.net25	,	xdut.xi68.xi4.mntrans35	,	S
-Defect_Open_832	,	1	,	vdda_pulsed	,	xdut.xi68.xi3.mptrans38	,	S
-Defect_Open_833	,	1	,	vdda_pulsed	,	xdut.xi68.xi3.mptrans37	,	S
-Defect_Open_834	,	1	,	vss!	,	xdut.xi68.xi3.mntrans36	,	S
-Defect_Open_835	,	1	,	xdut.xi68.xi3.net25	,	xdut.xi68.xi3.mntrans35	,	S
-Defect_Open_836	,	1	,	vdda_pulsed	,	xdut.xi68.xi2.mptrans38	,	S
-Defect_Open_837	,	1	,	vdda_pulsed	,	xdut.xi68.xi2.mptrans37	,	S
-Defect_Open_838	,	1	,	vss!	,	xdut.xi68.xi2.mntrans36	,	S
-Defect_Open_839	,	1	,	xdut.xi68.xi2.net25	,	xdut.xi68.xi2.mntrans35	,	S
-Defect_Open_840	,	1	,	vdda_pulsed	,	xdut.xi68.xi1.mptrans38	,	S
-Defect_Open_841	,	1	,	vdda_pulsed	,	xdut.xi68.xi1.mptrans37	,	S
-Defect_Open_842	,	1	,	vss!	,	xdut.xi68.xi1.mntrans36	,	S
-Defect_Open_843	,	1	,	xdut.xi68.xi1.net25	,	xdut.xi68.xi1.mntrans35	,	S
-Defect_Open_844	,	1	,	vdda_pulsed	,	xdut.xi68.xi105.mptrans38	,	S
-Defect_Open_845	,	1	,	vdda_pulsed	,	xdut.xi68.xi105.mptrans37	,	S
-Defect_Open_846	,	1	,	vss!	,	xdut.xi68.xi105.mntrans36	,	S
-Defect_Open_847	,	1	,	xdut.xi68.xi105.net25	,	xdut.xi68.xi105.mntrans35	,	S
-Defect_Open_848	,	1	,	xdut.xi7.net070	,	xdut.xi7.m2	,	S
-Defect_Open_849	,	1	,	vdda_pulsed	,	xdut.xi7.m16	,	S
-Defect_Open_850	,	1	,	vdda_pulsed	,	xdut.xi7.m14	,	S
-Defect_Open_851	,	1	,	vdda_pulsed	,	xdut.xi7.m13	,	S
-Defect_Open_852	,	1	,	vdda_pulsed	,	xdut.xi7.m12	,	S
-Defect_Open_853	,	1	,	vdda_pulsed	,	xdut.xi7.m3	,	S
-Defect_Open_854	,	1	,	vdda_pulsed	,	xdut.xi7.m1	,	S
-Defect_Open_855	,	20	,	vdda_pulsed	,	xdut.xi7.m11	,	S
-Defect_Open_856	,	1	,	vss!	,	xdut.xi7.m47	,	S
-Defect_Open_857	,	1	,	vss!	,	xdut.xi7.m46	,	S
-Defect_Open_858	,	1	,	vss!	,	xdut.xi7.mn13	,	S
-Defect_Open_859	,	1	,	vss!	,	xdut.xi7.m45	,	S
-Defect_Open_860	,	1	,	vss!	,	xdut.xi7.m33	,	S
-Defect_Open_861	,	1	,	vss!	,	xdut.xi7.m44	,	S
-Defect_Open_862	,	1	,	xdut.amp_out	,	xdut.xi7.m35	,	S
-Defect_Open_863	,	1	,	xdut.xi7.vb_n	,	xdut.xi7.mn17	,	S
-Defect_Open_864	,	1	,	vss!	,	xdut.xi7.m43	,	S
-Defect_Open_865	,	4	,	xdut.xi7.net011	,	xdut.xi7.m5	,	S
-Defect_Open_866	,	1	,	vss!	,	xdut.xi7.m38	,	S
-Defect_Open_867	,	1	,	xdut.xi7.net021	,	xdut.xi7.m34	,	S
-Defect_Open_868	,	4	,	xdut.xi7.net011	,	xdut.xi7.m4	,	S
-Defect_Open_869	,	1	,	vss!	,	xdut.xi7.m49	,	S
-Defect_Open_870	,	10	,	vss!	,	xdut.xi7.m50	,	S
-Defect_Open_871	,	10	,	xdut.xi7.net033	,	xdut.xi7.m51	,	S
-Defect_Open_872	,	1	,	vss!	,	xdut.xi7.m48	,	S
-Defect_Open_873	,	1	,	xdut.xi7.net049	,	xdut.xi7.xi82.m4	,	S
-Defect_Open_874	,	1	,	xdut.vref	,	xdut.xi7.xi82.m3	,	S
-Defect_Open_875	,	1	,	xdut.xi7.net063	,	xdut.xi7.xi84.m4	,	S
-Defect_Open_876	,	1	,	xdut.feedback	,	xdut.xi7.xi84.m3	,	S
-Defect_Open_877	,	1	,	xdut.xi7.net063	,	xdut.xi7.xi83.m4	,	S
-Defect_Open_878	,	1	,	xdut.vref	,	xdut.xi7.xi83.m3	,	S
-Defect_Open_879	,	1	,	xdut.xi7.net076	,	xdut.xi7.xi78.m4	,	S
-Defect_Open_880	,	1	,	xdut.xi7.net078	,	xdut.xi7.xi78.m3	,	S
-Defect_Open_881	,	1	,	xdut.xi7.net0117	,	xdut.xi7.xi80.m4	,	S
-Defect_Open_882	,	1	,	xdut.xi7.net076	,	xdut.xi7.xi80.m3	,	S
-Defect_Open_883	,	1	,	xdut.xi7.net019	,	xdut.xi7.xi79.m4	,	S
-Defect_Open_884	,	1	,	xdut.xi7.net078	,	xdut.xi7.xi79.m3	,	S
-Defect_Open_885	,	1	,	xdut.xi7.net0117	,	xdut.xi7.xi81.m4	,	S
-Defect_Open_886	,	1	,	xdut.xi7.net019	,	xdut.xi7.xi81.m3	,	S
-Defect_Open_887	,	1	,	xdut.xi7.net049	,	xdut.xi7.xi85.m4	,	S
-Defect_Open_888	,	1	,	xdut.feedback	,	xdut.xi7.xi85.m3	,	S
-Defect_Open_889	,	1	,	vdda_pulsed	,	xdut.xi7.xi118.mptrans15	,	S
-Defect_Open_890	,	1	,	vdda_pulsed	,	xdut.xi7.xi118.mp10	,	S
-Defect_Open_891	,	1	,	vss!	,	xdut.xi7.xi118.mntrans13	,	S
-Defect_Open_892	,	1	,	vss!	,	xdut.xi7.xi118.mn10	,	S
-Defect_Open_893	,	1	,	vdda_pulsed	,	xdut.xi7.xi119.mptrans15	,	S
-Defect_Open_894	,	1	,	vdda_pulsed	,	xdut.xi7.xi119.mp10	,	S
-Defect_Open_895	,	1	,	vss!	,	xdut.xi7.xi119.mntrans13	,	S
-Defect_Open_896	,	1	,	vss!	,	xdut.xi7.xi119.mn10	,	S
-Defect_Open_897	,	1	,	vdda_pulsed	,	xdut.xi7.xi136.mptrans25	,	S
-Defect_Open_898	,	1	,	vdda_pulsed	,	xdut.xi7.xi136.mptrans24	,	S
-Defect_Open_899	,	1	,	vdda_pulsed	,	xdut.xi7.xi136.mptrans23	,	S
-Defect_Open_900	,	1	,	vss!	,	xdut.xi7.xi136.mntrans22	,	S
-Defect_Open_901	,	1	,	xdut.xi7.xi136.net32	,	xdut.xi7.xi136.mntrans21	,	S
-Defect_Open_902	,	1	,	vss!	,	xdut.xi7.xi136.mntrans20	,	S
-Defect_Open_903	,	1	,	vdda_pulsed	,	xdut.xi7.xi137.mptrans25	,	S
-Defect_Open_904	,	1	,	vdda_pulsed	,	xdut.xi7.xi137.mptrans24	,	S
-Defect_Open_905	,	1	,	vdda_pulsed	,	xdut.xi7.xi137.mptrans23	,	S
-Defect_Open_906	,	1	,	vss!	,	xdut.xi7.xi137.mntrans22	,	S
-Defect_Open_907	,	1	,	xdut.xi7.xi137.net32	,	xdut.xi7.xi137.mntrans21	,	S
-Defect_Open_908	,	1	,	vss!	,	xdut.xi7.xi137.mntrans20	,	S
-Defect_Open_909	,	1	,	vdda_pulsed	,	xdut.xi7.xi143.mptrans10	,	S
-Defect_Open_910	,	1	,	vss!	,	xdut.xi7.xi143.mntrans11	,	S
-Defect_Open_911	,	1	,	vdda_pulsed	,	xdut.xi7.xi92.mptrans10	,	S
-Defect_Open_912	,	1	,	vss!	,	xdut.xi7.xi92.mntrans11	,	S
-Defect_Open_913	,	1	,	vss!	,	xdut.xi7.xi106.mntrans19	,	S
-Defect_Open_914	,	1	,	vss!	,	xdut.xi7.xi106.mntrans18	,	S
-Defect_Open_915	,	1	,	xdut.xi7.xi106.net27	,	xdut.xi7.xi106.mptrans17	,	S
-Defect_Open_916	,	1	,	vdda_pulsed	,	xdut.xi7.xi106.mptrans16	,	S
-Defect_Open_917	,	1	,	vss!	,	xdut.xi7.xi107.mntrans19	,	S
-Defect_Open_918	,	1	,	vss!	,	xdut.xi7.xi107.mntrans18	,	S
-Defect_Open_919	,	1	,	xdut.xi7.xi107.net27	,	xdut.xi7.xi107.mptrans17	,	S
-Defect_Open_920	,	1	,	vdda_pulsed	,	xdut.xi7.xi107.mptrans16	,	S
-Defect_Open_921	,	1	,	vdda_pulsed	,	xdut.xi7.xi94.mptrans15	,	S
-Defect_Open_922	,	1	,	vdda_pulsed	,	xdut.xi7.xi94.mptrans14	,	S
-Defect_Open_923	,	1	,	vss!	,	xdut.xi7.xi94.mntrans13	,	S
-Defect_Open_924	,	1	,	vss!	,	xdut.xi7.xi94.mntrans12	,	S
-Defect_Open_925	,	1	,	xdut.xi7.xi72.net9	,	xdut.xi7.xi72.xi146.mptrans10	,	S
-Defect_Open_926	,	1	,	xdut.xi7.xi72.net9	,	xdut.xi7.xi72.xi146.mntrans11	,	S
-Defect_Open_927	,	1	,	vdda_pulsed	,	xdut.xi7.xi72.xi47.mptrans10	,	S
-Defect_Open_928	,	1	,	vss!	,	xdut.xi7.xi72.xi47.mntrans11	,	S
-Defect_Open_929	,	1	,	vdda_pulsed	,	xdut.xi7.xi72.xi48.mptrans10	,	S
-Defect_Open_930	,	1	,	vss!	,	xdut.xi7.xi72.xi48.mntrans11	,	S
-Defect_Open_931	,	1	,	vdda_pulsed	,	xdut.xi7.xi72.xi35.mptrans10	,	S
-Defect_Open_932	,	1	,	vss!	,	xdut.xi7.xi72.xi35.mntrans11	,	S
-Defect_Open_933	,	1	,	vdda_pulsed	,	xdut.xi7.xi72.xi34.mptrans10	,	S
-Defect_Open_934	,	1	,	vss!	,	xdut.xi7.xi72.xi34.mntrans11	,	S
-Defect_Open_935	,	1	,	vdda_pulsed	,	xdut.xi7.xi72.xi49.mptrans10	,	S
-Defect_Open_936	,	1	,	vss!	,	xdut.xi7.xi72.xi49.mntrans11	,	S
-Defect_Open_937	,	1	,	vdda_pulsed	,	xdut.xi7.xi72.xi31.mptrans10	,	S
-Defect_Open_938	,	1	,	vss!	,	xdut.xi7.xi72.xi31.mntrans11	,	S
-Defect_Open_939	,	1	,	vdda_pulsed	,	xdut.xi7.xi72.xi30.mptrans10	,	S
-Defect_Open_940	,	1	,	vss!	,	xdut.xi7.xi72.xi30.mntrans11	,	S
-Defect_Open_941	,	1	,	vdda_pulsed	,	xdut.xi7.xi72.xi33.mptrans10	,	S
-Defect_Open_942	,	1	,	vss!	,	xdut.xi7.xi72.xi33.mntrans11	,	S
-Defect_Open_943	,	1	,	vdda_pulsed	,	xdut.xi7.xi72.xi27.mptrans10	,	S
-Defect_Open_944	,	1	,	vss!	,	xdut.xi7.xi72.xi27.mntrans11	,	S
-Defect_Open_945	,	1	,	xdut.xi7.xi147.net9	,	xdut.xi7.xi147.xi146.mptrans10	,	S
-Defect_Open_946	,	1	,	xdut.xi7.xi147.net9	,	xdut.xi7.xi147.xi146.mntrans11	,	S
-Defect_Open_947	,	1	,	vdda_pulsed	,	xdut.xi7.xi147.xi47.mptrans10	,	S
-Defect_Open_948	,	1	,	vss!	,	xdut.xi7.xi147.xi47.mntrans11	,	S
-Defect_Open_949	,	1	,	vdda_pulsed	,	xdut.xi7.xi147.xi48.mptrans10	,	S
-Defect_Open_950	,	1	,	vss!	,	xdut.xi7.xi147.xi48.mntrans11	,	S
-Defect_Open_951	,	1	,	vdda_pulsed	,	xdut.xi7.xi147.xi35.mptrans10	,	S
-Defect_Open_952	,	1	,	vss!	,	xdut.xi7.xi147.xi35.mntrans11	,	S
-Defect_Open_953	,	1	,	vdda_pulsed	,	xdut.xi7.xi147.xi34.mptrans10	,	S
-Defect_Open_954	,	1	,	vss!	,	xdut.xi7.xi147.xi34.mntrans11	,	S
-Defect_Open_955	,	1	,	vdda_pulsed	,	xdut.xi7.xi147.xi49.mptrans10	,	S
-Defect_Open_956	,	1	,	vss!	,	xdut.xi7.xi147.xi49.mntrans11	,	S
-Defect_Open_957	,	1	,	vdda_pulsed	,	xdut.xi7.xi147.xi31.mptrans10	,	S
-Defect_Open_958	,	1	,	vss!	,	xdut.xi7.xi147.xi31.mntrans11	,	S
-Defect_Open_959	,	1	,	vdda_pulsed	,	xdut.xi7.xi147.xi30.mptrans10	,	S
-Defect_Open_960	,	1	,	vss!	,	xdut.xi7.xi147.xi30.mntrans11	,	S
-Defect_Open_961	,	1	,	vdda_pulsed	,	xdut.xi7.xi147.xi33.mptrans10	,	S
-Defect_Open_962	,	1	,	vss!	,	xdut.xi7.xi147.xi33.mntrans11	,	S
-Defect_Open_963	,	1	,	vdda_pulsed	,	xdut.xi7.xi147.xi27.mptrans10	,	S
-Defect_Open_964	,	1	,	vss!	,	xdut.xi7.xi147.xi27.mntrans11	,	S
-Defect_Open_965	,	1	,	xdut.xi32.net7	,	xdut.xi32.xi4.mptrans37	,	D
-Defect_Open_966	,	1	,	xdut.xi32.net7	,	xdut.xi32.xi4.mptrans38	,	D
-Defect_Open_967	,	1	,	vdda_pulsed	,	xdut.xi32.xi4.mptrans37	,	S
-Defect_Open_968	,	1	,	vdda_pulsed	,	xdut.xi32.xi4.mptrans38	,	S
-Defect_Open_969	,	1	,	xdut.xi68.net7	,	xdut.xi68.xi4.mptrans37	,	D
-Defect_Open_970	,	1	,	xdut.xi68.net7	,	xdut.xi68.xi4.mptrans38	,	D
-Defect_Open_971	,	1	,	vdda_pulsed	,	xdut.xi68.xi4.mptrans37	,	S
-Defect_Open_972	,	1	,	vdda_pulsed	,	xdut.xi68.xi4.mptrans38	,	S
-Defect_Open_973	,	1	,	vss!	,	xdut.xi7.xi118.mn3	,	D
-Defect_Open_974	,	1	,	vss!	,	xdut.xi7.xi118.mn0	,	D
-Defect_Open_975	,	1	,	vss!	,	xdut.xi7.xi118.mn3	,	S
-Defect_Open_976	,	1	,	vss!	,	xdut.xi7.xi118.mn0	,	S
-Defect_Open_977	,	1	,	vdda_pulsed	,	xdut.xi7.xi118.mp3	,	D
-Defect_Open_978	,	1	,	vdda_pulsed	,	xdut.xi7.xi118.mp0	,	D
-Defect_Open_979	,	1	,	vdda_pulsed	,	xdut.xi7.xi118.mp3	,	S
-Defect_Open_980	,	1	,	vdda_pulsed	,	xdut.xi7.xi118.mp0	,	S
-Defect_Open_981	,	2	,	xdut.xi9.net011	,	xdut.xi9.m1<1>	,	D
-Defect_Open_982	,	2	,	xdut.xi9.net011	,	xdut.xi9.m1<2>	,	D
-Defect_Open_983	,	2	,	xdut.xi9.net011	,	xdut.xi9.m1<3>	,	D
-Defect_Open_984	,	2	,	xdut.xi9.net011	,	xdut.xi9.m1<4>	,	D
-Defect_Open_985	,	2	,	xdut.xi9.net011	,	xdut.xi9.m1<5>	,	D
-Defect_Open_986	,	2	,	xdut.xi9.net011	,	xdut.xi9.m1<6>	,	D
-Defect_Open_987	,	2	,	xdut.xi9.net011	,	xdut.xi9.m1<7>	,	D
-Defect_Open_988	,	2	,	xdut.xi9.net011	,	xdut.xi9.m1<8>	,	D
-Defect_Open_989	,	2	,	xdut.xi9.net011	,	xdut.xi9.m1<9>	,	D
-Defect_Open_990	,	2	,	xdut.xi9.net011	,	xdut.xi9.m1<10>	,	D
-Defect_Open_991	,	2	,	xdut.xi9.net011	,	xdut.xi9.m1<11>	,	D
-Defect_Open_992	,	2	,	xdut.xi9.net011	,	xdut.xi9.m1<12>	,	D
-Defect_Open_993	,	1	,	vss!	,	xdut.xi7.xi119.mn3	,	D
-Defect_Open_994	,	1	,	vss!	,	xdut.xi7.xi119.mn0	,	D
-Defect_Open_995	,	2	,	vout	,	xdut.xi9.m1<1>	,	S
-Defect_Open_996	,	2	,	vout	,	xdut.xi9.m1<2>	,	S
-Defect_Open_997	,	2	,	vout	,	xdut.xi9.m1<3>	,	S
-Defect_Open_998	,	2	,	vout	,	xdut.xi9.m1<4>	,	S
-Defect_Open_999	,	2	,	vout	,	xdut.xi9.m1<5>	,	S
-Defect_Open_1000	,	2	,	vout	,	xdut.xi9.m1<6>	,	S
-Defect_Open_1001	,	2	,	vout	,	xdut.xi9.m1<7>	,	S
-Defect_Open_1002	,	2	,	vout	,	xdut.xi9.m1<8>	,	S
-Defect_Open_1003	,	2	,	vout	,	xdut.xi9.m1<9>	,	S
-Defect_Open_1004	,	2	,	vout	,	xdut.xi9.m1<10>	,	S
-Defect_Open_1005	,	2	,	vout	,	xdut.xi9.m1<11>	,	S
-Defect_Open_1006	,	2	,	vout	,	xdut.xi9.m1<12>	,	S
-Defect_Open_1007	,	1	,	vss!	,	xdut.xi7.xi119.mn3	,	S
-Defect_Open_1008	,	1	,	vss!	,	xdut.xi7.xi119.mn0	,	S
-Defect_Open_1009	,	1	,	xdut.net13	,	xdut.xi32.xi4.mptrans37	,	G
-Defect_Open_1010	,	1	,	xdut.net13	,	xdut.xi32.xi4.mptrans38	,	G
-Defect_Open_1011	,	1	,	vdda_pulsed	,	xdut.xi7.xi119.mp3	,	D
-Defect_Open_1012	,	1	,	vdda_pulsed	,	xdut.xi7.xi119.mp0	,	D
-Defect_Open_1013	,	1	,	vdda_pulsed	,	xdut.xi7.xi119.mp3	,	S
-Defect_Open_1014	,	1	,	vdda_pulsed	,	xdut.xi7.xi119.mp0	,	S
-Defect_Open_1015	,	1	,	xdut.net14	,	xdut.xi68.xi4.mptrans37	,	G
-Defect_Open_1016	,	1	,	xdut.net14	,	xdut.xi68.xi4.mptrans38	,	G
-Defect_Open_1017	,	1	,	xdut.xi7.xi118.net031	,	xdut.xi7.xi118.mn3	,	G
-Defect_Open_1018	,	1	,	xdut.xi7.xi118.net031	,	xdut.xi7.xi118.mn0	,	G
-Defect_Open_1019	,	1	,	xdut.xi7.net0117	,	xdut.xi7.c3	,	1
-Defect_Open_1020	,	1	,	xdut.xi7.net0117	,	xdut.xi7.c1	,	1
-Defect_Open_1021	,	1	,	xdut.xi7.xi118.net031	,	xdut.xi7.xi118.mp3	,	G
-Defect_Open_1022	,	1	,	xdut.xi7.xi118.net031	,	xdut.xi7.xi118.mp0	,	G
-Defect_Open_1023	,	2	,	xdut.gate	,	xdut.xi9.m1<1>	,	G
-Defect_Open_1024	,	2	,	xdut.gate	,	xdut.xi9.m1<2>	,	G
-Defect_Open_1025	,	2	,	xdut.gate	,	xdut.xi9.m1<3>	,	G
-Defect_Open_1026	,	2	,	xdut.gate	,	xdut.xi9.m1<4>	,	G
-Defect_Open_1027	,	2	,	xdut.gate	,	xdut.xi9.m1<5>	,	G
-Defect_Open_1028	,	2	,	xdut.gate	,	xdut.xi9.m1<6>	,	G
-Defect_Open_1029	,	2	,	xdut.gate	,	xdut.xi9.m1<7>	,	G
-Defect_Open_1030	,	2	,	xdut.gate	,	xdut.xi9.m1<8>	,	G
-Defect_Open_1031	,	2	,	xdut.gate	,	xdut.xi9.m1<9>	,	G
-Defect_Open_1032	,	2	,	xdut.gate	,	xdut.xi9.m1<10>	,	G
-Defect_Open_1033	,	2	,	xdut.gate	,	xdut.xi9.m1<11>	,	G
-Defect_Open_1034	,	2	,	xdut.gate	,	xdut.xi9.m1<12>	,	G
-Defect_Open_1035	,	1	,	xdut.xi7.xi119.net031	,	xdut.xi7.xi119.mn3	,	G
-Defect_Open_1036	,	1	,	xdut.xi7.xi119.net031	,	xdut.xi7.xi119.mn0	,	G
-Defect_Open_1037	,	1	,	xdut.xi7.xi119.net031	,	xdut.xi7.xi119.mp3	,	G
-Defect_Open_1038	,	1	,	xdut.xi7.xi119.net031	,	xdut.xi7.xi119.mp0	,	G
+* Disclaimer:						
+* THIS FILE IS PROVIDED AS IS AND WITH:						
+* (A)  NO WARRANTY OF ANY KIND, express, implied or statutory, including any implied warranties of merchantability, fitness for a particular purpose and noninfringement, which Infineon disclaims to the maximum extent permitted by applicable law; and						
+* (B)  NO INDEMNIFICATION FOR INFRINGEMENT OF INTELLECTUAL PROPERTY RIGHTS.						
+* LIMITATION OF LIABILITY:  IN NO EVENT SHALL INFINEON BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES (INCLUDING LOST PROFITS OR SAVINGS) WHATSOEVER, WHETHER BASED ON CONTRACT, TORT OR 						
+* ANY OTHER LEGAL THEORY, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.						
+* © 2020 Infineon Technologies AG. All rights reserved						
+						
+Release:						
+	version 4.0						
+						
+						
+Tag	,	Net	,	Device	,	Terminal
+Defect_Open_1	,	xi83.feedback	,	xi83.c0	,	1
+Defect_Open_2	,	xi83.xi8.net027	,	xi83.xi8.c1	,	1
+Defect_Open_3	,	xi83.xi8.net028	,	xi83.xi8.c0	,	1
+Defect_Open_4	,	xi83.vth_h	,	xi83.r7	,	1
+Defect_Open_5	,	xi83.vth_l	,	xi83.r11	,	1
+Defect_Open_6	,	vdda_pulsed	,	xi83.r0	,	1
+Defect_Open_7	,	xi83.xi74.net11	,	xi83.xi74.r0	,	1
+Defect_Open_8	,	xi83.xi75.net11	,	xi83.xi75.r0	,	1
+Defect_Open_9	,	vout	,	xi83.xi9.r2	,	1
+Defect_Open_10	,	xi83.feedback	,	xi83.xi9.r3	,	1
+Defect_Open_11	,	xi83.amp_out	,	xi83.m0	,	D
+Defect_Open_12	,	xi83.vref	,	xi83.m35	,	D
+Defect_Open_13	,	xi83.vref	,	xi83.m2	,	D
+Defect_Open_14	,	xi83.net023	,	xi83.xi137.mptrans25	,	D
+Defect_Open_15	,	xi83.xi137.net39	,	xi83.xi137.mptrans24	,	D
+Defect_Open_16	,	xi83.xi137.net39	,	xi83.xi137.mptrans23	,	D
+Defect_Open_17	,	xi83.net023	,	xi83.xi137.mntrans22	,	D
+Defect_Open_18	,	xi83.xi137.net39	,	xi83.xi137.mntrans21	,	D
+Defect_Open_19	,	xi83.xi137.net32	,	xi83.xi137.mntrans20	,	D
+Defect_Open_20	,	xi83.net028	,	xi83.xi136.mptrans25	,	D
+Defect_Open_21	,	xi83.xi136.net39	,	xi83.xi136.mptrans24	,	D
+Defect_Open_22	,	xi83.xi136.net39	,	xi83.xi136.mptrans23	,	D
+Defect_Open_23	,	xi83.net028	,	xi83.xi136.mntrans22	,	D
+Defect_Open_24	,	xi83.xi136.net39	,	xi83.xi136.mntrans21	,	D
+Defect_Open_25	,	xi83.xi136.net32	,	xi83.xi136.mntrans20	,	D
+Defect_Open_26	,	xi83.xi72.net15	,	xi83.xi72.xi146.mptrans10	,	D
+Defect_Open_27	,	xi83.xi72.net15	,	xi83.xi72.xi146.mntrans11	,	D
+Defect_Open_28	,	xi83.xi72.net14	,	xi83.xi72.xi47.mptrans10	,	D
+Defect_Open_29	,	xi83.xi72.net14	,	xi83.xi72.xi47.mntrans11	,	D
+Defect_Open_30	,	xi83.xi72.net11	,	xi83.xi72.xi48.mptrans10	,	D
+Defect_Open_31	,	xi83.xi72.net11	,	xi83.xi72.xi48.mntrans11	,	D
+Defect_Open_32	,	xi83.s1_n	,	xi83.xi72.xi35.mptrans10	,	D
+Defect_Open_33	,	xi83.s1_n	,	xi83.xi72.xi35.mntrans11	,	D
+Defect_Open_34	,	xi83.s1	,	xi83.xi72.xi34.mptrans10	,	D
+Defect_Open_35	,	xi83.s1	,	xi83.xi72.xi34.mntrans11	,	D
+Defect_Open_36	,	xi83.xi72.net15	,	xi83.xi72.xi49.mptrans10	,	D
+Defect_Open_37	,	xi83.xi72.net15	,	xi83.xi72.xi49.mntrans11	,	D
+Defect_Open_38	,	xi83.xi72.net11	,	xi83.xi72.xi31.mptrans10	,	D
+Defect_Open_39	,	xi83.xi72.net11	,	xi83.xi72.xi31.mntrans11	,	D
+Defect_Open_40	,	xi83.s1_n	,	xi83.xi72.xi30.mptrans10	,	D
+Defect_Open_41	,	xi83.s1_n	,	xi83.xi72.xi30.mntrans11	,	D
+Defect_Open_42	,	xi83.xi72.net9	,	xi83.xi72.xi33.mptrans10	,	D
+Defect_Open_43	,	xi83.xi72.net9	,	xi83.xi72.xi33.mntrans11	,	D
+Defect_Open_44	,	xi83.s1	,	xi83.xi72.xi27.mptrans10	,	D
+Defect_Open_45	,	xi83.s1	,	xi83.xi72.xi27.mntrans11	,	D
+Defect_Open_46	,	xi83.xi73.net15	,	xi83.xi73.xi146.mptrans10	,	D
+Defect_Open_47	,	xi83.xi73.net15	,	xi83.xi73.xi146.mntrans11	,	D
+Defect_Open_48	,	xi83.xi73.net14	,	xi83.xi73.xi47.mptrans10	,	D
+Defect_Open_49	,	xi83.xi73.net14	,	xi83.xi73.xi47.mntrans11	,	D
+Defect_Open_50	,	xi83.xi73.net11	,	xi83.xi73.xi48.mptrans10	,	D
+Defect_Open_51	,	xi83.xi73.net11	,	xi83.xi73.xi48.mntrans11	,	D
+Defect_Open_52	,	xi83.s0_n	,	xi83.xi73.xi35.mptrans10	,	D
+Defect_Open_53	,	xi83.s0_n	,	xi83.xi73.xi35.mntrans11	,	D
+Defect_Open_54	,	xi83.s0	,	xi83.xi73.xi34.mptrans10	,	D
+Defect_Open_55	,	xi83.s0	,	xi83.xi73.xi34.mntrans11	,	D
+Defect_Open_56	,	xi83.xi73.net15	,	xi83.xi73.xi49.mptrans10	,	D
+Defect_Open_57	,	xi83.xi73.net15	,	xi83.xi73.xi49.mntrans11	,	D
+Defect_Open_58	,	xi83.xi73.net11	,	xi83.xi73.xi31.mptrans10	,	D
+Defect_Open_59	,	xi83.xi73.net11	,	xi83.xi73.xi31.mntrans11	,	D
+Defect_Open_60	,	xi83.s0_n	,	xi83.xi73.xi30.mptrans10	,	D
+Defect_Open_61	,	xi83.s0_n	,	xi83.xi73.xi30.mntrans11	,	D
+Defect_Open_62	,	xi83.xi73.net9	,	xi83.xi73.xi33.mptrans10	,	D
+Defect_Open_63	,	xi83.xi73.net9	,	xi83.xi73.xi33.mntrans11	,	D
+Defect_Open_64	,	xi83.s0	,	xi83.xi73.xi27.mptrans10	,	D
+Defect_Open_65	,	xi83.s0	,	xi83.xi73.xi27.mntrans11	,	D
+Defect_Open_66	,	xi83.xi74.net011	,	xi83.xi74.m22	,	D
+Defect_Open_67	,	xi83.xi74.net017	,	xi83.xi74.m13	,	D
+Defect_Open_68	,	xi83.xi74.net022	,	xi83.xi74.m12	,	D
+Defect_Open_69	,	xi83.xi74.net013	,	xi83.xi74.m21	,	D
+Defect_Open_70	,	xi83.xi74.net017	,	xi83.xi74.m20	,	D
+Defect_Open_71	,	xi83.xi74.net022	,	xi83.xi74.m19	,	D
+Defect_Open_72	,	xi83.xi74.net012	,	xi83.xi74.m5	,	D
+Defect_Open_73	,	xi83.xi74.net018	,	xi83.xi74.m4	,	D
+Defect_Open_74	,	xi83.xi74.net013	,	xi83.xi74.m18	,	D
+Defect_Open_75	,	xi83.xi74.net011	,	xi83.xi74.m17	,	D
+Defect_Open_76	,	xi83.xi74.net018	,	xi83.xi74.m6	,	D
+Defect_Open_77	,	xi83.xi74.net012	,	xi83.xi74.m2	,	D
+Defect_Open_78	,	xi83.xi74.net017	,	xi83.xi74.m9	,	D
+Defect_Open_79	,	xi83.xi74.net022	,	xi83.xi74.m10	,	D
+Defect_Open_80	,	xi83.net044	,	xi83.xi74.xi5.mptrans10	,	D
+Defect_Open_81	,	xi83.net044	,	xi83.xi74.xi5.mntrans11	,	D
+Defect_Open_82	,	xi83.xi75.net011	,	xi83.xi75.m22	,	D
+Defect_Open_83	,	xi83.xi75.net017	,	xi83.xi75.m13	,	D
+Defect_Open_84	,	xi83.xi75.net022	,	xi83.xi75.m12	,	D
+Defect_Open_85	,	xi83.xi75.net013	,	xi83.xi75.m21	,	D
+Defect_Open_86	,	xi83.xi75.net017	,	xi83.xi75.m20	,	D
+Defect_Open_87	,	xi83.xi75.net022	,	xi83.xi75.m19	,	D
+Defect_Open_88	,	xi83.xi75.net012	,	xi83.xi75.m5	,	D
+Defect_Open_89	,	xi83.xi75.net018	,	xi83.xi75.m4	,	D
+Defect_Open_90	,	xi83.xi75.net013	,	xi83.xi75.m18	,	D
+Defect_Open_91	,	xi83.xi75.net011	,	xi83.xi75.m17	,	D
+Defect_Open_92	,	xi83.xi75.net018	,	xi83.xi75.m6	,	D
+Defect_Open_93	,	xi83.xi75.net012	,	xi83.xi75.m2	,	D
+Defect_Open_94	,	xi83.xi75.net017	,	xi83.xi75.m9	,	D
+Defect_Open_95	,	xi83.xi75.net022	,	xi83.xi75.m10	,	D
+Defect_Open_96	,	xi83.net045	,	xi83.xi75.xi5.mptrans10	,	D
+Defect_Open_97	,	xi83.net045	,	xi83.xi75.xi5.mntrans11	,	D
+Defect_Open_98	,	xi83.xi62.net26	,	xi83.xi62.mntrans27	,	D
+Defect_Open_99	,	xi83.xi62.net26	,	xi83.xi62.mntrans26	,	D
+Defect_Open_100	,	xi83.err	,	xi83.xi62.mntrans25	,	D
+Defect_Open_101	,	xi83.xi62.net26	,	xi83.xi62.mptrans24	,	D
+Defect_Open_102	,	xi83.xi62.net41	,	xi83.xi62.mptrans23	,	D
+Defect_Open_103	,	xi83.err	,	xi83.xi62.mptrans22	,	D
+Defect_Open_104	,	xi83.xi5.net26	,	xi83.xi5.mntrans27	,	D
+Defect_Open_105	,	xi83.xi5.net26	,	xi83.xi5.mntrans26	,	D
+Defect_Open_106	,	xi83.disable	,	xi83.xi5.mntrans25	,	D
+Defect_Open_107	,	xi83.xi5.net26	,	xi83.xi5.mptrans24	,	D
+Defect_Open_108	,	xi83.xi5.net41	,	xi83.xi5.mptrans23	,	D
+Defect_Open_109	,	xi83.disable	,	xi83.xi5.mptrans22	,	D
+Defect_Open_110	,	xi83.xi41.net24	,	xi83.xi41.mptrans15	,	D
+Defect_Open_111	,	xi83.net14	,	xi83.xi41.mptrans14	,	D
+Defect_Open_112	,	xi83.xi41.net24	,	xi83.xi41.mntrans13	,	D
+Defect_Open_113	,	xi83.net14	,	xi83.xi41.mntrans12	,	D
+Defect_Open_114	,	undervoltage	,	xi83.xi64.mptrans10	,	D
+Defect_Open_115	,	undervoltage	,	xi83.xi64.mntrans11	,	D
+Defect_Open_116	,	overvoltage	,	xi83.xi65.mptrans10	,	D
+Defect_Open_117	,	overvoltage	,	xi83.xi65.mntrans11	,	D
+Defect_Open_118	,	xi83.enable	,	xi83.xi6.mptrans10	,	D
+Defect_Open_119	,	xi83.enable	,	xi83.xi6.mntrans11	,	D
+Defect_Open_120	,	xi83.net062	,	xi83.xi63.mptrans38	,	D
+Defect_Open_121	,	xi83.net062	,	xi83.xi63.mptrans37	,	D
+Defect_Open_122	,	xi83.xi63.net25	,	xi83.xi63.mntrans36	,	D
+Defect_Open_123	,	xi83.net062	,	xi83.xi63.mntrans35	,	D
+Defect_Open_124	,	xi83.xi8.net028	,	xi83.xi8.m0	,	D
+Defect_Open_125	,	xi83.gate	,	xi83.xi8.m1	,	D
+Defect_Open_126	,	xi83.xi8.net027	,	xi83.xi8.m4	,	D
+Defect_Open_127	,	xi83.xi8.net028	,	xi83.xi8.xi13.m4	,	D
+Defect_Open_128	,	xi83.gate	,	xi83.xi8.xi13.m3	,	D
+Defect_Open_129	,	xi83.amp_out	,	xi83.xi8.xi15.m4	,	D
+Defect_Open_130	,	xi83.xi8.net028	,	xi83.xi8.xi15.m3	,	D
+Defect_Open_131	,	xi83.xi8.net027	,	xi83.xi8.xi12.m4	,	D
+Defect_Open_132	,	xi83.gate	,	xi83.xi8.xi12.m3	,	D
+Defect_Open_133	,	xi83.amp_out	,	xi83.xi8.xi78.m4	,	D
+Defect_Open_134	,	xi83.xi8.net027	,	xi83.xi8.xi78.m3	,	D
+Defect_Open_135	,	xi83.net13	,	xi83.xi40.mptrans10	,	D
+Defect_Open_136	,	xi83.net13	,	xi83.xi40.mntrans11	,	D
+Defect_Open_137	,	xi83.xi9.net07	,	xi83.xi9.m9	,	D
+Defect_Open_138	,	xi83.xi9.net07	,	xi83.xi9.m3	,	D
+Defect_Open_139	,	xi83.xi9.net011	,	xi83.xi9.m6	,	D
+Defect_Open_140	,	vout	,	xi83.xi9.m0	,	D
+Defect_Open_141	,	xi83.xi9.net011	,	xi83.xi9.m7	,	D
+Defect_Open_142	,	xi83.xi9.net012	,	xi83.xi9.xi64.mptrans10	,	D
+Defect_Open_143	,	xi83.xi9.net012	,	xi83.xi9.xi64.mntrans11	,	D
+Defect_Open_144	,	xi83.net23	,	xi83.xi32.xi8.mptrans38	,	D
+Defect_Open_145	,	xi83.net23	,	xi83.xi32.xi8.mptrans37	,	D
+Defect_Open_146	,	xi83.xi32.xi8.net25	,	xi83.xi32.xi8.mntrans36	,	D
+Defect_Open_147	,	xi83.net23	,	xi83.xi32.xi8.mntrans35	,	D
+Defect_Open_148	,	xi83.net12	,	xi83.xi32.xi7.mptrans38	,	D
+Defect_Open_149	,	xi83.net12	,	xi83.xi32.xi7.mptrans37	,	D
+Defect_Open_150	,	xi83.xi32.xi7.net25	,	xi83.xi32.xi7.mntrans36	,	D
+Defect_Open_151	,	xi83.net12	,	xi83.xi32.xi7.mntrans35	,	D
+Defect_Open_152	,	xi83.xi32.net13	,	xi83.xi32.xi6.mptrans38	,	D
+Defect_Open_153	,	xi83.xi32.net13	,	xi83.xi32.xi6.mptrans37	,	D
+Defect_Open_154	,	xi83.xi32.xi6.net25	,	xi83.xi32.xi6.mntrans36	,	D
+Defect_Open_155	,	xi83.xi32.net13	,	xi83.xi32.xi6.mntrans35	,	D
+Defect_Open_156	,	xi83.xi32.net14	,	xi83.xi32.xi5.mptrans38	,	D
+Defect_Open_157	,	xi83.xi32.net14	,	xi83.xi32.xi5.mptrans37	,	D
+Defect_Open_158	,	xi83.xi32.xi5.net25	,	xi83.xi32.xi5.mntrans36	,	D
+Defect_Open_159	,	xi83.xi32.net14	,	xi83.xi32.xi5.mntrans35	,	D
+Defect_Open_160	,	xi83.xi32.xi4.net25	,	xi83.xi32.xi4.mntrans36	,	D
+Defect_Open_161	,	xi83.xi32.net7	,	xi83.xi32.xi4.mntrans35	,	D
+Defect_Open_162	,	xi83.xi32.net17	,	xi83.xi32.xi3.mptrans38	,	D
+Defect_Open_163	,	xi83.xi32.net17	,	xi83.xi32.xi3.mptrans37	,	D
+Defect_Open_164	,	xi83.xi32.xi3.net25	,	xi83.xi32.xi3.mntrans36	,	D
+Defect_Open_165	,	xi83.xi32.net17	,	xi83.xi32.xi3.mntrans35	,	D
+Defect_Open_166	,	xi83.xi32.net11	,	xi83.xi32.xi2.mptrans38	,	D
+Defect_Open_167	,	xi83.xi32.net11	,	xi83.xi32.xi2.mptrans37	,	D
+Defect_Open_168	,	xi83.xi32.xi2.net25	,	xi83.xi32.xi2.mntrans36	,	D
+Defect_Open_169	,	xi83.xi32.net11	,	xi83.xi32.xi2.mntrans35	,	D
+Defect_Open_170	,	xi83.xi32.net12	,	xi83.xi32.xi1.mptrans38	,	D
+Defect_Open_171	,	xi83.xi32.net12	,	xi83.xi32.xi1.mptrans37	,	D
+Defect_Open_172	,	xi83.xi32.xi1.net25	,	xi83.xi32.xi1.mntrans36	,	D
+Defect_Open_173	,	xi83.xi32.net12	,	xi83.xi32.xi1.mntrans35	,	D
+Defect_Open_174	,	xi83.xi32.net18	,	xi83.xi32.xi105.mptrans38	,	D
+Defect_Open_175	,	xi83.xi32.net18	,	xi83.xi32.xi105.mptrans37	,	D
+Defect_Open_176	,	xi83.xi32.xi105.net25	,	xi83.xi32.xi105.mntrans36	,	D
+Defect_Open_177	,	xi83.xi32.net18	,	xi83.xi32.xi105.mntrans35	,	D
+Defect_Open_178	,	xi83.net11	,	xi83.xi68.xi8.mptrans38	,	D
+Defect_Open_179	,	xi83.net11	,	xi83.xi68.xi8.mptrans37	,	D
+Defect_Open_180	,	xi83.xi68.xi8.net25	,	xi83.xi68.xi8.mntrans36	,	D
+Defect_Open_181	,	xi83.net11	,	xi83.xi68.xi8.mntrans35	,	D
+Defect_Open_182	,	xi83.net16	,	xi83.xi68.xi7.mptrans38	,	D
+Defect_Open_183	,	xi83.net16	,	xi83.xi68.xi7.mptrans37	,	D
+Defect_Open_184	,	xi83.xi68.xi7.net25	,	xi83.xi68.xi7.mntrans36	,	D
+Defect_Open_185	,	xi83.net16	,	xi83.xi68.xi7.mntrans35	,	D
+Defect_Open_186	,	xi83.xi68.net13	,	xi83.xi68.xi6.mptrans38	,	D
+Defect_Open_187	,	xi83.xi68.net13	,	xi83.xi68.xi6.mptrans37	,	D
+Defect_Open_188	,	xi83.xi68.xi6.net25	,	xi83.xi68.xi6.mntrans36	,	D
+Defect_Open_189	,	xi83.xi68.net13	,	xi83.xi68.xi6.mntrans35	,	D
+Defect_Open_190	,	xi83.xi68.net14	,	xi83.xi68.xi5.mptrans38	,	D
+Defect_Open_191	,	xi83.xi68.net14	,	xi83.xi68.xi5.mptrans37	,	D
+Defect_Open_192	,	xi83.xi68.xi5.net25	,	xi83.xi68.xi5.mntrans36	,	D
+Defect_Open_193	,	xi83.xi68.net14	,	xi83.xi68.xi5.mntrans35	,	D
+Defect_Open_194	,	xi83.xi68.xi4.net25	,	xi83.xi68.xi4.mntrans36	,	D
+Defect_Open_195	,	xi83.xi68.net7	,	xi83.xi68.xi4.mntrans35	,	D
+Defect_Open_196	,	xi83.xi68.net17	,	xi83.xi68.xi3.mptrans38	,	D
+Defect_Open_197	,	xi83.xi68.net17	,	xi83.xi68.xi3.mptrans37	,	D
+Defect_Open_198	,	xi83.xi68.xi3.net25	,	xi83.xi68.xi3.mntrans36	,	D
+Defect_Open_199	,	xi83.xi68.net17	,	xi83.xi68.xi3.mntrans35	,	D
+Defect_Open_200	,	xi83.xi68.net11	,	xi83.xi68.xi2.mptrans38	,	D
+Defect_Open_201	,	xi83.xi68.net11	,	xi83.xi68.xi2.mptrans37	,	D
+Defect_Open_202	,	xi83.xi68.xi2.net25	,	xi83.xi68.xi2.mntrans36	,	D
+Defect_Open_203	,	xi83.xi68.net11	,	xi83.xi68.xi2.mntrans35	,	D
+Defect_Open_204	,	xi83.xi68.net12	,	xi83.xi68.xi1.mptrans38	,	D
+Defect_Open_205	,	xi83.xi68.net12	,	xi83.xi68.xi1.mptrans37	,	D
+Defect_Open_206	,	xi83.xi68.xi1.net25	,	xi83.xi68.xi1.mntrans36	,	D
+Defect_Open_207	,	xi83.xi68.net12	,	xi83.xi68.xi1.mntrans35	,	D
+Defect_Open_208	,	xi83.xi68.net18	,	xi83.xi68.xi105.mptrans38	,	D
+Defect_Open_209	,	xi83.xi68.net18	,	xi83.xi68.xi105.mptrans37	,	D
+Defect_Open_210	,	xi83.xi68.xi105.net25	,	xi83.xi68.xi105.mntrans36	,	D
+Defect_Open_211	,	xi83.xi68.net18	,	xi83.xi68.xi105.mntrans35	,	D
+Defect_Open_212	,	xi83.amp_out	,	xi83.xi7.m2	,	D
+Defect_Open_213	,	xi83.xi7.net078	,	xi83.xi7.m16	,	D
+Defect_Open_214	,	xi83.xi7.net0117	,	xi83.xi7.m14	,	D
+Defect_Open_215	,	xi83.xi7.net019	,	xi83.xi7.m13	,	D
+Defect_Open_216	,	xi83.xi7.net076	,	xi83.xi7.m12	,	D
+Defect_Open_217	,	xi83.xi7.net076	,	xi83.xi7.m3	,	D
+Defect_Open_218	,	xi83.xi7.net019	,	xi83.xi7.m1	,	D
+Defect_Open_219	,	xi83.amp_out	,	xi83.xi7.m11	,	D
+Defect_Open_220	,	xi83.amp_out	,	xi83.xi7.m47	,	D
+Defect_Open_221	,	xi83.xi7.net021	,	xi83.xi7.m46	,	D
+Defect_Open_222	,	xi83.xi7.vb_n	,	xi83.xi7.mn13	,	D
+Defect_Open_223	,	xi83.xi7.net011	,	xi83.xi7.m45	,	D
+Defect_Open_224	,	xi83.xi7.net021	,	xi83.xi7.m33	,	D
+Defect_Open_225	,	xi83.xi7.net063	,	xi83.xi7.m44	,	D
+Defect_Open_226	,	xi83.xi7.net070	,	xi83.xi7.m35	,	D
+Defect_Open_227	,	ibias	,	xi83.xi7.mn17	,	D
+Defect_Open_228	,	xi83.xi7.net049	,	xi83.xi7.m43	,	D
+Defect_Open_229	,	xi83.xi7.net019	,	xi83.xi7.m5	,	D
+Defect_Open_230	,	xi83.xi7.vb_n	,	xi83.xi7.m38	,	D
+Defect_Open_231	,	xi83.xi7.net011	,	xi83.xi7.m34	,	D
+Defect_Open_232	,	xi83.xi7.net076	,	xi83.xi7.m4	,	D
+Defect_Open_233	,	ibias	,	xi83.xi7.m49	,	D
+Defect_Open_234	,	xi83.xi7.net033	,	xi83.xi7.m50	,	D
+Defect_Open_235	,	xi83.amp_out	,	xi83.xi7.m51	,	D
+Defect_Open_236	,	xi83.xi7.net033	,	xi83.xi7.m48	,	D
+Defect_Open_237	,	xi83.vref	,	xi83.xi7.xi82.m4	,	D
+Defect_Open_238	,	xi83.xi7.net049	,	xi83.xi7.xi82.m3	,	D
+Defect_Open_239	,	xi83.feedback	,	xi83.xi7.xi84.m4	,	D
+Defect_Open_240	,	xi83.xi7.net063	,	xi83.xi7.xi84.m3	,	D
+Defect_Open_241	,	xi83.vref	,	xi83.xi7.xi83.m4	,	D
+Defect_Open_242	,	xi83.xi7.net063	,	xi83.xi7.xi83.m3	,	D
+Defect_Open_243	,	xi83.xi7.net078	,	xi83.xi7.xi78.m4	,	D
+Defect_Open_244	,	xi83.xi7.net076	,	xi83.xi7.xi78.m3	,	D
+Defect_Open_245	,	xi83.xi7.net076	,	xi83.xi7.xi80.m4	,	D
+Defect_Open_246	,	xi83.xi7.net0117	,	xi83.xi7.xi80.m3	,	D
+Defect_Open_247	,	xi83.xi7.net078	,	xi83.xi7.xi79.m4	,	D
+Defect_Open_248	,	xi83.xi7.net019	,	xi83.xi7.xi79.m3	,	D
+Defect_Open_249	,	xi83.xi7.net019	,	xi83.xi7.xi81.m4	,	D
+Defect_Open_250	,	xi83.xi7.net0117	,	xi83.xi7.xi81.m3	,	D
+Defect_Open_251	,	xi83.feedback	,	xi83.xi7.xi85.m4	,	D
+Defect_Open_252	,	xi83.xi7.net049	,	xi83.xi7.xi85.m3	,	D
+Defect_Open_253	,	xi83.xi7.xi118.net031	,	xi83.xi7.xi118.mptrans15	,	D
+Defect_Open_254	,	xi83.xi7.net014	,	xi83.xi7.xi118.mp10	,	D
+Defect_Open_255	,	xi83.xi7.xi118.net031	,	xi83.xi7.xi118.mntrans13	,	D
+Defect_Open_256	,	xi83.xi7.net014	,	xi83.xi7.xi118.mn10	,	D
+Defect_Open_257	,	xi83.xi7.xi119.net031	,	xi83.xi7.xi119.mptrans15	,	D
+Defect_Open_258	,	xi83.xi7.net044	,	xi83.xi7.xi119.mp10	,	D
+Defect_Open_259	,	xi83.xi7.xi119.net031	,	xi83.xi7.xi119.mntrans13	,	D
+Defect_Open_260	,	xi83.xi7.net044	,	xi83.xi7.xi119.mn10	,	D
+Defect_Open_261	,	xi83.xi7.net068	,	xi83.xi7.xi136.mptrans25	,	D
+Defect_Open_262	,	xi83.xi7.xi136.net39	,	xi83.xi7.xi136.mptrans24	,	D
+Defect_Open_263	,	xi83.xi7.xi136.net39	,	xi83.xi7.xi136.mptrans23	,	D
+Defect_Open_264	,	xi83.xi7.net068	,	xi83.xi7.xi136.mntrans22	,	D
+Defect_Open_265	,	xi83.xi7.xi136.net39	,	xi83.xi7.xi136.mntrans21	,	D
+Defect_Open_266	,	xi83.xi7.xi136.net32	,	xi83.xi7.xi136.mntrans20	,	D
+Defect_Open_267	,	xi83.xi7.net0105	,	xi83.xi7.xi137.mptrans25	,	D
+Defect_Open_268	,	xi83.xi7.xi137.net39	,	xi83.xi7.xi137.mptrans24	,	D
+Defect_Open_269	,	xi83.xi7.xi137.net39	,	xi83.xi7.xi137.mptrans23	,	D
+Defect_Open_270	,	xi83.xi7.net0105	,	xi83.xi7.xi137.mntrans22	,	D
+Defect_Open_271	,	xi83.xi7.xi137.net39	,	xi83.xi7.xi137.mntrans21	,	D
+Defect_Open_272	,	xi83.xi7.xi137.net32	,	xi83.xi7.xi137.mntrans20	,	D
+Defect_Open_273	,	xi83.xi7.net050	,	xi83.xi7.xi143.mptrans10	,	D
+Defect_Open_274	,	xi83.xi7.net050	,	xi83.xi7.xi143.mntrans11	,	D
+Defect_Open_275	,	xi83.xi7.disable	,	xi83.xi7.xi92.mptrans10	,	D
+Defect_Open_276	,	xi83.xi7.disable	,	xi83.xi7.xi92.mntrans11	,	D
+Defect_Open_277	,	xi83.xi7.net059	,	xi83.xi7.xi106.mntrans19	,	D
+Defect_Open_278	,	xi83.xi7.net059	,	xi83.xi7.xi106.mntrans18	,	D
+Defect_Open_279	,	xi83.xi7.net059	,	xi83.xi7.xi106.mptrans17	,	D
+Defect_Open_280	,	xi83.xi7.xi106.net27	,	xi83.xi7.xi106.mptrans16	,	D
+Defect_Open_281	,	xi83.xi7.net057	,	xi83.xi7.xi107.mntrans19	,	D
+Defect_Open_282	,	xi83.xi7.net057	,	xi83.xi7.xi107.mntrans18	,	D
+Defect_Open_283	,	xi83.xi7.net057	,	xi83.xi7.xi107.mptrans17	,	D
+Defect_Open_284	,	xi83.xi7.xi107.net27	,	xi83.xi7.xi107.mptrans16	,	D
+Defect_Open_285	,	xi83.xi7.xi94.net24	,	xi83.xi7.xi94.mptrans15	,	D
+Defect_Open_286	,	xi83.xi7.enable	,	xi83.xi7.xi94.mptrans14	,	D
+Defect_Open_287	,	xi83.xi7.xi94.net24	,	xi83.xi7.xi94.mntrans13	,	D
+Defect_Open_288	,	xi83.xi7.enable	,	xi83.xi7.xi94.mntrans12	,	D
+Defect_Open_289	,	xi83.xi7.xi72.net15	,	xi83.xi7.xi72.xi146.mptrans10	,	D
+Defect_Open_290	,	xi83.xi7.xi72.net15	,	xi83.xi7.xi72.xi146.mntrans11	,	D
+Defect_Open_291	,	xi83.xi7.xi72.net14	,	xi83.xi7.xi72.xi47.mptrans10	,	D
+Defect_Open_292	,	xi83.xi7.xi72.net14	,	xi83.xi7.xi72.xi47.mntrans11	,	D
+Defect_Open_293	,	xi83.xi7.xi72.net11	,	xi83.xi7.xi72.xi48.mptrans10	,	D
+Defect_Open_294	,	xi83.xi7.xi72.net11	,	xi83.xi7.xi72.xi48.mntrans11	,	D
+Defect_Open_295	,	xi83.xi7.s1_n	,	xi83.xi7.xi72.xi35.mptrans10	,	D
+Defect_Open_296	,	xi83.xi7.s1_n	,	xi83.xi7.xi72.xi35.mntrans11	,	D
+Defect_Open_297	,	xi83.xi7.s1	,	xi83.xi7.xi72.xi34.mptrans10	,	D
+Defect_Open_298	,	xi83.xi7.s1	,	xi83.xi7.xi72.xi34.mntrans11	,	D
+Defect_Open_299	,	xi83.xi7.xi72.net15	,	xi83.xi7.xi72.xi49.mptrans10	,	D
+Defect_Open_300	,	xi83.xi7.xi72.net15	,	xi83.xi7.xi72.xi49.mntrans11	,	D
+Defect_Open_301	,	xi83.xi7.xi72.net11	,	xi83.xi7.xi72.xi31.mptrans10	,	D
+Defect_Open_302	,	xi83.xi7.xi72.net11	,	xi83.xi7.xi72.xi31.mntrans11	,	D
+Defect_Open_303	,	xi83.xi7.s1_n	,	xi83.xi7.xi72.xi30.mptrans10	,	D
+Defect_Open_304	,	xi83.xi7.s1_n	,	xi83.xi7.xi72.xi30.mntrans11	,	D
+Defect_Open_305	,	xi83.xi7.xi72.net9	,	xi83.xi7.xi72.xi33.mptrans10	,	D
+Defect_Open_306	,	xi83.xi7.xi72.net9	,	xi83.xi7.xi72.xi33.mntrans11	,	D
+Defect_Open_307	,	xi83.xi7.s1	,	xi83.xi7.xi72.xi27.mptrans10	,	D
+Defect_Open_308	,	xi83.xi7.s1	,	xi83.xi7.xi72.xi27.mntrans11	,	D
+Defect_Open_309	,	xi83.xi7.xi147.net15	,	xi83.xi7.xi147.xi146.mptrans10	,	D
+Defect_Open_310	,	xi83.xi7.xi147.net15	,	xi83.xi7.xi147.xi146.mntrans11	,	D
+Defect_Open_311	,	xi83.xi7.xi147.net14	,	xi83.xi7.xi147.xi47.mptrans10	,	D
+Defect_Open_312	,	xi83.xi7.xi147.net14	,	xi83.xi7.xi147.xi47.mntrans11	,	D
+Defect_Open_313	,	xi83.xi7.xi147.net11	,	xi83.xi7.xi147.xi48.mptrans10	,	D
+Defect_Open_314	,	xi83.xi7.xi147.net11	,	xi83.xi7.xi147.xi48.mntrans11	,	D
+Defect_Open_315	,	xi83.xi7.s0_n	,	xi83.xi7.xi147.xi35.mptrans10	,	D
+Defect_Open_316	,	xi83.xi7.s0_n	,	xi83.xi7.xi147.xi35.mntrans11	,	D
+Defect_Open_317	,	xi83.xi7.s0	,	xi83.xi7.xi147.xi34.mptrans10	,	D
+Defect_Open_318	,	xi83.xi7.s0	,	xi83.xi7.xi147.xi34.mntrans11	,	D
+Defect_Open_319	,	xi83.xi7.xi147.net15	,	xi83.xi7.xi147.xi49.mptrans10	,	D
+Defect_Open_320	,	xi83.xi7.xi147.net15	,	xi83.xi7.xi147.xi49.mntrans11	,	D
+Defect_Open_321	,	xi83.xi7.xi147.net11	,	xi83.xi7.xi147.xi31.mptrans10	,	D
+Defect_Open_322	,	xi83.xi7.xi147.net11	,	xi83.xi7.xi147.xi31.mntrans11	,	D
+Defect_Open_323	,	xi83.xi7.s0_n	,	xi83.xi7.xi147.xi30.mptrans10	,	D
+Defect_Open_324	,	xi83.xi7.s0_n	,	xi83.xi7.xi147.xi30.mntrans11	,	D
+Defect_Open_325	,	xi83.xi7.xi147.net9	,	xi83.xi7.xi147.xi33.mptrans10	,	D
+Defect_Open_326	,	xi83.xi7.xi147.net9	,	xi83.xi7.xi147.xi33.mntrans11	,	D
+Defect_Open_327	,	xi83.xi7.s0	,	xi83.xi7.xi147.xi27.mptrans10	,	D
+Defect_Open_328	,	xi83.xi7.s0	,	xi83.xi7.xi147.xi27.mntrans11	,	D
+Defect_Open_329	,	xi83.disable	,	xi83.m0	,	G
+Defect_Open_330	,	xi83.disable	,	xi83.m35	,	G
+Defect_Open_331	,	xi83.disable	,	xi83.m2	,	G
+Defect_Open_332	,	xi83.xi137.net39	,	xi83.xi137.mptrans25	,	G
+Defect_Open_333	,	xi83.net16	,	xi83.xi137.mptrans24	,	G
+Defect_Open_334	,	xi83.enable	,	xi83.xi137.mptrans23	,	G
+Defect_Open_335	,	xi83.xi137.net39	,	xi83.xi137.mntrans22	,	G
+Defect_Open_336	,	xi83.net16	,	xi83.xi137.mntrans21	,	G
+Defect_Open_337	,	xi83.enable	,	xi83.xi137.mntrans20	,	G
+Defect_Open_338	,	xi83.xi136.net39	,	xi83.xi136.mptrans25	,	G
+Defect_Open_339	,	xi83.net11	,	xi83.xi136.mptrans24	,	G
+Defect_Open_340	,	xi83.enable	,	xi83.xi136.mptrans23	,	G
+Defect_Open_341	,	xi83.xi136.net39	,	xi83.xi136.mntrans22	,	G
+Defect_Open_342	,	xi83.net11	,	xi83.xi136.mntrans21	,	G
+Defect_Open_343	,	xi83.enable	,	xi83.xi136.mntrans20	,	G
+Defect_Open_344	,	vss!	,	xi83.xi72.xi146.mptrans10	,	G
+Defect_Open_345	,	vdda_pulsed	,	xi83.xi72.xi146.mntrans11	,	G
+Defect_Open_346	,	xi83.net028	,	xi83.xi72.xi47.mptrans10	,	G
+Defect_Open_347	,	xi83.net028	,	xi83.xi72.xi47.mntrans11	,	G
+Defect_Open_348	,	xi83.xi72.net14	,	xi83.xi72.xi48.mptrans10	,	G
+Defect_Open_349	,	xi83.xi72.net14	,	xi83.xi72.xi48.mntrans11	,	G
+Defect_Open_350	,	xi83.xi72.net11	,	xi83.xi72.xi35.mptrans10	,	G
+Defect_Open_351	,	xi83.xi72.net11	,	xi83.xi72.xi35.mntrans11	,	G
+Defect_Open_352	,	xi83.xi72.net9	,	xi83.xi72.xi34.mptrans10	,	G
+Defect_Open_353	,	xi83.xi72.net9	,	xi83.xi72.xi34.mntrans11	,	G
+Defect_Open_354	,	xi83.net028	,	xi83.xi72.xi49.mptrans10	,	G
+Defect_Open_355	,	xi83.net028	,	xi83.xi72.xi49.mntrans11	,	G
+Defect_Open_356	,	xi83.xi72.net9	,	xi83.xi72.xi31.mptrans10	,	G
+Defect_Open_357	,	xi83.xi72.net9	,	xi83.xi72.xi31.mntrans11	,	G
+Defect_Open_358	,	xi83.s1	,	xi83.xi72.xi30.mptrans10	,	G
+Defect_Open_359	,	xi83.s1	,	xi83.xi72.xi30.mntrans11	,	G
+Defect_Open_360	,	xi83.xi72.net11	,	xi83.xi72.xi33.mptrans10	,	G
+Defect_Open_361	,	xi83.xi72.net11	,	xi83.xi72.xi33.mntrans11	,	G
+Defect_Open_362	,	xi83.s1_n	,	xi83.xi72.xi27.mptrans10	,	G
+Defect_Open_363	,	xi83.s1_n	,	xi83.xi72.xi27.mntrans11	,	G
+Defect_Open_364	,	vss!	,	xi83.xi73.xi146.mptrans10	,	G
+Defect_Open_365	,	vdda_pulsed	,	xi83.xi73.xi146.mntrans11	,	G
+Defect_Open_366	,	xi83.net023	,	xi83.xi73.xi47.mptrans10	,	G
+Defect_Open_367	,	xi83.net023	,	xi83.xi73.xi47.mntrans11	,	G
+Defect_Open_368	,	xi83.xi73.net14	,	xi83.xi73.xi48.mptrans10	,	G
+Defect_Open_369	,	xi83.xi73.net14	,	xi83.xi73.xi48.mntrans11	,	G
+Defect_Open_370	,	xi83.xi73.net11	,	xi83.xi73.xi35.mptrans10	,	G
+Defect_Open_371	,	xi83.xi73.net11	,	xi83.xi73.xi35.mntrans11	,	G
+Defect_Open_372	,	xi83.xi73.net9	,	xi83.xi73.xi34.mptrans10	,	G
+Defect_Open_373	,	xi83.xi73.net9	,	xi83.xi73.xi34.mntrans11	,	G
+Defect_Open_374	,	xi83.net023	,	xi83.xi73.xi49.mptrans10	,	G
+Defect_Open_375	,	xi83.net023	,	xi83.xi73.xi49.mntrans11	,	G
+Defect_Open_376	,	xi83.xi73.net9	,	xi83.xi73.xi31.mptrans10	,	G
+Defect_Open_377	,	xi83.xi73.net9	,	xi83.xi73.xi31.mntrans11	,	G
+Defect_Open_378	,	xi83.s0	,	xi83.xi73.xi30.mptrans10	,	G
+Defect_Open_379	,	xi83.s0	,	xi83.xi73.xi30.mntrans11	,	G
+Defect_Open_380	,	xi83.xi73.net11	,	xi83.xi73.xi33.mptrans10	,	G
+Defect_Open_381	,	xi83.xi73.net11	,	xi83.xi73.xi33.mntrans11	,	G
+Defect_Open_382	,	xi83.s0_n	,	xi83.xi73.xi27.mptrans10	,	G
+Defect_Open_383	,	xi83.s0_n	,	xi83.xi73.xi27.mntrans11	,	G
+Defect_Open_384	,	xi83.xi74.net017	,	xi83.xi74.m22	,	G
+Defect_Open_385	,	xi83.xi74.net022	,	xi83.xi74.m13	,	G
+Defect_Open_386	,	xi83.xi74.net017	,	xi83.xi74.m12	,	G
+Defect_Open_387	,	xi83.xi74.net022	,	xi83.xi74.m21	,	G
+Defect_Open_388	,	xi83.xi74.net017	,	xi83.xi74.m20	,	G
+Defect_Open_389	,	xi83.xi74.net022	,	xi83.xi74.m19	,	G
+Defect_Open_390	,	xi83.vth_h	,	xi83.xi74.m5	,	G
+Defect_Open_391	,	ref	,	xi83.xi74.m4	,	G
+Defect_Open_392	,	xi83.xi74.net013	,	xi83.xi74.m18	,	G
+Defect_Open_393	,	xi83.xi74.net013	,	xi83.xi74.m17	,	G
+Defect_Open_394	,	xi83.xi74.net018	,	xi83.xi74.m6	,	G
+Defect_Open_395	,	xi83.xi74.net012	,	xi83.xi74.m2	,	G
+Defect_Open_396	,	xi83.xi74.net012	,	xi83.xi74.m9	,	G
+Defect_Open_397	,	xi83.xi74.net018	,	xi83.xi74.m10	,	G
+Defect_Open_398	,	xi83.xi74.net011	,	xi83.xi74.xi5.mptrans10	,	G
+Defect_Open_399	,	xi83.xi74.net011	,	xi83.xi74.xi5.mntrans11	,	G
+Defect_Open_400	,	xi83.xi75.net017	,	xi83.xi75.m22	,	G
+Defect_Open_401	,	xi83.xi75.net022	,	xi83.xi75.m13	,	G
+Defect_Open_402	,	xi83.xi75.net017	,	xi83.xi75.m12	,	G
+Defect_Open_403	,	xi83.xi75.net022	,	xi83.xi75.m21	,	G
+Defect_Open_404	,	xi83.xi75.net017	,	xi83.xi75.m20	,	G
+Defect_Open_405	,	xi83.xi75.net022	,	xi83.xi75.m19	,	G
+Defect_Open_406	,	ref	,	xi83.xi75.m5	,	G
+Defect_Open_407	,	xi83.vth_l	,	xi83.xi75.m4	,	G
+Defect_Open_408	,	xi83.xi75.net013	,	xi83.xi75.m18	,	G
+Defect_Open_409	,	xi83.xi75.net013	,	xi83.xi75.m17	,	G
+Defect_Open_410	,	xi83.xi75.net018	,	xi83.xi75.m6	,	G
+Defect_Open_411	,	xi83.xi75.net012	,	xi83.xi75.m2	,	G
+Defect_Open_412	,	xi83.xi75.net012	,	xi83.xi75.m9	,	G
+Defect_Open_413	,	xi83.xi75.net018	,	xi83.xi75.m10	,	G
+Defect_Open_414	,	xi83.xi75.net011	,	xi83.xi75.xi5.mptrans10	,	G
+Defect_Open_415	,	xi83.xi75.net011	,	xi83.xi75.xi5.mntrans11	,	G
+Defect_Open_416	,	overvoltage	,	xi83.xi62.mntrans27	,	G
+Defect_Open_417	,	undervoltage	,	xi83.xi62.mntrans26	,	G
+Defect_Open_418	,	xi83.xi62.net26	,	xi83.xi62.mntrans25	,	G
+Defect_Open_419	,	overvoltage	,	xi83.xi62.mptrans24	,	G
+Defect_Open_420	,	undervoltage	,	xi83.xi62.mptrans23	,	G
+Defect_Open_421	,	xi83.xi62.net26	,	xi83.xi62.mptrans22	,	G
+Defect_Open_422	,	disable	,	xi83.xi5.mntrans27	,	G
+Defect_Open_423	,	xi83.err	,	xi83.xi5.mntrans26	,	G
+Defect_Open_424	,	xi83.xi5.net26	,	xi83.xi5.mntrans25	,	G
+Defect_Open_425	,	disable	,	xi83.xi5.mptrans24	,	G
+Defect_Open_426	,	xi83.err	,	xi83.xi5.mptrans23	,	G
+Defect_Open_427	,	xi83.xi5.net26	,	xi83.xi5.mptrans22	,	G
+Defect_Open_428	,	xi83.net062	,	xi83.xi41.mptrans15	,	G
+Defect_Open_429	,	xi83.xi41.net24	,	xi83.xi41.mptrans14	,	G
+Defect_Open_430	,	xi83.net062	,	xi83.xi41.mntrans13	,	G
+Defect_Open_431	,	xi83.xi41.net24	,	xi83.xi41.mntrans12	,	G
+Defect_Open_432	,	xi83.net044	,	xi83.xi64.mptrans10	,	G
+Defect_Open_433	,	xi83.net044	,	xi83.xi64.mntrans11	,	G
+Defect_Open_434	,	xi83.net045	,	xi83.xi65.mptrans10	,	G
+Defect_Open_435	,	xi83.net045	,	xi83.xi65.mntrans11	,	G
+Defect_Open_436	,	xi83.disable	,	xi83.xi6.mptrans10	,	G
+Defect_Open_437	,	xi83.disable	,	xi83.xi6.mntrans11	,	G
+Defect_Open_438	,	clk	,	xi83.xi63.mptrans38	,	G
+Defect_Open_439	,	xi83.enable	,	xi83.xi63.mptrans37	,	G
+Defect_Open_440	,	clk	,	xi83.xi63.mntrans36	,	G
+Defect_Open_441	,	xi83.enable	,	xi83.xi63.mntrans35	,	G
+Defect_Open_442	,	xi83.disable	,	xi83.xi8.m0	,	G
+Defect_Open_443	,	xi83.disable	,	xi83.xi8.m1	,	G
+Defect_Open_444	,	xi83.disable	,	xi83.xi8.m4	,	G
+Defect_Open_445	,	xi83.s0	,	xi83.xi8.xi13.m4	,	G
+Defect_Open_446	,	xi83.s0_n	,	xi83.xi8.xi13.m3	,	G
+Defect_Open_447	,	xi83.s1	,	xi83.xi8.xi15.m4	,	G
+Defect_Open_448	,	xi83.s1_n	,	xi83.xi8.xi15.m3	,	G
+Defect_Open_449	,	xi83.s1	,	xi83.xi8.xi12.m4	,	G
+Defect_Open_450	,	xi83.s1_n	,	xi83.xi8.xi12.m3	,	G
+Defect_Open_451	,	xi83.s0	,	xi83.xi8.xi78.m4	,	G
+Defect_Open_452	,	xi83.s0_n	,	xi83.xi8.xi78.m3	,	G
+Defect_Open_453	,	xi83.net062	,	xi83.xi40.mptrans10	,	G
+Defect_Open_454	,	xi83.net062	,	xi83.xi40.mntrans11	,	G
+Defect_Open_455	,	vss!	,	xi83.xi9.m9	,	G
+Defect_Open_456	,	xi83.xi9.net012	,	xi83.xi9.m3	,	G
+Defect_Open_457	,	xi83.disable	,	xi83.xi9.m6	,	G
+Defect_Open_458	,	xi83.xi9.net07	,	xi83.xi9.m0	,	G
+Defect_Open_459	,	xi83.disable	,	xi83.xi9.m7	,	G
+Defect_Open_460	,	xi83.disable	,	xi83.xi9.xi64.mptrans10	,	G
+Defect_Open_461	,	xi83.disable	,	xi83.xi9.xi64.mntrans11	,	G
+Defect_Open_462	,	xi83.net12	,	xi83.xi32.xi8.mptrans38	,	G
+Defect_Open_463	,	xi83.xi32.net13	,	xi83.xi32.xi8.mptrans37	,	G
+Defect_Open_464	,	xi83.net12	,	xi83.xi32.xi8.mntrans36	,	G
+Defect_Open_465	,	xi83.xi32.net13	,	xi83.xi32.xi8.mntrans35	,	G
+Defect_Open_466	,	xi83.net23	,	xi83.xi32.xi7.mptrans38	,	G
+Defect_Open_467	,	xi83.xi32.net14	,	xi83.xi32.xi7.mptrans37	,	G
+Defect_Open_468	,	xi83.net23	,	xi83.xi32.xi7.mntrans36	,	G
+Defect_Open_469	,	xi83.xi32.net14	,	xi83.xi32.xi7.mntrans35	,	G
+Defect_Open_470	,	xi83.xi32.net7	,	xi83.xi32.xi6.mptrans38	,	G
+Defect_Open_471	,	xi83.xi32.net11	,	xi83.xi32.xi6.mptrans37	,	G
+Defect_Open_472	,	xi83.xi32.net7	,	xi83.xi32.xi6.mntrans36	,	G
+Defect_Open_473	,	xi83.xi32.net11	,	xi83.xi32.xi6.mntrans35	,	G
+Defect_Open_474	,	xi83.xi32.net7	,	xi83.xi32.xi5.mptrans38	,	G
+Defect_Open_475	,	xi83.xi32.net12	,	xi83.xi32.xi5.mptrans37	,	G
+Defect_Open_476	,	xi83.xi32.net7	,	xi83.xi32.xi5.mntrans36	,	G
+Defect_Open_477	,	xi83.xi32.net12	,	xi83.xi32.xi5.mntrans35	,	G
+Defect_Open_478	,	xi83.net13	,	xi83.xi32.xi4.mntrans36	,	G
+Defect_Open_479	,	xi83.net13	,	xi83.xi32.xi4.mntrans35	,	G
+Defect_Open_480	,	xi83.net13	,	xi83.xi32.xi3.mptrans38	,	G
+Defect_Open_481	,	xi83.net12	,	xi83.xi32.xi3.mptrans37	,	G
+Defect_Open_482	,	xi83.net13	,	xi83.xi32.xi3.mntrans36	,	G
+Defect_Open_483	,	xi83.net12	,	xi83.xi32.xi3.mntrans35	,	G
+Defect_Open_484	,	xi83.xi32.net12	,	xi83.xi32.xi2.mptrans38	,	G
+Defect_Open_485	,	xi83.xi32.net17	,	xi83.xi32.xi2.mptrans37	,	G
+Defect_Open_486	,	xi83.xi32.net12	,	xi83.xi32.xi2.mntrans36	,	G
+Defect_Open_487	,	xi83.xi32.net17	,	xi83.xi32.xi2.mntrans35	,	G
+Defect_Open_488	,	xi83.xi32.net11	,	xi83.xi32.xi1.mptrans38	,	G
+Defect_Open_489	,	xi83.xi32.net18	,	xi83.xi32.xi1.mptrans37	,	G
+Defect_Open_490	,	xi83.xi32.net11	,	xi83.xi32.xi1.mntrans36	,	G
+Defect_Open_491	,	xi83.xi32.net18	,	xi83.xi32.xi1.mntrans35	,	G
+Defect_Open_492	,	xi83.net13	,	xi83.xi32.xi105.mptrans38	,	G
+Defect_Open_493	,	xi83.net23	,	xi83.xi32.xi105.mptrans37	,	G
+Defect_Open_494	,	xi83.net13	,	xi83.xi32.xi105.mntrans36	,	G
+Defect_Open_495	,	xi83.net23	,	xi83.xi32.xi105.mntrans35	,	G
+Defect_Open_496	,	xi83.net16	,	xi83.xi68.xi8.mptrans38	,	G
+Defect_Open_497	,	xi83.xi68.net13	,	xi83.xi68.xi8.mptrans37	,	G
+Defect_Open_498	,	xi83.net16	,	xi83.xi68.xi8.mntrans36	,	G
+Defect_Open_499	,	xi83.xi68.net13	,	xi83.xi68.xi8.mntrans35	,	G
+Defect_Open_500	,	xi83.net11	,	xi83.xi68.xi7.mptrans38	,	G
+Defect_Open_501	,	xi83.xi68.net14	,	xi83.xi68.xi7.mptrans37	,	G
+Defect_Open_502	,	xi83.net11	,	xi83.xi68.xi7.mntrans36	,	G
+Defect_Open_503	,	xi83.xi68.net14	,	xi83.xi68.xi7.mntrans35	,	G
+Defect_Open_504	,	xi83.xi68.net7	,	xi83.xi68.xi6.mptrans38	,	G
+Defect_Open_505	,	xi83.xi68.net11	,	xi83.xi68.xi6.mptrans37	,	G
+Defect_Open_506	,	xi83.xi68.net7	,	xi83.xi68.xi6.mntrans36	,	G
+Defect_Open_507	,	xi83.xi68.net11	,	xi83.xi68.xi6.mntrans35	,	G
+Defect_Open_508	,	xi83.xi68.net7	,	xi83.xi68.xi5.mptrans38	,	G
+Defect_Open_509	,	xi83.xi68.net12	,	xi83.xi68.xi5.mptrans37	,	G
+Defect_Open_510	,	xi83.xi68.net7	,	xi83.xi68.xi5.mntrans36	,	G
+Defect_Open_511	,	xi83.xi68.net12	,	xi83.xi68.xi5.mntrans35	,	G
+Defect_Open_512	,	xi83.net14	,	xi83.xi68.xi4.mntrans36	,	G
+Defect_Open_513	,	xi83.net14	,	xi83.xi68.xi4.mntrans35	,	G
+Defect_Open_514	,	xi83.net14	,	xi83.xi68.xi3.mptrans38	,	G
+Defect_Open_515	,	xi83.net16	,	xi83.xi68.xi3.mptrans37	,	G
+Defect_Open_516	,	xi83.net14	,	xi83.xi68.xi3.mntrans36	,	G
+Defect_Open_517	,	xi83.net16	,	xi83.xi68.xi3.mntrans35	,	G
+Defect_Open_518	,	xi83.xi68.net12	,	xi83.xi68.xi2.mptrans38	,	G
+Defect_Open_519	,	xi83.xi68.net17	,	xi83.xi68.xi2.mptrans37	,	G
+Defect_Open_520	,	xi83.xi68.net12	,	xi83.xi68.xi2.mntrans36	,	G
+Defect_Open_521	,	xi83.xi68.net17	,	xi83.xi68.xi2.mntrans35	,	G
+Defect_Open_522	,	xi83.xi68.net11	,	xi83.xi68.xi1.mptrans38	,	G
+Defect_Open_523	,	xi83.xi68.net18	,	xi83.xi68.xi1.mptrans37	,	G
+Defect_Open_524	,	xi83.xi68.net11	,	xi83.xi68.xi1.mntrans36	,	G
+Defect_Open_525	,	xi83.xi68.net18	,	xi83.xi68.xi1.mntrans35	,	G
+Defect_Open_526	,	xi83.net14	,	xi83.xi68.xi105.mptrans38	,	G
+Defect_Open_527	,	xi83.net11	,	xi83.xi68.xi105.mptrans37	,	G
+Defect_Open_528	,	xi83.net14	,	xi83.xi68.xi105.mntrans36	,	G
+Defect_Open_529	,	xi83.net11	,	xi83.xi68.xi105.mntrans35	,	G
+Defect_Open_530	,	vss!	,	xi83.xi7.m2	,	G
+Defect_Open_531	,	xi83.xi7.enable	,	xi83.xi7.m16	,	G
+Defect_Open_532	,	xi83.xi7.enable	,	xi83.xi7.m14	,	G
+Defect_Open_533	,	xi83.xi7.enable	,	xi83.xi7.m13	,	G
+Defect_Open_534	,	xi83.xi7.enable	,	xi83.xi7.m12	,	G
+Defect_Open_535	,	xi83.xi7.net078	,	xi83.xi7.m3	,	G
+Defect_Open_536	,	xi83.xi7.net078	,	xi83.xi7.m1	,	G
+Defect_Open_537	,	xi83.xi7.net0117	,	xi83.xi7.m11	,	G
+Defect_Open_538	,	xi83.xi7.disable	,	xi83.xi7.m47	,	G
+Defect_Open_539	,	xi83.xi7.disable	,	xi83.xi7.m46	,	G
+Defect_Open_540	,	xi83.xi7.vb_n	,	xi83.xi7.mn13	,	G
+Defect_Open_541	,	xi83.xi7.disable	,	xi83.xi7.m45	,	G
+Defect_Open_542	,	xi83.xi7.vb_n	,	xi83.xi7.m33	,	G
+Defect_Open_543	,	xi83.xi7.disable	,	xi83.xi7.m44	,	G
+Defect_Open_544	,	vdda_pulsed	,	xi83.xi7.m35	,	G
+Defect_Open_545	,	ibias	,	xi83.xi7.mn17	,	G
+Defect_Open_546	,	xi83.xi7.disable	,	xi83.xi7.m43	,	G
+Defect_Open_547	,	xi83.xi7.net049	,	xi83.xi7.m5	,	G
+Defect_Open_548	,	xi83.xi7.disable	,	xi83.xi7.m38	,	G
+Defect_Open_549	,	ibias	,	xi83.xi7.m34	,	G
+Defect_Open_550	,	xi83.xi7.net063	,	xi83.xi7.m4	,	G
+Defect_Open_551	,	xi83.xi7.disable	,	xi83.xi7.m49	,	G
+Defect_Open_552	,	xi83.xi7.vb_n	,	xi83.xi7.m50	,	G
+Defect_Open_553	,	ibias	,	xi83.xi7.m51	,	G
+Defect_Open_554	,	xi83.xi7.disable	,	xi83.xi7.m48	,	G
+Defect_Open_555	,	xi83.xi7.s0	,	xi83.xi7.xi82.m4	,	G
+Defect_Open_556	,	xi83.xi7.s0_n	,	xi83.xi7.xi82.m3	,	G
+Defect_Open_557	,	xi83.xi7.s0	,	xi83.xi7.xi84.m4	,	G
+Defect_Open_558	,	xi83.xi7.s0_n	,	xi83.xi7.xi84.m3	,	G
+Defect_Open_559	,	xi83.xi7.s1	,	xi83.xi7.xi83.m4	,	G
+Defect_Open_560	,	xi83.xi7.s1_n	,	xi83.xi7.xi83.m3	,	G
+Defect_Open_561	,	xi83.xi7.s0	,	xi83.xi7.xi78.m4	,	G
+Defect_Open_562	,	xi83.xi7.s0_n	,	xi83.xi7.xi78.m3	,	G
+Defect_Open_563	,	xi83.xi7.s1	,	xi83.xi7.xi80.m4	,	G
+Defect_Open_564	,	xi83.xi7.s1_n	,	xi83.xi7.xi80.m3	,	G
+Defect_Open_565	,	xi83.xi7.s1	,	xi83.xi7.xi79.m4	,	G
+Defect_Open_566	,	xi83.xi7.s1_n	,	xi83.xi7.xi79.m3	,	G
+Defect_Open_567	,	xi83.xi7.s0	,	xi83.xi7.xi81.m4	,	G
+Defect_Open_568	,	xi83.xi7.s0_n	,	xi83.xi7.xi81.m3	,	G
+Defect_Open_569	,	xi83.xi7.s1	,	xi83.xi7.xi85.m4	,	G
+Defect_Open_570	,	xi83.xi7.s1_n	,	xi83.xi7.xi85.m3	,	G
+Defect_Open_571	,	xi83.xi7.net059	,	xi83.xi7.xi118.mptrans15	,	G
+Defect_Open_572	,	xi83.xi7.xi118.net031	,	xi83.xi7.xi118.mp10	,	G
+Defect_Open_573	,	xi83.xi7.net059	,	xi83.xi7.xi118.mntrans13	,	G
+Defect_Open_574	,	xi83.xi7.xi118.net031	,	xi83.xi7.xi118.mn10	,	G
+Defect_Open_575	,	xi83.xi7.net057	,	xi83.xi7.xi119.mptrans15	,	G
+Defect_Open_576	,	xi83.xi7.xi119.net031	,	xi83.xi7.xi119.mp10	,	G
+Defect_Open_577	,	xi83.xi7.net057	,	xi83.xi7.xi119.mntrans13	,	G
+Defect_Open_578	,	xi83.xi7.xi119.net031	,	xi83.xi7.xi119.mn10	,	G
+Defect_Open_579	,	xi83.xi7.xi136.net39	,	xi83.xi7.xi136.mptrans25	,	G
+Defect_Open_580	,	xi83.xi7.net014	,	xi83.xi7.xi136.mptrans24	,	G
+Defect_Open_581	,	xi83.xi7.enable	,	xi83.xi7.xi136.mptrans23	,	G
+Defect_Open_582	,	xi83.xi7.xi136.net39	,	xi83.xi7.xi136.mntrans22	,	G
+Defect_Open_583	,	xi83.xi7.net014	,	xi83.xi7.xi136.mntrans21	,	G
+Defect_Open_584	,	xi83.xi7.enable	,	xi83.xi7.xi136.mntrans20	,	G
+Defect_Open_585	,	xi83.xi7.xi137.net39	,	xi83.xi7.xi137.mptrans25	,	G
+Defect_Open_586	,	xi83.xi7.net044	,	xi83.xi7.xi137.mptrans24	,	G
+Defect_Open_587	,	xi83.xi7.enable	,	xi83.xi7.xi137.mptrans23	,	G
+Defect_Open_588	,	xi83.xi7.xi137.net39	,	xi83.xi7.xi137.mntrans22	,	G
+Defect_Open_589	,	xi83.xi7.net044	,	xi83.xi7.xi137.mntrans21	,	G
+Defect_Open_590	,	xi83.xi7.enable	,	xi83.xi7.xi137.mntrans20	,	G
+Defect_Open_591	,	xi83.net12	,	xi83.xi7.xi143.mptrans10	,	G
+Defect_Open_592	,	xi83.net12	,	xi83.xi7.xi143.mntrans11	,	G
+Defect_Open_593	,	xi83.enable	,	xi83.xi7.xi92.mptrans10	,	G
+Defect_Open_594	,	xi83.enable	,	xi83.xi7.xi92.mntrans11	,	G
+Defect_Open_595	,	xi83.net12	,	xi83.xi7.xi106.mntrans19	,	G
+Defect_Open_596	,	xi83.xi7.net044	,	xi83.xi7.xi106.mntrans18	,	G
+Defect_Open_597	,	xi83.net12	,	xi83.xi7.xi106.mptrans17	,	G
+Defect_Open_598	,	xi83.xi7.net044	,	xi83.xi7.xi106.mptrans16	,	G
+Defect_Open_599	,	xi83.xi7.net014	,	xi83.xi7.xi107.mntrans19	,	G
+Defect_Open_600	,	xi83.xi7.net050	,	xi83.xi7.xi107.mntrans18	,	G
+Defect_Open_601	,	xi83.xi7.net014	,	xi83.xi7.xi107.mptrans17	,	G
+Defect_Open_602	,	xi83.xi7.net050	,	xi83.xi7.xi107.mptrans16	,	G
+Defect_Open_603	,	xi83.enable	,	xi83.xi7.xi94.mptrans15	,	G
+Defect_Open_604	,	xi83.xi7.xi94.net24	,	xi83.xi7.xi94.mptrans14	,	G
+Defect_Open_605	,	xi83.enable	,	xi83.xi7.xi94.mntrans13	,	G
+Defect_Open_606	,	xi83.xi7.xi94.net24	,	xi83.xi7.xi94.mntrans12	,	G
+Defect_Open_607	,	vss!	,	xi83.xi7.xi72.xi146.mptrans10	,	G
+Defect_Open_608	,	vdda_pulsed	,	xi83.xi7.xi72.xi146.mntrans11	,	G
+Defect_Open_609	,	xi83.xi7.net068	,	xi83.xi7.xi72.xi47.mptrans10	,	G
+Defect_Open_610	,	xi83.xi7.net068	,	xi83.xi7.xi72.xi47.mntrans11	,	G
+Defect_Open_611	,	xi83.xi7.xi72.net14	,	xi83.xi7.xi72.xi48.mptrans10	,	G
+Defect_Open_612	,	xi83.xi7.xi72.net14	,	xi83.xi7.xi72.xi48.mntrans11	,	G
+Defect_Open_613	,	xi83.xi7.xi72.net11	,	xi83.xi7.xi72.xi35.mptrans10	,	G
+Defect_Open_614	,	xi83.xi7.xi72.net11	,	xi83.xi7.xi72.xi35.mntrans11	,	G
+Defect_Open_615	,	xi83.xi7.xi72.net9	,	xi83.xi7.xi72.xi34.mptrans10	,	G
+Defect_Open_616	,	xi83.xi7.xi72.net9	,	xi83.xi7.xi72.xi34.mntrans11	,	G
+Defect_Open_617	,	xi83.xi7.net068	,	xi83.xi7.xi72.xi49.mptrans10	,	G
+Defect_Open_618	,	xi83.xi7.net068	,	xi83.xi7.xi72.xi49.mntrans11	,	G
+Defect_Open_619	,	xi83.xi7.xi72.net9	,	xi83.xi7.xi72.xi31.mptrans10	,	G
+Defect_Open_620	,	xi83.xi7.xi72.net9	,	xi83.xi7.xi72.xi31.mntrans11	,	G
+Defect_Open_621	,	xi83.xi7.s1	,	xi83.xi7.xi72.xi30.mptrans10	,	G
+Defect_Open_622	,	xi83.xi7.s1	,	xi83.xi7.xi72.xi30.mntrans11	,	G
+Defect_Open_623	,	xi83.xi7.xi72.net11	,	xi83.xi7.xi72.xi33.mptrans10	,	G
+Defect_Open_624	,	xi83.xi7.xi72.net11	,	xi83.xi7.xi72.xi33.mntrans11	,	G
+Defect_Open_625	,	xi83.xi7.s1_n	,	xi83.xi7.xi72.xi27.mptrans10	,	G
+Defect_Open_626	,	xi83.xi7.s1_n	,	xi83.xi7.xi72.xi27.mntrans11	,	G
+Defect_Open_627	,	vss!	,	xi83.xi7.xi147.xi146.mptrans10	,	G
+Defect_Open_628	,	vdda_pulsed	,	xi83.xi7.xi147.xi146.mntrans11	,	G
+Defect_Open_629	,	xi83.xi7.net0105	,	xi83.xi7.xi147.xi47.mptrans10	,	G
+Defect_Open_630	,	xi83.xi7.net0105	,	xi83.xi7.xi147.xi47.mntrans11	,	G
+Defect_Open_631	,	xi83.xi7.xi147.net14	,	xi83.xi7.xi147.xi48.mptrans10	,	G
+Defect_Open_632	,	xi83.xi7.xi147.net14	,	xi83.xi7.xi147.xi48.mntrans11	,	G
+Defect_Open_633	,	xi83.xi7.xi147.net11	,	xi83.xi7.xi147.xi35.mptrans10	,	G
+Defect_Open_634	,	xi83.xi7.xi147.net11	,	xi83.xi7.xi147.xi35.mntrans11	,	G
+Defect_Open_635	,	xi83.xi7.xi147.net9	,	xi83.xi7.xi147.xi34.mptrans10	,	G
+Defect_Open_636	,	xi83.xi7.xi147.net9	,	xi83.xi7.xi147.xi34.mntrans11	,	G
+Defect_Open_637	,	xi83.xi7.net0105	,	xi83.xi7.xi147.xi49.mptrans10	,	G
+Defect_Open_638	,	xi83.xi7.net0105	,	xi83.xi7.xi147.xi49.mntrans11	,	G
+Defect_Open_639	,	xi83.xi7.xi147.net9	,	xi83.xi7.xi147.xi31.mptrans10	,	G
+Defect_Open_640	,	xi83.xi7.xi147.net9	,	xi83.xi7.xi147.xi31.mntrans11	,	G
+Defect_Open_641	,	xi83.xi7.s0	,	xi83.xi7.xi147.xi30.mptrans10	,	G
+Defect_Open_642	,	xi83.xi7.s0	,	xi83.xi7.xi147.xi30.mntrans11	,	G
+Defect_Open_643	,	xi83.xi7.xi147.net11	,	xi83.xi7.xi147.xi33.mptrans10	,	G
+Defect_Open_644	,	xi83.xi7.xi147.net11	,	xi83.xi7.xi147.xi33.mntrans11	,	G
+Defect_Open_645	,	xi83.xi7.s0_n	,	xi83.xi7.xi147.xi27.mptrans10	,	G
+Defect_Open_646	,	xi83.xi7.s0_n	,	xi83.xi7.xi147.xi27.mntrans11	,	G
+Defect_Open_647	,	xi83.feedback	,	xi83.m0	,	S
+Defect_Open_648	,	vss!	,	xi83.m35	,	S
+Defect_Open_649	,	ref	,	xi83.m2	,	S
+Defect_Open_650	,	vdda_pulsed	,	xi83.xi137.mptrans25	,	S
+Defect_Open_651	,	vdda_pulsed	,	xi83.xi137.mptrans24	,	S
+Defect_Open_652	,	vdda_pulsed	,	xi83.xi137.mptrans23	,	S
+Defect_Open_653	,	vss!	,	xi83.xi137.mntrans22	,	S
+Defect_Open_654	,	xi83.xi137.net32	,	xi83.xi137.mntrans21	,	S
+Defect_Open_655	,	vss!	,	xi83.xi137.mntrans20	,	S
+Defect_Open_656	,	vdda_pulsed	,	xi83.xi136.mptrans25	,	S
+Defect_Open_657	,	vdda_pulsed	,	xi83.xi136.mptrans24	,	S
+Defect_Open_658	,	vdda_pulsed	,	xi83.xi136.mptrans23	,	S
+Defect_Open_659	,	vss!	,	xi83.xi136.mntrans22	,	S
+Defect_Open_660	,	xi83.xi136.net32	,	xi83.xi136.mntrans21	,	S
+Defect_Open_661	,	vss!	,	xi83.xi136.mntrans20	,	S
+Defect_Open_662	,	xi83.xi72.net9	,	xi83.xi72.xi146.mptrans10	,	S
+Defect_Open_663	,	xi83.xi72.net9	,	xi83.xi72.xi146.mntrans11	,	S
+Defect_Open_664	,	vdda_pulsed	,	xi83.xi72.xi47.mptrans10	,	S
+Defect_Open_665	,	vss!	,	xi83.xi72.xi47.mntrans11	,	S
+Defect_Open_666	,	vdda_pulsed	,	xi83.xi72.xi48.mptrans10	,	S
+Defect_Open_667	,	vss!	,	xi83.xi72.xi48.mntrans11	,	S
+Defect_Open_668	,	vdda_pulsed	,	xi83.xi72.xi35.mptrans10	,	S
+Defect_Open_669	,	vss!	,	xi83.xi72.xi35.mntrans11	,	S
+Defect_Open_670	,	vdda_pulsed	,	xi83.xi72.xi34.mptrans10	,	S
+Defect_Open_671	,	vss!	,	xi83.xi72.xi34.mntrans11	,	S
+Defect_Open_672	,	vdda_pulsed	,	xi83.xi72.xi49.mptrans10	,	S
+Defect_Open_673	,	vss!	,	xi83.xi72.xi49.mntrans11	,	S
+Defect_Open_674	,	vdda_pulsed	,	xi83.xi72.xi31.mptrans10	,	S
+Defect_Open_675	,	vss!	,	xi83.xi72.xi31.mntrans11	,	S
+Defect_Open_676	,	vdda_pulsed	,	xi83.xi72.xi30.mptrans10	,	S
+Defect_Open_677	,	vss!	,	xi83.xi72.xi30.mntrans11	,	S
+Defect_Open_678	,	vdda_pulsed	,	xi83.xi72.xi33.mptrans10	,	S
+Defect_Open_679	,	vss!	,	xi83.xi72.xi33.mntrans11	,	S
+Defect_Open_680	,	vdda_pulsed	,	xi83.xi72.xi27.mptrans10	,	S
+Defect_Open_681	,	vss!	,	xi83.xi72.xi27.mntrans11	,	S
+Defect_Open_682	,	xi83.xi73.net9	,	xi83.xi73.xi146.mptrans10	,	S
+Defect_Open_683	,	xi83.xi73.net9	,	xi83.xi73.xi146.mntrans11	,	S
+Defect_Open_684	,	vdda_pulsed	,	xi83.xi73.xi47.mptrans10	,	S
+Defect_Open_685	,	vss!	,	xi83.xi73.xi47.mntrans11	,	S
+Defect_Open_686	,	vdda_pulsed	,	xi83.xi73.xi48.mptrans10	,	S
+Defect_Open_687	,	vss!	,	xi83.xi73.xi48.mntrans11	,	S
+Defect_Open_688	,	vdda_pulsed	,	xi83.xi73.xi35.mptrans10	,	S
+Defect_Open_689	,	vss!	,	xi83.xi73.xi35.mntrans11	,	S
+Defect_Open_690	,	vdda_pulsed	,	xi83.xi73.xi34.mptrans10	,	S
+Defect_Open_691	,	vss!	,	xi83.xi73.xi34.mntrans11	,	S
+Defect_Open_692	,	vdda_pulsed	,	xi83.xi73.xi49.mptrans10	,	S
+Defect_Open_693	,	vss!	,	xi83.xi73.xi49.mntrans11	,	S
+Defect_Open_694	,	vdda_pulsed	,	xi83.xi73.xi31.mptrans10	,	S
+Defect_Open_695	,	vss!	,	xi83.xi73.xi31.mntrans11	,	S
+Defect_Open_696	,	vdda_pulsed	,	xi83.xi73.xi30.mptrans10	,	S
+Defect_Open_697	,	vss!	,	xi83.xi73.xi30.mntrans11	,	S
+Defect_Open_698	,	vdda_pulsed	,	xi83.xi73.xi33.mptrans10	,	S
+Defect_Open_699	,	vss!	,	xi83.xi73.xi33.mntrans11	,	S
+Defect_Open_700	,	vdda_pulsed	,	xi83.xi73.xi27.mptrans10	,	S
+Defect_Open_701	,	vss!	,	xi83.xi73.xi27.mntrans11	,	S
+Defect_Open_702	,	vss!	,	xi83.xi74.m22	,	S
+Defect_Open_703	,	vss!	,	xi83.xi74.m13	,	S
+Defect_Open_704	,	vss!	,	xi83.xi74.m12	,	S
+Defect_Open_705	,	vss!	,	xi83.xi74.m21	,	S
+Defect_Open_706	,	vss!	,	xi83.xi74.m20	,	S
+Defect_Open_707	,	vss!	,	xi83.xi74.m19	,	S
+Defect_Open_708	,	xi83.xi74.net11	,	xi83.xi74.m5	,	S
+Defect_Open_709	,	xi83.xi74.net11	,	xi83.xi74.m4	,	S
+Defect_Open_710	,	vdda_pulsed	,	xi83.xi74.m18	,	S
+Defect_Open_711	,	vdda_pulsed	,	xi83.xi74.m17	,	S
+Defect_Open_712	,	vdda_pulsed	,	xi83.xi74.m6	,	S
+Defect_Open_713	,	vdda_pulsed	,	xi83.xi74.m2	,	S
+Defect_Open_714	,	vdda_pulsed	,	xi83.xi74.m9	,	S
+Defect_Open_715	,	vdda_pulsed	,	xi83.xi74.m10	,	S
+Defect_Open_716	,	vdda_pulsed	,	xi83.xi74.xi5.mptrans10	,	S
+Defect_Open_717	,	vss!	,	xi83.xi74.xi5.mntrans11	,	S
+Defect_Open_718	,	vss!	,	xi83.xi75.m22	,	S
+Defect_Open_719	,	vss!	,	xi83.xi75.m13	,	S
+Defect_Open_720	,	vss!	,	xi83.xi75.m12	,	S
+Defect_Open_721	,	vss!	,	xi83.xi75.m21	,	S
+Defect_Open_722	,	vss!	,	xi83.xi75.m20	,	S
+Defect_Open_723	,	vss!	,	xi83.xi75.m19	,	S
+Defect_Open_724	,	xi83.xi75.net11	,	xi83.xi75.m5	,	S
+Defect_Open_725	,	xi83.xi75.net11	,	xi83.xi75.m4	,	S
+Defect_Open_726	,	vdda_pulsed	,	xi83.xi75.m18	,	S
+Defect_Open_727	,	vdda_pulsed	,	xi83.xi75.m17	,	S
+Defect_Open_728	,	vdda_pulsed	,	xi83.xi75.m6	,	S
+Defect_Open_729	,	vdda_pulsed	,	xi83.xi75.m2	,	S
+Defect_Open_730	,	vdda_pulsed	,	xi83.xi75.m9	,	S
+Defect_Open_731	,	vdda_pulsed	,	xi83.xi75.m10	,	S
+Defect_Open_732	,	vdda_pulsed	,	xi83.xi75.xi5.mptrans10	,	S
+Defect_Open_733	,	vss!	,	xi83.xi75.xi5.mntrans11	,	S
+Defect_Open_734	,	vss!	,	xi83.xi62.mntrans27	,	S
+Defect_Open_735	,	vss!	,	xi83.xi62.mntrans26	,	S
+Defect_Open_736	,	vss!	,	xi83.xi62.mntrans25	,	S
+Defect_Open_737	,	xi83.xi62.net41	,	xi83.xi62.mptrans24	,	S
+Defect_Open_738	,	vdda_pulsed	,	xi83.xi62.mptrans23	,	S
+Defect_Open_739	,	vdda_pulsed	,	xi83.xi62.mptrans22	,	S
+Defect_Open_740	,	vss!	,	xi83.xi5.mntrans27	,	S
+Defect_Open_741	,	vss!	,	xi83.xi5.mntrans26	,	S
+Defect_Open_742	,	vss!	,	xi83.xi5.mntrans25	,	S
+Defect_Open_743	,	xi83.xi5.net41	,	xi83.xi5.mptrans24	,	S
+Defect_Open_744	,	vdda_pulsed	,	xi83.xi5.mptrans23	,	S
+Defect_Open_745	,	vdda_pulsed	,	xi83.xi5.mptrans22	,	S
+Defect_Open_746	,	vdda_pulsed	,	xi83.xi41.mptrans15	,	S
+Defect_Open_747	,	vdda_pulsed	,	xi83.xi41.mptrans14	,	S
+Defect_Open_748	,	vss!	,	xi83.xi41.mntrans13	,	S
+Defect_Open_749	,	vss!	,	xi83.xi41.mntrans12	,	S
+Defect_Open_750	,	vdda_pulsed	,	xi83.xi64.mptrans10	,	S
+Defect_Open_751	,	vss!	,	xi83.xi64.mntrans11	,	S
+Defect_Open_752	,	vdda_pulsed	,	xi83.xi65.mptrans10	,	S
+Defect_Open_753	,	vss!	,	xi83.xi65.mntrans11	,	S
+Defect_Open_754	,	vdda_pulsed	,	xi83.xi6.mptrans10	,	S
+Defect_Open_755	,	vss!	,	xi83.xi6.mntrans11	,	S
+Defect_Open_756	,	vdda_pulsed	,	xi83.xi63.mptrans38	,	S
+Defect_Open_757	,	vdda_pulsed	,	xi83.xi63.mptrans37	,	S
+Defect_Open_758	,	vss!	,	xi83.xi63.mntrans36	,	S
+Defect_Open_759	,	xi83.xi63.net25	,	xi83.xi63.mntrans35	,	S
+Defect_Open_760	,	vss!	,	xi83.xi8.m0	,	S
+Defect_Open_761	,	xi83.amp_out	,	xi83.xi8.m1	,	S
+Defect_Open_762	,	vss!	,	xi83.xi8.m4	,	S
+Defect_Open_763	,	xi83.gate	,	xi83.xi8.xi13.m4	,	S
+Defect_Open_764	,	xi83.xi8.net028	,	xi83.xi8.xi13.m3	,	S
+Defect_Open_765	,	xi83.xi8.net028	,	xi83.xi8.xi15.m4	,	S
+Defect_Open_766	,	xi83.amp_out	,	xi83.xi8.xi15.m3	,	S
+Defect_Open_767	,	xi83.gate	,	xi83.xi8.xi12.m4	,	S
+Defect_Open_768	,	xi83.xi8.net027	,	xi83.xi8.xi12.m3	,	S
+Defect_Open_769	,	xi83.xi8.net027	,	xi83.xi8.xi78.m4	,	S
+Defect_Open_770	,	xi83.amp_out	,	xi83.xi8.xi78.m3	,	S
+Defect_Open_771	,	vdda_pulsed	,	xi83.xi40.mptrans10	,	S
+Defect_Open_772	,	vss!	,	xi83.xi40.mntrans11	,	S
+Defect_Open_773	,	vdda_pulsed	,	xi83.xi9.m9	,	S
+Defect_Open_774	,	vdda_pulsed	,	xi83.xi9.m3	,	S
+Defect_Open_775	,	xi83.xi9.net07	,	xi83.xi9.m6	,	S
+Defect_Open_776	,	vdda_pulsed	,	xi83.xi9.m0	,	S
+Defect_Open_777	,	vss!	,	xi83.xi9.m7	,	S
+Defect_Open_778	,	vdda_pulsed	,	xi83.xi9.xi64.mptrans10	,	S
+Defect_Open_779	,	vss!	,	xi83.xi9.xi64.mntrans11	,	S
+Defect_Open_780	,	vdda_pulsed	,	xi83.xi32.xi8.mptrans38	,	S
+Defect_Open_781	,	vdda_pulsed	,	xi83.xi32.xi8.mptrans37	,	S
+Defect_Open_782	,	vss!	,	xi83.xi32.xi8.mntrans36	,	S
+Defect_Open_783	,	xi83.xi32.xi8.net25	,	xi83.xi32.xi8.mntrans35	,	S
+Defect_Open_784	,	vdda_pulsed	,	xi83.xi32.xi7.mptrans38	,	S
+Defect_Open_785	,	vdda_pulsed	,	xi83.xi32.xi7.mptrans37	,	S
+Defect_Open_786	,	vss!	,	xi83.xi32.xi7.mntrans36	,	S
+Defect_Open_787	,	xi83.xi32.xi7.net25	,	xi83.xi32.xi7.mntrans35	,	S
+Defect_Open_788	,	vdda_pulsed	,	xi83.xi32.xi6.mptrans38	,	S
+Defect_Open_789	,	vdda_pulsed	,	xi83.xi32.xi6.mptrans37	,	S
+Defect_Open_790	,	vss!	,	xi83.xi32.xi6.mntrans36	,	S
+Defect_Open_791	,	xi83.xi32.xi6.net25	,	xi83.xi32.xi6.mntrans35	,	S
+Defect_Open_792	,	vdda_pulsed	,	xi83.xi32.xi5.mptrans38	,	S
+Defect_Open_793	,	vdda_pulsed	,	xi83.xi32.xi5.mptrans37	,	S
+Defect_Open_794	,	vss!	,	xi83.xi32.xi5.mntrans36	,	S
+Defect_Open_795	,	xi83.xi32.xi5.net25	,	xi83.xi32.xi5.mntrans35	,	S
+Defect_Open_796	,	vss!	,	xi83.xi32.xi4.mntrans36	,	S
+Defect_Open_797	,	xi83.xi32.xi4.net25	,	xi83.xi32.xi4.mntrans35	,	S
+Defect_Open_798	,	vdda_pulsed	,	xi83.xi32.xi3.mptrans38	,	S
+Defect_Open_799	,	vdda_pulsed	,	xi83.xi32.xi3.mptrans37	,	S
+Defect_Open_800	,	vss!	,	xi83.xi32.xi3.mntrans36	,	S
+Defect_Open_801	,	xi83.xi32.xi3.net25	,	xi83.xi32.xi3.mntrans35	,	S
+Defect_Open_802	,	vdda_pulsed	,	xi83.xi32.xi2.mptrans38	,	S
+Defect_Open_803	,	vdda_pulsed	,	xi83.xi32.xi2.mptrans37	,	S
+Defect_Open_804	,	vss!	,	xi83.xi32.xi2.mntrans36	,	S
+Defect_Open_805	,	xi83.xi32.xi2.net25	,	xi83.xi32.xi2.mntrans35	,	S
+Defect_Open_806	,	vdda_pulsed	,	xi83.xi32.xi1.mptrans38	,	S
+Defect_Open_807	,	vdda_pulsed	,	xi83.xi32.xi1.mptrans37	,	S
+Defect_Open_808	,	vss!	,	xi83.xi32.xi1.mntrans36	,	S
+Defect_Open_809	,	xi83.xi32.xi1.net25	,	xi83.xi32.xi1.mntrans35	,	S
+Defect_Open_810	,	vdda_pulsed	,	xi83.xi32.xi105.mptrans38	,	S
+Defect_Open_811	,	vdda_pulsed	,	xi83.xi32.xi105.mptrans37	,	S
+Defect_Open_812	,	vss!	,	xi83.xi32.xi105.mntrans36	,	S
+Defect_Open_813	,	xi83.xi32.xi105.net25	,	xi83.xi32.xi105.mntrans35	,	S
+Defect_Open_814	,	vdda_pulsed	,	xi83.xi68.xi8.mptrans38	,	S
+Defect_Open_815	,	vdda_pulsed	,	xi83.xi68.xi8.mptrans37	,	S
+Defect_Open_816	,	vss!	,	xi83.xi68.xi8.mntrans36	,	S
+Defect_Open_817	,	xi83.xi68.xi8.net25	,	xi83.xi68.xi8.mntrans35	,	S
+Defect_Open_818	,	vdda_pulsed	,	xi83.xi68.xi7.mptrans38	,	S
+Defect_Open_819	,	vdda_pulsed	,	xi83.xi68.xi7.mptrans37	,	S
+Defect_Open_820	,	vss!	,	xi83.xi68.xi7.mntrans36	,	S
+Defect_Open_821	,	xi83.xi68.xi7.net25	,	xi83.xi68.xi7.mntrans35	,	S
+Defect_Open_822	,	vdda_pulsed	,	xi83.xi68.xi6.mptrans38	,	S
+Defect_Open_823	,	vdda_pulsed	,	xi83.xi68.xi6.mptrans37	,	S
+Defect_Open_824	,	vss!	,	xi83.xi68.xi6.mntrans36	,	S
+Defect_Open_825	,	xi83.xi68.xi6.net25	,	xi83.xi68.xi6.mntrans35	,	S
+Defect_Open_826	,	vdda_pulsed	,	xi83.xi68.xi5.mptrans38	,	S
+Defect_Open_827	,	vdda_pulsed	,	xi83.xi68.xi5.mptrans37	,	S
+Defect_Open_828	,	vss!	,	xi83.xi68.xi5.mntrans36	,	S
+Defect_Open_829	,	xi83.xi68.xi5.net25	,	xi83.xi68.xi5.mntrans35	,	S
+Defect_Open_830	,	vss!	,	xi83.xi68.xi4.mntrans36	,	S
+Defect_Open_831	,	xi83.xi68.xi4.net25	,	xi83.xi68.xi4.mntrans35	,	S
+Defect_Open_832	,	vdda_pulsed	,	xi83.xi68.xi3.mptrans38	,	S
+Defect_Open_833	,	vdda_pulsed	,	xi83.xi68.xi3.mptrans37	,	S
+Defect_Open_834	,	vss!	,	xi83.xi68.xi3.mntrans36	,	S
+Defect_Open_835	,	xi83.xi68.xi3.net25	,	xi83.xi68.xi3.mntrans35	,	S
+Defect_Open_836	,	vdda_pulsed	,	xi83.xi68.xi2.mptrans38	,	S
+Defect_Open_837	,	vdda_pulsed	,	xi83.xi68.xi2.mptrans37	,	S
+Defect_Open_838	,	vss!	,	xi83.xi68.xi2.mntrans36	,	S
+Defect_Open_839	,	xi83.xi68.xi2.net25	,	xi83.xi68.xi2.mntrans35	,	S
+Defect_Open_840	,	vdda_pulsed	,	xi83.xi68.xi1.mptrans38	,	S
+Defect_Open_841	,	vdda_pulsed	,	xi83.xi68.xi1.mptrans37	,	S
+Defect_Open_842	,	vss!	,	xi83.xi68.xi1.mntrans36	,	S
+Defect_Open_843	,	xi83.xi68.xi1.net25	,	xi83.xi68.xi1.mntrans35	,	S
+Defect_Open_844	,	vdda_pulsed	,	xi83.xi68.xi105.mptrans38	,	S
+Defect_Open_845	,	vdda_pulsed	,	xi83.xi68.xi105.mptrans37	,	S
+Defect_Open_846	,	vss!	,	xi83.xi68.xi105.mntrans36	,	S
+Defect_Open_847	,	xi83.xi68.xi105.net25	,	xi83.xi68.xi105.mntrans35	,	S
+Defect_Open_848	,	xi83.xi7.net070	,	xi83.xi7.m2	,	S
+Defect_Open_849	,	vdda_pulsed	,	xi83.xi7.m16	,	S
+Defect_Open_850	,	vdda_pulsed	,	xi83.xi7.m14	,	S
+Defect_Open_851	,	vdda_pulsed	,	xi83.xi7.m13	,	S
+Defect_Open_852	,	vdda_pulsed	,	xi83.xi7.m12	,	S
+Defect_Open_853	,	vdda_pulsed	,	xi83.xi7.m3	,	S
+Defect_Open_854	,	vdda_pulsed	,	xi83.xi7.m1	,	S
+Defect_Open_855	,	vdda_pulsed	,	xi83.xi7.m11	,	S
+Defect_Open_856	,	vss!	,	xi83.xi7.m47	,	S
+Defect_Open_857	,	vss!	,	xi83.xi7.m46	,	S
+Defect_Open_858	,	vss!	,	xi83.xi7.mn13	,	S
+Defect_Open_859	,	vss!	,	xi83.xi7.m45	,	S
+Defect_Open_860	,	vss!	,	xi83.xi7.m33	,	S
+Defect_Open_861	,	vss!	,	xi83.xi7.m44	,	S
+Defect_Open_862	,	xi83.amp_out	,	xi83.xi7.m35	,	S
+Defect_Open_863	,	xi83.xi7.vb_n	,	xi83.xi7.mn17	,	S
+Defect_Open_864	,	vss!	,	xi83.xi7.m43	,	S
+Defect_Open_865	,	xi83.xi7.net011	,	xi83.xi7.m5	,	S
+Defect_Open_866	,	vss!	,	xi83.xi7.m38	,	S
+Defect_Open_867	,	xi83.xi7.net021	,	xi83.xi7.m34	,	S
+Defect_Open_868	,	xi83.xi7.net011	,	xi83.xi7.m4	,	S
+Defect_Open_869	,	vss!	,	xi83.xi7.m49	,	S
+Defect_Open_870	,	vss!	,	xi83.xi7.m50	,	S
+Defect_Open_871	,	xi83.xi7.net033	,	xi83.xi7.m51	,	S
+Defect_Open_872	,	vss!	,	xi83.xi7.m48	,	S
+Defect_Open_873	,	xi83.xi7.net049	,	xi83.xi7.xi82.m4	,	S
+Defect_Open_874	,	xi83.vref	,	xi83.xi7.xi82.m3	,	S
+Defect_Open_875	,	xi83.xi7.net063	,	xi83.xi7.xi84.m4	,	S
+Defect_Open_876	,	xi83.feedback	,	xi83.xi7.xi84.m3	,	S
+Defect_Open_877	,	xi83.xi7.net063	,	xi83.xi7.xi83.m4	,	S
+Defect_Open_878	,	xi83.vref	,	xi83.xi7.xi83.m3	,	S
+Defect_Open_879	,	xi83.xi7.net076	,	xi83.xi7.xi78.m4	,	S
+Defect_Open_880	,	xi83.xi7.net078	,	xi83.xi7.xi78.m3	,	S
+Defect_Open_881	,	xi83.xi7.net0117	,	xi83.xi7.xi80.m4	,	S
+Defect_Open_882	,	xi83.xi7.net076	,	xi83.xi7.xi80.m3	,	S
+Defect_Open_883	,	xi83.xi7.net019	,	xi83.xi7.xi79.m4	,	S
+Defect_Open_884	,	xi83.xi7.net078	,	xi83.xi7.xi79.m3	,	S
+Defect_Open_885	,	xi83.xi7.net0117	,	xi83.xi7.xi81.m4	,	S
+Defect_Open_886	,	xi83.xi7.net019	,	xi83.xi7.xi81.m3	,	S
+Defect_Open_887	,	xi83.xi7.net049	,	xi83.xi7.xi85.m4	,	S
+Defect_Open_888	,	xi83.feedback	,	xi83.xi7.xi85.m3	,	S
+Defect_Open_889	,	vdda_pulsed	,	xi83.xi7.xi118.mptrans15	,	S
+Defect_Open_890	,	vdda_pulsed	,	xi83.xi7.xi118.mp10	,	S
+Defect_Open_891	,	vss!	,	xi83.xi7.xi118.mntrans13	,	S
+Defect_Open_892	,	vss!	,	xi83.xi7.xi118.mn10	,	S
+Defect_Open_893	,	vdda_pulsed	,	xi83.xi7.xi119.mptrans15	,	S
+Defect_Open_894	,	vdda_pulsed	,	xi83.xi7.xi119.mp10	,	S
+Defect_Open_895	,	vss!	,	xi83.xi7.xi119.mntrans13	,	S
+Defect_Open_896	,	vss!	,	xi83.xi7.xi119.mn10	,	S
+Defect_Open_897	,	vdda_pulsed	,	xi83.xi7.xi136.mptrans25	,	S
+Defect_Open_898	,	vdda_pulsed	,	xi83.xi7.xi136.mptrans24	,	S
+Defect_Open_899	,	vdda_pulsed	,	xi83.xi7.xi136.mptrans23	,	S
+Defect_Open_900	,	vss!	,	xi83.xi7.xi136.mntrans22	,	S
+Defect_Open_901	,	xi83.xi7.xi136.net32	,	xi83.xi7.xi136.mntrans21	,	S
+Defect_Open_902	,	vss!	,	xi83.xi7.xi136.mntrans20	,	S
+Defect_Open_903	,	vdda_pulsed	,	xi83.xi7.xi137.mptrans25	,	S
+Defect_Open_904	,	vdda_pulsed	,	xi83.xi7.xi137.mptrans24	,	S
+Defect_Open_905	,	vdda_pulsed	,	xi83.xi7.xi137.mptrans23	,	S
+Defect_Open_906	,	vss!	,	xi83.xi7.xi137.mntrans22	,	S
+Defect_Open_907	,	xi83.xi7.xi137.net32	,	xi83.xi7.xi137.mntrans21	,	S
+Defect_Open_908	,	vss!	,	xi83.xi7.xi137.mntrans20	,	S
+Defect_Open_909	,	vdda_pulsed	,	xi83.xi7.xi143.mptrans10	,	S
+Defect_Open_910	,	vss!	,	xi83.xi7.xi143.mntrans11	,	S
+Defect_Open_911	,	vdda_pulsed	,	xi83.xi7.xi92.mptrans10	,	S
+Defect_Open_912	,	vss!	,	xi83.xi7.xi92.mntrans11	,	S
+Defect_Open_913	,	vss!	,	xi83.xi7.xi106.mntrans19	,	S
+Defect_Open_914	,	vss!	,	xi83.xi7.xi106.mntrans18	,	S
+Defect_Open_915	,	xi83.xi7.xi106.net27	,	xi83.xi7.xi106.mptrans17	,	S
+Defect_Open_916	,	vdda_pulsed	,	xi83.xi7.xi106.mptrans16	,	S
+Defect_Open_917	,	vss!	,	xi83.xi7.xi107.mntrans19	,	S
+Defect_Open_918	,	vss!	,	xi83.xi7.xi107.mntrans18	,	S
+Defect_Open_919	,	xi83.xi7.xi107.net27	,	xi83.xi7.xi107.mptrans17	,	S
+Defect_Open_920	,	vdda_pulsed	,	xi83.xi7.xi107.mptrans16	,	S
+Defect_Open_921	,	vdda_pulsed	,	xi83.xi7.xi94.mptrans15	,	S
+Defect_Open_922	,	vdda_pulsed	,	xi83.xi7.xi94.mptrans14	,	S
+Defect_Open_923	,	vss!	,	xi83.xi7.xi94.mntrans13	,	S
+Defect_Open_924	,	vss!	,	xi83.xi7.xi94.mntrans12	,	S
+Defect_Open_925	,	xi83.xi7.xi72.net9	,	xi83.xi7.xi72.xi146.mptrans10	,	S
+Defect_Open_926	,	xi83.xi7.xi72.net9	,	xi83.xi7.xi72.xi146.mntrans11	,	S
+Defect_Open_927	,	vdda_pulsed	,	xi83.xi7.xi72.xi47.mptrans10	,	S
+Defect_Open_928	,	vss!	,	xi83.xi7.xi72.xi47.mntrans11	,	S
+Defect_Open_929	,	vdda_pulsed	,	xi83.xi7.xi72.xi48.mptrans10	,	S
+Defect_Open_930	,	vss!	,	xi83.xi7.xi72.xi48.mntrans11	,	S
+Defect_Open_931	,	vdda_pulsed	,	xi83.xi7.xi72.xi35.mptrans10	,	S
+Defect_Open_932	,	vss!	,	xi83.xi7.xi72.xi35.mntrans11	,	S
+Defect_Open_933	,	vdda_pulsed	,	xi83.xi7.xi72.xi34.mptrans10	,	S
+Defect_Open_934	,	vss!	,	xi83.xi7.xi72.xi34.mntrans11	,	S
+Defect_Open_935	,	vdda_pulsed	,	xi83.xi7.xi72.xi49.mptrans10	,	S
+Defect_Open_936	,	vss!	,	xi83.xi7.xi72.xi49.mntrans11	,	S
+Defect_Open_937	,	vdda_pulsed	,	xi83.xi7.xi72.xi31.mptrans10	,	S
+Defect_Open_938	,	vss!	,	xi83.xi7.xi72.xi31.mntrans11	,	S
+Defect_Open_939	,	vdda_pulsed	,	xi83.xi7.xi72.xi30.mptrans10	,	S
+Defect_Open_940	,	vss!	,	xi83.xi7.xi72.xi30.mntrans11	,	S
+Defect_Open_941	,	vdda_pulsed	,	xi83.xi7.xi72.xi33.mptrans10	,	S
+Defect_Open_942	,	vss!	,	xi83.xi7.xi72.xi33.mntrans11	,	S
+Defect_Open_943	,	vdda_pulsed	,	xi83.xi7.xi72.xi27.mptrans10	,	S
+Defect_Open_944	,	vss!	,	xi83.xi7.xi72.xi27.mntrans11	,	S
+Defect_Open_945	,	xi83.xi7.xi147.net9	,	xi83.xi7.xi147.xi146.mptrans10	,	S
+Defect_Open_946	,	xi83.xi7.xi147.net9	,	xi83.xi7.xi147.xi146.mntrans11	,	S
+Defect_Open_947	,	vdda_pulsed	,	xi83.xi7.xi147.xi47.mptrans10	,	S
+Defect_Open_948	,	vss!	,	xi83.xi7.xi147.xi47.mntrans11	,	S
+Defect_Open_949	,	vdda_pulsed	,	xi83.xi7.xi147.xi48.mptrans10	,	S
+Defect_Open_950	,	vss!	,	xi83.xi7.xi147.xi48.mntrans11	,	S
+Defect_Open_951	,	vdda_pulsed	,	xi83.xi7.xi147.xi35.mptrans10	,	S
+Defect_Open_952	,	vss!	,	xi83.xi7.xi147.xi35.mntrans11	,	S
+Defect_Open_953	,	vdda_pulsed	,	xi83.xi7.xi147.xi34.mptrans10	,	S
+Defect_Open_954	,	vss!	,	xi83.xi7.xi147.xi34.mntrans11	,	S
+Defect_Open_955	,	vdda_pulsed	,	xi83.xi7.xi147.xi49.mptrans10	,	S
+Defect_Open_956	,	vss!	,	xi83.xi7.xi147.xi49.mntrans11	,	S
+Defect_Open_957	,	vdda_pulsed	,	xi83.xi7.xi147.xi31.mptrans10	,	S
+Defect_Open_958	,	vss!	,	xi83.xi7.xi147.xi31.mntrans11	,	S
+Defect_Open_959	,	vdda_pulsed	,	xi83.xi7.xi147.xi30.mptrans10	,	S
+Defect_Open_960	,	vss!	,	xi83.xi7.xi147.xi30.mntrans11	,	S
+Defect_Open_961	,	vdda_pulsed	,	xi83.xi7.xi147.xi33.mptrans10	,	S
+Defect_Open_962	,	vss!	,	xi83.xi7.xi147.xi33.mntrans11	,	S
+Defect_Open_963	,	vdda_pulsed	,	xi83.xi7.xi147.xi27.mptrans10	,	S
+Defect_Open_964	,	vss!	,	xi83.xi7.xi147.xi27.mntrans11	,	S
+Defect_Open_965	,	xi83.xi32.net7	,	xi83.xi32.xi4.mptrans37	,	D
+Defect_Open_966	,	xi83.xi32.net7	,	xi83.xi32.xi4.mptrans38	,	D
+Defect_Open_967	,	vdda_pulsed	,	xi83.xi32.xi4.mptrans37	,	S
+Defect_Open_968	,	vdda_pulsed	,	xi83.xi32.xi4.mptrans38	,	S
+Defect_Open_969	,	xi83.xi68.net7	,	xi83.xi68.xi4.mptrans37	,	D
+Defect_Open_970	,	xi83.xi68.net7	,	xi83.xi68.xi4.mptrans38	,	D
+Defect_Open_971	,	vdda_pulsed	,	xi83.xi68.xi4.mptrans37	,	S
+Defect_Open_972	,	vdda_pulsed	,	xi83.xi68.xi4.mptrans38	,	S
+Defect_Open_973	,	vss!	,	xi83.xi7.xi118.mn3	,	D
+Defect_Open_974	,	vss!	,	xi83.xi7.xi118.mn0	,	D
+Defect_Open_975	,	vss!	,	xi83.xi7.xi118.mn3	,	S
+Defect_Open_976	,	vss!	,	xi83.xi7.xi118.mn0	,	S
+Defect_Open_977	,	vdda_pulsed	,	xi83.xi7.xi118.mp3	,	D
+Defect_Open_978	,	vdda_pulsed	,	xi83.xi7.xi118.mp0	,	D
+Defect_Open_979	,	vdda_pulsed	,	xi83.xi7.xi118.mp3	,	S
+Defect_Open_980	,	vdda_pulsed	,	xi83.xi7.xi118.mp0	,	S
+Defect_Open_981	,	xi83.xi9.net011	,	xi83.xi9.m1<1>	,	D
+Defect_Open_982	,	xi83.xi9.net011	,	xi83.xi9.m1<2>	,	D
+Defect_Open_983	,	xi83.xi9.net011	,	xi83.xi9.m1<3>	,	D
+Defect_Open_984	,	xi83.xi9.net011	,	xi83.xi9.m1<4>	,	D
+Defect_Open_985	,	xi83.xi9.net011	,	xi83.xi9.m1<5>	,	D
+Defect_Open_986	,	xi83.xi9.net011	,	xi83.xi9.m1<6>	,	D
+Defect_Open_987	,	xi83.xi9.net011	,	xi83.xi9.m1<7>	,	D
+Defect_Open_988	,	xi83.xi9.net011	,	xi83.xi9.m1<8>	,	D
+Defect_Open_989	,	xi83.xi9.net011	,	xi83.xi9.m1<9>	,	D
+Defect_Open_990	,	xi83.xi9.net011	,	xi83.xi9.m1<10>	,	D
+Defect_Open_991	,	xi83.xi9.net011	,	xi83.xi9.m1<11>	,	D
+Defect_Open_992	,	xi83.xi9.net011	,	xi83.xi9.m1<12>	,	D
+Defect_Open_993	,	vss!	,	xi83.xi7.xi119.mn3	,	D
+Defect_Open_994	,	vss!	,	xi83.xi7.xi119.mn0	,	D
+Defect_Open_995	,	vout	,	xi83.xi9.m1<1>	,	S
+Defect_Open_996	,	vout	,	xi83.xi9.m1<2>	,	S
+Defect_Open_997	,	vout	,	xi83.xi9.m1<3>	,	S
+Defect_Open_998	,	vout	,	xi83.xi9.m1<4>	,	S
+Defect_Open_999	,	vout	,	xi83.xi9.m1<5>	,	S
+Defect_Open_1000	,	vout	,	xi83.xi9.m1<6>	,	S
+Defect_Open_1001	,	vout	,	xi83.xi9.m1<7>	,	S
+Defect_Open_1002	,	vout	,	xi83.xi9.m1<8>	,	S
+Defect_Open_1003	,	vout	,	xi83.xi9.m1<9>	,	S
+Defect_Open_1004	,	vout	,	xi83.xi9.m1<10>	,	S
+Defect_Open_1005	,	vout	,	xi83.xi9.m1<11>	,	S
+Defect_Open_1006	,	vout	,	xi83.xi9.m1<12>	,	S
+Defect_Open_1007	,	vss!	,	xi83.xi7.xi119.mn3	,	S
+Defect_Open_1008	,	vss!	,	xi83.xi7.xi119.mn0	,	S
+Defect_Open_1009	,	xi83.net13	,	xi83.xi32.xi4.mptrans37	,	G
+Defect_Open_1010	,	xi83.net13	,	xi83.xi32.xi4.mptrans38	,	G
+Defect_Open_1011	,	vdda_pulsed	,	xi83.xi7.xi119.mp3	,	D
+Defect_Open_1012	,	vdda_pulsed	,	xi83.xi7.xi119.mp0	,	D
+Defect_Open_1013	,	vdda_pulsed	,	xi83.xi7.xi119.mp3	,	S
+Defect_Open_1014	,	vdda_pulsed	,	xi83.xi7.xi119.mp0	,	S
+Defect_Open_1015	,	xi83.net14	,	xi83.xi68.xi4.mptrans37	,	G
+Defect_Open_1016	,	xi83.net14	,	xi83.xi68.xi4.mptrans38	,	G
+Defect_Open_1017	,	xi83.xi7.xi118.net031	,	xi83.xi7.xi118.mn3	,	G
+Defect_Open_1018	,	xi83.xi7.xi118.net031	,	xi83.xi7.xi118.mn0	,	G
+Defect_Open_1019	,	xi83.xi7.net0117	,	xi83.xi7.c3	,	1
+Defect_Open_1020	,	xi83.xi7.net0117	,	xi83.xi7.c1	,	1
+Defect_Open_1021	,	xi83.xi7.xi118.net031	,	xi83.xi7.xi118.mp3	,	G
+Defect_Open_1022	,	xi83.xi7.xi118.net031	,	xi83.xi7.xi118.mp0	,	G
+Defect_Open_1023	,	xi83.gate	,	xi83.xi9.m1<1>	,	G
+Defect_Open_1024	,	xi83.gate	,	xi83.xi9.m1<2>	,	G
+Defect_Open_1025	,	xi83.gate	,	xi83.xi9.m1<3>	,	G
+Defect_Open_1026	,	xi83.gate	,	xi83.xi9.m1<4>	,	G
+Defect_Open_1027	,	xi83.gate	,	xi83.xi9.m1<5>	,	G
+Defect_Open_1028	,	xi83.gate	,	xi83.xi9.m1<6>	,	G
+Defect_Open_1029	,	xi83.gate	,	xi83.xi9.m1<7>	,	G
+Defect_Open_1030	,	xi83.gate	,	xi83.xi9.m1<8>	,	G
+Defect_Open_1031	,	xi83.gate	,	xi83.xi9.m1<9>	,	G
+Defect_Open_1032	,	xi83.gate	,	xi83.xi9.m1<10>	,	G
+Defect_Open_1033	,	xi83.gate	,	xi83.xi9.m1<11>	,	G
+Defect_Open_1034	,	xi83.gate	,	xi83.xi9.m1<12>	,	G
+Defect_Open_1035	,	xi83.xi7.xi119.net031	,	xi83.xi7.xi119.mn3	,	G
+Defect_Open_1036	,	xi83.xi7.xi119.net031	,	xi83.xi7.xi119.mn0	,	G
+Defect_Open_1037	,	xi83.xi7.xi119.net031	,	xi83.xi7.xi119.mp3	,	G
+Defect_Open_1038	,	xi83.xi7.xi119.net031	,	xi83.xi7.xi119.mp0	,	G
+						
