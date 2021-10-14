@@ -6,8 +6,7 @@
 * ANY OTHER LEGAL THEORY, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.						
 * © 2020 Infineon Technologies AG. All rights reserved						
 						
-Release:						
-	version 4.0						
+Release: version 4.0						
 						
 						
 Tag	,	Net	,	Device	,	Terminal
