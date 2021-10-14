@@ -7,7 +7,7 @@
 * © 2020 Infineon Technologies AG. All rights reserved
 
 * Release:
-*	version 3.0
+*	version 4.0
 
 .GLOBAL VSS! VDDa! VSSb! VDDba! VDDc! VDDbc!
 
