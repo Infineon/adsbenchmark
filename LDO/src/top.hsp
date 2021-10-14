@@ -7,7 +7,7 @@
 * © 2020 Infineon Technologies AG. All rights reserved
 
 * Release:
-*	version 3.0
+*	version 4.0
 
 ** Parameter setup
 .PARAM rbulkpanalog=1m rbulkpcore=1m rhsupanalog=1m rhsupcore=1m td_ps=1n tr_ps=1n vsup1v5=1.5 vsup2v5=2.5 vref=1.2
