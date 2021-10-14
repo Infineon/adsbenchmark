@@ -10,7 +10,7 @@
 * The bipolar transistor models are from: The Development of Bipolar Log-Domain Filters in a Standard CMOS Process, G. D. Duerden, G. W. Roberts, M. J. Deen, 2001
 
 * Release:
-* 	version 3.0
+* 	version 4.0
 
 ** Parameter setup
 .param vsup=2.5 rbulkpanalog=1m rbulkpcore=1m rhsupanalog=1m rhsupcore=1m vsup1v5=2.5 vsup2v5=2.5
