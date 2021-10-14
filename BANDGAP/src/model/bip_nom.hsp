@@ -10,7 +10,7 @@
 * The bipolar transistor models are from: The Development of Bipolar Log-Domain Filters in a Standard CMOS Process, G. D. Duerden, G. W. Roberts, M. J. Deen, 2001
 
 * Release:
-* 	version 3.0
+* 	version 4.0
 
 .model latpnp pnp 
 + is=1.8e-15 bf=120 rb=500 re=50 vaf=5  var=3 nf=1.25 ikf=3e-5 tf=100e-12
