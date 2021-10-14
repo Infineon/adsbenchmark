@@ -7,7 +7,7 @@
 // ANY OTHER LEGAL THEORY, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 // © 2020 Infineon Technologies AG. All rights reserved
 // Release:
-//	version 3.0
+//	version 4.0
 
 `include "constants.vams"
 `include "disciplines.vams"
