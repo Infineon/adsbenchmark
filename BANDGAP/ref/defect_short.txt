@@ -12,7 +12,7 @@
 * Release:												
 * 	version 4.0											
 												
-Tag,Net1,Net2,path,device,terminalA,terminalB												
+Tag,Net1,Net2,path,Model,terminalA,terminalB												
 												
 Defect_short_1	,	VDDa!	,	VSS!	,	XI79.M78	,	nana	,	s	,	d
 Defect_short_2	,	VDDa!	,	net033	,	XI79.M83	,	pana	,	s	,	g
