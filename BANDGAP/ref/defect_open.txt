@@ -12,7 +12,7 @@
 * Release:								
 * 	version 4.0							
 								
-Tag,Net,path-port,device,terminal								
+Tag,Net,path-port,Model,terminal								
 								
 Defect_open_1	,	VDDa!	,	XI79.M78-s	,	nana	,	s
 Defect_open_2	,	VDDa!	,	XI79.M70-s	,	pana	,	s
