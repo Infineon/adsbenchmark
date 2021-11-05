@@ -24,7 +24,7 @@ module bg_chk (sigin,fail,testnr);
   real failed, val1, val2, testflag;
 
   localparam real time0= 10m, time1=50m, time2=100m;//times at which "sigin" is measured
-  localparam real hilim=1.405, lolim=1.385;  //limits for bg voltage
+  localparam real hilim=1.405, lolim=1.395;  //limits for bg voltage
   localparam real maxdiff=7m;                //allowed difference between measurements
   localparam real maxidle=10m;               //max BG voltage when disabled
   localparam real testidle    =1;            //"testnr" when idle voltage fails
