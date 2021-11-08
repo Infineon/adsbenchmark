@@ -22,14 +22,9 @@
 +		vend = vrefp+1m
 
 ** Model files
-.inc "models/bip_nom.hsp"
+.inc "model/bip_nom.scs"
+.inc "model/mosfets.scs"
 
-** Model corners **Include one file**
-*******************************
-* .inc "models/mosfets_fast.hsp"
-*.inc "models/mosfets.hsp"
- .inc "models/mosfets_slow.hsp"
-*******************************
 
 ** Testbench setup
 .inc "tb_saradc_mct.hsp"
