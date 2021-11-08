@@ -10,50 +10,36 @@
 * The bipolar transistor models are from: The Development of Bipolar Log-Domain Filters in a Standard CMOS Process, G. D. Duerden, G. W. Roberts, M. J. Deen, 2001
 
 * Release:
-* version 1.0
+* 	version 5.0
 
 * Contact: adstestsuite@infineon.com
 
-Multi-testbench SARADC Circuit for the Evaluation of Analog Defect Simulation Tools
+Evaluation of Analog Defect Simulation Tools
 
 Content:
 	% doc/readme
-		
-	% src/*_top.hsp
-		Testbench setup.
-	% src/saradc.hsp
-		DUT netlist
-	% src/tb_mct_saradc.hsp
-		Major Carrier Testbench
-	% src/tb_ramp_saradc.hsp	
-		Ramp Testbench
-	% src/model/*
-		Models of devices used in the SARADC's netlist.
+	% doc/*.pdf
+		This document introduces you to the schematic and the internal circuits of the testbench and DUT. 
+		The purpose is to enable the reader to understand, run and extend the test benches of this circuit.
+	% src/top.hsp
+		testbench and simulation setup.
+	% src/tb_*.hsp
+		Testbench and cells netlist.
 	% src/checker/*
-		Veriloga code that evaluates the SARADC
-		Trigger a signal if the circuit goes out of specs
-	% src/digital/*
-		Digital block codes.
-
+		Veriloga code that evaluates the DUT behaviour
+		Trigger "fail" signal if the circuit is out of specs 
+	% ref/*
+		Potential defects list. 
+		
 Setups:
-	Defect free simulation:
+	Defect-free simulation:
 		- Must NOT trigger "fail" signal and remain at logic "0".
+		- Although a Default value is given in the checker for the limits, user can change them based on defect-free simulation findings.
 	Defect simulations:
-		* Simulate the MCT testbench:
-			- Violation of specs is detected if "fail" signal is triggered and changed from logic "0" to logic "1".
-			- Violation of specs is undetected if "fail" signal is not triggered and remained at logic "0" until stop time.
-		* Simulate the RAMP testbench:
-			- Select only undetected defects by the MCT 
-			- Violation of specs is detected if "testid" signal is triggered and changed from logic "0" to logic "1".
-			- Violation of specs is undetected if "testid" signal is not triggered and remained at logic "0" until stop time.
-			- In case of simulation failed due to any reason (convergence issue, simulation timeout, etc) defect is categorized as undetected.
-	
-		
-		
+		- Violation of specs is detected if "fail" signal is triggered and changed from logic "0" to logic "1".
+		- Violation of specs is undetected if "fail" signal is not triggered and remained at logic "0" until stop time.
+		- In case of simulation failed due to any reason (convergence issue, simulation timeout, etc) defect is categorized as undetected.
 
-
-
-
-
-
- 
+** Important notes: **
+	- In case defect-free simulation results in a value that deviates from the nominal specification user must shift limits accordingly.
+	- Fail signal name could be different based on testbench
