@@ -20,9 +20,7 @@
 
 ** Model corners **Include one file**
 *******************************
-* .inc "model/mosfets_fast.hsp"
-*.inc "model/mosfets.hsp"
- .inc "model/mosfets_slow.hsp"
+.inc "model/mosfets.hsp"
 
 ** Testbench setup
 .include "tb_bandgap.hsp"
