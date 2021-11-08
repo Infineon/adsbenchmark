@@ -19,8 +19,8 @@
     corner_parameter=1 phy_test=1
 
 ** Model files
-.inc "model/mosfets.hsp"
-.inc "model/bip_nom.hsp"
+.inc "model/mosfets.scs"
+.inc "model/bip_nom.scs"
 
 ** Testbench setup
 .inc "phy_tb.hsp"
