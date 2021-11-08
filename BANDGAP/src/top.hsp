@@ -16,11 +16,11 @@
 .param vsup=2.5 rbulkpanalog=1m rbulkpcore=1m rhsupanalog=1m rhsupcore=1m vsup1v5=2.5 vsup2v5=2.5
 
 ** Model files
-.inc "model/bip_nom.hsp"
+.inc "model/bip_nom.scs"
 
 ** Model corners **Include one file**
 *******************************
-.inc "model/mosfets.hsp"
+.inc "model/mosfets.scs"
 
 ** Testbench setup
 .include "tb_bandgap.hsp"
