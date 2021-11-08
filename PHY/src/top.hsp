@@ -15,13 +15,11 @@
 ** Parameter setup
 .GLOBAL 0 VDDbc! VDDa! VSSb! VDDba! VDDc! VSS!
 .PARAM clk=1G pll_wait_time=100n rbulkpanalog=1m rbulkpcore=1m \
-    rhsupanalog=1 rhsupcore=1 td_ps=1n tr_ps=30p vsup1v5=1.5 vsup2v5=2.5 \
+    rhsupanalog=1m rhsupcore=1m td_ps=1n tr_ps=1n vsup1v5=1.5 vsup2v5=2.5 \
     corner_parameter=1 phy_test=1
 
 ** Model files
-* .inc "model/mosfets_fast.hsp"
 .inc "model/mosfets.hsp"
-*.inc "model/mosfets_slow.hsp"
 .inc "model/bip_nom.hsp"
 
 ** Testbench setup
