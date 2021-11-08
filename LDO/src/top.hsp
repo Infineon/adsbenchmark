@@ -14,9 +14,6 @@
 
 ** Model files
 .inc "model/bip_nom.scs"
-
-** Model corners **Include one file**
-*******************************
 .inc "model/mosfets.scs"
 
 ** Testbench setup
