@@ -13,13 +13,11 @@
 .PARAM rbulkpanalog=1m rbulkpcore=1m rhsupanalog=1m rhsupcore=1m td_ps=1n tr_ps=1n vsup1v5=1.5 vsup2v5=2.5 vref=1.2
 
 ** Model files
-.inc "model/bip_nom.hsp"
+.inc "model/bip_nom.scs"
 
 ** Model corners **Include one file**
 *******************************
-* .inc "model/mosfets_fast.hsp"
-.inc "model/mosfets.hsp"
-* .inc "model/mosfets_slow.hsp"
+.inc "model/mosfets.scs"
 
 ** Testbench setup
 .inc "tb_ldo.hsp"
