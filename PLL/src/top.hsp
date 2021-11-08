@@ -17,14 +17,9 @@
 .PARAM fref=7.3728e+06 td_ps=1e-06 tr_ps=1e-10 icont=1e-08 rbulkpanalog=0.001 rbulkpcore=0.001 rhsupanalog=0.001 rhsupcore=0.001 vsup1v5=1.5 vsup2v5=2.5
 
 ** Model files
-.inc "model/bip_nom.hsp"
+.inc "model/bip_nom.scs"
+.inc "model/mosfets.scs"
 
-** Model corners **Include one file**
-*******************************
-* .inc "model/mosfets_fast.hsp"
-*.inc "model/mosfets.hsp"
- .inc "model/mosfets_slow.hsp"
-*******************************
 
 ** Testbench setup
 .inc "tb_pll.hsp"
