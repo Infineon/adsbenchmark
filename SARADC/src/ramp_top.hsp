@@ -19,14 +19,8 @@
 
 
 ** Model files
-.inc "models/bip_nom.hsp"
-
-** Model corners **Include one file**
-*******************************
-* .inc "models/mosfets_fast.hsp"
-*.inc "models/mosfets.hsp"
- .inc "models/mosfets_slow.hsp"
-*******************************
+.inc "model/bip_nom.scs"
+.inc "model/mosfets.scs"
 
 ** Testbench setup
 .inc "tb_saradc_ramp.hsp"
