@@ -14,9 +14,8 @@
 
 ** Parameter setup
 .GLOBAL 0 VDDbc! VDDa! VSSb! VDDba! VDDc! VSS!
-.PARAM clk=1G pll_wait_time=100n rbulkpanalog=1m rbulkpcore=1m \
-    rhsupanalog=1m rhsupcore=1m td_ps=1n tr_ps=1n vsup1v5=1.5 vsup2v5=2.5 \
-    corner_parameter=1 phy_test=1
+.PARAM pll_wait_time=100n rbulkpanalog=1m rbulkpcore=1m rhsupanalog=1m rhsupcore=1m \
+		td_ps=1n tr_ps=1n vsup1v5=1.5 vsup2v5=2.5 phy_test=1
 
 ** Model files
 .inc "model/mosfets.scs"
@@ -26,8 +25,8 @@
 .inc "phy_tb.hsp"
 
 ** Analysis
-.probe v(test_id)
-.measure tran max_fail max v(test_id)
+.probe v(fail_s)
+.measure tran max_fail max v(fail_s)
 .tran 2e-3 2 
 
 .end
