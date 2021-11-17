@@ -5350,7 +5350,7 @@
 ** Inherited view list: veriloga ahdl spectre schematic av_analog_extracted av_extracted netlist
 **
 .SUBCKT cell_dll_wrapper clk_okay_o clk_dphy_0_o clk_dphy_90_o clk_dphy_180_o clk_dphy_270_o lock_o en_1GHz_quad_i ibias_5u_n_ai inh_lSup
-  XI3 clk_okay_o net15 net14 clk_dphy_0_o clk_dphy_90_o clk_dphy_180_o clk_dphy_270_o net12 lock_o net13 net11 en_1GHz_quad_i inh_lSup va_pll_model vhigh='1.5' trf='3e-11'
+  XI3 clk_okay_o net15 net14 clk_dphy_0_o clk_dphy_90_o clk_dphy_180_o clk_dphy_270_o net12 lock_o net13 net11 en_1GHz_quad_i inh_lSup va_pll_model vhigh='1.5' trf='3e-11' period='1e-09'
 .ENDS
 ** End of subcircuit definition.
 
