@@ -26,14 +26,14 @@ module stim_and_check_mct (clk_o,
 				chnr_o[4:0],
 				start_adc_o,
 				vrefp_i,
-                result_i[11:1],
-                eoc_i,
-               dnl_max_o,
-               inl_max_o,
-               test_pass_o,
-               testnr,
-               fail,
-               test_en_i
+                		result_i[11:1],
+               			 eoc_i,
+               			dnl_max_o,
+               			inl_max_o,
+               			test_pass_o,
+               			testnr,
+               			fail,
+               			test_en_i
 				) ;
 
 
@@ -177,7 +177,8 @@ integer  threshold_result_file;
 ////////////////////////////////////
 // Tmp variables
 integer i;
-real next;
+real next_clk_edge;
+integer clock_enable;
 real vthreshold = (vlow+vhigh)/2;
 
 real sampleTime = clk_per_sample/fclk;
@@ -208,6 +209,8 @@ analog begin
     @(cross(V(test_en_i)-vthreshold,1)) begin
         next_state_time = $abstime + 1p;
         next_mct_state_int = RESET_STATE;
+        clock_enable = 1;
+        next_clk_edge = $abstime + 0.5/fclk;
         $strobe(" Starting with MCT");
     end
 
@@ -226,6 +229,7 @@ analog begin
 
 @(initial_step) begin
  // next_mct_state_int = RESET_STATE;
+  clock_enable = 0;
   next_state_time = 1e6;
   all_conversions_file = $fopen("all_conversions.txt");
   threshold_result_file  = $fopen("threshold_results.txt");  
@@ -498,7 +502,7 @@ analog begin
 @(timer( next_state_time)) begin
    mct_state_int = next_mct_state_int;
 end
-@(cross(V(eoc_i)-vthreshold, 1) ) begin
+@(cross(V(eoc_i)-vthreshold, -1) ) begin
 
 
      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -506,6 +510,11 @@ end
 
 
     if ( mct_state_int ==  CONVERT_STATE ) begin
+
+       $strobe("Conversion result @ %0.6e : %f %f %f . %f %f %f %f . %f %f %f %f", $abstime, V(result_i[11])/1.5, V(result_i[10])/1.5, V(result_i[9])/1.5, V(result_i[8])/1.5, 
+																				   V(result_i[7])/1.5, V(result_i[6])/1.5, V(result_i[5])/1.5, V(result_i[4])/1.5, V(result_i[3])/1.5, 
+																				   V(result_i[2])/1.5, V(result_i[1])/1.5); 
+
 
         result_code_int = 0; 
         result_code_int = (V(result_i[1])  > vthreshold) ? result_code_int + 2**(1-1): result_code_int ;
@@ -596,14 +605,14 @@ end
 // Clock
 analog begin
 
-    @(timer(next)) begin
+    @(timer(next_clk_edge)) begin
 
-        if (res_n == 1)
+        if (clock_enable == 1) begin
             clk = !clk;
-        else
+        end else begin
             clk = 0;
-
-        next = next + 0.5/fclk;
+        end
+        next_clk_edge = next_clk_edge + 0.5/fclk;
     end
 
 end
@@ -617,7 +626,7 @@ end
 analog begin
   @(initial_step) begin
 	clk = 0;
-    next=1/fclk;
+    next_clk_edge=-1p;
     chnr[0] = 1;
     chnr[1] = 1;
     chnr[2] = 0;
@@ -659,4 +668,4 @@ end
 
 endmodule
 
-     
+  
