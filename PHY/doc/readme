@@ -28,8 +28,6 @@ Content:
 	% src/checker/*
 		Veriloga code that evaluates the DUT behaviour
 		Trigger "fail" signal if the circuit is out of specs 
-	% ref/*
-		Potential defects list. 
 		
 Setups:
 	Defect-free simulation:
