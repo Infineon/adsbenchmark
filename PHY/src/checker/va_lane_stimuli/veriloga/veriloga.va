@@ -1,0 +1,207 @@
+// Disclaimer:
+// THIS FILE IS PROVIDED AS IS AND WITH:
+// (A) NO WARRANTY OF ANY KIND, express, implied or statutory, including any implied warranties of merchantability, fitness for a particular purpose and noninfringement, which  Infineon disclaims to the maximum extent permitted by applicable law; and
+// (B) NO INDEMNIFICATION FOR INFRINGEMENT OF INTELLECTUAL PROPERTY RIGHTS.
+// (C) LIMITATION OF LIABILITY: IN NO EVENT SHALL INFINEON BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES (INCLUDING LOST PROFITS OR SAVINGS) WHATSOEVER, WHETHER BASED ON CONTRACT, TORT OR ANY OTHER LEGAL THEORY, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+// © 2020 Infineon Technologies AG. All rights reserved.
+
+// Note:
+// The CMOS transistor models used, were freely available models downloaded from: http://ptm.asu.edu.
+// The bipolar transistor models are from: The Development of Bipolar Log-Domain Filters in a Standard CMOS Process, G. D. Duerden, G. W. Roberts, M. J. Deen, 2001
+
+// Release:
+// 	version 1.1
+
+
+// VerilogA for phy_local, lane_stimuli, veriloga
+
+`include "constants.vams"
+`include "disciplines.vams"
+
+module va_lane_stimuli(bypass_delay_line_o,
+                    delay_prog_o,
+                    dft_deser_en_o,
+                    reset_i,
+                    dft_hstx_higher_path_en_o,
+                    dft_hstx_lower_path_en_o,
+                    dft_ser_test_in_en_o,
+                    dft_ser_test_n_o,
+                    dft_ser_test_p_o,
+                    hs_ser_en_o,
+                    hstx_data_o,
+                    hstx_en_lptx_dis_o,
+                    hstx_pwrdn_o,
+                    lptx_dn_o,
+                    lptx_dp_o,
+                    lptx_en_o,
+                    clk_i,
+                    delay_i,
+                    mode_i);
+
+input reset_i;
+electrical reset_i;
+
+output bypass_delay_line_o;
+electrical bypass_delay_line_o;
+output [2:0] delay_prog_o;
+electrical [2:0] delay_prog_o;
+output dft_deser_en_o;
+electrical dft_deser_en_o;
+output dft_hstx_higher_path_en_o;
+electrical dft_hstx_higher_path_en_o;
+output dft_hstx_lower_path_en_o;
+electrical dft_hstx_lower_path_en_o;
+output dft_ser_test_in_en_o;
+electrical dft_ser_test_in_en_o;
+output dft_ser_test_n_o;
+electrical dft_ser_test_n_o;
+output dft_ser_test_p_o;
+electrical dft_ser_test_p_o;
+output hs_ser_en_o;
+electrical hs_ser_en_o;
+output [15:0] hstx_data_o;
+electrical [15:0] hstx_data_o;
+output hstx_en_lptx_dis_o;
+electrical hstx_en_lptx_dis_o;
+output hstx_pwrdn_o;
+electrical hstx_pwrdn_o;
+output lptx_dn_o;
+electrical lptx_dn_o;
+output lptx_dp_o;
+electrical lptx_dp_o;
+output lptx_en_o;
+electrical lptx_en_o;
+input clk_i;
+electrical clk_i;
+input delay_i;
+electrical delay_i;
+input mode_i;
+electrical mode_i;
+
+/*
+* Parameters
+*/
+parameter real vhigh = 1.5;
+parameter real trf = 1n;
+
+/*
+* Variables for Outputs
+*/
+integer bypass_delay_line = 0;
+integer delay_prog[2:0] = {0,0,0};
+integer dft_deser_en = 0;
+integer dft_hstx_higher_path_en = 0;
+integer dft_hstx_lower_path_en = 0;
+integer dft_ser_test_in_en = 0;
+integer dft_ser_test_n = 0;
+integer dft_ser_test_p = 0;
+integer hs_ser_en = 0;
+integer hstx_data[15:0] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+integer hstx_en_lptx_dis = 0;
+integer hstx_pwrdn = 0;
+integer lptx_dn = 0;
+integer lptx_dp = 0;
+integer lptx_en = 0;
+
+/*
+* Variables for inputs
+*/
+integer mode, delay;
+
+
+/**
+* Modes
+*/
+localparam integer MODE_POWER_DOWN         = 0;
+localparam integer MODE_IDLE_HSTX          = 1;
+localparam integer MODE_IDLE_LPTX          = 2;
+localparam integer MODE_HSTX_PRBS          = 3;
+localparam integer MODE_LSTX_PRBS          = 4;
+localparam integer MODE_111                = 5;
+localparam integer MODE_000                = 6;
+localparam integer MODE_010                = 7;
+localparam integer MODE_FORCE_HSTX_P0N0    = 8;
+localparam integer MODE_FORCE_HSTX_P0N1    = 9;
+localparam integer MODE_FORCE_HSTX_P1N0    = 10;
+localparam integer MODE_FORCE_HSTX_P1N1    = 11;
+localparam integer MODE_FORCE_LPTX_P0N0    = 12;
+localparam integer MODE_FORCE_LPTX_P0N1    = 13;
+localparam integer MODE_FORCE_LPTX_P1N0    = 14;
+localparam integer MODE_FORCE_LPTX_P1N1    = 15;
+
+/*
+* tmp vars for loops
+*/
+integer i = 0;
+integer j = 0;
+
+
+
+/*
+* Include of all states
+*/
+`include "states/0_power_down.va"
+`include "states/1_idle_hstx.va"
+`include "states/2_idle_lptx.va"
+`include "states/3_hstx_prbs.va"
+`include "states/7_010.va"
+`include "states/8_hstx_pxnx.va"
+`include "states/12_lptx_pxnx.va"
+
+
+
+/*
+* Input/Output interaction
+*/
+analog begin
+
+    // Get inputs
+    mode = V(mode_i);
+    delay = V(delay_i);
+
+    bypass_delay_line = delay==-1; // Bypass the delay line
+
+    // Convert to binary output
+    delay_prog[0] = delay==1 || delay == 3 || delay == 5 || delay == 7;
+    delay_prog[1] = delay==2 || delay == 3 || delay == 6 || delay == 7;
+    delay_prog[2] = delay==4 || delay == 5 || delay == 6 || delay == 7;
+
+    // Set outputs
+    V(bypass_delay_line_o      ) <+ transition(vhigh*bypass_delay_line      ,0,trf,trf);
+    V(dft_deser_en_o           ) <+ transition(vhigh*dft_deser_en           ,0,trf,trf);
+    V(dft_hstx_higher_path_en_o) <+ transition(vhigh*dft_hstx_higher_path_en,0,trf,trf);
+    V(dft_hstx_lower_path_en_o ) <+ transition(vhigh*dft_hstx_lower_path_en ,0,trf,trf);
+    V(dft_ser_test_in_en_o     ) <+ transition(vhigh*dft_ser_test_in_en     ,0,trf,trf);
+    V(dft_ser_test_n_o         ) <+ transition(vhigh*dft_ser_test_n         ,0,trf,trf);
+    V(dft_ser_test_p_o         ) <+ transition(vhigh*dft_ser_test_p         ,0,trf,trf);
+    V(hs_ser_en_o              ) <+ transition(vhigh*hs_ser_en              ,0,trf,trf);
+    V(hstx_en_lptx_dis_o       ) <+ transition(vhigh*hstx_en_lptx_dis       ,0,trf,trf);
+    V(hstx_pwrdn_o             ) <+ transition(vhigh*hstx_pwrdn             ,0,trf,trf);
+    V(lptx_dn_o                ) <+ transition(vhigh*lptx_dn                ,0,trf,trf);
+    V(lptx_dp_o                ) <+ transition(vhigh*lptx_dp                ,0,trf,trf);
+    V(lptx_en_o                ) <+ transition(vhigh*lptx_en                ,0,trf,trf);
+    V(hstx_data_o[0]           ) <+ transition(vhigh*hstx_data[0]          ,0,trf,trf);
+    V(hstx_data_o[1]           ) <+ transition(vhigh*hstx_data[1]          ,0,trf,trf);
+    V(hstx_data_o[2]           ) <+ transition(vhigh*hstx_data[2]          ,0,trf,trf);
+    V(hstx_data_o[3]           ) <+ transition(vhigh*hstx_data[3]          ,0,trf,trf);
+    V(hstx_data_o[4]           ) <+ transition(vhigh*hstx_data[4]          ,0,trf,trf);
+    V(hstx_data_o[5]           ) <+ transition(vhigh*hstx_data[5]          ,0,trf,trf);
+    V(hstx_data_o[6]           ) <+ transition(vhigh*hstx_data[6]          ,0,trf,trf);
+    V(hstx_data_o[7]           ) <+ transition(vhigh*hstx_data[7]          ,0,trf,trf);
+    V(hstx_data_o[8]           ) <+ transition(vhigh*hstx_data[8]          ,0,trf,trf);
+    V(hstx_data_o[9]           ) <+ transition(vhigh*hstx_data[9]          ,0,trf,trf);
+    V(hstx_data_o[10]          ) <+ transition(vhigh*hstx_data[10]         ,0,trf,trf);
+    V(hstx_data_o[11]          ) <+ transition(vhigh*hstx_data[11]         ,0,trf,trf);
+    V(hstx_data_o[12]          ) <+ transition(vhigh*hstx_data[12]         ,0,trf,trf);
+    V(hstx_data_o[13]          ) <+ transition(vhigh*hstx_data[13]         ,0,trf,trf);
+    V(hstx_data_o[14]          ) <+ transition(vhigh*hstx_data[14]         ,0,trf,trf);
+    V(hstx_data_o[15]          ) <+ transition(vhigh*hstx_data[15]         ,0,trf,trf);
+
+    V(delay_prog_o[0]          ) <+ transition(vhigh*delay_prog[0]          ,0,trf,trf);
+    V(delay_prog_o[1]          ) <+ transition(vhigh*delay_prog[1]          ,0,trf,trf);
+    V(delay_prog_o[2]          ) <+ transition(vhigh*delay_prog[2]          ,0,trf,trf);
+end
+
+
+
+endmodule

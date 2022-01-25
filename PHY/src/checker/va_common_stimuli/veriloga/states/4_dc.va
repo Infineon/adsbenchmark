@@ -1,0 +1,336 @@
+// Disclaimer:
+// THIS FILE IS PROVIDED AS IS AND WITH:
+// (A) NO WARRANTY OF ANY KIND, express, implied or statutory, including any implied warranties of merchantability, fitness for a particular purpose and noninfringement, which  Infineon disclaims to the maximum extent permitted by applicable law; and
+// (B) NO INDEMNIFICATION FOR INFRINGEMENT OF INTELLECTUAL PROPERTY RIGHTS.
+// (C) LIMITATION OF LIABILITY: IN NO EVENT SHALL INFINEON BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES (INCLUDING LOST PROFITS OR SAVINGS) WHATSOEVER, WHETHER BASED ON CONTRACT, TORT OR ANY OTHER LEGAL THEORY, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+// © 2020 Infineon Technologies AG. All rights reserved.
+
+// Note:
+// The CMOS transistor models used, were freely available models downloaded from: http://ptm.asu.edu.
+// The bipolar transistor models are from: The Development of Bipolar Log-Domain Filters in a Standard CMOS Process, G. D. Duerden, G. W. Roberts, M. J. Deen, 2001
+
+// Release:
+// 	version 1.1
+
+
+
+/**
+* DC tests
+* ----------
+* In this test we measure some of the static measurements:
+* For all lanes (no termination):
+*    - high pegel of n and p (lptx, hstx)
+*    - low pegel of n and p (lptx, hstx)
+*    - whenever an hstx output is set, also force a current to measure the impedance for all impedance settings
+*      (impedance is decreased in every step -> it must be in an acceptable range and should also decrease! So it is compared with the privous measured impedance)
+*/
+
+/*
+* Parameters
+*/
+parameter real dc_test_current = 2e-3;
+parameter real dc_allowed_v_tol = 50m; 
+parameter real dc_lptx_allowed_v_tol = 150m; 
+parameter real dc_settling_time = 50n;
+parameter real dc_hstx_expected_high = 400m;
+parameter real dc_lptx_expected_high = 1.2;
+parameter real dc_lptx_R_min = 110;
+parameter real dc_hstx_max_cmtx_mismatch = 5m;
+parameter real dc_hstx_max_od_mismatch = 14m;
+
+/*
+* Variables (there are no 2d arrays in verilog-a)
+*/
+`define DC_NUM_ROWS 24
+`define DC_NUM_ELEMENTS (`DC_NUM_ROWS*9-1)
+real dc_runs[0:`DC_NUM_ELEMENTS] = {
+    // |        mode          |     current_p        current_n      impcal[2]  impcal[1] impcal[0] |    target_p                       target_n                          |     tolerable_v
+         MODE_FORCE_HSTX_P0N1,          0,                0,              0,        0,        0,           0,                   dc_hstx_expected_high,                         dc_allowed_v_tol,
+         MODE_FORCE_HSTX_P1N0,          0,                0,              0,        0,        0,      dc_hstx_expected_high,              0,                                   dc_allowed_v_tol,
+
+         MODE_FORCE_HSTX_P0N1,    -dc_test_current, dc_test_current,     0,        0,        0,      dc_test_current*50,       /*dc_hstx_expected_high*/-dc_test_current*50,    dc_allowed_v_tol,
+         MODE_FORCE_HSTX_P0N1,    -dc_test_current, dc_test_current,     0,        0,        1,      dc_test_current*50,       /*dc_hstx_expected_high*/-dc_test_current*50,    dc_allowed_v_tol,
+         MODE_FORCE_HSTX_P0N1,    -dc_test_current, dc_test_current,     0,        1,        0,      dc_test_current*50,       /*dc_hstx_expected_high*/-dc_test_current*50,    dc_allowed_v_tol,    
+         MODE_FORCE_HSTX_P0N1,    -dc_test_current, dc_test_current,     0,        1,        1,      dc_test_current*50,       /*dc_hstx_expected_high*/-dc_test_current*50,    dc_allowed_v_tol,
+         MODE_FORCE_HSTX_P0N1,    -dc_test_current, dc_test_current,     1,        0,        0,      dc_test_current*50,       /*dc_hstx_expected_high*/-dc_test_current*50,    dc_allowed_v_tol,
+         MODE_FORCE_HSTX_P0N1,    -dc_test_current, dc_test_current,     1,        0,        1,      dc_test_current*50,       /*dc_hstx_expected_high*/-dc_test_current*50,    dc_allowed_v_tol,
+         MODE_FORCE_HSTX_P0N1,    -dc_test_current, dc_test_current,     1,        1,        0,      dc_test_current*50,       /*dc_hstx_expected_high*/-dc_test_current*50,    dc_allowed_v_tol,
+         MODE_FORCE_HSTX_P0N1,    -dc_test_current, dc_test_current,     1,        1,        1,      dc_test_current*50,       /*dc_hstx_expected_high*/-dc_test_current*50,    dc_allowed_v_tol,
+
+         MODE_FORCE_HSTX_P1N0,     dc_test_current, -dc_test_current,     0,        0,        0,      /*dc_hstx_expected_high*/-dc_test_current*50,       dc_test_current*50,    dc_allowed_v_tol,
+         MODE_FORCE_HSTX_P1N0,     dc_test_current, -dc_test_current,     0,        0,        1,      /*dc_hstx_expected_high*/-dc_test_current*50,       dc_test_current*50,    dc_allowed_v_tol,
+         MODE_FORCE_HSTX_P1N0,     dc_test_current, -dc_test_current,     0,        1,        0,      /*dc_hstx_expected_high*/-dc_test_current*50,       dc_test_current*50,    dc_allowed_v_tol,
+         MODE_FORCE_HSTX_P1N0,     dc_test_current, -dc_test_current,     0,        1,        1,      /*dc_hstx_expected_high*/-dc_test_current*50,       dc_test_current*50,    dc_allowed_v_tol,
+         MODE_FORCE_HSTX_P1N0,     dc_test_current, -dc_test_current,     1,        0,        0,      /*dc_hstx_expected_high*/-dc_test_current*50,       dc_test_current*50,    dc_allowed_v_tol,
+         MODE_FORCE_HSTX_P1N0,     dc_test_current, -dc_test_current,     1,        0,        1,      /*dc_hstx_expected_high*/-dc_test_current*50,       dc_test_current*50,    dc_allowed_v_tol,
+         MODE_FORCE_HSTX_P1N0,     dc_test_current, -dc_test_current,     1,        1,        0,      /*dc_hstx_expected_high*/-dc_test_current*50,       dc_test_current*50,    dc_allowed_v_tol,
+         MODE_FORCE_HSTX_P1N0,     dc_test_current, -dc_test_current,     1,        1,        1,      /*dc_hstx_expected_high*/-dc_test_current*50,       dc_test_current*50,    dc_allowed_v_tol,
+    
+         MODE_FORCE_LPTX_P0N0,          0,                0,              0,        0,        0,            0,                                                 0,                dc_lptx_allowed_v_tol,
+         MODE_FORCE_LPTX_P0N1,          0,                0,              0,        0,        0,            0,                                           dc_lptx_expected_high,  dc_lptx_allowed_v_tol,
+         MODE_FORCE_LPTX_P1N0,          0,                0,              0,        0,        0,     dc_lptx_expected_high,                                    0,                dc_lptx_allowed_v_tol,
+         MODE_FORCE_LPTX_P1N1,          0,                0,              0,        0,        0,     dc_lptx_expected_high,                              dc_lptx_expected_high,  dc_lptx_allowed_v_tol,
+
+         MODE_FORCE_LPTX_P0N1,     -dc_test_current, dc_test_current,     0,        0,        0,           -1,                                                -1,                dc_lptx_allowed_v_tol,
+         MODE_FORCE_LPTX_P1N0,     dc_test_current, -dc_test_current,     0,        0,        0,           -1,                                                -1,                dc_lptx_allowed_v_tol
+};
+real dc_setup_state_next = -1;
+real dc_check_volt_next = -1;
+integer dc_pointer = 0;
+real dc_target_p[4:0] = {0,0,0,0,0};
+real dc_target_n[4:0] = {0,0,0,0,0};
+real dc_measured_p[4:0] = {0,0,0,0,0};
+real dc_measured_n[4:0] = {0,0,0,0,0};
+
+real dc_cmtx_01[4:0] = {0,0,0,0,0};
+real dc_cmtx_10[4:0] = {0,0,0,0,0};
+real dc_od_01[4:0] = {0,0,0,0,0};
+real dc_od_10[4:0] = {0,0,0,0,0};
+
+real dc_v_tolerance = 0;
+
+integer dc_lptx_impedance_measurement_enabled = 0;
+/*
+* Setup state
+*/
+analog begin
+    @(timer( dc_setup_state_next )) begin
+
+        if (dc_pointer>=`DC_NUM_ELEMENTS) begin
+            // End reached and all passed
+            $strobe("[PASS] DC complete");
+
+            dc_current_tx_p = 0;
+            dc_current_tx_n = 0;
+
+            // Continue with the next test
+            next_state_time = $abstime + 1p;
+            state = state + 1;
+            //state = STATE_HSTX_PRBS;
+            //state = STATE_HSTX_DELAY_LINE; // Directly to another test
+
+        end else begin
+            // Setup lane stimuli modes
+            for (i = 4; i>=0; i=i-1) begin
+                mode[i] = dc_runs[dc_pointer];
+            end
+            reset_pulse_time = $abstime+trf; // Create reset pulse
+
+            dc_pointer = dc_pointer + 1;
+            dc_current_tx_p = dc_runs[dc_pointer];
+            dc_pointer = dc_pointer + 1;
+            dc_current_tx_n = dc_runs[dc_pointer];
+            dc_pointer = dc_pointer + 1;
+
+            hstx_lower_imp_cal[2] = dc_runs[dc_pointer];
+            hstx_upper_imp_cal[2] = dc_runs[dc_pointer];
+            dc_pointer = dc_pointer + 1;
+            hstx_lower_imp_cal[1] = dc_runs[dc_pointer];
+            hstx_upper_imp_cal[1] = dc_runs[dc_pointer];
+            dc_pointer = dc_pointer + 1;
+            hstx_lower_imp_cal[0] = dc_runs[dc_pointer];
+            hstx_upper_imp_cal[0] = dc_runs[dc_pointer];
+            dc_pointer = dc_pointer + 1;
+
+
+            dc_check_volt_next = $abstime + dc_settling_time;
+        end
+
+    end
+end
+
+
+
+/*
+* Check voltages
+*/
+analog begin
+    @(timer( dc_check_volt_next )) begin
+
+        $strobe("=================================================================================");
+        if (dc_pointer==6) begin
+            // measure 01 common mode
+            dc_cmtx_01[0] = (V(tx_p[0])+V(tx_n_i[0]))/2;
+            dc_cmtx_01[1] = (V(tx_p[1])+V(tx_n_i[1]))/2;
+            dc_cmtx_01[2] = (V(tx_p[2])+V(tx_n_i[2]))/2;
+            dc_cmtx_01[3] = (V(tx_p[3])+V(tx_n_i[3]))/2;
+            dc_cmtx_01[4] = (V(tx_p[4])+V(tx_n_i[4]))/2;
+
+            dc_od_01[0] = V(tx_p[0])-V(tx_n_i[0]);
+            dc_od_01[1] = V(tx_p[1])-V(tx_n_i[1]);
+            dc_od_01[2] = V(tx_p[2])-V(tx_n_i[2]);
+            dc_od_01[3] = V(tx_p[3])-V(tx_n_i[3]);
+            dc_od_01[4] = V(tx_p[4])-V(tx_n_i[4]);
+        end
+        if (dc_pointer==6+9) begin
+            // measure 10 common mode
+            dc_cmtx_10[0] = (V(tx_p[0])+V(tx_n_i[0]))/2;
+            dc_cmtx_10[1] = (V(tx_p[1])+V(tx_n_i[1]))/2;
+            dc_cmtx_10[2] = (V(tx_p[2])+V(tx_n_i[2]))/2;
+            dc_cmtx_10[3] = (V(tx_p[3])+V(tx_n_i[3]))/2;
+            dc_cmtx_10[4] = (V(tx_p[4])+V(tx_n_i[4]))/2;
+
+            dc_od_10[0] = V(tx_p[0])-V(tx_n_i[0]);
+            dc_od_10[1] = V(tx_p[1])-V(tx_n_i[1]);
+            dc_od_10[2] = V(tx_p[2])-V(tx_n_i[2]);
+            dc_od_10[3] = V(tx_p[3])-V(tx_n_i[3]);
+            dc_od_10[4] = V(tx_p[4])-V(tx_n_i[4]);
+
+            for (i = 0; i<5; i=i+1) begin
+                if (abs(abs(dc_cmtx_10[i])-abs(dc_cmtx_01[i])) < dc_hstx_max_cmtx_mismatch) begin
+                    $strobe("Differential common mode mismatch (dVcmtx = %f V) okay for lane %d", abs(abs(dc_cmtx_10[i])-abs(dc_cmtx_01[i])), i);
+                end else begin
+                    $strobe("Differential common mode mismatch (dVcmtx = %f V) NOT okay for lane %d", abs(abs(dc_cmtx_10[i])-abs(dc_cmtx_01[i])), i);
+                    fail = 1;
+                    next_state_time = $abstime + 1p;
+                end
+
+                if (abs(abs(dc_od_10[i])-abs(dc_od_01[i])) < dc_hstx_max_od_mismatch) begin
+                    $strobe("Differential common mode mismatch (dVod = %f V) okay for lane %d", abs(abs(dc_od_10[i])-abs(dc_od_01[i])), i);
+                end else begin
+                    $strobe("Differential common mode mismatch (dVod = %f V) NOT okay for lane %d", abs(abs(dc_od_10[i])-abs(dc_od_01[i])), i);
+                    fail = 1;
+                    next_state_time = $abstime + 1p;
+                end
+            end
+        end
+
+        dc_lptx_impedance_measurement_enabled = 0;
+
+        // Get the target values
+        for (i = 0; i<5; i=i+1) begin
+            dc_target_p[i] = dc_runs[dc_pointer];
+            if (dc_target_p[i] == -1) begin // If -1 then we just want to do some DC measurement!
+                dc_lptx_impedance_measurement_enabled = 1;
+            end
+            if (dc_target_p[i] < 0) begin // If negative voltage targets -> add the ldo voltages as offset
+                dc_target_p[i] = dc_target_p[i] + ldo_results[i]; // use ldo voltage from previous measurement to calculate the real expected voltage drop
+            end
+        end
+        dc_pointer = dc_pointer + 1;
+        for (i = 0; i<5; i=i+1) begin
+            dc_target_n[i] = dc_runs[dc_pointer];
+            if (dc_target_n[i] == -1) begin
+                dc_lptx_impedance_measurement_enabled = 1;
+            end
+            if (dc_target_n[i] < 0) begin
+                dc_target_n[i] = dc_target_n[i] + ldo_results[i]; // use ldo voltage from previous measurement to calculate the real expected voltage drop
+            end
+        end
+        dc_pointer = dc_pointer + 1;
+        dc_v_tolerance = dc_runs[dc_pointer];
+        dc_pointer = dc_pointer + 1;
+
+        $strobe("[INFO] Mode %d", mode[0]);
+        $strobe("[INFO] Clk lane) Measured impedance p: %f V @ %f A (expected %f) (%f ohm or %f ohm)", V(tx_p[0]),   dc_current_tx_p, dc_target_p[0], V(tx_p[0])/dc_current_tx_p  , (dc_hstx_expected_high-V(tx_p[0]))/dc_current_tx_p);
+        $strobe("[INFO] Lane 0) Measured impedance p: %f V @ %f A   (expected %f) (%f ohm or %f ohm)", V(tx_p[1]),   dc_current_tx_p, dc_target_p[1], V(tx_p[1])/dc_current_tx_p  , (dc_hstx_expected_high-V(tx_p[1]))/dc_current_tx_p);
+        $strobe("[INFO] Lane 1) Measured impedance p: %f V @ %f A   (expected %f) (%f ohm or %f ohm)", V(tx_p[2]),   dc_current_tx_p, dc_target_p[2], V(tx_p[2])/dc_current_tx_p  , (dc_hstx_expected_high-V(tx_p[2]))/dc_current_tx_p);
+        $strobe("[INFO] Lane 2) Measured impedance p: %f V @ %f A   (expected %f) (%f ohm or %f ohm)", V(tx_p[3]),   dc_current_tx_p, dc_target_p[3], V(tx_p[3])/dc_current_tx_p  , (dc_hstx_expected_high-V(tx_p[3]))/dc_current_tx_p);
+        $strobe("[INFO] Lane 3) Measured impedance p: %f V @ %f A   (expected %f) (%f ohm or %f ohm)", V(tx_p[4]),   dc_current_tx_p, dc_target_p[4], V(tx_p[4])/dc_current_tx_p  , (dc_hstx_expected_high-V(tx_p[4]))/dc_current_tx_p);
+        $strobe("[INFO] Clk lane) Measured impedance n: %f V @ %f A (expected %f) (%f ohm or %f ohm)", V(tx_n_i[0]), dc_current_tx_n, dc_target_n[0], V(tx_n_i[0])/dc_current_tx_n, (dc_hstx_expected_high-V(tx_n_i[0]))/dc_current_tx_n);
+        $strobe("[INFO] Lane 0) Measured impedance n: %f V @ %f A   (expected %f) (%f ohm or %f ohm)", V(tx_n_i[1]), dc_current_tx_n, dc_target_n[1], V(tx_n_i[1])/dc_current_tx_n, (dc_hstx_expected_high-V(tx_n_i[1]))/dc_current_tx_n);
+        $strobe("[INFO] Lane 1) Measured impedance n: %f V @ %f A   (expected %f) (%f ohm or %f ohm)", V(tx_n_i[2]), dc_current_tx_n, dc_target_n[2], V(tx_n_i[2])/dc_current_tx_n, (dc_hstx_expected_high-V(tx_n_i[2]))/dc_current_tx_n);
+        $strobe("[INFO] Lane 2) Measured impedance n: %f V @ %f A   (expected %f) (%f ohm or %f ohm)", V(tx_n_i[3]), dc_current_tx_n, dc_target_n[3], V(tx_n_i[3])/dc_current_tx_n, (dc_hstx_expected_high-V(tx_n_i[3]))/dc_current_tx_n);
+        $strobe("[INFO] Lane 3) Measured impedance n: %f V @ %f A   (expected %f) (%f ohm or %f ohm)", V(tx_n_i[4]), dc_current_tx_n, dc_target_n[4], V(tx_n_i[4])/dc_current_tx_n, (dc_hstx_expected_high-V(tx_n_i[4]))/dc_current_tx_n);
+        $strobe("=================================================================================");
+
+        dc_measured_p[0] = V(tx_p[0]);
+        dc_measured_p[1] = V(tx_p[1]);
+        dc_measured_p[2] = V(tx_p[2]);
+        dc_measured_p[3] = V(tx_p[3]);
+        dc_measured_p[4] = V(tx_p[4]);
+        dc_measured_n[0] = V(tx_n_i[0]);
+        dc_measured_n[1] = V(tx_n_i[1]);
+        dc_measured_n[2] = V(tx_n_i[2]);
+        dc_measured_n[3] = V(tx_n_i[3]);
+        dc_measured_n[4] = V(tx_n_i[4]);
+
+        if (dc_lptx_impedance_measurement_enabled==1) begin
+            // Special mode for LPTX lanes since here we have to use the measured 1.2V and we only have a minimum bound!
+            for (i = 0; i<5; i=i+1) begin
+                if (dc_measured_p[i] < dc_lptx_R_min*dc_test_current
+                || dc_measured_p[i] > ldo_results[5+i]-dc_lptx_R_min*dc_test_current ) begin
+                    $strobe("[FAIL] p-%d Lane) LPTX DC check %d/%d failed: Got %f V but expected %f V < Vmeas < %f V", i, dc_pointer, `DC_NUM_ELEMENTS,
+                    dc_measured_p[i], dc_lptx_R_min*dc_test_current, ldo_results[5+i]-dc_lptx_R_min*dc_test_current);
+                    fail = 1;
+                    next_state_time = $abstime + 1n;
+                end
+                if (dc_measured_n[i] < dc_lptx_R_min*dc_test_current
+                || dc_measured_n[i] > ldo_results[5+i]-dc_lptx_R_min*dc_test_current ) begin
+                    $strobe("[FAIL] n-%d Lane) LPTX DC check %d/%d failed: Got %f V but expected %f V < Vmeas < %f V", i, dc_pointer, `DC_NUM_ELEMENTS,
+                    dc_measured_n[i], dc_lptx_R_min*dc_test_current, ldo_results[5+i]-dc_lptx_R_min*dc_test_current);
+                    fail = 1;
+                    next_state_time = $abstime + 1n;
+                end
+            end
+
+        end else begin
+            // Normal operation
+            for (i = 0; i<5; i=i+1) begin
+                if (dc_measured_p[i] > dc_target_p[i]+dc_v_tolerance
+                || dc_measured_p[i] < dc_target_p[i]-dc_v_tolerance ) begin
+                    $strobe("[FAIL] p-%d Lane) DC check %d/%d failed: Got %f V and expected %f V +- %f V", i, dc_pointer, `DC_NUM_ELEMENTS, dc_measured_p[i], dc_target_p[i], dc_v_tolerance);
+                    fail = 1;
+                    next_state_time = $abstime + 1n;
+                end
+                if (dc_measured_n[i] > dc_target_n[i]+dc_v_tolerance
+                ||  dc_measured_n[i] < dc_target_n[i]-dc_v_tolerance ) begin
+                    $strobe("[FAIL] n-%d Lane) DC check %d/%d failed: Got %f V and expected %f V +- %f V", i, dc_pointer, `DC_NUM_ELEMENTS, dc_measured_n[i], dc_target_n[i], dc_v_tolerance);
+                    fail = 1;
+                    next_state_time = $abstime + 1n;
+                end
+            end
+        end
+
+        if (fail==0) begin
+            // PASS
+            dc_setup_state_next = $abstime + 1p;
+            $strobe("[PASS] (%d/%d) DC voltage/impedance is okay", dc_pointer, `DC_NUM_ELEMENTS+1);
+        end
+    end
+end
+
+
+/*
+* Main entry point
+*/
+analog begin
+    @(timer( next_state_time )) begin
+        if (state == STATE_DC ) begin
+
+            $strobe("-> Check DC parameters <-");
+
+            /*
+            * Common signals
+            */
+            for (i = 0; i<4; i=i+1) begin
+                dft_ana_test_out_dphy_sel[i] = 0;
+            end
+            //dft_ana_test_out_dphy_sel[3] = 1; // Select ldo of lane 2 to be able to wait until the ldo settled
+
+            for (i = 0; i<3; i=i+1) begin
+                hstx_lower_imp_cal[i] = 0;
+                hstx_upper_imp_cal[i] = 0;
+            end
+
+            dft_ana_test_en         = 0; // Disable analog test path (so that we can observe the LDO voltage)
+            dft_dphy_ocdldo_res_dis = 0; // Load resistor for HSTX LDO to keep it stable during LPTX transmission
+            dft_pll_clks_2_cl_en    = 0; // route back the divided clock and the reference clock via DL1 and CL
+            dft_scan_mode           = 0;
+            en_clk_dphy             = 0; // Enable high speed clock for serializer
+            sel_dr                  = 0; // 0 = 1 Gbps, 1 = 2 Gbps
+            hstx_en_fast_trf        = 0; // 0 = slow rise/fall (1 Gbps), 1 = fast rise/fall (2 Gbps)
+            en_clk_byte             = 1; // Enabled byte clock (derived from DL1), used for syncing the PRBS
+            en_bias                 = 1;
+            dphy_pwrdn              = 0;
+            dphy_reset_n            = 1;
+            en_iso_vddphy           = 1; // 1 = Disable isolation of digital control signals
+            en_ls_vddphy            = 1; // enable bias currents
+            hs_ser_msb_first_en     = 0; // 0 = LSB first, 1 = MSB first
+
+            termination_en          = 0; // Disable termination resistor
+
+            dc_setup_state_next = $abstime + 1p;
+        end
+    end
+end

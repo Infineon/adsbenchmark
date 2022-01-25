@@ -1,0 +1,166 @@
+// Disclaimer:
+// THIS FILE IS PROVIDED AS IS AND WITH:
+// (A) NO WARRANTY OF ANY KIND, express, implied or statutory, including any implied warranties of merchantability, fitness for a particular purpose and noninfringement, which  Infineon disclaims to the maximum extent permitted by applicable law; and
+// (B) NO INDEMNIFICATION FOR INFRINGEMENT OF INTELLECTUAL PROPERTY RIGHTS.
+// (C) LIMITATION OF LIABILITY: IN NO EVENT SHALL INFINEON BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES (INCLUDING LOST PROFITS OR SAVINGS) WHATSOEVER, WHETHER BASED ON CONTRACT, TORT OR ANY OTHER LEGAL THEORY, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+// © 2020 Infineon Technologies AG. All rights reserved.
+
+// Note:
+// The CMOS transistor models used, were freely available models downloaded from: http://ptm.asu.edu.
+// The bipolar transistor models are from: The Development of Bipolar Log-Domain Filters in a Standard CMOS Process, G. D. Duerden, G. W. Roberts, M. J. Deen, 2001
+
+// Release:
+// 	version 1.1
+
+
+/**
+* The rampup
+* ----------
+* Enable the supply of the phy and wait till the LDO voltage of the LPTX has reached
+* a stable voltage.
+* It is considered stable, if for 10 times we measure a voltage of the same level in 1 ns steps.
+*/
+
+/*
+* Parameters
+*/
+parameter real rampup_num_ok = 5;
+parameter real rampup_max_dv = 200u;
+parameter real rampup_trigger_v = 0.35;
+parameter real rampup_max_time = 30u;
+
+/*
+* Variables
+*/
+real rampup_max_time_timer = -1;
+real rampup_check = -1;
+real rampup_prevV = 0;
+integer rampup_ok_counter = 0;
+real rampup_dV = 0;
+
+/*
+* Checking the LDO voltage
+*/
+analog begin
+    @(timer(rampup_check)) begin
+
+        if (state == STATE_RAMPUP ) begin
+            rampup_dV = rampup_prevV - V(dft_ana_test_ai); // Calculate dV between target at current value
+            rampup_prevV = V(dft_ana_test_ai);
+
+            if(rampup_dV < rampup_max_dv/2.0 && rampup_dV > -rampup_max_dv/2.0) begin
+
+                if(rampup_ok_counter>=rampup_num_ok) begin
+                    // It has settled -> end rampup sequence
+                    $strobe("[PASS] Rampup complete with %f uV/ns", rampup_dV*1e6);
+
+                    rampup_max_time_timer = -1;
+
+                    // Continue with the next test
+                    next_state_time = $abstime + 1n;
+                    state = state + 1;
+                    //state = STATE_DC;
+                    //state = STATE_HSTX_PRBS;
+                    //state = STATE_HSTX_DELAY_LINE;
+                    //state = STATE_LPTX;
+                end
+
+                rampup_ok_counter = rampup_ok_counter + 1;
+
+            end else begin
+                // Outside of spec -> try again in 1ns
+                rampup_ok_counter = 0;
+                //$strobe("[Waiting] Ramp is still moving for like %f uV/ns", rampup_dV*1e6);
+            end
+            rampup_check = $abstime+10n;
+        end
+    end
+end
+
+/*
+* Start measuring the ramp
+*/
+analog begin
+    @(cross( V(dft_ana_test_ai) - rampup_trigger_v, +1 )) begin
+        if (state == STATE_RAMPUP ) begin
+            // Check every ns
+            rampup_ok_counter = 0;
+            rampup_check = $abstime + 1n;
+        end
+    end
+end
+
+/*
+* Rampup setup
+*/
+analog begin
+    @(timer( next_state_time )) begin
+        if (state == STATE_RAMPUP ) begin
+
+            $strobe("-> Ramup in LPTX mode <-");
+
+            /*
+            * Common signals
+            */
+            for (i = 0; i<4; i=i+1) begin
+                dft_ana_test_out_dphy_sel[i] = 0; // Select LDO of DL0
+            end
+
+            for (i = 0; i<3; i=i+1) begin
+                hstx_lower_imp_cal[i] = 0;
+                hstx_upper_imp_cal[i] = 0;
+            end
+
+            for (i = 0; i<5; i=i+1) begin
+                lptx_vref_prog[i] = 0;
+            end
+            lptx_vref_prog[2] = 1; // 1.2V vref without offset
+
+            dft_ana_test_en         = 1; // Enable analog test path (so that we can observe the LDO voltage)
+            dft_dphy_ocdldo_res_dis = 0; // Load resistor for HSTX LDO to keep it stable during LPTX transmission
+            dft_pll_clks_2_cl_en    = 0; // route back the divided clock and the reference clock via DL1 and CL
+            dft_scan_mode           = 0;
+            en_clk_dphy             = 0; // Enable high speed clock for serializer
+            sel_dr                  = 0; // 0 = 1 Gbps, 1 = 2 Gbps
+            hstx_en_fast_trf        = 0; // 0 = slow rise/fall (1 Gbps), 1 = fast rise/fall (2 Gbps)
+            en_clk_byte             = 1; // Enabled byte clock (derived from DL1), used for syncing the PRBS
+            en_bias                 = 1;
+            dphy_pwrdn              = 0;
+            dphy_reset_n            = 1;
+            en_iso_vddphy           = 1; // 1 = Disable isolation of digital control signals
+            en_ls_vddphy            = 1; // enable bias currents
+            hs_ser_msb_first_en     = 0; // 0 = LSB first, 1 = MSB first
+            waveform_analyzer_en    = 0;
+
+            /*
+            * Signals connected to other verilog blocks
+            */
+            for (i = 0; i<5; i=i+1) begin
+                mode[i] = MODE_IDLE_LPTX;
+                delay[i] = -1; // bypass mode of delay line
+            end
+
+            en_1GHz_quad = 0;
+
+            test_id = 0;
+            fail = 0;
+
+
+            // It has to sattle within this time or something is wrong!
+            rampup_max_time_timer = $abstime + rampup_max_time;
+        end
+    end
+end
+
+
+/*
+* Cancel if rampup takes too long time
+*/
+analog begin
+    @(timer( rampup_max_time_timer )) begin
+        $strobe("[FAILED] Rampup takes too long (longer than %f s).", rampup_max_time);
+        fail = 1;
+
+        next_state_time = $abstime + 2n;
+    end
+end

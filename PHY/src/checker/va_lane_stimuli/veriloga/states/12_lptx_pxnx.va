@@ -1,0 +1,127 @@
+// Disclaimer:
+// THIS FILE IS PROVIDED AS IS AND WITH:
+// (A) NO WARRANTY OF ANY KIND, express, implied or statutory, including any implied warranties of merchantability, fitness for a particular purpose and noninfringement, which  Infineon disclaims to the maximum extent permitted by applicable law; and
+// (B) NO INDEMNIFICATION FOR INFRINGEMENT OF INTELLECTUAL PROPERTY RIGHTS.
+// (C) LIMITATION OF LIABILITY: IN NO EVENT SHALL INFINEON BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES (INCLUDING LOST PROFITS OR SAVINGS) WHATSOEVER, WHETHER BASED ON CONTRACT, TORT OR ANY OTHER LEGAL THEORY, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+// © 2020 Infineon Technologies AG. All rights reserved.
+
+// Note:
+// The CMOS transistor models used, were freely available models downloaded from: http://ptm.asu.edu.
+// The bipolar transistor models are from: The Development of Bipolar Log-Domain Filters in a Standard CMOS Process, G. D. Duerden, G. W. Roberts, M. J. Deen, 2001
+
+// Release:
+// 	version 1.1
+
+
+
+analog begin
+    if(mode == MODE_FORCE_LPTX_P0N0) begin
+
+        bypass_delay_line       = 1; // Bypass the delay line
+
+        dft_deser_en            = 0; // Enable the de-serializer in the loop-back test path
+
+        dft_hstx_higher_path_en = 1; // Disable these paths for impedance measurement?
+        dft_hstx_lower_path_en  = 1;
+
+        dft_ser_test_in_en      = 0; // Enable the inputs x_dft_ser_test_(p/n)_i to do HSTX DC tests
+
+        dft_ser_test_n          = 0; // Forces a state on OCD
+        dft_ser_test_p          = 0; // Forces a state on OCD
+
+        hs_ser_en               = 1; // Enable serializer
+
+        for (i = 0;i<16 ; i=i+1) begin
+            hstx_data[i] = 0;
+        end
+
+        lptx_dn                 = 0;
+        lptx_dp                 = 0;
+
+        hstx_en_lptx_dis        = 0; // 1 = HSTX on, LPTX off 0 = HSTX off, LPTX on 
+        hstx_pwrdn              = 0; // 1 = HSTX disable (we want to keep it at least alive)
+        lptx_en                 = 1; // 1 = LPTX enable
+    end
+    if(mode == MODE_FORCE_LPTX_P1N0) begin
+
+        bypass_delay_line       = 1; // Bypass the delay line
+
+        dft_deser_en            = 0; // Enable the de-serializer in the loop-back test path
+
+        dft_hstx_higher_path_en = 1; // Disable these paths for impedance measurement?
+        dft_hstx_lower_path_en  = 1;
+
+        dft_ser_test_in_en      = 0; // Enable the inputs x_dft_ser_test_(p/n)_i to do HSTX DC tests
+
+        dft_ser_test_n          = 0; // Forces a state on OCD
+        dft_ser_test_p          = 0; // Forces a state on OCD
+
+        hs_ser_en               = 1; // Enable serializer
+
+        for (i = 0;i<16 ; i=i+1) begin
+            hstx_data[i] = 0;
+        end
+
+        lptx_dn                 = 0;
+        lptx_dp                 = 1;
+
+        hstx_en_lptx_dis        = 0; // 1 = HSTX on, LPTX off 0 = HSTX off, LPTX on 
+        hstx_pwrdn              = 0; // 1 = HSTX disable (we want to keep it at least alive)
+        lptx_en                 = 1; // 1 = LPTX enable
+    end
+    if(mode == MODE_FORCE_LPTX_P0N1) begin
+
+        bypass_delay_line       = 1; // Bypass the delay line
+
+        dft_deser_en            = 0; // Enable the de-serializer in the loop-back test path
+
+        dft_hstx_higher_path_en = 1; // Disable these paths for impedance measurement?
+        dft_hstx_lower_path_en  = 1;
+
+        dft_ser_test_in_en      = 0; // Enable the inputs x_dft_ser_test_(p/n)_i to do HSTX DC tests
+
+        dft_ser_test_n          = 0; // Forces a state on OCD
+        dft_ser_test_p          = 0; // Forces a state on OCD
+
+        hs_ser_en               = 1; // Enable serializer
+
+        for (i = 0;i<16 ; i=i+1) begin
+            hstx_data[i] = 0;
+        end
+
+        lptx_dn                 = 1;
+        lptx_dp                 = 0;
+
+        hstx_en_lptx_dis        = 0; // 1 = HSTX on, LPTX off 0 = HSTX off, LPTX on 
+        hstx_pwrdn              = 0; // 1 = HSTX disable (we want to keep it at least alive)
+        lptx_en                 = 1; // 1 = LPTX enable
+    end
+    if(mode == MODE_FORCE_LPTX_P1N1) begin
+
+        bypass_delay_line       = 1; // Bypass the delay line
+
+        dft_deser_en            = 0; // Enable the de-serializer in the loop-back test path
+
+        dft_hstx_higher_path_en = 1; // Disable these paths for impedance measurement?
+        dft_hstx_lower_path_en  = 1;
+
+        dft_ser_test_in_en      = 0; // Enable the inputs x_dft_ser_test_(p/n)_i to do HSTX DC tests
+
+        dft_ser_test_n          = 0; // Forces a state on OCD
+        dft_ser_test_p          = 0; // Forces a state on OCD
+
+        hs_ser_en               = 1; // Enable serializer
+
+        for (i = 0;i<16 ; i=i+1) begin
+            hstx_data[i] = 0;
+        end
+
+        lptx_dn                 = 1;
+        lptx_dp                 = 1;
+
+        hstx_en_lptx_dis        = 0; // 1 = HSTX on, LPTX off 0 = HSTX off, LPTX on 
+        hstx_pwrdn              = 0; // 1 = HSTX disable (we want to keep it at least alive)
+        lptx_en                 = 1; // 1 = LPTX enable
+    end
+
+end

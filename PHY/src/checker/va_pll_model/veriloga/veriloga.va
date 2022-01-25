@@ -1,0 +1,194 @@
+// Disclaimer:
+// THIS FILE IS PROVIDED AS IS AND WITH:
+// (A) NO WARRANTY OF ANY KIND, express, implied or statutory, including any implied warranties of merchantability, fitness for a particular purpose and noninfringement, which  Infineon disclaims to the maximum extent permitted by applicable law; and
+// (B) NO INDEMNIFICATION FOR INFRINGEMENT OF INTELLECTUAL PROPERTY RIGHTS.
+// (C) LIMITATION OF LIABILITY: IN NO EVENT SHALL INFINEON BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES (INCLUDING LOST PROFITS OR SAVINGS) WHATSOEVER, WHETHER BASED ON CONTRACT, TORT OR ANY OTHER LEGAL THEORY, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+// © 2020 Infineon Technologies AG. All rights reserved.
+
+// Note:
+// The CMOS transistor models used, were freely available models downloaded from: http://ptm.asu.edu.
+// The bipolar transistor models are from: The Development of Bipolar Log-Domain Filters in a Standard CMOS Process, G. D. Duerden, G. W. Roberts, M. J. Deen, 2001
+
+// Release:
+// 	version 1.1
+
+
+// VerilogA for phy_local, pll_model, veriloga
+
+`include "constants.vams"
+`include "disciplines.vams"
+
+module va_pll_model(clk_okay_o, ck50m4iq_n_o, ck50m4iq_p_o, clk_dphy_0_o, clk_dphy_90_o, clk_dphy_180_o, clk_dphy_270_o, div_clk_dphy_o, lock_o, n_mux_iq_sel_o, ref_clk_dphy_o, en_1GHz_quad_i, en_50MHz_diff_i);
+output ck50m4iq_n_o;
+electrical ck50m4iq_n_o;
+output ck50m4iq_p_o;
+electrical ck50m4iq_p_o;
+output clk_dphy_0_o;
+electrical clk_dphy_0_o;
+output clk_dphy_90_o;
+electrical clk_dphy_90_o;
+output clk_dphy_180_o;
+electrical clk_dphy_180_o;
+output clk_dphy_270_o;
+electrical clk_dphy_270_o;
+output div_clk_dphy_o;
+electrical div_clk_dphy_o;
+output lock_o;
+electrical lock_o;
+output n_mux_iq_sel_o;
+electrical n_mux_iq_sel_o;
+output ref_clk_dphy_o;
+electrical ref_clk_dphy_o;
+input en_1GHz_quad_i;
+electrical en_1GHz_quad_i;
+input en_50MHz_diff_i;
+electrical en_50MHz_diff_i;
+output clk_okay_o;
+electrical clk_okay_o;
+
+/*
+* Parameter
+*/
+parameter real vhigh = 1.5;
+parameter real trf = 30p;
+
+/*
+* Variables for Outputs/Inputs
+*/
+real ck50m4iq_n   = 0;
+real ck50m4iq_p   = 0;
+real clk_dphy_0   = 0;
+real clk_dphy_90  = 0;
+real clk_dphy_180 = 0;
+real clk_dphy_270 = 0;
+real div_clk_dphy = 0;
+real lock         = 0;
+real n_mux_iq_sel = 0;
+real ref_clk_dphy = 0;
+integer clk_okay  = 0;
+
+/*
+* Variables for timing
+*/
+real nextClk50_0    = -1;
+real nextClk0    = -1;
+real nextClk90   = -1;
+real nextClk180  = -1;
+real nextClk270  = -1;
+real rampupReady = -1;
+
+/*
+* Enable PLL
+*/
+analog begin
+    @(cross(V(en_1GHz_quad_i) - vhigh/2, +1)) begin
+        nextClk0    = $abstime+1n;
+        nextClk90   = $abstime+1n*1.25;
+        nextClk180  = $abstime+1n*1.5;
+        nextClk270  = $abstime+1n*1.75;
+        rampupReady = $abstime+10n;
+        lock = 0;
+        n_mux_iq_sel = 0; // Select quad
+    end
+    @(cross(V(en_50MHz_diff_i) - vhigh/2, +1)) begin
+        nextClk50_0 = $abstime+1n;
+        rampupReady = $abstime+200n;
+        lock = 0;
+        n_mux_iq_sel = 1; // Select differential
+    end
+end
+
+/*
+* Handle rampup
+*/
+analog begin
+    @(timer(rampupReady)) begin
+        lock = 1;
+        clk_okay = 1;
+    end
+end
+
+
+/*
+* ck50m4iq_p and n
+*/
+analog begin
+    @(timer(nextClk50_0)) begin
+        if (V(en_50MHz_diff_i) > vhigh/2) begin
+            ck50m4iq_p = 1 - ck50m4iq_p;
+            ck50m4iq_n = 1 - ck50m4iq_p;
+            nextClk50_0 = $abstime + 10n; // 50 MHz clock
+        end
+    end
+end
+
+/*
+* clk_dphy_0
+*/
+analog begin
+    @(timer(nextClk0)) begin
+        if (V(en_1GHz_quad_i) > vhigh/2) begin
+            clk_dphy_0 = 1 - clk_dphy_0;
+            nextClk0 = $abstime + 0.5n; // 1GHz clock
+        end
+    end
+end
+
+/*
+* clk_dphy_90
+*/
+analog begin
+    @(timer(nextClk90)) begin
+        if (V(en_1GHz_quad_i) > vhigh/2) begin
+            clk_dphy_90 = 1 - clk_dphy_90;
+            nextClk90 = $abstime + 0.5n; // 1GHz clock
+        end
+    end
+end
+
+/*
+* clk_dphy_180
+*/
+analog begin
+    @(timer(nextClk180)) begin
+        if (V(en_1GHz_quad_i) > vhigh/2) begin
+            clk_dphy_180 = 1 - clk_dphy_180;
+            nextClk180 = $abstime + 0.5n; // 1GHz clock
+        end
+    end
+end
+
+/*
+* clk_dphy_270
+*/
+analog begin
+    @(timer(nextClk270)) begin
+        if (V(en_1GHz_quad_i) > vhigh/2) begin
+            clk_dphy_270 = 1 - clk_dphy_270;
+            nextClk270 = $abstime + 0.5n; // 1GHz clock
+        end
+    end
+end
+
+/*
+* Input/Output interaction
+*/
+analog begin
+
+    // Set outputs
+    V(clk_okay_o   ) <+ transition(vhigh*clk_okay  ,0,trf,trf);
+    V(ck50m4iq_n_o   ) <+ transition(vhigh*ck50m4iq_n  ,0,trf,trf);
+    V(ck50m4iq_p_o   ) <+ transition(vhigh*ck50m4iq_p  ,0,trf,trf);
+    V(clk_dphy_0_o   ) <+ transition(vhigh*clk_dphy_0  ,0,trf,trf);
+    V(clk_dphy_90_o  ) <+ transition(vhigh*clk_dphy_90 ,0,trf,trf);
+    V(clk_dphy_180_o ) <+ transition(vhigh*clk_dphy_180,0,trf,trf);
+    V(clk_dphy_270_o ) <+ transition(vhigh*clk_dphy_270,0,trf,trf);
+    V(div_clk_dphy_o ) <+ transition(vhigh*div_clk_dphy,0,trf,trf);
+    V(lock_o         ) <+ transition(vhigh*lock        ,0,trf,trf);
+    V(n_mux_iq_sel_o ) <+ transition(vhigh*n_mux_iq_sel,0,trf,trf);
+    V(ref_clk_dphy_o ) <+ transition(vhigh*ref_clk_dphy,0,trf,trf);
+
+end
+
+
+endmodule
