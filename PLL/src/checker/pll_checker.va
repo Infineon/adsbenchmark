@@ -10,14 +10,16 @@
 // The bipolar transistor models are from: The Development of Bipolar Log-Domain Filters in a Standard CMOS Process, G. D. Duerden, G. W. Roberts, M. J. Deen, 2001
 
 // Release:
-// 	version 2.0
+// 	version 2.1
 
 `include "constants.vams"
 `include "disciplines.vams"
 
-module pll_stim(adc_clk, ldo_clk, lock, sys_clk, ibias5u, adcdiv0, adcdiv1, adcdiv2, adcdiv3, adcdiv4, adcdiv5, adcdiv6, disable_e , fref, ldodiv0, ldodiv1, ldodiv2, ldodiv3, ldodiv4, ldodiv5, ldodiv6, sysdiv0, sysdiv1, sysdiv2, sysdiv3, sysdiv4, gnd, divtest, fail, testnr);
+module pll_stim(adc_clk, ldo_clk, lock, sys_clk, ibias5u, adcdiv0, adcdiv1, adcdiv2, adcdiv3, adcdiv4, adcdiv5, adcdiv6, disable_e , fref, ldodiv0, ldodiv1, ldodiv2, ldodiv3, ldodiv4, ldodiv5, ldodiv6, sysdiv0, sysdiv1, sysdiv2, sysdiv3, sysdiv4, gnd, divtest, fail, testnr, test_en_i);
 input adc_clk;
 electrical adc_clk;
+input test_en_i;
+electrical test_en_i;
 input ldo_clk;
 electrical ldo_clk;
 input lock;
@@ -106,7 +108,7 @@ real ldoclk_rise[period_averaging:1];
 real next_ref_rise = 0.0;
 real next_ref_fall = 0.0;
 
-real clock_start_time    = 500e-9;
+real clock_start_time    = -1;
 real enable_time         = 1e-6;
 real first_locking_time  = 21e-6;
 real second_locking_time = 46e-6;
@@ -144,6 +146,25 @@ localparam real    lock_det_interval = 100e-9;
 integer i, j, k;  // indexes
 
 
+
+/////////////////////////////////////////
+// Pull reset high and start everthing
+analog begin
+
+    @(cross(V(test_en_i)-vhigh/2,1)) begin
+        state            = INITIAL_STATE;
+        clock_start_time = $abstime + 1p;
+    end
+
+    @(cross(V(test_en_i)-vhigh/2,-1)) begin
+        state            = INITIAL_STATE;
+        clock_start_time = $abstime - 1p;// in the past so it will not be triggered
+    end
+
+end
+/////////////////////////////////////////
+
+
 analog begin // test sequencer
 
   @(initial_step) begin
@@ -168,7 +189,6 @@ analog begin // test sequencer
     check_outputs_low_time = enable_time - 10e-9;
     next_state_time = enable_time;
     state = INITIAL_STATE; 
- 
 end
 
 
