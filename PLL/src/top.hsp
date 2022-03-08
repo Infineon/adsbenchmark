@@ -26,8 +26,8 @@
 .hdl "checker/pll_checker.va"
 
 ** Analysis
-.probe v(FAIL)
-.measure tran avg_fail avg v(FAIL)
+.probe v(fail)
+.measure tran avg_fail avg v(fail)
 .tran 0.2e-6 100e-6
 
 .end
