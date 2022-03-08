@@ -10,10 +10,10 @@
 * The bipolar transistor models are from: The Development of Bipolar Log-Domain Filters in a Standard CMOS Process, G. D. Duerden, G. W. Roberts, M. J. Deen, 2001
 
 * Release:
-* version 2.0
+* version 2.1
 
 ** Parameter setup
-.GLOBAL VDDBA! VDDC! VSSB! VDDA! VSS! VDDBC! VDD!
+.GLOBAL VDDba! VDDc! VSSb! VDDa! VSS! VDDbc!
 .PARAM fref=7.3728e+06 td_ps=1e-06 tr_ps=1e-10 icont=1e-08 rbulkpanalog=0.001 rbulkpcore=0.001 rhsupanalog=0.001 rhsupcore=0.001 vsup1v5=1.5 vsup2v5=2.5
 
 ** Model files
