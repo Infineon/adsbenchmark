@@ -10,6 +10,9 @@
 * The bipolar transistor models are from: The Development of Bipolar Log-Domain Filters in a Standard CMOS Process, G. D. Duerden, G. W. Roberts, M. J. Deen, 2001
 
 * Release:
-* 	version 2.0
+* 	version 3.0
 
 If simulator complains about binflag option remove it from mosfets.scs
+
+Changes on version 3.0:
+Additional parameters on model pana/nana to desrcibe leakage current
