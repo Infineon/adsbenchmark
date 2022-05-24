@@ -13,3 +13,6 @@
 * 	version 2.0
 
 If simulator complains about binflag option remove it from mosfets.scs
+
+Changes on version 3.0:
+Adding parameters to model nana/pana to better describe the leakage current
