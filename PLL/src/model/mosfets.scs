@@ -10,7 +10,7 @@
 * The bipolar transistor models are from: The Development of Bipolar Log-Domain Filters in a Standard CMOS Process, G. D. Duerden, G. W. Roberts, M. J. Deen, 2001
 
 * Release:
-* 	version 2.0
+* 	version 3.0
 
 simulator lang = spice
 ***********************************************************************
@@ -155,6 +155,8 @@ simulator lang = spice
 * parameters customized by the user
 +toxe = 4.75e-09    toxp = 4e-09    toxm = 4.75e-09    toxref = 4.75e-09
 +dtox = 7.5e-10    lint = -1.65e-07
++DLCIG = 1.65e-07 
++DLCIGD = 1.65e-07
 +vth0 = -0.436    k1 = 0.571    u0 = 0.01287    vsat = 70000
 +rdsw = 240    ndep = 5.2e+17    xj = 3.2e-07
 
@@ -243,6 +245,8 @@ simulator lang = spice
 * parameters customized by the user
 +toxe = 4.65e-09    toxp = 4e-09    toxm = 4.65e-09    toxref = 4.65e-09
 +dtox = 6.5e-10    lint = -1.65e-07
++DLCIG = 1.65e-07 
++DLCIGD = 1.65e-07
 +vth0 = 0.507    k1 = 0.635    u0 = 0.07427    vsat = 100370
 +rdsw = 200    ndep = 6.7e+17    xj = 3.2e-07
 
