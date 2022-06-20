@@ -10,10 +10,11 @@
 // The bipolar transistor models are from: The Development of Bipolar Log-Domain Filters in a Standard CMOS Process, G. D. Duerden, G. W. Roberts, M. J. Deen, 2001
 
 // Release:
-// 	version 2.1
+// 	version 3.0
 
 `include "constants.vams"
 `include "disciplines.vams"
+
 
 module pll_stim(adc_clk, ldo_clk, lock, sys_clk, ibias5u, adcdiv0, adcdiv1, adcdiv2, adcdiv3, adcdiv4, adcdiv5, adcdiv6, disable_e , fref, ldodiv0, ldodiv1, ldodiv2, ldodiv3, ldodiv4, ldodiv5, ldodiv6, sysdiv0, sysdiv1, sysdiv2, sysdiv3, sysdiv4, gnd, divtest, fail, testnr, test_en_i);
 input adc_clk;
@@ -101,9 +102,9 @@ real exp_adcclk_freq = 0.0;
 real exp_ldoclk_freq = 0.0;
 
 parameter integer period_averaging = 5;
-real sysclk_rise[period_averaging:1]; 
-real adcclk_rise[period_averaging:1]; 
-real ldoclk_rise[period_averaging:1];
+real sysclk_rise[period_averaging:1]; // autom. initialized to 0.0 @ begin
+real adcclk_rise[period_averaging:1]; // autom. initialized to 0.0 @ begin
+real ldoclk_rise[period_averaging:1]; // autom. initialized to 0.0 @ begin
 
 real next_ref_rise = 0.0;
 real next_ref_fall = 0.0;
@@ -120,11 +121,14 @@ real ref_time               = -1.0;
 
 integer error_count = 0;
 localparam integer test_disabled_at_start = 10;
-localparam integer test_max_div_lock        = 20;
-localparam integer test_min_div_lock       = 40;
-localparam integer test_typ_div_lock        = 50;
+localparam integer test_max_div_lock      = 20;
+localparam integer test_min_div_lock      = 40;
+localparam integer test_typ_div_lock      = 50;
 localparam integer test_disabled_at_end   = 60;
-localparam integer subtest_fail_at_lock   = 1;  // Purpose of subtest is to indicate which signal failed eg. value 32 means that sysclk failed at second lock
+localparam integer subtest_fail_at_lock   = 1;  // Purpose of subtest is to 
+                                                // indicate which signal failed
+                                                // eg. value 32 means that 
+                                                // sysclk failed at second lock
 localparam integer subtest_fail_at_sysclk = 2;
 localparam integer subtest_fail_at_adcclk = 3;
 localparam integer subtest_fail_at_ldoclk = 4;
@@ -143,7 +147,9 @@ localparam integer END_STATE         = 10;
 localparam real    locktime_min      = 10e-6;
 localparam real    locktime_max      = 25e-6;
 localparam real    lock_det_interval = 100e-9;
-integer i, j, k;  // indexes
+integer i, j, k;  // indices
+real    lock_val=0.0; // Observe lock signal, needed to set freq. measurements
+                      // to zero if lock is lost when measurement is done
 
 
 
@@ -158,7 +164,8 @@ analog begin
 
     @(cross(V(test_en_i)-vhigh/2,-1)) begin
         state            = INITIAL_STATE;
-        clock_start_time = $abstime - 1p;// in the past so it will not be triggered
+        clock_start_time = $abstime - 1p; // in the past so it will 
+                                          // not be triggered
     end
 
 end
@@ -173,7 +180,7 @@ analog begin // test sequencer
       sysdiv_i         = 14;
       adcdiv_i         =  5;
       ldodiv_i         = 25;
-      divtest_i       =  0;
+      divtest_i        =  0;
       fail_i           =  0;
       testnr_i         =  0;
       ongoing_testnr_i =  0;
@@ -204,7 +211,7 @@ if (state == INITIAL_STATE ) begin
       divtest_i = 1;
       state = MAX_DIVIDER_STATE; 
       ongoing_testnr_i = test_max_div_lock;
-      check_lock_time =  $abstime + locktime_min;
+      check_lock_time = $abstime + locktime_min;
       next_state_time = $abstime + locktime_max;
 end else if (state == MAX_DIVIDER_STATE ) begin
       disable_i = 0;  //Enable the pll 
@@ -214,7 +221,7 @@ end else if (state == MAX_DIVIDER_STATE ) begin
       divtest_i = 0;
       state     = MIN_DIVIDER_STATE;
       ongoing_testnr_i = test_min_div_lock;
-      check_lock_time =  $abstime + locktime_min;
+      check_lock_time = $abstime + locktime_min;
       next_state_time = $abstime + locktime_max;
 end else if  (state == MIN_DIVIDER_STATE ) begin
       disable_i = 0;  //enable the pll 
@@ -224,12 +231,12 @@ end else if  (state == MIN_DIVIDER_STATE ) begin
       divtest_i = 0;
       state     = TYP_DIVIDER_STATE;
       ongoing_testnr_i = test_typ_div_lock;
-      check_lock_time =  $abstime + locktime_min;
+      check_lock_time = $abstime + locktime_min;
       next_state_time = $abstime + locktime_max;
 end else if  (state == TYP_DIVIDER_STATE ) begin
       disable_i = 1;  //disable the pll 
       state     = END_STATE;
-      ref_time = $abstime + 10e-9;
+      ref_time  = $abstime + 10e-9;
       next_state_time = $abstime + 1e-6;
       check_outputs_low_time = next_state_time - 10e-9;
 end else if  (state == END_STATE ) begin
@@ -256,10 +263,12 @@ end
       if (divtest_i==0 && ldodiv_i > 10) begin  
            check_output_freq_time = $abstime +2.5e-6;  // enough time for 410khz clock
       end else begin
-           check_output_freq_time = $abstime +1.1e-6; // enough time for 920khz clock 
-      end
-      next_state_time = $abstime + 3.0e-6;            // moved far enough (will be set again on check_output_freq_time)
+           //check_output_freq_time = $abstime +1.1e-6; // enough time for 920khz clock            
+           check_output_freq_time = $abstime +2.5e-6; // enough time for 920khz clock 
 
+      end
+      //next_state_time = $abstime + 3.0e-6;            // moved far enough (will be set again on check_output_freq_time)
+      next_state_time = $abstime + 5.0e-6;            // moved far enough (will be set again on check_output_freq_time)
 
    end  else begin  // continue here
       $strobe( " Waiting for Lock signal to raise  @  %0.3e  !",  $abstime);
@@ -402,11 +411,16 @@ end
 
 
 analog begin  // Frequency measurement: 
+  // Observing the lock signal is needed to zero out measurements
+  // if lock is unstable
+  @(cross(V(lock)-vhigh/2,+1)) lock_val=1.0;
+  @(cross(V(lock)-vhigh/2,-1)) lock_val=0.0;
+  
 
   @(cross(V(sys_clk)-vhigh/2, 1)) begin  // triggering on next rising edge
      sysclk_freq = period_averaging*1.0/($abstime - sysclk_rise[period_averaging]);
     for ( i=period_averaging; i>0; i=i-1) begin
-       sysclk_rise[i] = (i==1) ? $abstime : sysclk_rise[i-1];
+       sysclk_rise[i] = (i==1) ? $abstime*lock_val : sysclk_rise[i-1];
     end
   end
 
@@ -414,7 +428,7 @@ analog begin  // Frequency measurement:
   @(cross(V(adc_clk)-vhigh/2, 1)) begin  // triggering on next rising edge
      adcclk_freq = period_averaging*1.0/($abstime - adcclk_rise[period_averaging]);
     for ( j=period_averaging; j>0; j=j-1) begin
-       adcclk_rise[j] = (j==1) ? $abstime : adcclk_rise[j-1];
+       adcclk_rise[j] = (j==1) ? $abstime*lock_val : adcclk_rise[j-1];
     end
   end
 
@@ -423,7 +437,7 @@ analog begin  // Frequency measurement:
       // no averaging for ldo_clk as it is allready divided a lot
       ldoclk_freq = 1.0/($abstime - ldoclk_rise[1]);
     for ( k=period_averaging; k>0; k=k-1) begin
-       ldoclk_rise[k] = (k==1) ? $abstime : ldoclk_rise[k-1];
+       ldoclk_rise[k] = (k==1) ? $abstime*lock_val : ldoclk_rise[k-1];
     end
   end
 
