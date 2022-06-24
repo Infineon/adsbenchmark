@@ -506,7 +506,7 @@ end
 
 
      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-     // CONVERT_STATE: Samples the conversion result on rising edge of eoc_i, calculates dnl & inl
+     // CONVERT_STATE: Samples the conversion result on falling edge of eoc_i, calculates dnl & inl
 
 
     if ( mct_state_int ==  CONVERT_STATE ) begin
